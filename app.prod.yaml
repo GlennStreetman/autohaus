@@ -1,0 +1,11 @@
+version: "3.9"
+services:
+    autohaus:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        ports:
+            - 3005:3000
+        volumes:
+            - ./:/autohaus/
+        command: "npm run start"

@@ -1,20 +1,36 @@
 {
-  "name": "autohaus",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
-  },
-  "dependencies": {
-    "next": "12.1.4",
-    "react": "18.0.0",
-    "react-dom": "18.0.0"
-  },
-  "devDependencies": {
-    "eslint": "8.12.0",
-    "eslint-config-next": "12.1.4"
-  }
+    "name": "autohaus",
+    "version": "0.1.0",
+    "private": true,
+    "scripts": {
+        "dev": "next dev",
+        "build": "next build",
+        "start": "next start",
+        "lint": "next lint",
+        "dUp": "docker-compose -f app.yaml up",
+        "buildd": "docker-compose -f app.yaml up --build ",
+        "pUp": "docker-compose -f app.prod.yaml up",
+        "buildp": "docker-compose -f app.prod.yaml up --build "
+    },
+    "dependencies": {
+        "@tippyjs/react": "^4.2.6",
+        "next": "12.1.4",
+        "react": "18.0.0",
+        "react-dom": "18.0.0",
+        "react-icons": "^4.3.1",
+        "tippy": "^0.0.0"
+    },
+    "devDependencies": {
+        "@types/node": "^17.0.23",
+        "@types/react": "^17.0.43",
+        "autoprefixer": "^10.4.4",
+        "eslint": "8.12.0",
+        "eslint-config-next": "12.1.4",
+        "postcss": "^8.4.12",
+        "tailwindcss": "^3.0.23"
+    },
+    "engines": {
+        "npm": ">=v8.0.0",
+        "node": ">=16.0.0"
+    }
 }
