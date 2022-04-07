@@ -8,8 +8,25 @@ import Topper from "../components/topper";
 
 export default function Home() {
     return (
-        <div>
+        <div className="min-h-screen ">
             <Topper />
+            {/* BANNER */}
+            <div className="-z-2 w-full   relative">
+                {/* <div className="relative"> */}
+                <img
+                    src="/orangeCar.jpg"
+                    alt="orange porche"
+                    className="-z-2 w-full h-96"
+
+                    // width="3253"
+                    // height="2440"
+                    // layout="fill"
+                    // objectFit="cover"
+                    // quality={100}
+                />
+                {/* </div> */}
+            </div>
+            {/* /BANNER */}
             <main></main>
 
             <footer></footer>

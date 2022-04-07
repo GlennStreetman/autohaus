@@ -1,34 +1,33 @@
-import dynamic from "next/dynamic";
 import React from "react";
-// import Gutter from "./gutter";
-import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css"; // optional
-import Link from "next/link";
-import BgButton from "./bgButton";
 import HighlightButton from "./highlightButton";
-
-import { useRouter } from "next/router";
+import { BsTelephoneInboundFill } from "react-icons/bs";
+import IconButton from "./iconButton";
+import { GiAutoRepair } from "react-icons/gi";
+import { HiOutlineLocationMarker } from "react-icons/hi";
 
 function Topper() {
-    const router = useRouter();
+    const telephone = <BsTelephoneInboundFill className="h-7 w-7 text-primary hover:text-accent" />;
+    const location = <HiOutlineLocationMarker className="h-7 w-7 text-primary hover:text-accent" />;
+    const repair = <GiAutoRepair className="h-7 w-7 text-primary hover:text-accent" />;
 
     return (
-        <div className="w-screen top-0 fixed p-2 bg-black-500 grid grid-cols-12 ">
+        <div className="z-10 w-screen top-0 fixed p-2 bg-black-500 grid grid-cols-12 ">
             <div className="col-span-1"></div>
             <div className="col-span-4 ">
                 <div className="">
                     <h1 className="font-logo text-pRed font-medium">AutoHaus: Santa Monica</h1>
                 </div>
             </div>
-            <div className="col-span-3 ">
-                <div className="flex justify-items-center gap-4">
-                    {/* <button className=''>About</button> */}
-                    {/* <BgButton onClick={() => {}}>Reviews</BgButton> */}
-                    {/* <BgButton onClick={() => {}}>Social</BgButton> */}
-                </div>
-            </div>
-            <div className="col-span-3 flex justify-end">
-                <HighlightButton>Schedule Service</HighlightButton>
+            <div className="col-span-6 flex justify-end gap-1">
+                <a href="https://goo.gl/maps/J17sGmyvTLv2JDWQ8">
+                    <IconButton text="2621 Pico Blvd, Santa Monica" callback={() => {}} icon={location} />
+                </a>
+
+                <a href="tel:555-555-5555">
+                    <IconButton text="555-555-5555" callback={() => {}} icon={telephone} />
+                </a>
+                <HighlightButton text="Schedule Service" callback={() => {}} icon={repair} />
             </div>
         </div>
     );
