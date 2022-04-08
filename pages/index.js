@@ -2,6 +2,7 @@ import Topper from "../components/topper";
 import Logo from "../components/logo";
 import Banner from "../components/banner";
 import Services from "../components/services";
+import Why from "../components/why";
 
 export default function Home() {
     return (
@@ -9,8 +10,15 @@ export default function Home() {
             <Logo />
             <Topper />
             <main>
-                <Banner />
-                <Services />
+                <section>
+                    <Banner />
+                </section>
+                <section>
+                    <Services />
+                </section>
+                <section>
+                    <Why />
+                </section>
             </main>
 
             <footer></footer>

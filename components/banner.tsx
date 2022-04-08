@@ -1,5 +1,5 @@
 import React from "react";
-// import { SiPorsche } from "react-icons/si";
+import Image from "next/image";
 
 function BannerBody() {
     // const porsche = <SiPorsche className="h-7 w-7 text-primary hover:text-accent " />;
@@ -19,7 +19,8 @@ function BannerBody() {
 }
 
 function banner() {
-    const bannerImage = <img src="./../shrink2.png" alt="orange porche" className="-z-20 w-full h-128 opacity-75 fixed" />;
+    // const bannerImage = <img src="./../shrink2.png" alt="orange porche" className="-z-20 w-full h-128 opacity-75 fixed" />;
+    const bannerImage = <Image src="/shrink2.png" alt="orange porche" layout="fill" objectFit="cover" width="100vw" height="32rem" />;
 
     return (
         <div className="w-full h-128 relative">
