@@ -26,7 +26,7 @@ module.exports = {
                 pBlack: "#000000",
                 primary: "#334155",
                 secondary: "#e2e8f0",
-                accent: "#6d28d9",
+                accent: "#ea580c",
             },
             fontFamily: {
                 logo: ['"Saira Stencil One"', "sans-serif"],

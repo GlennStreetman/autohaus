@@ -3,6 +3,7 @@ import Logo from "../components/logo";
 import Banner from "../components/banner";
 import Services from "../components/services";
 import Why from "../components/why";
+import Bottom from "../components/bottom";
 
 export default function Home() {
     return (
@@ -18,6 +19,9 @@ export default function Home() {
                 </section>
                 <section>
                     <Why />
+                </section>
+                <section>
+                    <Bottom />
                 </section>
             </main>
 

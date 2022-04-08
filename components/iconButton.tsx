@@ -9,7 +9,7 @@ interface props {
 function IconButton(p: props) {
     return (
         <button
-            className="border-2 p-2 rounded-md bg-secondary shadow-lg shadow-slate-600 hover:bg-weak hover:border-black hover:text-accent active:bg-strong text-sm"
+            className="border-2 p-2 rounded-md bg-secondary shadow-sm shadow-slate-600 hover:bg-weak hover:border-black hover:text-accent active:bg-strong text-sm"
             onClick={() => {
                 p.callback();
             }}
