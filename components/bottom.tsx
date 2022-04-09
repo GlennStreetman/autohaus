@@ -10,21 +10,26 @@ import { AiOutlineInstagram } from "react-icons/ai";
 import HighlightButton from "./highlightButton";
 import { GiAutoRepair } from "react-icons/gi";
 
-function bottom() {
-    const telephone = <BsTelephoneInboundFill className="h-7 w-7 text-primary" />;
-    const location = <HiOutlineLocationMarker className="h-7 w-7 text-primary" />;
-    const google = <FcGoogle className="h-7 w-7 text-primary" />;
-    const mechanic = <GiMechanicGarage className="h-7 w-7 text-primary" />;
-    const email = <MdOutlineMailOutline className="h-7 w-7 text-primary" />;
-    const calendar = <GoCalendar className="h-7 w-7 text-primary hover:text-accent" />;
-    const instagram = <AiOutlineInstagram className="h-7 w-7 text-primary hover:text-accent" />;
-    const repair = <GiAutoRepair className="h-7 w-7 text-primary hover:text-accent text-red-600" />;
+const telephone = <BsTelephoneInboundFill className="h-7 w-7 text-primary" />;
+const location = <HiOutlineLocationMarker className="h-7 w-7 text-primary" />;
+const google = <FcGoogle className="h-7 w-7 text-primary" />;
+const mechanic = <GiMechanicGarage className="h-7 w-7 text-primary" />;
+const email = <MdOutlineMailOutline className="h-7 w-7 text-primary" />;
+const calendar = <GoCalendar className="h-7 w-7 text-primary hover:text-accent" />;
+const instagram = <AiOutlineInstagram className="h-7 w-7 text-primary hover:text-accent" />;
+const repair = <GiAutoRepair className="h-7 w-7 text-primary hover:text-accent text-red-600" />;
 
+//flex grid elements
+const gutter = "p-2 col-span-0  md:col-span-1 lg:col-span-1 xl:col-span-2"; //2x
+const spacer = "p-2 col-span-0  md:col-span-0 lg:col-span-0 xl:col-span-2"; //1x
+const data = "p-2   col-span-12 md:col-span-5 lg:col-span-5 xl:col-span-3"; //2x
+
+function bottom() {
     return (
         <>
             <div className="grid grid-cols-12 w-full bg-neutral-900 p-2">
-                <div className="p-2 col-span-2"></div>
-                <div className="p-2 col-span-3">
+                <div className={gutter}></div>
+                <div className={data}>
                     <div className="flex flex-col gap-2">
                         <div className="text-white">Contact Details:</div>
                         <div>
@@ -45,8 +50,8 @@ function bottom() {
                         </div>
                     </div>
                 </div>
-                <div className="p-2 col-span-2">{/* spacer */}</div>
-                <div className="p-2 col-span-3">
+                <div className={spacer} />
+                <div className={data}>
                     <div className="flex flex-col gap-2">
                         <div className="text-white">Other Actions:</div>
                         <div>
@@ -72,20 +77,10 @@ function bottom() {
                     </div>
                 </div>
 
-                <div className="p-2 col-span-2"></div>
+                <div className={gutter}></div>
             </div>
         </>
     );
 }
 
 export default bottom;
-
-//hours
-//  social
-//get service quote / apply for job
-
-// OTHER
-// get quote
-// careers
-// reviews
-// social

@@ -8,12 +8,12 @@ import Bottom from "../components/bottom";
 export default function Home() {
     return (
         <div className="min-h-screen relative">
-            <Logo />
-            <Topper />
+            {/* <Logo />
+            <Topper /> */}
             <main>
-                <section>
+                {/* <section>
                     <Banner />
-                </section>
+                </section> */}
                 <section>
                     <Services />
                 </section>
