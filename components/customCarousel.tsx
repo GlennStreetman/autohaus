@@ -2,6 +2,7 @@ import { useState, useEffect, useContext } from "react";
 import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai";
 import { RiCheckboxBlankCircleFill, RiCheckboxBlankCircleLine } from "react-icons/ri";
 import { ScreenWidth } from "../components/screenWidth";
+import Image from "next/image";
 
 export interface services {
     service: string;
@@ -47,7 +48,7 @@ function mapServices(target: number, showCount: number) {
 
     const mapSlides = Object.values(selectServices).map((el) => {
         return (
-            <div className="flex flex-col">
+            <div key={el.service} className="flex flex-col">
                 <div className="w-72 w-72">
                     <img src={el.image} alt={`${el.service} picture`} className=" w-auto h-72" />
                 </div>
@@ -62,13 +63,13 @@ function mapServices(target: number, showCount: number) {
 function updateTareget(change: number, target: number, setTarget: Function, showCount: number) {
     const serviceCount = ourServices.length;
     if (target + change < 0) {
-        console.log("no change1");
+        // console.log("no change1");
         return false;
     } else if (target + change > serviceCount - showCount) {
-        console.log("no change2");
+        // console.log("no change2");
         return false;
     } else {
-        console.log("Change!");
+        // console.log("Change!");
         setTarget(target + change);
     }
 }
@@ -79,9 +80,9 @@ function makeDots(showCount: number, target: number) {
     const dotArray = Array.from({ length: dotCount }, (v, k) => k);
     const dotMap = Object.values(dotArray).map((el) => {
         if (el === target) {
-            return <RiCheckboxBlankCircleFill className="text-accent" />;
+            return <RiCheckboxBlankCircleFill className="text-accent" key={`dots-${el}`} />;
         } else {
-            return <RiCheckboxBlankCircleLine className="text-accent" />;
+            return <RiCheckboxBlankCircleLine className="text-accent" key={`dots-${el}`} />;
         }
     });
     return dotMap;

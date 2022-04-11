@@ -27,8 +27,6 @@ function screenWidth({ children }) {
         return () => window.removeEventListener("resize", handleResize);
     }, []);
 
-    console.log("width context", width);
-
     return <ScreenWidth.Provider value={width}>{children}</ScreenWidth.Provider>;
 }
 
