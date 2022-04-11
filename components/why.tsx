@@ -3,10 +3,10 @@ import Image from "next/image";
 import { BsDot } from "react-icons/bs";
 
 //flex grid elements
-const gutter = "p-2 col-span-0   lg:col-span-1 "; //2x
-const data = "p-2   col-span-12   lg:col-span-5 "; //2x
-const imgBox = "relative rounded-md h-0 w-0 md:h-96 md:w-auto lg:h-96 lg:w-auto xl::h-128 xl:w-auto  bg-black";
-const img = "";
+const gutter = " hidden lg:block lg:col-span-1 "; //2x
+const dataLeft = "p-2  col-span-12 md:col-span-3 lg:col-span-5 xl:flex xl:justify-end"; //2x
+const dataRight = "p-2 col-span-12 md:col-span-9 lg:col-span-5 "; //2x
+const imgBox = "relative rounded-md bg-black overflow-hidden h-0 w-0 md:h-80 md:w-auto lg:h-96 lg:w-auto xl::h-96 xl:w-116 ";
 
 function why() {
     return (
@@ -16,15 +16,15 @@ function why() {
             </div>
             <div className="grid grid-cols-12">
                 <div className={gutter} />
-                <div className={data}>
+                <div className={dataLeft}>
                     {/* <div className="rounded-md">
                         <Image src="/gulfOil.jpg" height="400" width="600" /> */}
 
                     <div className={imgBox}>
-                        <Image src="/gulfOil.jpg" layout="fill" objectFit="fill" className="absolute" />
+                        <Image src="/gulfOil.jpg" layout="fill" objectFit="fill" />
                     </div>
                 </div>
-                <div className={data}>
+                <div className={dataRight}>
                     <div className="text-3xl font-bold">Why go with Auto Haus?</div>
 
                     <div className="flex p-2 gap-2">

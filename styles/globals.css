@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+#root {
+    @apply max-w-screen-2xl;
+}
+
 html,
 body {
     padding: 0;

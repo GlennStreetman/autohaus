@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect, useContext } from "react";
 import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai";
 import { RiCheckboxBlankCircleFill, RiCheckboxBlankCircleLine } from "react-icons/ri";
+import { ScreenWidth } from "../components/screenWidth";
 
 export interface services {
     service: string;
@@ -86,9 +87,30 @@ function makeDots(showCount: number, target: number) {
     return dotMap;
 }
 
+function setSlideCount(width: number, setShowCount: Function, setTarget: Function) {
+    if (width < 1024) {
+        setTarget(0);
+        setShowCount(1);
+    } else if (width < 1280) {
+        setTarget(0);
+        setShowCount(2);
+    } else if (width < 1536) {
+        setTarget(0);
+        setShowCount(3);
+    } else {
+        setTarget(0);
+        setShowCount(4);
+    }
+}
+
 function customCarousel() {
     const [target, setTarget] = useState(0);
     const [showCount, setShowCount] = useState(4);
+    const screenSize = useContext(ScreenWidth);
+
+    useEffect(() => {
+        setSlideCount(screenSize.width, setShowCount, setTarget);
+    }, [screenSize.width]);
 
     return (
         <>
