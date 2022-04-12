@@ -8,6 +8,9 @@ function serviceSlicer() {
     return (
         <div className="w-full flex justify-center bg-neutral-900 p-2">
             <div className="flex flex-col">
+                <div className="flex justify-center text-accent font-bold text-xl">
+                    <div>Featured Services:</div>
+                </div>
                 <CustomCarousel />
             </div>
         </div>

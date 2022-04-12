@@ -10,11 +10,11 @@ import { AiOutlineInstagram } from "react-icons/ai";
 import HighlightButton from "./highlightButton";
 import { GiAutoRepair } from "react-icons/gi";
 
-const telephone = <BsTelephoneInboundFill className="h-7 w-7 text-primary" />;
-const location = <HiOutlineLocationMarker className="h-7 w-7 text-primary" />;
+const telephone = <BsTelephoneInboundFill className="h-7 w-7 text-primary hover:text-accent" />;
+const location = <HiOutlineLocationMarker className="h-7 w-7 text-primary hover:text-accent" />;
 const google = <FcGoogle className="h-7 w-7 text-primary" />;
-const mechanic = <GiMechanicGarage className="h-7 w-7 text-primary" />;
-const email = <MdOutlineMailOutline className="h-7 w-7 text-primary" />;
+const mechanic = <GiMechanicGarage className="h-7 w-7 text-primary hover:text-accent" />;
+const email = <MdOutlineMailOutline className="h-7 w-7 text-primary hover:text-accent" />;
 const calendar = <GoCalendar className="h-7 w-7 text-primary hover:text-accent" />;
 const instagram = <AiOutlineInstagram className="h-7 w-7 text-primary hover:text-accent" />;
 const repair = <GiAutoRepair className="h-7 w-7 text-primary hover:text-accent text-red-600" />;
@@ -33,16 +33,24 @@ function bottom() {
                     <div className="flex flex-col gap-2">
                         <div className="text-white">Contact Details:</div>
                         <div>
-                            <IconButton text="555-555-5555" callback={() => {}} icon={telephone} />
-                        </div>
-                        <div>
-                            <a href="mailto: testemail@test.com">
-                                <IconButton text="testemail@test.com" callback={() => {}} icon={email} />
+                            <a href={`tel:${process.env.NEXT_PUBLIC_PHONE}`}>
+                                <IconButton text={process.env.NEXT_PUBLIC_PHONE} callback={() => {}} icon={telephone} />
                             </a>
                         </div>
                         <div>
-                            <a href="https://goo.gl/maps/J17sGmyvTLv2JDWQ8">
-                                <IconButton text="2621 Pico Blvd, Santa Monica, CA 90404" callback={() => {}} icon={location} />
+                            <a href={`mailto: ${process.env.NEXT_PUBLIC_EMAIL}`}>
+                                <IconButton
+                                    text={process.env.NEXT_PUBLIC_EMAIL}
+                                    callback={() => {
+                                        if (navigator.clipboard) navigator.clipboard.writeText(process.env.NEXT_PUBLIC_EMAIL);
+                                    }}
+                                    icon={email}
+                                />
+                            </a>
+                        </div>
+                        <div>
+                            <a href={process.env.NEXT_PUBLIC_ADDRESS_MAP_LINK}>
+                                <IconButton text={process.env.NEXT_PUBLIC_ADDRESS_LONG} callback={() => {}} icon={location} />
                             </a>
                         </div>
                         <div>

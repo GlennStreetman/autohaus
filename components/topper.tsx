@@ -12,9 +12,9 @@ import { GoCalendar } from "react-icons/go";
 function Topper() {
     const screenSize = useContext(ScreenWidth);
     const telephone = <BsTelephoneInboundFill className="h-7 w-7 text-primary hover:text-accent" />;
-    const telephoneText = screenSize.width >= 1024 ? "555-555-5555" : "";
+    const telephoneText = screenSize.width >= 1024 ? process.env.NEXT_PUBLIC_PHONE : "";
     const location = <HiOutlineLocationMarker className="h-7 w-7 text-primary hover:text-accent" />;
-    const locationText = screenSize.width >= 1024 ? "2621 Pico Blvd" : "";
+    const locationText = screenSize.width >= 1024 ? process.env.NEXT_PUBLIC_ADDRESS_SHORT : "";
     const repair = <GiAutoRepair className="h-7 w-7 text-primary hover:text-accent text-red-600" />;
     const repairText = screenSize.width >= 1024 ? "Request Quote" : "";
     const calendar = <GoCalendar className="h-7 w-7 text-primary hover:text-accent" />;
@@ -24,10 +24,10 @@ function Topper() {
     return (
         <div className="z-10 flex w-screen right-0 fixed flex justify-end p-2 gap-2 ">
             {screenSize.width > 768 ? <IconButton text={calendarText} callback={() => {}} icon={calendar} /> : <></>}
-            <a href="https://goo.gl/maps/J17sGmyvTLv2JDWQ8">
+            <a href={process.env.NEXT_PUBLIC_ADDRESS_MAP_LINK}>
                 <IconButton text={locationText} callback={() => {}} icon={location} />
             </a>
-            <a href={`tel:555-555-5555`}>
+            <a href={`tel:${process.env.NEXT_PUBLIC_PHONE}`}>
                 <IconButton text={telephoneText} callback={() => {}} icon={telephone} />
             </a>
             <HighlightButton text={repairText} callback={() => {}} icon={repair} />

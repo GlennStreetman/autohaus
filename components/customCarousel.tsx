@@ -48,11 +48,11 @@ function mapServices(target: number, showCount: number) {
 
     const mapSlides = Object.values(selectServices).map((el) => {
         return (
-            <div key={el.service} className="flex flex-col">
+            <div key={el.service} className="flex flex-col cursor-pointer bg-red-600 hover:bg-accent">
                 <div className="w-72 w-72">
                     <img src={el.image} alt={`${el.service} picture`} className=" w-auto h-72" />
                 </div>
-                <div className="text-primary font-primary bg-red-600 text-white font-bold text-center uppercase">{el.service}</div>
+                <div className="text-primary font-primary text-white font-bold text-center uppercase">{el.service}</div>
             </div>
         );
     });
@@ -74,15 +74,33 @@ function updateTareget(change: number, target: number, setTarget: Function, show
     }
 }
 
-function makeDots(showCount: number, target: number) {
+function makeDots(showCount: number, target: number, setTarget: Function) {
     const serviceCount = ourServices.length;
     const dotCount = serviceCount - showCount + 1;
     const dotArray = Array.from({ length: dotCount }, (v, k) => k);
     const dotMap = Object.values(dotArray).map((el) => {
         if (el === target) {
-            return <RiCheckboxBlankCircleFill className="text-accent" key={`dots-${el}`} />;
+            return (
+                <RiCheckboxBlankCircleFill
+                    className="text-accent cursor-pointer"
+                    key={`dots-${el}`}
+                    onClick={(e) => {
+                        e.preventDefault();
+                        setTarget(el);
+                    }}
+                />
+            );
         } else {
-            return <RiCheckboxBlankCircleLine className="text-accent" key={`dots-${el}`} />;
+            return (
+                <RiCheckboxBlankCircleLine
+                    className="text-accent cursor-pointer"
+                    key={`dots-${el}`}
+                    onClick={(e) => {
+                        e.preventDefault();
+                        setTarget(el);
+                    }}
+                />
+            );
         }
     });
     return dotMap;
@@ -104,6 +122,10 @@ function setSlideCount(width: number, setShowCount: Function, setTarget: Functio
     }
 }
 
+function preventDoubleClick(e) {
+    e.preventDefault();
+}
+
 function customCarousel() {
     const [target, setTarget] = useState(0);
     const [showCount, setShowCount] = useState(4);
@@ -116,26 +138,28 @@ function customCarousel() {
     return (
         <>
             <div className="flex flex-inline justify-center p-2 gap-2">
-                <div className="bg-slate-200 text-primary hover:text-accent">
+                <div className="bg-slate-200 text-primary hover:text-accent" onMouseDown={preventDoubleClick}>
                     {" "}
                     <AiOutlineArrowLeft
-                        className="h-72 w-7 "
-                        onClick={() => {
+                        className="h-72 w-7 cursor-pointer"
+                        onClick={(e) => {
+                            e.preventDefault();
                             updateTareget(-1, target, setTarget, showCount);
                         }}
                     />
                 </div>
                 <div className="flex flex-row gap-2">{mapServices(target, showCount)}</div>
-                <div className="bg-slate-200">
+                <div className="bg-slate-200" onMouseDown={preventDoubleClick}>
                     <AiOutlineArrowRight
-                        className="h-72 w-7 text-primary hover:text-accent "
-                        onClick={() => {
+                        className="h-72 w-7 text-primary hover:text-accent cursor-pointer"
+                        onClick={(e) => {
+                            e.preventDefault();
                             updateTareget(+1, target, setTarget, showCount);
                         }}
                     />
                 </div>
             </div>
-            <div className="flex justify-center">{makeDots(showCount, target)}</div>
+            <div className="flex justify-center">{makeDots(showCount, target, setTarget)}</div>
         </>
     );
 }
