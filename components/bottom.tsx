@@ -77,6 +77,11 @@ function bottom() {
                             {path !== "/quote" ? (
                                 <HighlightButton text={<Link href="/quote">Request Service Quote</Link>} callback={() => {}} icon={repair} />
                             ) : (
+                                <></>
+                            )}
+                        </div>
+                        <div>
+                            {path !== "/" ? (
                                 <IconButton
                                     text="Back"
                                     callback={() => {
@@ -84,6 +89,8 @@ function bottom() {
                                     }}
                                     icon={home}
                                 />
+                            ) : (
+                                <></>
                             )}
                         </div>
                         <div>
