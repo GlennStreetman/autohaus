@@ -12,7 +12,7 @@ function why() {
     return (
         <div className="flex flex-col">
             <div className="grid justify-items-center w-screen p-3">
-                <div className="text-3xl font-bold">Santa Monica's Porsche Experts</div>
+                <div className="text-3xl font-bold">Why go with Auto Haus?</div>
             </div>
             <div className="grid grid-cols-12">
                 <div className={gutter} />
@@ -25,7 +25,7 @@ function why() {
                     </div>
                 </div>
                 <div className={dataRight}>
-                    <div className="text-3xl font-bold">Why go with Auto Haus?</div>
+                    <div className="text-3xl font-bold">Santa Monica's Porsche Experts</div>
 
                     <div className="flex p-2 gap-2">
                         <div>

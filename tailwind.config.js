@@ -2,6 +2,10 @@ module.exports = {
     content: ["./pages/**/*.{js,ts,jsx,tsx}", "./components/**/*.{js,ts,jsx,tsx}"],
     theme: {
         extend: {
+            colors: {
+                outlineLight: "#67e8f9",
+                outlineDark: "#4f46e5",
+            },
             spacing: {
                 128: "32rem",
                 116: "28rem",
@@ -10,14 +14,14 @@ module.exports = {
                 primary: "#f8fafc",
                 secondary: "#e2e8f0",
                 accent: "#ea580c",
-                textPrimary: " #334155",
-                textSecondary: "#0369a1",
-                textAccent: "#6d28d9",
             },
             textColor: {
                 primary: "#334155",
                 secondary: "#3b82f6",
                 accent: "#ea580c",
+                primaryDark: "#334155",
+                secondaryDark: "#3b82f6",
+                accentDark: "#67e8f9",
             },
             fontFamily: {
                 logo: ['"Saira Stencil One"', "sans-serif"],
@@ -28,9 +32,3 @@ module.exports = {
     },
     plugins: [],
 };
-
-// pBrown: "#402306",
-// pGold: "#c29049",
-// pSilver: "#464c47",
-// pRed: "#A43131",
-// pBlack: "#000000",

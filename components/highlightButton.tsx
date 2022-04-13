@@ -1,7 +1,7 @@
 import React from "react";
 
 interface props {
-    text: string;
+    text: string | Element | JSX.Element;
     callback: Function;
     icon: any; //svg icon?
 }
