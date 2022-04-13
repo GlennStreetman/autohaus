@@ -9,8 +9,12 @@ import { HiOutlineLocationMarker } from "react-icons/hi";
 import { FaBars } from "react-icons/fa";
 import { GoCalendar } from "react-icons/go";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 function Topper() {
+    const router = useRouter();
+    const path = router.pathname;
+    // console.log("router", router.pathname);
     const screenSize = useContext(ScreenWidth);
     const telephone = <BsTelephoneInboundFill className="h-7 w-7 text-primary hover:text-accent" />;
     const telephoneText = screenSize.width >= 1024 ? process.env.NEXT_PUBLIC_PHONE : "";
@@ -36,7 +40,7 @@ function Topper() {
                 <IconButton text={telephoneText} callback={() => {}} icon={telephone} />
             </a>
 
-            <HighlightButton text={repairText} callback={() => {}} icon={repair} />
+            {path !== "/quote" ? <HighlightButton text={repairText} callback={() => {}} icon={repair} /> : <></>}
 
             <IconButton text="" callback={() => {}} icon={bars} />
         </div>

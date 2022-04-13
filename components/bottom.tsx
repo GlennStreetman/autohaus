@@ -1,4 +1,6 @@
 import React from "react";
+import { useRouter } from "next/router";
+
 import { BsTelephoneInboundFill } from "react-icons/bs";
 import { HiOutlineLocationMarker } from "react-icons/hi";
 import { FcGoogle } from "react-icons/fc";
@@ -6,9 +8,10 @@ import IconButton from "./iconButton";
 import { GiMechanicGarage } from "react-icons/gi";
 import { MdOutlineMailOutline } from "react-icons/md";
 import { GoCalendar } from "react-icons/go";
-import { AiOutlineInstagram } from "react-icons/ai";
+import { AiOutlineInstagram, AiOutlineHome } from "react-icons/ai";
 import HighlightButton from "./highlightButton";
 import { GiAutoRepair } from "react-icons/gi";
+import Link from "next/link";
 
 const telephone = <BsTelephoneInboundFill className="h-7 w-7 text-primary hover:text-accent" />;
 const location = <HiOutlineLocationMarker className="h-7 w-7 text-primary hover:text-accent" />;
@@ -17,7 +20,12 @@ const mechanic = <GiMechanicGarage className="h-7 w-7 text-primary hover:text-ac
 const email = <MdOutlineMailOutline className="h-7 w-7 text-primary hover:text-accent" />;
 const calendar = <GoCalendar className="h-7 w-7 text-primary hover:text-accent" />;
 const instagram = <AiOutlineInstagram className="h-7 w-7 text-primary hover:text-accent" />;
-const repair = <GiAutoRepair className="h-7 w-7 text-primary hover:text-accent text-red-600" />;
+const repair = (
+    <Link href="/quote">
+        <GiAutoRepair className="h-7 w-7 text-primary hover:text-accent text-red-600" />
+    </Link>
+);
+const home = <AiOutlineHome className="h-7 w-7 text-primary hover:text-accent" />;
 
 //flex grid elements
 const gutter = "p-2 col-span-0  md:col-span-1 lg:col-span-1 xl:col-span-2"; //2x
@@ -25,6 +33,9 @@ const spacer = "p-2 col-span-0  md:col-span-0 lg:col-span-0 xl:col-span-2"; //1x
 const data = "p-2   col-span-12 md:col-span-5 lg:col-span-5 xl:col-span-3"; //2x
 
 function bottom() {
+    const router = useRouter();
+    const path = router.pathname;
+
     return (
         <>
             <div className="grid grid-cols-12 w-full bg-neutral-900 p-2">
@@ -63,10 +74,20 @@ function bottom() {
                     <div className="flex flex-col gap-2">
                         <div className="text-white">Other Actions:</div>
                         <div>
-                            <HighlightButton text="Request Service Quote" callback={() => {}} icon={repair} />
+                            {path !== "/quote" ? (
+                                <HighlightButton text={<Link href="/quote">Request Service Quote</Link>} callback={() => {}} icon={repair} />
+                            ) : (
+                                <IconButton
+                                    text="Back"
+                                    callback={() => {
+                                        router.push("/");
+                                    }}
+                                    icon={home}
+                                />
+                            )}
                         </div>
                         <div>
-                            <a href="https://instagramlink.test">
+                            <a href={process.env.NEXT_PUBLIC_SOCIAL}>
                                 <IconButton text="Social" callback={() => {}} icon={instagram} />
                             </a>
                         </div>
