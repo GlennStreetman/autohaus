@@ -52,7 +52,7 @@ function mapServices(target: number, showCount: number) {
                 <div className="w-72 w-72">
                     <img src={el.image} alt={`${el.service} picture`} className=" w-auto h-72" />
                 </div>
-                <div className="text-primary font-primary text-white font-bold text-center uppercase">{el.service}</div>
+                <div className="text-white font-primary text-white font-bold text-center uppercase">{el.service}</div>
             </div>
         );
     });
