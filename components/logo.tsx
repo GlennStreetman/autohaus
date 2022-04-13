@@ -1,6 +1,7 @@
 import { useContext, useState, useEffect } from "react";
 import Image from "next/image";
 import { ScreenWidth } from "../components/screenWidth";
+import { useRouter } from "next/router";
 
 function setLogoDimensions(width: number, setWidth: Function, setHeight: Function) {
     if (width < 640) {
@@ -25,9 +26,26 @@ function setLogoDimensions(width: number, setWidth: Function, setHeight: Functio
 }
 
 function Logo() {
+    const router = useRouter();
+    const path = router.pathname;
+
     const screenSize = useContext(ScreenWidth);
     const [width, setWidth] = useState("250");
     const [height, setHeight] = useState("250");
+
+    const logoImage =
+        path === "/" ? (
+            <Image src="/log_transparent.png" width={width} height={height} />
+        ) : (
+            <div
+                className="cursor-pointer"
+                onClick={() => {
+                    router.push("/");
+                }}
+            >
+                <Image src="/log_transparent.png" width={width} height={height} />
+            </div>
+        );
 
     useEffect(() => {
         setLogoDimensions(screenSize.width, setWidth, setHeight);
@@ -35,7 +53,8 @@ function Logo() {
 
     return (
         <div className="z-10 absolute top-0 left-0 ">
-            <Image src="/log_transparent.png" width={width} height={height} />
+            {logoImage}
+            {/* <Image src="/log_transparent.png" width={width} height={height} /> */}
         </div>
     );
 }
