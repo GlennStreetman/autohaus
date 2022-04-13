@@ -2,7 +2,7 @@ import { useState, useEffect, useContext } from "react";
 import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai";
 import { RiCheckboxBlankCircleFill, RiCheckboxBlankCircleLine } from "react-icons/ri";
 import { ScreenWidth } from "../components/screenWidth";
-import Image from "next/image";
+// import Image from "next/image";
 
 export interface services {
     service: string;
