@@ -1,7 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import LabeledInput from "../components/labeledInput";
 import ReCAPTCHA from "react-google-recaptcha";
-import IconButton from "../components/iconButton";
+// import IconButton from "../components/iconButton";
+import { useRouter } from "next/router";
 
 const timeOptions = [
     "8:00 AM",
@@ -74,6 +75,8 @@ function Quote() {
     const [carModelHelp, setCarModelHelp] = useState("");
     const [description, setDescription] = useState("");
 
+    const router = useRouter();
+
     function runCapcha(value) {
         if (value) setEnableSubmit(true);
     }
@@ -123,6 +126,7 @@ function Quote() {
             console.log("requests passed.");
             setRequestAdditional(false);
             postQuote();
+            router.push("/thankyou");
         } else {
             setRequestAdditional(true);
             console.log("problem processing request");
@@ -150,9 +154,9 @@ function Quote() {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify(data),
-        })
-            .then((response) => response.json())
-            .then((data) => console.log(data));
+        });
+        // .then((response) => response.json())
+        // .then((data) => console.log(data));
     }
 
     return (
