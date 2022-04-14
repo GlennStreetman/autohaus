@@ -1,7 +1,8 @@
-import Client from "pg";
+// import Client from "pg";
+import db from "../../lib/dbPool";
 import format from "pg-format";
 import mailgun from "mailgun.js";
-import formData from 'form-data'
+import formData from "form-data";
 
 interface requestBody {
     firstName: string;
@@ -19,14 +20,14 @@ interface requestBody {
 }
 
 async function saveRequestToDB(req) {
-    let db = new Client.Client({
-        sslmode: "disable",
-        user: process.env.pguser,
-        host: process.env.pghost,
-        database: process.env.pgdatabase,
-        password: process.env.pgpassword,
-        port: process.env.pgporInternal,
-    });
+    // let db = new Client.Client({
+    //     sslmode: "disable",
+    //     user: process.env.pguser,
+    //     host: process.env.pghost,
+    //     database: process.env.pgdatabase,
+    //     password: process.env.pgpassword,
+    //     port: process.env.pgporInternal,
+    // });
 
     const firstName = format(req.body.firstName);
     const lastName = format(req.body.lastName);
@@ -46,8 +47,9 @@ async function saveRequestToDB(req) {
         INSERT INTO servicerequests (firstname, lastname, email, phone, prefdate, preftime, altdate, alttime, make, model, modelyear, reason)
         VALUES ('${firstName}', '${lastName}', '${email}', '${phone}', '${prefDate}', '${prefTime}', '${altDate}', '${altTime}', '${make}', '${model}', '${year}', '${reason}')
        `;
-        await db.connect();
+        // await db.connect();
         await db.query(saveRequest, (err, rows) => {
+            // db.end();
             if (err) {
                 console.log("problem saving requestQuote", saveRequest, err);
             } else {
@@ -61,15 +63,12 @@ async function saveRequestToDB(req) {
 
 function emailRequest(req) {
     try {
-    const API_KEY = process.env.MAILGUN_API_KEY;
-    const DOMAIN = process.env.DOMAIN;
-    // const mailGun = new mailgun({ apiKey: API_KEY, domain: DOMAIN });
-    console.log('keys', API_KEY, DOMAIN)
-    const mailGun = new mailgun(formData);
-    const client = mailGun.client({username: 'api', key: API_KEY})
-
-    const mailGunEmail = process.env.SUPPORT_EMAIL;
-    const emailBody = `
+        const API_KEY = process.env.MAILGUN_API_KEY;
+        const DOMAIN = process.env.DOMAIN;
+        const mailGun = new mailgun(formData);
+        const client = mailGun.client({ username: "api", key: API_KEY });
+        const mailGunEmail = process.env.SUPPORT_EMAIL;
+        const emailBody = `
     firstName: ${format(req.body.firstName)}
     lastName: ${format(req.body.lastName)}
     email: ${format(req.body.email)}
@@ -83,24 +82,24 @@ function emailRequest(req) {
     year: ${format(req.body.year)}
     reason: ${format(req.body.reason)}
     `;
-    const data = {
-        from: mailGunEmail,
-        to: req.body.email,
-        subject: `Service Request: ${format(req.body.firstName)} ${format(req.body.lastName)} ${format(req.body.make)} ${format(req.body.model)}`,
-        text: emailBody,
-    };
+        const data = {
+            from: mailGunEmail,
+            to: req.body.email,
+            subject: `Service Request: ${format(req.body.firstName)} ${format(req.body.lastName)} ${format(req.body.make)} ${format(req.body.model)}`,
+            text: emailBody,
+        };
 
-    console.log(data)
-
-    client.messages.create(DOMAIN, data)
-    .then((res) => {
-        console.log('mailgun success:', res);
-      })
-      .catch((err) => {
-        console.error('mailgun error:', err);
-      });
+        client.messages
+            .create(DOMAIN, data)
+            .then((res) => {
+                // console.log("mailgun success:", res);
+            })
+            .catch((err) => {
+                console.error("mailgun error:", err);
+            });
+    } catch (err) {
+        console.log("mail error1:", err);
     }
-    catch(err){console.log('mail error1:', err)}
 }
 
 export default async function handler(req, res) {
