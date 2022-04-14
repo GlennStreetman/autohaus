@@ -1,35 +1,15 @@
 import React from "react";
 import { useRouter } from "next/router";
+import IconButton2 from "./iconButton";
 
 import { BsTelephoneInboundFill } from "react-icons/bs";
 import { HiOutlineLocationMarker } from "react-icons/hi";
 import { FcGoogle } from "react-icons/fc";
-import IconButton from "./iconButton";
 import { GiMechanicGarage } from "react-icons/gi";
 import { MdOutlineMailOutline } from "react-icons/md";
 import { GoCalendar } from "react-icons/go";
 import { AiOutlineInstagram, AiOutlineHome } from "react-icons/ai";
-import HighlightButton from "./highlightButton";
 import { GiAutoRepair } from "react-icons/gi";
-import Link from "next/link";
-
-const telephone = <BsTelephoneInboundFill className="h-7 w-7 text-primary hover:text-accent" />;
-const location = <HiOutlineLocationMarker className="h-7 w-7 text-primary hover:text-accent" />;
-const google = <FcGoogle className="h-7 w-7 text-primary" />;
-const mechanic = <GiMechanicGarage className="h-7 w-7 text-primary hover:text-accent" />;
-const email = <MdOutlineMailOutline className="h-7 w-7 text-primary hover:text-accent" />;
-const calendar = (
-    <Link href="/calendar">
-        <GoCalendar className="h-7 w-7 text-primary hover:text-accent" />
-    </Link>
-);
-const instagram = <AiOutlineInstagram className="h-7 w-7 text-primary hover:text-accent" />;
-const repair = (
-    <Link href="/quote">
-        <GiAutoRepair className="h-7 w-7 text-primary hover:text-accent text-red-600" />
-    </Link>
-);
-const home = <AiOutlineHome className="h-7 w-7 text-primary hover:text-accent" />;
 
 //flex grid elements
 const gutter = "p-2 col-span-0  md:col-span-1 lg:col-span-1 xl:col-span-2"; //2x
@@ -48,32 +28,35 @@ function bottom() {
                     <div className="flex flex-col gap-2">
                         <div className="text-white">Contact Details:</div>
                         <div>
-                            <a href={`tel:${process.env.NEXT_PUBLIC_PHONE}`}>
-                                <IconButton text={process.env.NEXT_PUBLIC_PHONE} callback={() => {}} icon={telephone} />
-                            </a>
+                            <IconButton2
+                                text={<a href={`tel:${process.env.NEXT_PUBLIC_PHONE}`}>{process.env.NEXT_PUBLIC_PHONE}</a>}
+                                callback={() => {}}
+                                icon={<BsTelephoneInboundFill className="h-7 w-7" />}
+                            />
                         </div>
                         <div>
-                            <a href={`mailto: ${process.env.NEXT_PUBLIC_EMAIL}`}>
-                                <IconButton
-                                    text={process.env.NEXT_PUBLIC_EMAIL}
-                                    callback={() => {
-                                        if (navigator.clipboard) navigator.clipboard.writeText(process.env.NEXT_PUBLIC_EMAIL);
-                                    }}
-                                    icon={email}
-                                />
-                            </a>
+                            <IconButton2
+                                text={<a href={`mailto: ${process.env.NEXT_PUBLIC_EMAIL}`}>{process.env.NEXT_PUBLIC_EMAIL}</a>}
+                                callback={() => {
+                                    if (navigator.clipboard) navigator.clipboard.writeText(process.env.NEXT_PUBLIC_EMAIL);
+                                }}
+                                icon={<MdOutlineMailOutline className="h-7 w-7" />}
+                            />
                         </div>
                         <div>
-                            <a href={process.env.NEXT_PUBLIC_ADDRESS_MAP_LINK}>
-                                <IconButton text={process.env.NEXT_PUBLIC_ADDRESS_LONG} callback={() => {}} icon={location} />
-                            </a>
+                            <IconButton2
+                                text={<a href={process.env.NEXT_PUBLIC_ADDRESS_MAP_LINK}>{process.env.NEXT_PUBLIC_ADDRESS_LONG}</a>}
+                                callback={() => {}}
+                                icon={<HiOutlineLocationMarker className="h-7 w-7" />}
+                            />
                         </div>
                         <div>
                             {path !== "/calendar" ? (
-                                <IconButton
-                                    text={<Link href="/calendar">"Open: Mon-Fri 8am-5pm : Closed Weekend/Holidays"</Link>}
+                                <IconButton2
+                                    text="Open: Mon-Fri 8am-5pm : Closed Weekend/Holidays"
                                     callback={() => {}}
-                                    icon={calendar}
+                                    icon={<GoCalendar className="h-7 w-7" />}
+                                    link={"/calendar"}
                                 />
                             ) : (
                                 <></>
@@ -87,12 +70,12 @@ function bottom() {
                         <div className="text-white">Other Actions:</div>
                         <div>
                             {path !== "/" ? (
-                                <IconButton
+                                <IconButton2
                                     text="Back"
                                     callback={() => {
                                         router.push("/");
                                     }}
-                                    icon={home}
+                                    icon={<AiOutlineHome className="h-7 w-7" />}
                                 />
                             ) : (
                                 <></>
@@ -100,28 +83,34 @@ function bottom() {
                         </div>
                         <div>
                             {path !== "/quote" ? (
-                                <HighlightButton text={<Link href="/quote">Request Service Quote</Link>} callback={() => {}} icon={repair} />
+                                <IconButton2
+                                    text="Request Service Quote"
+                                    link="/quote"
+                                    callback={() => {}}
+                                    icon={<GiAutoRepair className="h-7 w-7" />}
+                                    highlight={true}
+                                />
                             ) : (
                                 <></>
                             )}
                         </div>
 
                         <div>
-                            <a href={process.env.NEXT_PUBLIC_SOCIAL}>
-                                <IconButton text="Social" callback={() => {}} icon={instagram} />
-                            </a>
+                            <IconButton2
+                                text={<a href={process.env.NEXT_PUBLIC_SOCIAL}>Social</a>}
+                                callback={() => {}}
+                                icon={<AiOutlineInstagram className="h-7 w-7" />}
+                            />
                         </div>
                         <div>
-                            {/* <div className="text-white">Reviews:</div> */}
-                            <a href="">
-                                <IconButton text="Google Reviews" callback={() => {}} icon={google} />
-                            </a>
+                            <IconButton2
+                                text={<a href={process.env.NEXT_PUBLIC_GOOGLE}>Google Reviews</a>}
+                                callback={() => {}}
+                                icon={<FcGoogle className="h-7 w-7 " />}
+                            />
                         </div>
                         <div>
-                            {/* <div className="text-white">Reviews:</div> */}
-                            <a href="">
-                                <IconButton text="Careers" callback={() => {}} icon={mechanic} />
-                            </a>
+                            <IconButton2 text="Request Service Quote" callback={() => {}} icon={<GiMechanicGarage className="h-7 w-7" />} link="/careers" />
                         </div>
                     </div>
                 </div>
