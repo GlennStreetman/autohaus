@@ -14,7 +14,6 @@ import { useRouter } from "next/router";
 function Topper() {
     const router = useRouter();
     const path = router.pathname;
-    // console.log("router", router.pathname);
     const screenSize = useContext(ScreenWidth);
     const telephone = <BsTelephoneInboundFill className="h-7 w-7 text-primary hover:text-accent" />;
     const telephoneText = screenSize.width >= 1024 ? process.env.NEXT_PUBLIC_PHONE : "";
@@ -26,13 +25,17 @@ function Topper() {
         </Link>
     );
     const repairText = screenSize.width >= 1024 ? <Link href="/quote">Request Quote</Link> : "";
-    const calendar = <GoCalendar className="h-7 w-7 text-primary hover:text-accent" />;
-    const calendarText = screenSize.width >= 1024 ? "Open: Mon-Fri 8am-5pm" : "";
+    const calendar = (
+        <Link href="/calendar">
+            <GoCalendar className="h-7 w-7 text-primary hover:text-accent" />
+        </Link>
+    );
+    const calendarText = screenSize.width >= 1024 ? <Link href="/calendar"> "Open: Mon-Fri 8am-5pm" </Link> : <Link href="/quote">""</Link>;
     const bars = <FaBars className="h-7 w-7 text-primary hover:text-accent" />;
 
     return (
         <div className="z-10 flex w-screen right-0 fixed flex justify-end p-2 gap-2 ">
-            {screenSize.width > 768 ? <IconButton text={calendarText} callback={() => {}} icon={calendar} /> : <></>}
+            {path !== "/calendar" && screenSize.width > 768 ? <IconButton text={calendarText} callback={() => {}} icon={calendar} /> : <></>}
             <a href={process.env.NEXT_PUBLIC_ADDRESS_MAP_LINK}>
                 <IconButton text={locationText} callback={() => {}} icon={location} />
             </a>

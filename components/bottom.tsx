@@ -18,7 +18,11 @@ const location = <HiOutlineLocationMarker className="h-7 w-7 text-primary hover:
 const google = <FcGoogle className="h-7 w-7 text-primary" />;
 const mechanic = <GiMechanicGarage className="h-7 w-7 text-primary hover:text-accent" />;
 const email = <MdOutlineMailOutline className="h-7 w-7 text-primary hover:text-accent" />;
-const calendar = <GoCalendar className="h-7 w-7 text-primary hover:text-accent" />;
+const calendar = (
+    <Link href="/calendar">
+        <GoCalendar className="h-7 w-7 text-primary hover:text-accent" />
+    </Link>
+);
 const instagram = <AiOutlineInstagram className="h-7 w-7 text-primary hover:text-accent" />;
 const repair = (
     <Link href="/quote">
@@ -65,7 +69,15 @@ function bottom() {
                             </a>
                         </div>
                         <div>
-                            <IconButton text="Open: Mon-Fri 8am-5pm : Closed Weekend/Holidays" callback={() => {}} icon={calendar} />;
+                            {path !== "/calendar" ? (
+                                <IconButton
+                                    text={<Link href="/calendar">"Open: Mon-Fri 8am-5pm : Closed Weekend/Holidays"</Link>}
+                                    callback={() => {}}
+                                    icon={calendar}
+                                />
+                            ) : (
+                                <></>
+                            )}
                         </div>
                     </div>
                 </div>
@@ -73,13 +85,6 @@ function bottom() {
                 <div className={data}>
                     <div className="flex flex-col gap-2">
                         <div className="text-white">Other Actions:</div>
-                        <div>
-                            {path !== "/quote" ? (
-                                <HighlightButton text={<Link href="/quote">Request Service Quote</Link>} callback={() => {}} icon={repair} />
-                            ) : (
-                                <></>
-                            )}
-                        </div>
                         <div>
                             {path !== "/" ? (
                                 <IconButton
@@ -93,6 +98,14 @@ function bottom() {
                                 <></>
                             )}
                         </div>
+                        <div>
+                            {path !== "/quote" ? (
+                                <HighlightButton text={<Link href="/quote">Request Service Quote</Link>} callback={() => {}} icon={repair} />
+                            ) : (
+                                <></>
+                            )}
+                        </div>
+
                         <div>
                             <a href={process.env.NEXT_PUBLIC_SOCIAL}>
                                 <IconButton text="Social" callback={() => {}} icon={instagram} />
