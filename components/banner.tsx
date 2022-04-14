@@ -6,7 +6,7 @@ import Logo from "./logo";
 //     // const largeTextStyling = `font-heading bold text-3xl sm:text-4xl lg:text-6xl3`;
 
 interface props {
-    children: JSX.Element;
+    children?: JSX.Element;
 }
 
 function banner(p: props) {
