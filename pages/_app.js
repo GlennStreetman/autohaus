@@ -9,7 +9,7 @@ function MyApp({ Component, pageProps }) {
     return (
         <div className="min-h-screen  relative">
             <ScreenWidth>
-                <Logo />
+                {/* <Logo /> */}
                 <Topper />
                 <Component {...pageProps} />
                 <Bottom />

@@ -1,4 +1,4 @@
-import Banner from "../components/banner_blank";
+import Banner from "../components/banner";
 import Why from "../components/why";
 
 const gutter = "col-span-0 lg:col-span-1 xl:col-span-3"; //2x
@@ -7,7 +7,10 @@ const body = "col-span-12 lg:col-span-10 xl:col-span-6 mb-4  text-white p-2"; //
 function Thankyou() {
     return (
         <>
-            <Banner />
+            {/* height="h-72" */}
+            <Banner>
+                <></>
+            </Banner>
             <div className="grid grid-row grid-cols-12 p-1 bg-black">
                 <div className={gutter}></div>
                 <div className={body}>
