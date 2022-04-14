@@ -1,7 +1,6 @@
 import { useState } from "react";
 import LabeledInput from "../components/labeledInput";
 import ReCAPTCHA from "react-google-recaptcha";
-// import IconButton from "../components/iconButton";
 import { useRouter } from "next/router";
 
 const timeOptions = [
