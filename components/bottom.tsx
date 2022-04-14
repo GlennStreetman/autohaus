@@ -110,7 +110,7 @@ function bottom() {
                             />
                         </div>
                         <div>
-                            <IconButton2 text="Request Service Quote" callback={() => {}} icon={<GiMechanicGarage className="h-7 w-7" />} link="/careers" />
+                            <IconButton2 text="Careers" callback={() => {}} icon={<GiMechanicGarage className="h-7 w-7" />} link="/careers" />
                         </div>
                     </div>
                 </div>
