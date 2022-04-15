@@ -40,13 +40,23 @@ function Topper() {
                 <></>
             )}
 
-            <IconButton2 text={locationText} callback={() => {}} icon={<HiOutlineLocationMarker className="h-7 w-7" />} />
+            <IconButton2
+                text={locationText}
+                link={`tel:${process.env.NEXT_PUBLIC_PHONE}`}
+                callback={() => {}}
+                icon={<HiOutlineLocationMarker className="h-7 w-7" />}
+            />
 
-            <IconButton2 text={telephoneText} callback={() => {}} icon={<BsTelephoneInboundFill className="h-7 w-7" />} />
+            <IconButton2
+                text={telephoneText}
+                link={process.env.NEXT_PUBLIC_ADDRESS_MAP_LINK}
+                callback={() => {}}
+                icon={<BsTelephoneInboundFill className="h-7 w-7" />}
+            />
             {/* </a> */}
 
             {path !== "/quote" ? (
-                <IconButton2 text={repairText} callback={() => {}} icon={<GiAutoRepair className="h-7 w-7" />} link="/quote" highlight={true} />
+                <IconButton2 text={repairText} callback={() => {}} icon={<GiAutoRepair className="h-7 w-7" />} link="/quote" highlight={true} nextLink={true} />
             ) : (
                 <></>
             )}

@@ -57,6 +57,7 @@ function bottom() {
                                     callback={() => {}}
                                     icon={<GoCalendar className="h-7 w-7" />}
                                     link={"/calendar"}
+                                    nextLink={true}
                                 />
                             ) : (
                                 <></>
@@ -89,6 +90,7 @@ function bottom() {
                                     callback={() => {}}
                                     icon={<GiAutoRepair className="h-7 w-7" />}
                                     highlight={true}
+                                    nextLink={true}
                                 />
                             ) : (
                                 <></>
@@ -110,7 +112,7 @@ function bottom() {
                             />
                         </div>
                         <div>
-                            <IconButton2 text="Careers" callback={() => {}} icon={<GiMechanicGarage className="h-7 w-7" />} link="/careers" />
+                            <IconButton2 text="Careers" callback={() => {}} icon={<GiMechanicGarage className="h-7 w-7" />} link="/careers" nextLink={true} />
                         </div>
                     </div>
                 </div>
