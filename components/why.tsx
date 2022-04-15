@@ -1,6 +1,8 @@
 import React from "react";
 import Image from "next/image";
-import { BsDot } from "react-icons/bs";
+import { useRouter } from "next/router";
+import IconButton2 from "./iconButton";
+import { SiPorsche } from "react-icons/si";
 
 //flex grid elements
 const gutter = " hidden lg:block lg:col-span-1 "; //2x
@@ -9,6 +11,7 @@ const dataRight = "p-2 col-span-12 md:col-span-9 lg:col-span-5 "; //2x
 const imgBox = "relative rounded-md bg-black overflow-hidden h-0 w-0 md:h-80 md:w-auto lg:h-96 lg:w-auto xl::h-96 xl:w-116 ";
 
 function why() {
+    const router = useRouter();
     return (
         <div className="flex flex-col">
             <div className="grid justify-items-center w-screen p-3">
@@ -45,6 +48,9 @@ function why() {
                             I'm best choice dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever
                             since the 1500s, when an unknown printer took a galle
                         </div>
+                    </div>
+                    <div className="flex p-2 gap-2 justify-center">
+                        <IconButton2 text={"Meet the team"} callback={() => {}} icon={<SiPorsche className="h-7 w-7" />} link="/team" />
                     </div>
                 </div>
                 <div className={gutter} />
