@@ -34,3 +34,16 @@ INSERT INTO holidays (targetdate, holiday, daysclosed)
      ('2022-12-24', 'Christmas Eve', '1'),
      ('2022-12-25', 'Christmas Day', '1')
 
+CREATE TABLE resumes (
+    id serial NOT NULL,
+    firstname text NOT NULL,
+    lastname text NOT NULL,
+    email text NOT NULL,
+    phone text NOT NULL,
+    address1 text NOT NULL,
+    address2 text NOT NULL,
+    city text NOT NULL,
+    state1 text NOT NULL,
+    zip text NOT NULL,
+    coverletter text NOT NULL
+)
