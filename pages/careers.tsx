@@ -153,7 +153,7 @@ function careers() {
             console.log("requests passed.");
             setRequestAdditional(false);
             postResume();
-            router.push("/thankyou");
+            router.push("/resumeSubmitted");
         } else {
             setRequestAdditional(true);
             console.log("problem processing request");
@@ -175,9 +175,6 @@ function careers() {
 
         fetch(`/api/submitResume`, {
             method: "POST", // or 'PUT'
-            headers: {
-                "Content-Type": "multipart/form-data",
-            },
             body: data,
         });
     }
