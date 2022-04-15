@@ -2,7 +2,7 @@ import { useState, useEffect, useContext } from "react";
 import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai";
 import { RiCheckboxBlankCircleFill, RiCheckboxBlankCircleLine } from "react-icons/ri";
 import { ScreenWidth } from "../components/screenWidth";
-// import Image from "next/image";
+import Image from "next/image";
 
 export interface services {
     service: string;
@@ -43,16 +43,18 @@ const ourServices: services[] = [
     },
 ];
 
+const imgBox = "relative bg-black overflow-hidden h-52 w-52 xs:h-64 xs:w-64 md:h-64 md:w-64 lg:h-72 lg:w-72 xl::h-72 xl:w-72 ";
+
 function mapServices(target: number, showCount: number) {
     const selectServices = ourServices.slice(target, target + showCount);
 
     const mapSlides = Object.values(selectServices).map((el) => {
         return (
             <div key={el.service} className="flex flex-col cursor-pointer bg-red-600 hover:bg-accent">
-                <div className="w-72 w-72">
-                    <img src={el.image} alt={`${el.service} picture`} className=" w-auto h-72" />
+                <div className={imgBox}>
+                    <Image src={el.image} alt={`${el.service} picture`} layout="fill" objectFit="fill" />
                 </div>
-                <div className="text-white font-primary text-white font-bold text-center uppercase">{el.service}</div>
+                <div className="text-white font-primary font-bold text-center uppercase">{el.service}</div>
             </div>
         );
     });
@@ -107,10 +109,10 @@ function makeDots(showCount: number, target: number, setTarget: Function) {
 }
 
 function setSlideCount(width: number, setShowCount: Function, setTarget: Function) {
-    if (width < 1024) {
+    if (width < 728) {
         setTarget(0);
         setShowCount(1);
-    } else if (width < 1280) {
+    } else if (width < 1028) {
         setTarget(0);
         setShowCount(2);
     } else if (width < 1536) {
@@ -138,10 +140,9 @@ function customCarousel() {
     return (
         <>
             <div className="flex flex-inline justify-center p-2 gap-2">
-                <div className="bg-slate-200 text-primary hover:text-accent rounded-md" onMouseDown={preventDoubleClick}>
-                    {" "}
+                <div className="bg-slate-200 text-primary hover:text-accent rounded-md flex justify-center" onMouseDown={preventDoubleClick}>
                     <AiOutlineArrowLeft
-                        className="h-72 w-7 cursor-pointer"
+                        className="h-auto w-7 cursor-pointer"
                         onClick={(e) => {
                             e.preventDefault();
                             updateTareget(-1, target, setTarget, showCount);
@@ -149,9 +150,9 @@ function customCarousel() {
                     />
                 </div>
                 <div className="flex flex-row gap-2">{mapServices(target, showCount)}</div>
-                <div className="bg-slate-200 text-primary hover:text-accent rounded-md" onMouseDown={preventDoubleClick}>
+                <div className="bg-slate-200 text-primary hover:text-accent rounded-md flex justify-center" onMouseDown={preventDoubleClick}>
                     <AiOutlineArrowRight
-                        className="h-72 w-7 cursor-pointer"
+                        className="h-auto w-7 cursor-pointer"
                         onClick={(e) => {
                             e.preventDefault();
                             updateTareget(+1, target, setTarget, showCount);
