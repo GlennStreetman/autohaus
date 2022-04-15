@@ -42,14 +42,14 @@ function Topper() {
 
             <IconButton2
                 text={locationText}
-                link={`tel:${process.env.NEXT_PUBLIC_PHONE}`}
+                link={`${process.env.NEXT_PUBLIC_ADDRESS_MAP_LINK}`}
                 callback={() => {}}
                 icon={<HiOutlineLocationMarker className="h-7 w-7" />}
             />
 
             <IconButton2
                 text={telephoneText}
-                link={process.env.NEXT_PUBLIC_ADDRESS_MAP_LINK}
+                link={`tel:${process.env.NEXT_PUBLIC_PHONE}`}
                 callback={() => {}}
                 icon={<BsTelephoneInboundFill className="h-7 w-7" />}
             />
