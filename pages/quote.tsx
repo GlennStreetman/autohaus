@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Banner from "./../components/banner";
 import LabeledInput from "../components/labeledInput";
 import ReCAPTCHA from "react-google-recaptcha";
 import { useRouter } from "next/router";
@@ -160,7 +161,7 @@ function Quote() {
 
     return (
         <>
-            <div className="h-32"></div>
+            <Banner />
             <div className="grid grid-row grid-cols-12 p-1">
                 <div className={gutter} />
                 <div className={body}>
