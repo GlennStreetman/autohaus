@@ -39,7 +39,7 @@ function why() {
                     </p>
                     <br />
                     <div className="flex p-2 gap-2 justify-center">
-                        <IconButton2 text={"Meet the team"} callback={() => {}} icon={<SiPorsche className="h-7 w-7" />} link="/team" />
+                        <IconButton2 text={"Meet the team"} callback={() => {}} icon={<SiPorsche className="h-7 w-7" />} link="/team" nextLink={true} />
                     </div>
                 </div>
                 <div className={gutter} />
