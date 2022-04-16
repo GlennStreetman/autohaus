@@ -38,8 +38,15 @@ function why() {
                         the 1500s, when an unknown printer took a galle
                     </p>
                     <br />
-                    <div className="flex p-2 gap-2 justify-center">
-                        <IconButton2 text={"Meet the team"} callback={() => {}} icon={<SiPorsche className="h-7 w-7" />} link="/team" nextLink={true} />
+                    <div className="flex p-2 gap-2 justify-center ">
+                        <IconButton2
+                            text={"Meet the team"}
+                            callback={() => {}}
+                            icon={<SiPorsche className="h-7 w-7" />}
+                            link="/team"
+                            nextLink={true}
+                            highlight={true}
+                        />
                     </div>
                 </div>
                 <div className={gutter} />
