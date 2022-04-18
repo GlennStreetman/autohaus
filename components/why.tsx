@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import IconButton2 from "./iconButton";
+import NextLinkButton from "./nextLinkButton";
 import { SiPorsche } from "react-icons/si";
 
 //flex grid elements
@@ -39,14 +39,7 @@ function why() {
                     </p>
                     <br />
                     <div className="flex p-2 gap-2 justify-center ">
-                        <IconButton2
-                            text={"Meet the team"}
-                            callback={() => {}}
-                            icon={<SiPorsche className="h-7 w-7" />}
-                            link="/team"
-                            nextLink={true}
-                            highlight={true}
-                        />
+                        <NextLinkButton text={"Meet the team"} icon={<SiPorsche className="h-7 w-7" />} link="/team" />
                     </div>
                 </div>
                 <div className={gutter} />

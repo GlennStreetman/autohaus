@@ -1,6 +1,7 @@
 import React from "react";
 import { useRouter } from "next/router";
-import IconButton2 from "./iconButton";
+import NextLinkButton from "./nextLinkButton";
+import LinkButton from "./linkButton";
 
 import { BsTelephoneInboundFill } from "react-icons/bs";
 import { HiOutlineLocationMarker } from "react-icons/hi";
@@ -27,93 +28,44 @@ function bottom() {
                 <div className={data}>
                     <div className="flex flex-col gap-2">
                         <div className="text-white">Contact Details:</div>
-                        <div>
-                            <IconButton2
-                                text={<a href={`tel:${process.env.NEXT_PUBLIC_PHONE}`}>{process.env.NEXT_PUBLIC_PHONE}</a>}
-                                callback={() => {}}
-                                icon={<BsTelephoneInboundFill className="h-7 w-7" />}
-                            />
-                        </div>
-                        <div>
-                            <IconButton2
-                                text={<a href={`mailto: ${process.env.NEXT_PUBLIC_EMAIL}`}>{process.env.NEXT_PUBLIC_EMAIL}</a>}
-                                callback={() => {
-                                    if (navigator.clipboard) navigator.clipboard.writeText(process.env.NEXT_PUBLIC_EMAIL);
-                                }}
-                                icon={<MdOutlineMailOutline className="h-7 w-7" />}
-                            />
-                        </div>
-                        <div>
-                            <IconButton2
-                                text={<a href={process.env.NEXT_PUBLIC_ADDRESS_MAP_LINK}>{process.env.NEXT_PUBLIC_ADDRESS_LONG}</a>}
-                                callback={() => {}}
-                                icon={<HiOutlineLocationMarker className="h-7 w-7" />}
-                            />
-                        </div>
-                        <div>
-                            {path !== "/calendar" ? (
-                                <IconButton2
-                                    text="Open: Mon-Fri 8am-5pm : Closed Weekend/Holidays"
-                                    callback={() => {}}
-                                    icon={<GoCalendar className="h-7 w-7" />}
-                                    link={"/calendar"}
-                                    nextLink={true}
-                                />
-                            ) : (
-                                <></>
-                            )}
-                        </div>
+                        <LinkButton
+                            text={process.env.NEXT_PUBLIC_PHONE}
+                            link={`tel:${process.env.NEXT_PUBLIC_PHONE}`}
+                            icon={<BsTelephoneInboundFill className="h-7 w-7" />}
+                        />
+                        <LinkButton
+                            text={process.env.NEXT_PUBLIC_EMAIL}
+                            link={`mailto: ${process.env.NEXT_PUBLIC_EMAIL}`}
+                            // callback={() => {
+                            //     if (navigator.clipboard) navigator.clipboard.writeText(process.env.NEXT_PUBLIC_EMAIL);
+                            // }}
+                            icon={<MdOutlineMailOutline className="h-7 w-7" />}
+                        />
+                        <LinkButton
+                            text={process.env.NEXT_PUBLIC_ADDRESS_LONG}
+                            link={process.env.NEXT_PUBLIC_ADDRESS_MAP_LINK}
+                            icon={<HiOutlineLocationMarker className="h-7 w-7" />}
+                        />
+                        {path !== "/calendar" ? (
+                            <NextLinkButton text="Open: Mon-Fri 8am-5pm : Closed Weekend/Holidays" icon={<GoCalendar className="h-7 w-7" />} link="/calendar" />
+                        ) : (
+                            <></>
+                        )}
                     </div>
                 </div>
                 <div className={spacer} />
                 <div className={data}>
                     <div className="flex flex-col gap-2">
                         <div className="text-white">Other Actions:</div>
-                        <div>
-                            {path !== "/" ? (
-                                <IconButton2
-                                    text="Back"
-                                    callback={() => {
-                                        router.push("/");
-                                    }}
-                                    icon={<AiOutlineHome className="h-7 w-7" />}
-                                />
-                            ) : (
-                                <></>
-                            )}
-                        </div>
-                        <div>
-                            {path !== "/quote" ? (
-                                <IconButton2
-                                    text="Request Service Quote"
-                                    link="/quote"
-                                    callback={() => {}}
-                                    icon={<GiAutoRepair className="h-7 w-7" />}
-                                    highlight={true}
-                                    nextLink={true}
-                                />
-                            ) : (
-                                <></>
-                            )}
-                        </div>
-
-                        <div>
-                            <IconButton2
-                                text={<a href={process.env.NEXT_PUBLIC_SOCIAL}>Social</a>}
-                                callback={() => {}}
-                                icon={<AiOutlineInstagram className="h-7 w-7" />}
-                            />
-                        </div>
-                        <div>
-                            <IconButton2
-                                text={<a href={process.env.NEXT_PUBLIC_GOOGLE}>Google Reviews</a>}
-                                callback={() => {}}
-                                icon={<FcGoogle className="h-7 w-7 " />}
-                            />
-                        </div>
-                        <div>
-                            <IconButton2 text="Careers" callback={() => {}} icon={<GiMechanicGarage className="h-7 w-7" />} link="/careers" nextLink={true} />
-                        </div>
+                        {path !== "/" ? <NextLinkButton text="Back" link="/" icon={<AiOutlineHome className="h-7 w-7" />} /> : <></>}
+                        {path !== "/quote" ? (
+                            <NextLinkButton text="Request Service Quote" icon={<GiAutoRepair className="h-7 w-7" />} link="/quote" highlight={true} />
+                        ) : (
+                            <></>
+                        )}
+                        <LinkButton text="Social" link={process.env.NEXT_PUBLIC_SOCIAL} icon={<AiOutlineInstagram className="h-7 w-7" />} />
+                        <LinkButton text="Google Reviews" link={process.env.NEXT_PUBLIC_GOOGLE} icon={<FcGoogle className="h-7 w-7 " />} />
+                        <NextLinkButton text="Careers" icon={<GiMechanicGarage className="h-7 w-7" />} link="/careers" />
                     </div>
                 </div>
 
