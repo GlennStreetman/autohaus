@@ -23,23 +23,24 @@ module.exports = {
             colors: {
                 outlineLight: "#67e8f9",
                 outlineDark: "#4f46e5",
+                accent: "#ea580c",
             },
             spacing: {
                 128: "32rem",
                 116: "28rem",
             },
             backgroundColor: {
-                primary: "#f8fafc",
-                secondary: "#e2e8f0",
-                accent: "#ea580c",
+                primary: "#f8fafc", //blue
+                secondary: "#e2e8f0", //grey
+                accent: "#ea580c", //orange
+                almostBlack: "#1b1b1c", //dark grey
+                veryDark: "#334155",
             },
             textColor: {
                 primary: "#334155",
                 secondary: "#3b82f6",
                 accent: "#ea580c",
-                primaryDark: "#334155",
-                secondaryDark: "#3b82f6",
-                accentDark: "#67e8f9",
+                gold: "#5EEAD4",
             },
             fontFamily: {
                 logo: ['"Saira Stencil One"', "sans-serif"],
@@ -50,3 +51,8 @@ module.exports = {
     },
     plugins: [],
 };
+
+//RED #b21e27
+//GOLD #E0AA4A
+//Badckground grey #1b1b1c
+//text-shadow: 1px 1px 0 #22

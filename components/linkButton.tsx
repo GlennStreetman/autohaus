@@ -14,7 +14,7 @@ const textRegular =
 
 function LinkButton(p: props) {
     return (
-        <div className="flex">
+        <div className="flex z-20">
             <a href={p.link} className={p.highlight === true ? textHighlight : textRegular}>
                 {p.icon}
                 <div className="flex">

@@ -22,7 +22,7 @@ const timeOptions = [
     "3:00 PM",
 ];
 
-const mapTimeOptions = timeOptions.map((el) => <option value={el} />);
+const mapTimeOptions = timeOptions.map((el) => <option key={el} value={el} />);
 const timeOptionsDatalist = <datalist id="timeOptions">{mapTimeOptions}</datalist>;
 
 const gutter = "col-span-0 lg:col-span-1 xl:col-span-3"; //2x

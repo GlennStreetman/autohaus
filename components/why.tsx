@@ -2,6 +2,7 @@ import React from "react";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import NextLinkButton from "./nextLinkButton";
+import LineLinkButton from "./lineLinkButton";
 import { SiPorsche } from "react-icons/si";
 
 //flex grid elements
@@ -38,9 +39,8 @@ function why() {
                         the 1500s, when an unknown printer took a galle
                     </p>
                     <br />
-                    <div className="flex p-2 gap-2 justify-center ">
-                        <NextLinkButton text={"Meet the team"} icon={<SiPorsche className="h-7 w-7" />} link="/team" />
-                    </div>
+
+                    <LineLinkButton text={"Meet the team"} icon={<SiPorsche className="h-7 w-7" />} link="/team" />
                 </div>
                 <div className={gutter} />
             </div>

@@ -16,7 +16,7 @@ const textRegular =
 
 function NextLinkButton(p: props) {
     return (
-        <div className="flex">
+        <div className="flex z-20">
             <Link href={p.link}>
                 <a className={p.highlight === true ? textHighlight : textRegular}>
                     {p.icon}{" "}

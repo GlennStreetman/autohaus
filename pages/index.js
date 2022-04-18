@@ -2,8 +2,8 @@ import Banner from "../components/banner";
 import Services from "../components/services";
 import Why from "../components/why";
 
-const smallTextStyling = `font-heading bold text-1xl sm:text-2xl lg:text-3xl`;
-const largeTextStyling = `font-heading bold text-3xl sm:text-4xl lg:text-6xl3`;
+const smallTextStyling = `text-white font-heading bold text-1xl sm:text-2xl lg:text-3xl [text-shadow:2px_2px_rgba(0,0,0,1)] antialiased`;
+const largeTextStyling = `text-white font-heading bold text-3xl sm:text-4xl lg:text-6xl3 [text-shadow:2px_2px_rgba(0,0,0,1)] antialiased `;
 
 export default function Home() {
     return (

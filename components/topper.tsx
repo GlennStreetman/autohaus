@@ -24,7 +24,7 @@ function Topper() {
     const calendarText = screenSize.width >= 1024 ? "Open: Mon-Fri 8am-5pm" : "";
 
     return (
-        <div className="z-10 flex w-screen right-0 fixed flex justify-end p-2 gap-2 ">
+        <div className="z-20 flex w-screen right-0 fixed flex justify-end p-2 gap-2 ">
             {path !== "/calendar" && screenSize.width > 768 ? (
                 <NextLinkButton text={calendarText} icon={<GoCalendar className="h-7 w-7" />} link="/calendar" />
             ) : (

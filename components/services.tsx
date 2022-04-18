@@ -2,14 +2,12 @@ import { useState } from "react";
 import CustomCarousel from "./customCarousel";
 
 function serviceSlicer() {
-    // const [position, setPosition] = useState(0);
-    // const [showNumber, setShowNumber] = useState(3); //default to showing 3 slides
-
     return (
-        <div className="w-full flex justify-center bg-neutral-900 p-2">
+        <div className="w-full flex justify-center bg-almostBlack p-2">
             <div className="flex flex-col">
-                <div className="flex justify-center text-accent font-bold text-3xl">
-                    <div>Featured Services:</div>
+                <div className="flex justify-center text-white font-bold text-3xl relative">
+                    <div className="z-10 bg-almostBlack px-2">Featured Services</div>
+                    <div className="absolute left-20 right-20 h-0 border-y-2 top-1/2" />
                 </div>
                 <CustomCarousel />
             </div>
