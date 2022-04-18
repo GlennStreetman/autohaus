@@ -140,7 +140,7 @@ function customCarousel() {
     return (
         <>
             <div className="flex flex-inline justify-center p-2 gap-2">
-                <div className="bg-slate-200 text-primary hover:text-accent rounded-md flex justify-center" onMouseDown={preventDoubleClick}>
+                <div className="bg-slate-200 text-primary hover:text-white hover:bg-accent  rounded-md flex justify-center" onMouseDown={preventDoubleClick}>
                     <AiOutlineArrowLeft
                         className="h-auto w-7 cursor-pointer"
                         onClick={(e) => {
@@ -150,7 +150,7 @@ function customCarousel() {
                     />
                 </div>
                 <div className="flex flex-row gap-2">{mapServices(target, showCount)}</div>
-                <div className="bg-slate-200 text-primary hover:text-accent rounded-md flex justify-center" onMouseDown={preventDoubleClick}>
+                <div className="bg-slate-200 text-primary hover:text-white hover:bg-accent rounded-md flex justify-center" onMouseDown={preventDoubleClick}>
                     <AiOutlineArrowRight
                         className="h-auto w-7 cursor-pointer"
                         onClick={(e) => {
