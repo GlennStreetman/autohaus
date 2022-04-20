@@ -28,3 +28,11 @@ img {
     max-width: 100%;
     display: block;
 }
+
+thead > tr > td {
+    @apply font-bold;
+}
+
+td {
+    @apply border-2 p-1 text-sm;
+}
