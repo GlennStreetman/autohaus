@@ -12,7 +12,8 @@ CREATE TABLE servicerequests (
     model text NOT NULL,
     modelyear text NOT NULL,
     reason text NOT NULL,
-    requestDate timestamp DEFAULT now()
+    requestdate timestamp DEFAULT now()
+    archive boolean DEFAULT false
 )
 
 CREATE TABLE holidays (
@@ -46,4 +47,6 @@ CREATE TABLE resumes (
     state1 text NOT NULL,
     zip text NOT NULL,
     coverletter text NOT NULL
+    submitdate timestamp DEFAULT now()
+    archive boolean DEFAULT false
 )

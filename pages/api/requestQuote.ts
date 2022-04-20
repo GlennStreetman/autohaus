@@ -44,7 +44,7 @@ async function saveRequestToDB(req) {
 
     try {
         const saveRequest = `
-        INSERT INTO servicerequests (firstname, lastname, email, phone, prefdate, preftime, altdate, alttime, make, model, modelyear, reason)
+        INSERT INTO servicerequests (firstName, lastName, email, phone, prefDate, prefTime, altDate, altTime, make, model, modelyear, reason)
         VALUES ('${firstName}', '${lastName}', '${email}', '${phone}', '${prefDate}', '${prefTime}', '${altDate}', '${altTime}', '${make}', '${model}', '${year}', '${reason}')
        `;
         // await db.connect();

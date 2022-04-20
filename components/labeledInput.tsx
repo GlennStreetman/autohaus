@@ -40,11 +40,12 @@ function LabeledInput(p: props) {
 
     return (
         <div
-            className="relative rounded-md border-2 p-2 text-primary"
+            className="relative rounded-md border-2 p-2 text-primary w-full"
             onFocus={() => helperFocus(setLabelStyling)}
             onBlur={() => helperBlurr(p.value, setLabelStyling)}
         >
             <label
+                htmlFor={p.id}
                 className={p.helperText ? helperStyleing : labelStyling}
                 onClick={() => {
                     document.getElementById(p.id)?.focus();
@@ -60,6 +61,9 @@ function LabeledInput(p: props) {
                 required
                 value={p.value}
                 onChange={(e) => handleChange(e, p.onClickCallback)}
+                onInput={(e) => {
+                    console.log("INPUT", e.target);
+                }}
                 list={p.datalistID ? p.datalistID : "pass"}
                 onFocus={p.onFocusCallback ? (e) => p.onFocusCallback(e) : () => {}}
             />
