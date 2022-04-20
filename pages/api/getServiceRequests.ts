@@ -1,9 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { PrismaClient } from "@prisma/client";
+import PrismaClient from "./../../lib/prismaPool";
 import { getSession } from "next-auth/react";
-
-import React from "react";
-import { constants } from "crypto";
 
 interface filters {
     archived: string; //show archived?
@@ -18,7 +15,6 @@ interface reqBody {
 }
 
 function buildFilters(req) {
-    console.log("req.body", req.body);
     const filters = {};
     const body = req.body;
     if (body.archived === false) filters["archive"] = { not: true };
@@ -32,14 +28,12 @@ function buildFilters(req) {
 export default async (req, res) => {
     const session = await getSession({ req });
     if (session) {
-        console.log("signed in");
         const filters = buildFilters(req);
         console.log(filters);
-        const prisma = new PrismaClient({});
+        const prisma = PrismaClient;
         const findServiceRequests = await prisma.servicerequests.findMany({
             where: filters,
         });
-        console.log("findServiceRequests", findServiceRequests);
         res.status(200).json({ records: findServiceRequests });
     } else {
         console.log("not signed in");
@@ -47,21 +41,3 @@ export default async (req, res) => {
     }
     res.end();
 };
-
-// async function handler(req, res) {
-//     const session = await getSession({ req });
-//     console.log("----FOUND SESSION----");
-//     if (session) {
-//         console.log("Session", JSON.stringify(session, null, 2));
-//         const prisma = new PrismaClient({});
-//         const findServiceRequests = await prisma.servicerequests.findMany({
-//             where: req.body.filters,
-//         });
-//         // console.log("findServiceRequests", findServiceRequests);
-//         res.status(200).json({ records: findServiceRequests });
-//     } else {
-//         res.status(403).json("not logged in");
-//     }
-// }
-
-// export default handler;

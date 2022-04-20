@@ -2,7 +2,7 @@ import NextAuth from "next-auth";
 // import { getSession } from "next-auth/react";
 // import GoogleProvider from "next-auth/providers/google";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
-import { PrismaClient } from "@prisma/client";
+import PrismaClient from "./../../../lib/prismaPool";
 import EmailProvider from "next-auth/providers/email";
 
 // import EmailProvider from "next-auth/providers/email";
@@ -17,7 +17,7 @@ import EmailProvider from "next-auth/providers/email";
 // For more information on each option (and a full list of options) go to
 // https://next-auth.js.org/configuration/options
 
-const prisma = new PrismaClient();
+const prisma = PrismaClient;
 
 // const useSecureCookies = process.env.NEXTAUTH_URL.startsWith("https://");
 // const cookiePrefix = useSecureCookies ? "__Secure-" : "";
