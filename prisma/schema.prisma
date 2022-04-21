@@ -91,4 +91,5 @@ model resumes {
     coverletter String
     submitdate DateTime @db.Date @default(now())  
     archive Boolean @default(false)
+    filename String @default("pass")
 }
