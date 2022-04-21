@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { useSession, signIn, signOut } from "next-auth/react";
 import produce from "immer";
-import download from "downloadjs";
 
 import Banner from "../components/banner";
 import NextLinkButton from "../components/nextLinkButton";
@@ -97,7 +96,7 @@ function manager() {
         })
             .then((response) => response.json())
             .then((data) => {
-                console.log("response", data);
+                // console.log("response", data);
                 setServiceRequests(data.records);
             });
     }, []);
@@ -124,11 +123,11 @@ function manager() {
             })
                 .then((response) => response.json())
                 .then((data) => {
-                    console.log("response", data);
+                    // console.log("response", data);
                     setServiceRequests(data.records);
                 });
         } else {
-            console.log("Session not found, aborting fetch.");
+            // console.log("Session not found, aborting fetch.");
         }
     }, [menu, filterField, filterService, showArchived, fromDate, toDate]);
 
@@ -154,7 +153,7 @@ function manager() {
             })
                 .then((response) => response.json())
                 .then((data) => {
-                    console.log("response", data);
+                    // console.log("response", data);
                     setResumes(data.records);
                 });
         } else {
@@ -263,7 +262,6 @@ function manager() {
             body: JSON.stringify(data),
         })
             .then((response) => {
-                console.log("status", response.status);
                 return [response.json(), response.status];
             })
             .then(([data, status]) => {
@@ -272,6 +270,32 @@ function manager() {
                         draft[target].archive = !draft[target].archive;
                     });
                     setServiceRequests(nextState);
+                } else {
+                    console.log("problem archiving", status);
+                }
+            });
+    }
+
+    function archiveResumes(target) {
+        const data = {
+            archived: !resumes[target].archive,
+            table: "resumes",
+            record: resumes[target].id,
+        };
+
+        fetch("/api/updateArchived", {
+            method: "POST",
+            body: JSON.stringify(data),
+        })
+            .then((response) => {
+                return [response.json(), response.status];
+            })
+            .then(([data, status]) => {
+                if (status === 200) {
+                    const nextState = produce<resumes[]>(resumes, (draft) => {
+                        draft[target].archive = !draft[target].archive;
+                    });
+                    setResumes(nextState);
                 } else {
                     console.log("problem archiving", status);
                 }
@@ -378,7 +402,9 @@ function manager() {
                     <td onClick={clickDetail}>{val.state1}</td>
                     <td onClick={clickDetail}>{val.zip}</td>
                     <td>
-                        <button onClick={(e) => getResume(e, val.filename)}>{val.filename}</button>
+                        <button onClick={(e) => getResume(e, val.filename)}>
+                            <a className="underline">{val.filename}</a>
+                        </button>
                     </td>
                     <td className="text-center">
                         <input
@@ -386,7 +412,7 @@ function manager() {
                             type="checkbox"
                             checked={val.archive}
                             onClick={() => {
-                                archiveService(key);
+                                archiveResumes(key);
                             }}
                         />
                     </td>

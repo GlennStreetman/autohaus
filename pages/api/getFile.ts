@@ -8,7 +8,7 @@ export default async (req, res) => {
     if (session) {
         console.log("query", req.query);
         const key = req.query.fileKey;
-        const file = getFileStream(key);
+        // const file = getFileStream(key);
         // console.log("file", file);
         const readStream = getFileStream(key);
         // const outputStream = fs.createWriteStream(`./public/uploads/${key}`);

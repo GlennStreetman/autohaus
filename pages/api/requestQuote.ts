@@ -1,4 +1,3 @@
-// import Client from "pg";
 import mailgun from "mailgun.js";
 import formData from "form-data";
 import PrismaClient from "./../../lib/prismaPool";
