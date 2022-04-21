@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { useSession, signIn, signOut } from "next-auth/react";
 import produce from "immer";
+import download from "downloadjs";
+
 import Banner from "../components/banner";
 import NextLinkButton from "../components/nextLinkButton";
 import IconButton from "../components/iconButton";
@@ -45,12 +47,29 @@ interface serviceReq {
     archive: boolean;
 }
 
+interface resumes {
+    id: number;
+    firstname: string;
+    lastname: string;
+    email: string;
+    phone: string;
+    address1: string;
+    address2: string;
+    city: string;
+    state1: string;
+    zip: string;
+    coverletter: string;
+    archive: boolean;
+    submitdate: string;
+    filename: string;
+}
+
 function manager() {
     const { data: session } = useSession();
     const [menu, setMenu] = useState("service"); //service, resume, holidays
     const [serviceRequests, setServiceRequests] = useState<serviceReq[]>([]); //returned data
     const [filterService, setFilterService] = useState(""); //text used to filter services
-    const [resumes, setResumes] = useState({}); //returned data
+    const [resumes, setResumes] = useState<resumes[]>([]); //returned data
     const [filterResumes, setFilterResumes] = useState(""); //text used to filter resumes
     const [showArchived, setShowArchived] = useState(false);
     const [fromDate, setFromDate] = useState("");
@@ -93,24 +112,53 @@ function manager() {
                 fromDate: fromDate, //min date
                 toDate: toDate, //max date
             };
-            if (menu === "service") {
-                fetch(`/api/getServiceRequests`, {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "User-Agent": "*",
-                    },
 
-                    body: JSON.stringify(data),
-                })
-                    .then((response) => response.json())
-                    .then((data) => {
-                        console.log("response", data);
-                        setServiceRequests(data.records);
-                    });
-            } else {
-                console.log("Session not found, aborting fetch.");
-            }
+            fetch(`/api/getServiceRequests`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "User-Agent": "*",
+                },
+
+                body: JSON.stringify(data),
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    console.log("response", data);
+                    setServiceRequests(data.records);
+                });
+        } else {
+            console.log("Session not found, aborting fetch.");
+        }
+    }, [menu, filterField, filterService, showArchived, fromDate, toDate]);
+
+    useEffect(() => {
+        //update resumes
+        if (menu === "resume" && session) {
+            const data = {
+                archived: showArchived, //show archived?
+                filterField: filterField, //which value to filter by
+                filterService: filterService, //filter text for servicess
+                fromDate: fromDate, //min date
+                toDate: toDate, //max date
+            };
+
+            fetch(`/api/getResumes`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "User-Agent": "*",
+                },
+
+                body: JSON.stringify(data),
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    console.log("response", data);
+                    setResumes(data.records);
+                });
+        } else {
+            console.log("Session not found, aborting fetch.");
         }
     }, [menu, filterField, filterService, showArchived, fromDate, toDate]);
 
@@ -231,7 +279,6 @@ function manager() {
     }
 
     const mapServiceRequests = Object.entries(serviceRequests).map(([key, val]) => {
-        console.log("val", val);
         const display = key === showDetail ? "" : "hidden";
         const clickDetail = () => {
             key === showDetail ? setShowDetail("-1") : setShowDetail(key);
@@ -269,8 +316,6 @@ function manager() {
                 </tr>
             </>
         );
-        //requestdate, fistname, lastname, email(link), phone(link), prefdate, preftime, altdate, alttime, make, model, year,
-        //reason on click
     });
 
     const serviceRequestContainer = (
@@ -298,6 +343,87 @@ function manager() {
         </div>
     );
 
+    async function getResume(e, fileKey) {
+        e.preventDefault();
+
+        fetch(`api/getFile/?fileKey=${fileKey}`)
+            .then((res) => res.blob())
+            .then((blob) => {
+                var a = document.createElement("a");
+                document.body.appendChild(a);
+                let url = window.URL.createObjectURL(blob);
+                a.href = url;
+                a.download = fileKey;
+                a.click();
+                window.URL.revokeObjectURL(url);
+            });
+    }
+
+    const mapResumes = Object.entries(resumes).map(([key, val]) => {
+        const display = key === showDetail ? "" : "hidden";
+        const clickDetail = () => {
+            key === showDetail ? setShowDetail("-1") : setShowDetail(key);
+        };
+        return (
+            <>
+                <tr key={`${key}-table`}>
+                    <td onClick={clickDetail}>{val.submitdate.slice(0, 10)}</td>
+                    <td onClick={clickDetail}>{val.firstname}</td>
+                    <td onClick={clickDetail}>{val.lastname}</td>
+                    <td onClick={clickDetail}>{val.email}</td>
+                    <td onClick={clickDetail}>{val.phone}</td>
+                    <td onClick={clickDetail}>{val.address1}</td>
+                    <td onClick={clickDetail}>{val.address2}</td>
+                    <td onClick={clickDetail}>{val.city}</td>
+                    <td onClick={clickDetail}>{val.state1}</td>
+                    <td onClick={clickDetail}>{val.zip}</td>
+                    <td>
+                        <button onClick={(e) => getResume(e, val.filename)}>{val.filename}</button>
+                    </td>
+                    <td className="text-center">
+                        <input
+                            className=""
+                            type="checkbox"
+                            checked={val.archive}
+                            onClick={() => {
+                                archiveService(key);
+                            }}
+                        />
+                    </td>
+                </tr>
+                <tr key={`${key}-detail`}>
+                    <td className={`${display}`} colSpan={13}>
+                        <p>{val.coverletter}</p>
+                    </td>
+                </tr>
+            </>
+        );
+    });
+
+    const resumesContainer = (
+        <div className="col-span-12">
+            <table className="w-full">
+                <thead>
+                    <tr>
+                        <td>Submit Date</td>
+                        <td>First Name</td>
+                        <td>Last Name</td>
+                        <td>Email</td>
+                        <td>Phone</td>
+                        <td>Address1</td>
+                        <td>Address2</td>
+                        <td>City</td>
+                        <td>State</td>
+                        <td>zip</td>
+                        <td>Resume</td>
+                        <td>Archived</td>
+                    </tr>
+                </thead>
+                <tbody>{mapResumes}</tbody>
+            </table>
+        </div>
+    );
+
     if (session) {
         //IF LOGGED IN.
         return (
@@ -315,7 +441,8 @@ function manager() {
                             {selectors}
                             {filters}
                             {filterDates}
-                            {serviceRequestContainer}
+                            {menu === "service" ? serviceRequestContainer : <></>}
+                            {menu === "resume" ? resumesContainer : <></>}
                         </div>
                     </div>
                     <div className={gutter} />
