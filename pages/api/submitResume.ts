@@ -1,8 +1,7 @@
-import db from "../../lib/dbPool";
-import fs from "fs";
+import PrismaClient from "./../../lib/prismaPool";
 import { IncomingForm } from "formidable";
 import mv from "mv";
-import format from "pg-format";
+import { uploadFile } from "./../../lib/s3";
 
 export const config = {
     api: {
@@ -10,60 +9,76 @@ export const config = {
     },
 };
 
-async function saveFile(req, form) {
-    // const data = await new Promise((resolve, reject) => {
-
-    form.parse(req, (err, fields, files) => {
-        // if (err) return reject(err);
-        // console.log("---1---", fields);
-        var oldPath = files.file[0].filepath;
-        var newPath = `./public/uploads/${fields.email[0]}`;
-        mv(oldPath, newPath, function (err) {
-            if (err !== null) console.log("POST /submitResume problem saving file", err);
-        });
-
-        console.log("resume submitted:", fields.email[0]);
-        // resolve(true);
-    });
-    // });
-    // return data;
+interface savedFileReturn {
+    fileKey: string;
 }
 
-async function saveData(req, form) {
-    form.parse(req, (err, fields, files) => {
-        const firstName = format(fields.firstName[0]);
-        const lastName = format(fields.lastName[0]);
-        const email = format(fields.email[0]);
-        const phone = format(fields.phone[0]);
-        const address1 = format(fields.address[0]);
-        const address2 = format(fields.address2[0]);
-        const city = format(fields.city[0]);
-        const state1 = format(fields.state[0]);
-        const zip = format(fields.zip[0]);
-        const coverletter = format(fields.coverLetter[0]);
-
-        const saveRequest = `
-        INSERT INTO resumes (firstname, lastname, email, phone, address1, address2, city, state1, zip, coverletter)
-        VALUES ('${firstName}', '${lastName}', '${email}', '${phone}', '${address1}', '${address2}', '${city}', '${state1}', '${zip}', '${coverletter}')
-       `;
-
-        try {
-            db.query(saveRequest, (err, rows) => {
-                if (err) {
-                    console.log("POST submitResume: Problem backing up resume to db. ", saveRequest, err);
-                } else {
-                    console.log("resume data saved to postgres for ", email);
-                }
+async function saveFile(req) {
+    const form = new IncomingForm();
+    const data = await new Promise((resolve, reject) => {
+        form.parse(req, async (err, fields, files) => {
+            // if (err) return reject(err);
+            // console.log("---1---", fields);
+            var oldPath = files.file[0].filepath;
+            // console.log("FILE", files.file[0]);
+            var newPath = `./public/uploads/${fields.email[0]}.${files.file[0].originalFilename}`;
+            mv(oldPath, newPath, function (err) {
+                if (err !== null) console.log("POST /submitResume problem saving file", err);
             });
-        } catch (err) {
-            console.log("problem with POST /submitResume DB", err);
-        }
+
+            // console.log("resume submitted:", fields.email[0]);
+            const uploadResult = await uploadFile(files.file[0], `${fields.email[0]}.${files.file[0].originalFilename}`);
+            console.log("s3 Resulte: ", uploadResult);
+            const returnData: savedFileReturn = { fileKey: uploadResult["key"] };
+            resolve([returnData, fields]);
+        });
+        // });
     });
+
+    return data;
+}
+
+async function saveData(req, fileKey, fields) {
+    const prisma = PrismaClient;
+    const formObject = {
+        firstName: fields.firstName[0],
+        lastName: fields.lastName[0],
+        email: fields.email[0],
+        phone: fields.phone[0],
+        address1: fields.address[0],
+        address2: fields.address2[0],
+        city: fields.city[0],
+        state1: fields.state[0],
+        zip: fields.zip[0],
+        coverletter: fields.coverLetter[0],
+    };
+
+    try {
+        console.log("update db");
+        const update = await prisma.resumes.create({
+            data: {
+                firstname: formObject.firstName,
+                lastname: formObject.lastName,
+                email: formObject.email,
+                phone: formObject.phone,
+                address1: formObject.address1,
+                address2: formObject.address2,
+                city: formObject.city,
+                state1: formObject.state1,
+                zip: formObject.zip,
+                coverletter: formObject.coverletter,
+                filename: fileKey,
+            },
+        });
+        console.log("update complete", update);
+    } catch (err) {
+        console.log("problem with POST /submitResume DB", err);
+    }
+    // });
 }
 
 export default async (req, res) => {
-    const form = new IncomingForm();
-    saveFile(req, form);
-    saveData(req, form);
+    const [savedFile, fileds]: any = await saveFile(req);
+    saveData(req, savedFile.fileKey, fileds);
     res.status(200).json({});
 };

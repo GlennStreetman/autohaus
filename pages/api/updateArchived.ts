@@ -13,7 +13,6 @@ export default async (req, res) => {
     if (session) {
         try {
             const body = JSON.parse(req.body);
-            console.log("BODY", req.body, body);
             const table = body.table;
             const prisma = PrismaClient;
             const findServiceRequests = await prisma[table].update({

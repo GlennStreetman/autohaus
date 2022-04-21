@@ -30,10 +30,10 @@ export default async (req, res) => {
     if (session) {
         const filters = buildFilters(req);
         const prisma = PrismaClient;
-        const findServiceRequests = await prisma.servicerequests.findMany({
+        const findResumes = await prisma.resumes.findMany({
             where: filters,
         });
-        res.status(200).json({ records: findServiceRequests });
+        res.status(200).json({ records: findResumes });
     } else {
         console.log("not signed in");
         res.status(401);
