@@ -7,7 +7,8 @@ import { useRouter } from "next/router";
 import { BsTelephoneInboundFill } from "react-icons/bs";
 import { GiAutoRepair } from "react-icons/gi";
 import { HiOutlineLocationMarker } from "react-icons/hi";
-import { FaBars } from "react-icons/fa";
+import { AiOutlineHome } from "react-icons/ai";
+// import { FaBars } from "react-icons/fa";
 import { GoCalendar } from "react-icons/go";
 
 function Topper() {
@@ -37,8 +38,8 @@ function Topper() {
             {/* </a> */}
 
             {path !== "/quote" ? <NextLinkButton text={repairText} icon={<GiAutoRepair className="h-7 w-7" />} link="/quote" highlight={true} /> : <></>}
-
-            <LinkButton text="" link="/siteMap" icon={<FaBars className="h-7 w-7" />} />
+            {path !== "/" ? <NextLinkButton text="" link="/" icon={<AiOutlineHome className="h-7 w-7" />} /> : <></>}
+            {/* <LinkButton text="" link="/siteMap" icon={<FaBars className="h-7 w-7" />} /> */}
         </div>
     );
 }
