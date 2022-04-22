@@ -13,25 +13,39 @@ interface savedFileReturn {
     fileKey: string;
 }
 
+function checkFileName(fileName) {
+    console.log("FILENAME-----", fileName);
+    if (fileName !== "" && ["txt", "doc", "docx"].includes(fileName.split(".").pop())) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 async function saveFile(req) {
     const form = new IncomingForm();
     const data = await new Promise((resolve, reject) => {
         form.parse(req, async (err, fields, files) => {
-            // if (err) return reject(err);
-            // console.log("---1---", fields);
-            var oldPath = files.file[0].filepath;
-            // console.log("FILE", files.file[0]);
-            var newPath = `./public/uploads/${fields.email[0]}.${files.file[0].originalFilename}`;
-            mv(oldPath, newPath, function (err) {
-                if (err !== null) console.log("POST /submitResume problem saving file", err);
-            });
+            if (checkFileName(files.file[0].originalFilename) === true) {
+                // if (err) return reject(err);
+                // console.log("---1---", fields);
+                var oldPath = files.file[0].filepath;
+                // console.log("FILE", files.file[0]);
+                var newPath = `./public/uploads/${fields.email[0]}.${files.file[0].originalFilename}`;
+                mv(oldPath, newPath, function (err) {
+                    if (err !== null) console.log("POST /submitResume problem saving file", err);
+                });
 
-            // console.log("resume submitted:", fields.email[0]);
-            const uploadResult = await uploadFile(files.file[0], `${fields.email[0]}.${files.file[0].originalFilename}`);
-            console.log("s3 Resulte: ", uploadResult);
-            const returnData: savedFileReturn = { fileKey: uploadResult["key"] };
-            resolve([returnData, fields]);
+                // console.log("resume submitted:", fields.email[0]);
+                const uploadResult = await uploadFile(files.file[0], `${fields.email[0]}.${files.file[0].originalFilename}`);
+                console.log("s3 Resulte: ", uploadResult);
+                const returnData: savedFileReturn = { fileKey: uploadResult["key"] };
+                resolve([true, returnData, fields]);
+            } else {
+                resolve([false, false, false]);
+            }
         });
+
         // });
     });
 
@@ -53,7 +67,7 @@ async function saveData(req, fileKey, fields) {
     };
 
     try {
-        console.log("update db");
+        // console.log("update db");
         const update = await prisma.resumes.create({
             data: {
                 firstname: formObject.firstName,
@@ -69,7 +83,7 @@ async function saveData(req, fileKey, fields) {
                 filename: fileKey,
             },
         });
-        console.log("update complete", update);
+        // console.log("update complete", update);
     } catch (err) {
         console.log("problem with POST /submitResume DB", err);
     }
@@ -77,7 +91,16 @@ async function saveData(req, fileKey, fields) {
 }
 
 export default async (req, res) => {
-    const [savedFile, fileds]: any = await saveFile(req);
-    saveData(req, savedFile.fileKey, fileds);
-    res.status(200).json({});
+    const [pass, savedFile, fileds]: any = await saveFile(req);
+    try {
+        if (pass) {
+            saveData(req, savedFile.fileKey, fileds);
+            res.status(200).json({ msg: "success" });
+        } else {
+            res.status(401).json({ msg: "denied" });
+        }
+    } catch (err) {
+        console.log("/POST submitResume Error:", err);
+        res.status(400).json({ msg: "denied" });
+    }
 };

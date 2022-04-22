@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 
 import { BiUpload } from "react-icons/bi";
 import { AiFillCheckCircle } from "react-icons/ai";
+import { HiOutlineEmojiSad } from "react-icons/hi";
 
 function emailIsValid(email: string): boolean {
     return /\S+@\S+\.\S+/.test(email);
@@ -16,6 +17,8 @@ function phoneIsValid(phone: string): boolean {
     //https://stackoverflow.com/questions/16699007/regular-expression-to-match-standard-10-digit-phone-number
     return /^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$/.test(phone);
 }
+
+//.pdf .txt, .doc, .docx,
 
 const gutter = "col-span-0 lg:col-span-1 xl:col-span-3"; //2x
 const body = "col-span-12 lg:col-span-10 xl:col-span-6 mb-4"; //1x
@@ -153,7 +156,6 @@ function careers() {
             console.log("requests passed.");
             setRequestAdditional(false);
             postResume();
-            router.push("/resumeSubmitted");
         } else {
             setRequestAdditional(true);
             console.log("problem processing request");
@@ -161,22 +163,40 @@ function careers() {
     }
 
     function postResume() {
-        const data = fileReference;
-        data.append("firstName", firstName);
-        data.append("lastName", lastName);
-        data.append("email", email);
-        data.append("phone", phone);
-        data.append("address", address);
-        data.append("address2", address2);
-        data.append("city", city);
-        data.append("state", state);
-        data.append("zip", zip);
-        data.append("coverLetter", description);
+        if (checkFileName().upload) {
+            const data = fileReference;
+            data.append("firstName", firstName);
+            data.append("lastName", lastName);
+            data.append("email", email);
+            data.append("phone", phone);
+            data.append("address", address);
+            data.append("address2", address2);
+            data.append("city", city);
+            data.append("state", state);
+            data.append("zip", zip);
+            data.append("coverLetter", description);
 
-        fetch(`/api/submitResume`, {
-            method: "POST", // or 'PUT'
-            body: data,
-        });
+            fetch(`/api/submitResume`, {
+                method: "POST", // or 'PUT'
+                body: data,
+            })
+                .then((res) => res.json())
+                .then((data) => {
+                    if (data.msg === "success") {
+                        router.push("/resumeSubmitted");
+                    }
+                });
+        }
+    }
+
+    function checkFileName() {
+        if (fileName !== "" && ["txt", "doc", "docx"].includes(fileName.split(".").pop())) {
+            return { upload: true, msg: `Ready to submit: ${fileName}` };
+        } else if (fileName !== "" && !["txt", "doc", "docx"].includes(fileName.split(".").pop())) {
+            return { upload: false, msg: `Please submit a text or word document ending in .txt, .doc, or .docx` };
+        } else {
+            return { upload: false, msg: `<-- Drop Resume Here or Click-->` };
+        }
     }
 
     return (
@@ -315,9 +335,13 @@ function careers() {
                         >
                             <input type="file" className="hidden" ref={inputReference} onChange={selectFile} />
                             <div className="flex justify-center">
-                                {fileName === "" ? <BiUpload className="h-7 w-7" /> : <AiFillCheckCircle className="h-7 w-7" />}
+                                {fileName === "" ? <BiUpload className="h-7 w-7" /> : <></>}
+                                {fileName !== "" && checkFileName().upload === true ? <AiFillCheckCircle className="h-7 w-7 text-emerald-500" /> : <></>}
+                                {fileName !== "" && checkFileName().upload === false ? <HiOutlineEmojiSad className="h-7 w-7 text-red-500" /> : <></>}
+
+                                {/* <AiFillCheckCircle className="h-7 w-7" /> */}
                             </div>
-                            <div className="flex justify-center">{fileName === "" ? `<--Drop Resume Here or click-->` : `Ready to submit ${fileName}`}</div>
+                            <div className="flex justify-center">{checkFileName().msg}</div>
                         </div>
 
                         {requestAdditional ? (
