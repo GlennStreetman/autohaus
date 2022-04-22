@@ -41,7 +41,7 @@ interface props {
 
 function Resumes(p: props) {
     const { data: session } = useSession();
-    const [filterService, setFilterService] = useState(""); //text used to filter services
+    // const [filterService, setFilterService] = useState(""); //text used to filter services
     const [resumes, setResumes] = useState<resumes[]>([]); //returned data
     const [filterResumes, setFilterResumes] = useState(""); //text used to filter resumes
     const [showArchived, setShowArchived] = useState(false);
@@ -56,7 +56,7 @@ function Resumes(p: props) {
             const data = {
                 archived: showArchived, //show archived?
                 filterField: filterField, //which value to filter by
-                filterService: filterService, //filter text for servicess
+                filterService: filterResumes, //filter text for servicess
                 fromDate: fromDate, //min date
                 toDate: toDate, //max date
             };
@@ -78,7 +78,7 @@ function Resumes(p: props) {
         } else {
             console.log("Session not found, aborting fetch.");
         }
-    }, [filterField, filterService, showArchived, fromDate, toDate]);
+    }, [filterField, filterResumes, showArchived, fromDate, toDate]);
 
     const mapFilterOptions = Object.entries(serviceFilters).map(([key, val]) => {
         return (
@@ -106,7 +106,12 @@ function Resumes(p: props) {
     const filters = (
         <div className={p.show === true ? "col-span-12 flex flex-row gap-2" : "hidden"}>
             {filterDropDown}
-            <LabeledInput id="filter" label={`Filter resumes by ${serviceFilters2[filterField]}:`} value={filterResumes} onClickCallback={setFilterResumes} />
+            <LabeledInput
+                id="resumeSearch"
+                label={`Filter resumes by ${serviceFilters2[filterField]}:`}
+                value={filterResumes}
+                onClickCallback={setFilterResumes}
+            />
             <div className="flex flex-row justify-center m-auto gap-1">
                 <label htmlFor="checkbox">{`Archived:`}</label>
                 <input

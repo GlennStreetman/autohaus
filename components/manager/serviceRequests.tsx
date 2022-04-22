@@ -106,7 +106,12 @@ function ServiceRequests(p: props) {
     const filters = (
         <div className={p.show === true ? "col-span-12 flex flex-row gap-2" : "hidden"}>
             {filterDropDown}
-            <LabeledInput id="filter" label={`Filter services by ${serviceFilters2[filterField]}:`} value={filterService} onClickCallback={setFilterService} />
+            <LabeledInput
+                id="serviceSearch"
+                label={`Filter services by ${serviceFilters2[filterField]}:`}
+                value={filterService}
+                onClickCallback={setFilterService}
+            />
             <div className="flex flex-row justify-center m-auto gap-1">
                 <label htmlFor="checkbox">{`Archived:`}</label>
                 <input

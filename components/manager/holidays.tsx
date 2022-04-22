@@ -73,7 +73,7 @@ function holidays(p: props) {
                     label="Start Holiday"
                     value={newHolidayDate}
                     onClickCallback={setNewHolidayDate}
-                    helperText="From Date:"
+                    helperText="Start Date:"
                 />
             </div>
 
