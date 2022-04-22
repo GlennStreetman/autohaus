@@ -26,7 +26,7 @@ function banner(p: props) {
                 <div className={textBox}>
                     <div className="flex flex-row w-full gap-2">
                         <div className="flex grow" />
-                        <div className="flex p-2 rounded-md gap-2 bg-slate-500/50 justify-end">{p.children}</div>
+                        <div className="flex p-2 rounded-md gap-2 bg-slate-500/50 justify-end xl:mr-12 2xl:mr-24">{p.children}</div>
                     </div>
                 </div>
             </div>
