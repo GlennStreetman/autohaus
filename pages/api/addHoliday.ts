@@ -10,7 +10,8 @@ interface newHoliday {
 
 export default async (req, res) => {
     const session = await getSession({ req });
-    if (session) {
+    // @ts-ignore
+    if (session && session.user.roll === "admin") {
         try {
             const body = JSON.parse(req.body);
 

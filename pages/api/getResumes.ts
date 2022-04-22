@@ -27,11 +27,13 @@ function buildFilters(req) {
 
 export default async (req, res) => {
     const session = await getSession({ req });
-    if (session) {
+    // @ts-ignore
+    if (session && session.user.roll === "admin") {
         const filters = buildFilters(req);
         const findResumes = await prisma.resumes.findMany({
             where: filters,
         });
+        console.log("resumes", findResumes, "filters", filters);
         res.status(200).json({ records: findResumes });
     } else {
         console.log("not signed in");

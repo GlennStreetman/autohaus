@@ -27,7 +27,8 @@ function buildFilters(req) {
 
 export default async (req, res) => {
     const session = await getSession({ req });
-    if (session) {
+    // @ts-ignore
+    if (session && session.user.roll === "admin") {
         const filters = buildFilters(req);
         const findServiceRequests = await prisma.servicerequests.findMany({
             where: filters,

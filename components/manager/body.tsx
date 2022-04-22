@@ -57,7 +57,10 @@ function Body() {
             />
         </div>
     );
-    if (session) {
+    console.log("sessions", session);
+
+    // @ts-ignore
+    if (session && session.user.roll === "admin") {
         //IF LOGGED IN.
         return (
             <>
@@ -78,6 +81,25 @@ function Body() {
                         </div>
                     </div>
                     <div className={gutter} />
+                </div>
+            </>
+        );
+        // @ts-ignore
+    } else if (session && session.user.roll !== "admin") {
+        return (
+            <>
+                <Banner>
+                    <div>
+                        <div className={largeTextStyling}>Management Portal</div>
+                        <div className={smallTextStyling}>Not signed in</div>
+                    </div>
+                </Banner>
+                <div className="w-full h-52 p-2 flex justify-center ">
+                    <div className="flex flex-col">
+                        <div className="flex grow" />
+                        Access Denied, contact support.
+                        <div className="flex grow" />
+                    </div>
                 </div>
             </>
         );
