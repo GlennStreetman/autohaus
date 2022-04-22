@@ -62,7 +62,7 @@ function LabeledInput(p: props) {
                 value={p.value}
                 onChange={(e) => handleChange(e, p.onClickCallback)}
                 onInput={(e) => {
-                    console.log("INPUT", e.target);
+                    // console.log("INPUT", e.target);
                 }}
                 list={p.datalistID ? p.datalistID : "pass"}
                 onFocus={p.onFocusCallback ? (e) => p.onFocusCallback(e) : () => {}}
