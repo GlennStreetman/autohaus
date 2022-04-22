@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import PrismaClient from "./../../lib/prismaPool";
+import prisma from "./../../lib/prismaPool";
 import { getSession } from "next-auth/react";
 
 interface filters {
@@ -29,7 +29,6 @@ export default async (req, res) => {
     const session = await getSession({ req });
     if (session) {
         const filters = buildFilters(req);
-        const prisma = PrismaClient;
         const findResumes = await prisma.resumes.findMany({
             where: filters,
         });

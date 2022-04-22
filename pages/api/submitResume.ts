@@ -1,4 +1,4 @@
-import PrismaClient from "./../../lib/prismaPool";
+import prisma from "./../../lib/prismaPool";
 import { IncomingForm } from "formidable";
 import mv from "mv";
 import { uploadFile } from "./../../lib/s3";
@@ -39,7 +39,6 @@ async function saveFile(req) {
 }
 
 async function saveData(req, fileKey, fields) {
-    const prisma = PrismaClient;
     const formObject = {
         firstName: fields.firstName[0],
         lastName: fields.lastName[0],

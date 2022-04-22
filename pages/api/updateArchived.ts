@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import PrismaClient from "./../../lib/prismaPool";
+import prisma from "./../../lib/prismaPool";
 import { getSession } from "next-auth/react";
 
 interface filters {
@@ -14,7 +14,6 @@ export default async (req, res) => {
         try {
             const body = JSON.parse(req.body);
             const table = body.table;
-            const prisma = PrismaClient;
             const findServiceRequests = await prisma[table].update({
                 where: {
                     id: body.record,

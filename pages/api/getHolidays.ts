@@ -1,8 +1,6 @@
-import PrismaClient from "../../lib/prismaPool";
+import prisma from "../../lib/prismaPool";
 
 export default async function handler(req, res) {
-    const prisma = PrismaClient;
-
     try {
         const findHolidays = await prisma.holidays.findMany({});
         res.status(200).json({ holidays: findHolidays });

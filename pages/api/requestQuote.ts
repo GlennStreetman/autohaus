@@ -1,6 +1,6 @@
 import mailgun from "mailgun.js";
 import formData from "form-data";
-import PrismaClient from "./../../lib/prismaPool";
+import prisma from "./../../lib/prismaPool";
 
 interface requestBody {
     firstName: string;
@@ -31,8 +31,6 @@ async function saveRequestToDB(req) {
         const model = req.body.model;
         const year = req.body.year;
         const reason = req.body.reason;
-
-        const prisma = PrismaClient;
 
         const saveRequest = await prisma.servicerequests.create({
             data: {

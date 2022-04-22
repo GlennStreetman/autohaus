@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import PrismaClient from "./../../lib/prismaPool";
+import prisma from "./../../lib/prismaPool";
 import { getSession } from "next-auth/react";
 
 interface filters {
@@ -29,14 +29,13 @@ export default async (req, res) => {
     const session = await getSession({ req });
     if (session) {
         const filters = buildFilters(req);
-        const prisma = PrismaClient;
         const findServiceRequests = await prisma.servicerequests.findMany({
             where: filters,
         });
         res.status(200).json({ records: findServiceRequests });
     } else {
         console.log("not signed in");
-        res.status(401);
+        res.status(401).json({ records: [] });
     }
     res.end();
 };
