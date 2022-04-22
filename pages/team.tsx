@@ -10,6 +10,7 @@ const employees = "p-2 col-span-12 md:col-span-12 lg:col-span-10"; //1x
 const employeesBlack = "p-2 col-span-12 md:col-span-12 lg:col-span-10 bg-black text-white"; //1x
 const imgBoxLeft = "relative rounded-md bg-black overflow-hidden h-56 w-56 md:h-80 md:w-80 lg:h-96 lg:w-96 xl::h-96 xl:w-116 float-left m-2 ";
 const imgBoxRight = "relative rounded-md bg-black overflow-hidden h-56 w-56 md:h-80 md:w-80 lg:h-96 lg:w-96 xl::h-96 xl:w-116 float-right m-2 ";
+const largeTextStyling = `text-white font-heading bold text-3xl sm:text-4xl lg:text-6xl3 [text-shadow:2px_2px_rgba(0,0,0,1)] antialiased `;
 
 interface props {
     children: JSX.Element;
@@ -40,11 +41,13 @@ function EmployeeBlock(p: props) {
 function why() {
     return (
         <>
-            <Banner />
+            <Banner>
+                <div className={largeTextStyling}>Meet the Auto Haus Team</div>
+            </Banner>
             <div className="flex flex-col">
-                <div className="grid justify-items-center w-screen p-3 bg-black text-white">
+                {/* <div className="grid justify-items-center w-screen p-3 bg-black text-white">
                     <div className="text-3xl font-bold">Meet the Auto Haus Team</div>
-                </div>
+                </div> */}
                 {/* <div className="grid grid-cols-12"> */}
                 <EmployeeBlock image="/gulfOil.jpg" black={false} name="Jim Kresky" title="Master Mechanic">
                     {jim}
