@@ -72,7 +72,7 @@ model servicerequests {
 
 model holidays {
      id Int @id @default(autoincrement())
-     targetdate DateTime @db.Date @default(now()) 
+     targetdate String
      holiday String 
      daysclosed String
 }
