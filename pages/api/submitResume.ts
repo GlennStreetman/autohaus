@@ -2,6 +2,7 @@ import prisma from "./../../lib/prismaPool";
 import { IncomingForm } from "formidable";
 import mv from "mv";
 import { uploadFile } from "./../../lib/s3";
+import { stripPhone } from "./../../lib/formatPhone";
 
 export const config = {
     api: {
@@ -57,7 +58,7 @@ async function saveData(req, fileKey, fields) {
         firstName: fields.firstName[0],
         lastName: fields.lastName[0],
         email: fields.email[0],
-        phone: fields.phone[0],
+        phone: stripPhone(fields.phone[0]),
         address1: fields.address[0],
         address2: fields.address2[0],
         city: fields.city[0],

@@ -4,6 +4,7 @@ import { useSession, signIn, signOut } from "next-auth/react";
 import LabeledInput from "./../labeledInput";
 import LabeledSelect from "./../labeledSelect";
 import { filters } from "./../../pages/api/getServiceRequests";
+import formatPhone from "./../../lib/formatPhone";
 
 const serviceFilters = {
     ["Email"]: "email",
@@ -204,7 +205,7 @@ function ServiceRequests(p: props) {
                     <td onClick={clickDetail}>{val.firstname}</td>
                     <td onClick={clickDetail}>{val.lastname}</td>
                     <td onClick={clickDetail}>{val.email}</td>
-                    <td onClick={clickDetail}>{val.phone}</td>
+                    <td onClick={clickDetail}>{formatPhone(val.phone)}</td>
                     <td onClick={clickDetail}>{val.prefdate}</td>
                     <td onClick={clickDetail}>{val.preftime}</td>
                     <td onClick={clickDetail}>{val.altdate}</td>

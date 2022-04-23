@@ -2,6 +2,7 @@ import { useState, useRef } from "react";
 import Banner from "./../components/banner";
 import LabeledInput from "../components/labeledInput";
 import ReCAPTCHA from "react-google-recaptcha";
+import formatPhone, { stripPhone } from "./../lib/formatPhone";
 
 import { useRouter } from "next/router";
 
@@ -246,8 +247,10 @@ function careers() {
                                 fieldType="tel"
                                 id="phone_id"
                                 label="Phone"
-                                value={phone}
-                                onClickCallback={setPhone}
+                                value={formatPhone(phone)}
+                                onClickCallback={(e) => {
+                                    setPhone(stripPhone(e));
+                                }}
                                 helperText={phoneHelp}
                             />
                         </div>

@@ -1,6 +1,7 @@
 import mailgun from "mailgun.js";
 import formData from "form-data";
 import prisma from "./../../lib/prismaPool";
+import { stripPhone } from "./../../lib/formatPhone";
 
 interface requestBody {
     firstName: string;
@@ -22,7 +23,7 @@ async function saveRequestToDB(req) {
         const firstName = req.body.firstName;
         const lastName = req.body.lastName;
         const email = req.body.email;
-        const phone = req.body.phone;
+        const phone = stripPhone(req.body.phone);
         const prefDate = req.body.prefDate;
         const prefTime = req.body.prefTime;
         const altDate = req.body.altDate;
