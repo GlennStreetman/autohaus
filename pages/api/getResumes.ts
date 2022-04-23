@@ -2,12 +2,13 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import prisma from "./../../lib/prismaPool";
 import { getSession } from "next-auth/react";
 
-interface filters {
-    archived: string; //show archived?
+export interface filters {
+    archived: boolean; //show archived?
     filterField: string; //which value to filter by
     filterService: string; //filter text for services
     fromDate: string; //min date
     toDate: string; //max date
+    limit: string; //20,24,60,'max'
 }
 
 interface reqBody {
@@ -27,13 +28,18 @@ function buildFilters(req) {
 
 export default async (req, res) => {
     const session = await getSession({ req });
+    const limit = req.body.limit !== "max" ? parseInt(req.body.limit) : 9999;
     // @ts-ignore
     if (session && session.user.roll === "admin") {
         const filters = buildFilters(req);
         const findResumes = await prisma.resumes.findMany({
             where: filters,
+            take: limit,
+            orderBy: {
+                lastname: "desc",
+            },
         });
-        console.log("resumes", findResumes, "filters", filters);
+        // console.log("resumes", findResumes, "filters", filters);
         res.status(200).json({ records: findResumes });
     } else {
         console.log("not signed in");

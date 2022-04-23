@@ -3,6 +3,7 @@ import produce from "immer";
 import { useSession, signIn, signOut } from "next-auth/react";
 import LabeledInput from "./../labeledInput";
 import LabeledSelect from "./../labeledSelect";
+import { filters } from "./../../pages/api/getResumes";
 
 interface resumes {
     id: number;
@@ -49,16 +50,18 @@ function Resumes(p: props) {
     const [toDate, setToDate] = useState("");
     const [filterField, setFilterField] = useState("email");
     const [showDetail, setShowDetail] = useState("-1");
+    const [limitResults, setLimitResults] = useState("20");
 
     useEffect(() => {
         //update resumes
         if (session) {
-            const data = {
+            const data: filters = {
                 archived: showArchived, //show archived?
                 filterField: filterField, //which value to filter by
                 filterService: filterResumes, //filter text for servicess
                 fromDate: fromDate, //min date
                 toDate: toDate, //max date
+                limit: limitResults, //max returned
             };
 
             fetch(`/api/getResumes`, {
@@ -78,7 +81,7 @@ function Resumes(p: props) {
         } else {
             console.log("Session not found, aborting fetch.");
         }
-    }, [filterField, filterResumes, showArchived, fromDate, toDate]);
+    }, [filterField, filterResumes, showArchived, fromDate, toDate, limitResults]);
 
     const mapFilterOptions = Object.entries(serviceFilters).map(([key, val]) => {
         return (
@@ -126,6 +129,30 @@ function Resumes(p: props) {
         </div>
     );
 
+    const mapResultLimit = Object.entries({ "10": "10", "20": "20", "40": "40", "60": "60", max: "max" }).map(([key, val]) => {
+        return (
+            <option key={`${key}-limit`} value={val}>
+                {key}
+            </option>
+        );
+    });
+
+    const limitResultsSelect = (
+        <>
+            <LabeledSelect
+                label="Results"
+                value={limitResults}
+                onClickCallback={(e) => {
+                    console.log("LIMIT", e);
+                    setLimitResults(e.toString());
+                }}
+                id="newDay_ID"
+            >
+                {mapResultLimit}
+            </LabeledSelect>
+        </>
+    );
+
     const filterDates = (
         <div className={p.show === true ? "col-span-12 flex flex-row gap-2" : "hidden"}>
             <div>
@@ -134,6 +161,7 @@ function Resumes(p: props) {
             <div>
                 <LabeledInput fieldType="date" id="toDate" label="To Date" value={toDate} onClickCallback={setToDate} helperText="To Date:" />
             </div>
+            <div>{limitResultsSelect}</div>
         </div>
     );
 

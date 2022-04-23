@@ -1,18 +1,20 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import prisma from "./../../lib/prismaPool";
 import { getSession } from "next-auth/react";
+import Body from "../../components/manager/body";
 
-interface filters {
-    archived: string; //show archived?
+export interface filters {
+    archived: boolean; //show archived?
     filterField: string; //which value to filter by
     filterService: string; //filter text for services
     fromDate: string; //min date
     toDate: string; //max date
+    limit: string; //20,24,60,'max'
 }
 
-interface reqBody {
-    filters: filters;
-}
+// interface reqBody {
+//     filters: filters;
+// }
 
 function buildFilters(req) {
     const filters = {};
@@ -27,11 +29,16 @@ function buildFilters(req) {
 
 export default async (req, res) => {
     const session = await getSession({ req });
+    const limit = req.body.limit !== "max" ? parseInt(req.body.limit) : 9999;
     // @ts-ignore
     if (session && session.user.roll === "admin") {
         const filters = buildFilters(req);
         const findServiceRequests = await prisma.servicerequests.findMany({
             where: filters,
+            take: limit,
+            orderBy: {
+                lastname: "desc",
+            },
         });
         res.status(200).json({ records: findServiceRequests });
     } else {
