@@ -23,7 +23,7 @@ function screenWidth({ children }) {
             setWidth(getWindowDimensions());
         }
 
-        window.addEventListener("resize", handleResize);
+        window.visualViewport.addEventListener("resize", handleResize);
         return () => window.removeEventListener("resize", handleResize);
     }, []);
 
