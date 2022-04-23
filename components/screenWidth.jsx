@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 function getWindowDimensions() {
-    const { innerWidth: width, innerHeight: height } = window;
+    const { width: width, width: height } = window.visualViewport;
     return {
         width,
         // height,
@@ -22,6 +22,10 @@ function screenWidth({ children }) {
         function handleResize() {
             setWidth(getWindowDimensions());
         }
+
+        setTimeout(() => setWidth(getWindowDimensions(), 2000));
+        setTimeout(() => setWidth(getWindowDimensions(), 10000));
+        setTimeout(() => setWidth(getWindowDimensions(), 200000));
 
         window.visualViewport.addEventListener("resize", handleResize);
         return () => window.removeEventListener("resize", handleResize);

@@ -27,19 +27,31 @@ function Topper() {
     return (
         <div className="z-20 flex right-0 fixed flex justify-end p-2 gap-2 ">
             {path !== "/calendar" && screenSize.width > 768 ? (
-                <NextLinkButton text={calendarText} icon={<GoCalendar className="h-7 w-7" />} link="/calendar" />
+                <NextLinkButton text={calendarText} icon={<GoCalendar className="h-5 w-5 xs:h-7  xs:w-7" />} link="/calendar" />
+            ) : (
+                <NextLinkButton text={""} icon={<GoCalendar className="h-5 w-5 xs:h-7  xs:w-7" />} link="/calendar" />
+            )}
+
+            <LinkButton
+                text={locationText}
+                link={`${process.env.NEXT_PUBLIC_ADDRESS_MAP_LINK}`}
+                icon={<HiOutlineLocationMarker className="h-5 w-5 xs:h-7  xs:w-7" />}
+            />
+
+            <LinkButton
+                text={telephoneText}
+                link={`tel:${process.env.NEXT_PUBLIC_PHONE}`}
+                icon={<BsTelephoneInboundFill className="h-5 w-5 xs:h-7  xs:w-7" />}
+            />
+            {/* </a> */}
+
+            {path !== "/quote" ? (
+                <NextLinkButton text={repairText} icon={<GiAutoRepair className="h-5 w-5 xs:h-7  xs:w-7" />} link="/quote" highlight={true} />
             ) : (
                 <></>
             )}
-
-            <LinkButton text={locationText} link={`${process.env.NEXT_PUBLIC_ADDRESS_MAP_LINK}`} icon={<HiOutlineLocationMarker className="h-7 w-7" />} />
-
-            <LinkButton text={telephoneText} link={`tel:${process.env.NEXT_PUBLIC_PHONE}`} icon={<BsTelephoneInboundFill className="h-7 w-7" />} />
-            {/* </a> */}
-
-            {path !== "/quote" ? <NextLinkButton text={repairText} icon={<GiAutoRepair className="h-7 w-7" />} link="/quote" highlight={true} /> : <></>}
-            {path !== "/" ? <NextLinkButton text="" link="/" icon={<AiOutlineHome className="h-7 w-7" />} /> : <></>}
-            {/* <LinkButton text="" link="/siteMap" icon={<FaBars className="h-7 w-7" />} /> */}
+            {path !== "/" ? <NextLinkButton text="" link="/" icon={<AiOutlineHome className="h-5 w-5 xs:h-7  xs:w-7" />} /> : <></>}
+            {/* <LinkButton text="" link="/siteMap" icon={<FaBars className="xs:h-7  xs:w-7" />} /> */}
         </div>
     );
 }
