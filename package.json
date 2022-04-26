@@ -5,7 +5,7 @@
     "scripts": {
         "dev": "next dev",
         "build": "next build",
-        "start": "next start",
+        "start": "next start -p 3005",
         "lint": "next lint",
         "dUp": "docker-compose -f app.yaml up",
         "buildd": "docker-compose -f app.yaml up --build ",
@@ -16,6 +16,7 @@
         "@next-auth/prisma-adapter": "^1.0.3",
         "@prisma/client": "^3.12.0",
         "aws-sdk": "^2.1118.0",
+        "encoding": "^0.1.13",
         "form-data": "^4.0.0",
         "formidable": "^3.2.1",
         "immer": "^9.0.12",

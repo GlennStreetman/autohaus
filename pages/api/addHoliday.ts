@@ -22,8 +22,8 @@ export default async (req, res) => {
                     daysclosed: body.daysclosed,
                 },
             });
-            console.log("req", `/api/revalidate?secret=${process.env.NEXT_REVALIDATE}&path=http://autohaus.gstreet.test/calendar`);
-            fetch(`/api/revalidate?secret=${process.env.NEXT_REVALIDATE}&path=${process.env.NEXTAUTH_URL}/calendar`);
+            // console.log("req", `/api/revalidate?secret=${process.env.NEXT_REVALIDATE}&path=http://autohaus.gstreet.test/calendar`);
+            fetch(`${NEXTAUTH_URL}/api/revalidate?secret=${process.env.NEXT_REVALIDATE}&path=${process.env.NEXTAUTH_URL}/calendar`);
 
             const newHolidaySchedule = await prisma.holidays.findMany({});
             // console.log("newHolidaySchedule", newHolidaySchedule);

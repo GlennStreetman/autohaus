@@ -9,6 +9,7 @@ export async function getStaticProps() {
         props: {
             holidays,
         },
+        // revalidate: 10,
     };
 }
 

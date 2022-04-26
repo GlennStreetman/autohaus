@@ -10,7 +10,7 @@ export default async function handler(req, res) {
                 id: parseInt(req.query.id),
             },
         });
-        fetch(`/api/revalidate?secret=${process.env.NEXT_REVALIDATE}&path=${process.env.NEXTAUTH_URL}/calendar`);
+        fetch(`${process.env.NEXTAUTH_URL}/api/revalidate?secret=${process.env.NEXT_REVALIDATE}&path=${process.env.NEXTAUTH_URL}/calendar`);
         const findHolidays = await prisma.holidays.findMany({});
         res.status(200).json({ holidays: findHolidays });
     } else {
