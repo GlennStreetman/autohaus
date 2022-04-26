@@ -5,7 +5,8 @@
     "scripts": {
         "dev": "next dev",
         "build": "next build",
-        "start": "next start -p 3005",
+        "start": "next start",
+        "startp": "next start -p 3005",
         "lint": "next lint",
         "dUp": "docker-compose -f app.yaml up",
         "buildd": "docker-compose -f app.yaml up --build ",
