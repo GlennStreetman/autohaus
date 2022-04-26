@@ -29,7 +29,7 @@ function Topper() {
             {path !== "/calendar" && screenSize.width > 768 ? (
                 <NextLinkButton text={calendarText} icon={<GoCalendar className="h-5 w-5 xs:h-7  xs:w-7" />} link="/calendar" />
             ) : (
-                <NextLinkButton text={""} icon={<GoCalendar className="h-5 w-5 xs:h-7  xs:w-7" />} link="/calendar" />
+                <></>
             )}
 
             <LinkButton
