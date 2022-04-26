@@ -27,7 +27,7 @@ function bottom() {
                 <div className={gutter}></div>
                 <div className={data}>
                     <div className="flex flex-col gap-2">
-                        <div className="text-white">Contact Details:</div>
+                        <div className="text-white font-semibold">Contact Details:</div>
                         <LinkButton
                             text={process.env.NEXT_PUBLIC_PHONE}
                             link={`tel:${process.env.NEXT_PUBLIC_PHONE}`}
@@ -56,7 +56,7 @@ function bottom() {
                 <div className={spacer} />
                 <div className={data}>
                     <div className="flex flex-col gap-2">
-                        <div className="text-white">Other Actions:</div>
+                        <div className="text-white font-semibold">Other Actions:</div>
                         {path !== "/" ? <NextLinkButton text="Back" link="/" icon={<AiOutlineHome className="h-7 w-7" />} /> : <></>}
                         {path !== "/quote" ? (
                             <NextLinkButton text="Request Service Quote" icon={<GiAutoRepair className="h-7 w-7" />} link="/quote" highlight={true} />
