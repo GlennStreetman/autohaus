@@ -1,8 +1,16 @@
 import { useState, useEffect } from "react";
 
 import Banner from "../components/banner";
+import prisma from "../lib/prismaPool";
 
-import React from "react";
+export async function getStaticProps() {
+    const holidays = await prisma.holidays.findMany({});
+    return {
+        props: {
+            holidays,
+        },
+    };
+}
 
 const days = {
     0: "Sunday",
@@ -21,24 +29,12 @@ interface holidayObject {
 }
 
 const tableCell = "p-2 ";
-
-function Calendar() {
-    const [calender, setCalender] = useState([]);
-
+function Calendar({ holidays }) {
     const gutter = "col-span-0 lg:col-span-1 xl:col-span-3"; //2x
     const body = "col-span-12 lg:col-span-10 xl:col-span-6 mb-4  text-white p-2"; //1x
 
     const smallTextStyling = `text-white font-heading bold text-1xl sm:text-2xl lg:text-3xl [text-shadow:2px_2px_rgba(0,0,0,1)] antialiased`;
     const largeTextStyling = `text-white font-heading bold text-3xl sm:text-4xl lg:text-6xl3 [text-shadow:2px_2px_rgba(0,0,0,1)] antialiased `;
-
-    useEffect(() => {
-        const getCalendar = async () => {
-            const req = await fetch(`/api/getHolidays`);
-            const data = await req.json();
-            setCalender(data.holidays);
-        };
-        getCalendar();
-    }, []);
 
     function mapCalendar(calendar: holidayObject[]) {
         const mapped = Object.values(calendar).map((el) => {
@@ -80,7 +76,7 @@ function Calendar() {
                                     <td className="p-2 text-center">Days Closed:</td>
                                 </tr>
                             </thead>
-                            <tbody>{mapCalendar(calender)}</tbody>
+                            <tbody>{mapCalendar(holidays)}</tbody>
                         </table>
                     </div>
                 </div>
