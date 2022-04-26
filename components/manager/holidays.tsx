@@ -1,9 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useSession } from "next-auth/react";
 import IconButton from "./../iconButton";
 import LabeledInput from "./../labeledInput";
 import LabeledSelect from "./../labeledSelect";
 import { GoCalendar } from "react-icons/go";
+import { ScreenWidth } from "../screenWidth";
 
 interface holidays {
     id: number;
@@ -24,6 +25,8 @@ function holidays(p: props) {
     const [newHolidayDate, setNewHolidayDate] = useState("");
     const [newHolidayDescription, setNewHolidayDescription] = useState("");
     const [newDaysOff, setNewDaysOff] = useState("1");
+
+    const screenSize = useContext(ScreenWidth);
 
     useEffect(() => {
         //update holidays
@@ -64,8 +67,9 @@ function holidays(p: props) {
         </option>
     ));
 
+    const filtersFormat = screenSize.width <= 700 ? "col-span-12 flex flex-wrap  flex-row gap-2" : "col-span-12 flex  flex-row gap-2";
     const addHoliday = (
-        <div className={p.show === true ? "col-span-12 flex flex-row gap-2" : "hidden"}>
+        <div className={p.show === true ? filtersFormat : "hidden"}>
             <div>
                 <LabeledInput
                     fieldType="date"

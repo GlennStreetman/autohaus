@@ -1,10 +1,11 @@
-import React from "react";
+import { useContext } from "react";
 import Holidays from "./holidays";
 import Resumes from "./resumes";
 import ServiceRequests from "./serviceRequests";
 import IconButton from "../iconButton";
 import Banner from "../banner";
 import NextLinkButton from "../nextLinkButton";
+import { ScreenWidth } from "../screenWidth";
 
 import { useState } from "react";
 import { useSession } from "next-auth/react";
@@ -26,6 +27,7 @@ const small = "col-span-6 lg:col-span-3";
 function Body() {
     const { data: session } = useSession();
     const [menu, setMenu] = useState("service"); //service, resume, holidays
+    const screenSize = useContext(ScreenWidth);
 
     const selectors = (
         <div className="col-span-12 flex gap-2">
@@ -35,7 +37,7 @@ function Body() {
                 callback={() => {
                     setMenu("service");
                 }}
-                icon={<MdMiscellaneousServices className="h-7 w-7" />}
+                icon={<MdMiscellaneousServices className={screenSize.width >= 500 ? "h-7 w-7" : "h-5 w-5"} />}
             />
             {/* </div> */}
             {/* <div className="col-span-6 flex justify-center"> */}
@@ -45,7 +47,7 @@ function Body() {
                 callback={() => {
                     setMenu("resume");
                 }}
-                icon={<BsPeople className="h-7 w-7" />}
+                icon={<BsPeople className={screenSize.width >= 500 ? "h-7 w-7" : "h-5 w-5"} />}
             />
             <IconButton
                 highlight={menu === "holidays" ? true : false}
@@ -53,7 +55,7 @@ function Body() {
                 callback={() => {
                     setMenu("holidays");
                 }}
-                icon={<GoCalendar className="h-7 w-7" />}
+                icon={<GoCalendar className={screenSize.width >= 500 ? "h-7 w-7" : "h-5 w-5"} />}
             />
         </div>
     );

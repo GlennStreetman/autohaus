@@ -1,10 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import produce from "immer";
 import { useSession, signIn, signOut } from "next-auth/react";
 import LabeledInput from "./../labeledInput";
 import LabeledSelect from "./../labeledSelect";
 import { filters } from "./../../pages/api/getServiceRequests";
 import formatPhone from "./../../lib/formatPhone";
+import { ScreenWidth } from "../screenWidth";
 
 const serviceFilters = {
     ["Email"]: "email",
@@ -52,6 +53,8 @@ function ServiceRequests(p: props) {
     const [filterField, setFilterField] = useState("email");
     const [showDetail, setShowDetail] = useState("-1");
     const [limitResults, setLimitResults] = useState("20");
+
+    const screenSize = useContext(ScreenWidth);
 
     useEffect(() => {
         //update service
@@ -131,19 +134,20 @@ function ServiceRequests(p: props) {
         </>
     );
 
+    const filtersFormat = screenSize.width <= 500 ? "col-span-12 flex flex-wrap  flex-row gap-2" : "col-span-12 flex  flex-row gap-2";
     const filters = (
-        <div className={p.show === true ? "col-span-12 flex flex-row gap-2" : "hidden"}>
+        <div className={p.show === true ? filtersFormat : "hidden"}>
             {filterDropDown}
             <LabeledInput
                 id="serviceSearch"
-                label={`Filter services by ${serviceFilters2[filterField]}:`}
+                label={screenSize.width <= 500 ? `Filter:` : `Filter services by ${serviceFilters2[filterField]}:`}
                 value={filterService}
                 onClickCallback={setFilterService}
             />
-            <div className="flex flex-row justify-center m-auto gap-1">
+            <div className={screenSize.width <= 500 ? "flex flex-row gap-1" : "flex flex-row justify-center m-auto gap-1"}>
                 <label htmlFor="checkbox">{`Archived:`}</label>
                 <input
-                    className="h-7 w-7 m-auto"
+                    className={"h-7 w-7 m-auto"}
                     type="checkbox"
                     checked={showArchived}
                     onChange={() => {
@@ -156,7 +160,7 @@ function ServiceRequests(p: props) {
     );
 
     const filterDates = (
-        <div className={p.show === true ? "col-span-12 flex flex-row gap-2" : "hidden"}>
+        <div className={p.show === true ? "col-span-12 flex flex-wrap flex-row gap-2" : "hidden"}>
             <div>
                 <LabeledInput fieldType="date" id="fromdate" label="From Date" value={fromDate} onClickCallback={setFromDate} helperText="From Date:" />
             </div>
@@ -204,8 +208,12 @@ function ServiceRequests(p: props) {
                     <td onClick={clickDetail}>{val.requestdate.slice(0, 10)}</td>
                     <td onClick={clickDetail}>{val.firstname}</td>
                     <td onClick={clickDetail}>{val.lastname}</td>
-                    <td onClick={clickDetail}>{val.email}</td>
-                    <td onClick={clickDetail}>{formatPhone(val.phone)}</td>
+                    <td>
+                        <a href={`mailto:${val.email}`}>{val.email}</a>
+                    </td>
+                    <td>
+                        <a href={`tel:${val.phone}`}>{formatPhone(val.phone)}</a>
+                    </td>
                     <td onClick={clickDetail}>{val.prefdate}</td>
                     <td onClick={clickDetail}>{val.preftime}</td>
                     <td onClick={clickDetail}>{val.altdate}</td>
@@ -234,7 +242,7 @@ function ServiceRequests(p: props) {
     });
 
     const serviceRequestContainer = (
-        <div className={p.show === true ? "col-span-12 " : "hidden"}>
+        <div className={p.show === true ? "col-span-12 overflow-auto" : "hidden"}>
             <table className="w-full">
                 <thead>
                     <tr>
