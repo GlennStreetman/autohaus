@@ -2,6 +2,7 @@ import { useContext } from "react";
 import Holidays from "./holidays";
 import Resumes from "./resumes";
 import ServiceRequests from "./serviceRequests";
+import Team from "./team";
 import IconButton from "../iconButton";
 import Banner from "../banner";
 import NextLinkButton from "../nextLinkButton";
@@ -14,15 +15,16 @@ import { GrUserManager } from "react-icons/gr";
 import { MdMiscellaneousServices } from "react-icons/md";
 import { BsPeople } from "react-icons/bs";
 import { GoCalendar } from "react-icons/go";
+import { AiOutlineTeam } from "react-icons/ai";
 
 const smallTextStyling = `text-white font-heading bold text-1xl sm:text-2xl lg:text-3xl [text-shadow:2px_2px_rgba(0,0,0,1)] antialiased`;
 const largeTextStyling = `text-white font-heading bold text-3xl sm:text-4xl lg:text-6xl3 [text-shadow:2px_2px_rgba(0,0,0,1)] antialiased `;
 
 const gutter = "col-span-0 lg:col-span-1 xl:col-span-1"; //2x
 const body = "col-span-12 lg:col-span-10 xl:col-span-10 mb-4"; //1x
-const big = " col-span-12 lg:col-span-6";
-const medium = "col-span-12 lg:col-span-4";
-const small = "col-span-6 lg:col-span-3";
+// const big = " col-span-12 lg:col-span-6";
+// const medium = "col-span-12 lg:col-span-4";
+// const small = "col-span-6 lg:col-span-3";
 
 function Body() {
     const { data: session } = useSession();
@@ -30,7 +32,7 @@ function Body() {
     const screenSize = useContext(ScreenWidth);
 
     const selectors = (
-        <div className="col-span-12 flex gap-2">
+        <div className="col-span-12 flex flex-wrap gap-2">
             <IconButton
                 highlight={menu === "service" ? true : false}
                 text="Service Requests"
@@ -57,6 +59,14 @@ function Body() {
                 }}
                 icon={<GoCalendar className={screenSize.width >= 500 ? "h-7 w-7" : "h-5 w-5"} />}
             />
+            <IconButton
+                highlight={menu === "team" ? true : false}
+                text="Team"
+                callback={() => {
+                    setMenu("team");
+                }}
+                icon={<AiOutlineTeam className={screenSize.width >= 500 ? "h-7 w-7" : "h-5 w-5"} />}
+            />
         </div>
     );
     console.log("sessions", session);
@@ -80,6 +90,7 @@ function Body() {
                             <Holidays show={menu === "holidays" ? true : false} />
                             <ServiceRequests show={menu === "service" ? true : false} />
                             <Resumes show={menu === "resume" ? true : false} />
+                            <Team show={menu === "team" ? true : false} />
                         </div>
                     </div>
                     <div className={gutter} />
