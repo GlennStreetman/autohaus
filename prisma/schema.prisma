@@ -94,3 +94,12 @@ model resumes {
     archive Boolean @default(false)
     filename String @default("pass")
 }
+
+model team {
+    id Int @id @default(autoincrement())
+    name String @unique
+    title String
+    descrition String
+    filename String @default("pass")
+    order Int @default(99)
+}
