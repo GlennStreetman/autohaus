@@ -1,8 +1,8 @@
 import prisma from "../../lib/prismaPool";
 import { IncomingForm } from "formidable";
-import mv from "mv";
-import { uploadFile } from "../../lib/s3";
-import { stripPhone } from "../../lib/formatPhone";
+import { uploadFilePublic } from "../../lib/s3";
+import { getSession } from "next-auth/react";
+// import mv from "mv";
 
 export const config = {
     api: {
@@ -35,7 +35,9 @@ async function saveFile(req) {
                 // });
 
                 // console.log("resume submitted:", fields.email[0]);
-                const uploadResult = await uploadFile(files.file[0], `${fields.name[0]}.portrait.${files.file[0].originalFilename}`);
+                const name = fields.name[0];
+                //.replaceAll(" ", "_");
+                const uploadResult = await uploadFilePublic(files.file[0], `${name}.portrait.${files.file[0].originalFilename}`);
                 console.log("s3 Resulte: ", uploadResult);
                 const returnData: savedFileReturn = { fileKey: uploadResult["key"] };
                 resolve([true, returnData, fields]);
@@ -58,7 +60,7 @@ async function saveData(req, fileKey, fields) {
     };
 
     try {
-        console.log("update db");
+        // console.log("update db");
         const update = await prisma.team.upsert({
             where: {
                 name: formObject.name,
@@ -84,17 +86,21 @@ async function saveData(req, fileKey, fields) {
 }
 
 export default async (req, res) => {
-    // console.log("new employee", req);
-    const [pass, savedFile, fileds]: any = await saveFile(req);
-    // console.log("file saved", pass, savedFile, fileds);
     try {
-        if (pass) {
-            const newTeam = await saveData(req, savedFile.fileKey, fileds);
-            console.log("newteam", newTeam);
-            res.status(200).json({ msg: "success", employees: newTeam });
-        } else {
-            console.log("denied file save!");
-            res.status(401).json({ msg: "denied" });
+        const session = await getSession({ req });
+        //@ts-ignore
+        if (session && session.user.roll === "admin") {
+            const [pass, savedFile, fileds]: any = await saveFile(req);
+            // console.log("file saved", pass, savedFile, fileds);
+
+            if (pass) {
+                const newTeam = await saveData(req, savedFile.fileKey, fileds);
+                // console.log("newteam", newTeam);
+                res.status(200).json({ msg: "success", employees: newTeam });
+            } else {
+                console.log("denied file save!");
+                res.status(401).json({ msg: "denied" });
+            }
         }
     } catch (err) {
         console.log("/POST submitResume Error:", err);

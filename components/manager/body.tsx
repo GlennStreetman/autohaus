@@ -69,7 +69,6 @@ function Body() {
             />
         </div>
     );
-    console.log("sessions", session);
 
     // @ts-ignore
     if (session && session.user.roll === "admin") {

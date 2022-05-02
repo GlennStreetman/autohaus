@@ -1,5 +1,3 @@
-import { useState, useEffect } from "react";
-
 import Banner from "../components/banner";
 import prisma from "../lib/prismaPool";
 

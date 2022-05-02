@@ -13,8 +13,9 @@ interface employees {
     id: number;
     name: string;
     title: string;
-    description: string;
-    picture: string; //file name
+    descrition: string;
+    filename: string; //file name
+    order: string;
 }
 
 import React from "react";
@@ -25,18 +26,29 @@ interface props {
 
 function team(p: props) {
     const { data: session } = useSession();
-    const [employees, setEmployees] = useState();
+    const [employees, setEmployees] = useState<employees[]>([]);
     const [empName, setEmpName] = useState("");
     const [empTitle, setEmpTitle] = useState("");
     const [empDescription, setEmpDescription] = useState("");
-
     const [empPictureRef, setEmpPictureRef] = useState<any>();
     const [empPictureName, setEmpPictureName] = useState("");
-
-    const [enableSubmit, setEnableSubmit] = useState(false);
     const [requestAdditional, setRequestAdditional] = useState(false);
-
     const inputReference = useRef<HTMLInputElement>(null);
+    const [showDetail, setShowDetail] = useState("-1");
+
+    useEffect(() => {
+        //update service
+        if (session) {
+            fetch(`/api/getEmployees`)
+                .then((response) => response.json())
+                .then((data) => {
+                    console.log("team data", data);
+                    setEmployees(data.employees);
+                });
+        } else {
+            console.log("Session not found, aborting team fetch.");
+        }
+    }, []);
 
     const screenSize = useContext(ScreenWidth);
 
@@ -186,10 +198,53 @@ function team(p: props) {
         </>
     );
 
+    const mapTeamMembers = employees
+        .map(Object.values)
+        .sort((a, b) => a[5] - b[5])
+        .map(([id, name, title, description, filename, order]) => {
+            const display = id === showDetail ? "" : "hidden";
+            const clickDetail = () => {
+                id === showDetail ? setShowDetail("-1") : setShowDetail(id);
+            };
+            return (
+                <>
+                    <tr key={`${id}-employee`}>
+                        <td>{order}</td>
+                        <td onClick={clickDetail}>{name}</td>
+                        <td onClick={clickDetail}>{title}</td>
+                        <td>{filename}</td>
+                    </tr>
+                    <tr key={`${id}-employee`}>
+                        <td className={`${display}`} colSpan={4}>
+                            <p>{description}</p>
+                        </td>
+                    </tr>
+                </>
+            );
+        });
+
+    const teamMembersContainer = (
+        <>
+            <div className={p.show === true ? "col-span-12 overflow-auto" : "hidden"}>
+                <table className="w-full">
+                    <thead>
+                        <tr>
+                            <td>Order</td>
+                            <td>Name</td>
+                            <td>Title</td>
+                            <td>Picture</td>
+                        </tr>
+                    </thead>
+                    <tbody>{mapTeamMembers}</tbody>
+                </table>
+            </div>
+        </>
+    );
+
     return (
         <>
             {addTeamMember}
-            {/* {holidayContainer} */}
+            {teamMembersContainer}
         </>
     );
 }
