@@ -24,7 +24,7 @@ function LabeledInput(p: props) {
 
     function helperFocus(helperStyling: Function) {
         //on focus, move helper text to upper left side of input form, set zIndex to bring it above outline.
-        helperStyling("absolute bottom-8 left-4 z-2  text-accent bg-primary");
+        helperStyling("absolute bottom-8 left-4 text-accent bg-primary");
     }
 
     function helperBlurr(fieldValue: string, helperStyling: Function) {
@@ -35,7 +35,7 @@ function LabeledInput(p: props) {
     }
 
     useEffect(() => {
-        if (p.value !== "") setLabelStyling("absolute bottom-8 left-4 z-2  text-accent bg-primary");
+        if (p.value !== "") setLabelStyling("absolute bottom-8 left-4  text-accent bg-primary");
     }, [p.value]);
 
     return (

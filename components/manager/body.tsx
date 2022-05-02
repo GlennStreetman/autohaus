@@ -71,7 +71,7 @@ function Body() {
     );
 
     // @ts-ignore
-    if (session && session.user.roll === "admin") {
+    if (session && session.user.role === "admin") {
         //IF LOGGED IN.
         return (
             <>
@@ -97,7 +97,7 @@ function Body() {
             </>
         );
         // @ts-ignore
-    } else if (session && session.user.roll !== "admin") {
+    } else if (session && session.user.role !== "admin") {
         return (
             <>
                 <Banner>

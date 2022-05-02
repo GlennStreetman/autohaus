@@ -11,7 +11,7 @@ interface filters {
 export default async (req, res) => {
     const session = await getSession({ req });
     // @ts-ignore
-    if (session && session.user.roll === "admin") {
+    if (session && session.user.role === "admin") {
         try {
             const body = JSON.parse(req.body);
             const table = body.table;

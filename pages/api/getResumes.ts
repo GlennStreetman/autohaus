@@ -30,7 +30,7 @@ export default async (req, res) => {
     const session = await getSession({ req });
     const limit = req.body.limit !== "max" ? parseInt(req.body.limit) : 9999;
     // @ts-ignore
-    if (session && session.user.roll === "admin") {
+    if (session && session.user.role === "admin") {
         const filters = buildFilters(req);
         const findResumes = await prisma.resumes.findMany({
             where: filters,

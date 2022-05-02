@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import produce from "immer";
 import { useSession, signIn, signOut } from "next-auth/react";
 import LabeledInput from "./../labeledInput";
@@ -218,7 +218,7 @@ function Resumes(p: props) {
             key === showDetail ? setShowDetail("-1") : setShowDetail(key);
         };
         return (
-            <>
+            <React.Fragment key={`${val.id}-empty-resumes`}>
                 <tr key={`${key}-table`}>
                     <td onClick={clickDetail}>{val.submitdate.slice(0, 10)}</td>
                     <td onClick={clickDetail}>{val.firstname}</td>
@@ -244,7 +244,7 @@ function Resumes(p: props) {
                             className=""
                             type="checkbox"
                             checked={val.archive}
-                            onClick={() => {
+                            onChange={() => {
                                 archiveResumes(key);
                             }}
                         />
@@ -255,7 +255,7 @@ function Resumes(p: props) {
                         <p>{val.coverletter}</p>
                     </td>
                 </tr>
-            </>
+            </React.Fragment>
         );
     });
 

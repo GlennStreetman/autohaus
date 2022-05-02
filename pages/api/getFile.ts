@@ -6,7 +6,7 @@ import fs from "fs";
 export default async (req, res) => {
     const session = await getSession({ req });
     // @ts-ignore
-    if (session && session.user.roll === "admin") {
+    if (session && session.user.role === "admin") {
         console.log("query", req.query);
         const key = req.query.fileKey;
         // const file = getFileStream(key);

@@ -105,7 +105,7 @@ function holidays(p: props) {
 
     const mapHolidays = Object.entries(holidays).map(([key, val]) => {
         return (
-            <>
+            <React.Fragment key={`${val.id}-employee-team-empty`}>
                 <tr key={`${key}-table`}>
                     <td>{val.targetdate.slice(0, 10)}</td>
                     <td>{val.holiday}</td>
@@ -115,7 +115,7 @@ function holidays(p: props) {
                             className=""
                             type="checkbox"
                             checked={false}
-                            onClick={async (e) => {
+                            onChange={async (e) => {
                                 e.preventDefault();
                                 fetch(`/api/deleteHoliday?id=${val.id}`)
                                     .then((response) => response.json())
@@ -126,7 +126,7 @@ function holidays(p: props) {
                         />
                     </td>
                 </tr>
-            </>
+            </React.Fragment>
         );
     });
 

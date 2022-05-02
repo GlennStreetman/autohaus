@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import produce from "immer";
 import { useSession, signIn, signOut } from "next-auth/react";
 import LabeledInput from "./../labeledInput";
@@ -203,7 +203,7 @@ function ServiceRequests(p: props) {
             key === showDetail ? setShowDetail("-1") : setShowDetail(key);
         };
         return (
-            <>
+            <React.Fragment key={`${val.id}-employee-serviceRequest-empty`}>
                 <tr key={`${key}-table`}>
                     <td onClick={clickDetail}>{val.requestdate.slice(0, 10)}</td>
                     <td onClick={clickDetail}>{val.firstname}</td>
@@ -226,7 +226,7 @@ function ServiceRequests(p: props) {
                             className=""
                             type="checkbox"
                             checked={val.archive}
-                            onClick={() => {
+                            onChange={() => {
                                 archiveService(key);
                             }}
                         />
@@ -237,7 +237,7 @@ function ServiceRequests(p: props) {
                         <p>{val.reason}</p>
                     </td>
                 </tr>
-            </>
+            </React.Fragment>
         );
     });
 

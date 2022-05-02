@@ -116,7 +116,7 @@ export default NextAuth({
         //     // },
         async session({ session, token, user }) {
             // console.log("--Session CALLED--", session, "--user--", user, "--token--", token);
-            session.user.roll = user.roll;
+            session.user.role = user.role;
             return session;
         },
         //     // async jwt({ token, user, account, profile, isNewUser }) {
