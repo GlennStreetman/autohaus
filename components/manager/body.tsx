@@ -3,6 +3,7 @@ import Holidays from "./holidays";
 import Resumes from "./resumes";
 import ServiceRequests from "./serviceRequests";
 import Team from "./team";
+import OurServices from "./ourServices";
 import IconButton from "../iconButton";
 import Banner from "../banner";
 import NextLinkButton from "../nextLinkButton";
@@ -12,7 +13,7 @@ import { useState } from "react";
 import { useSession } from "next-auth/react";
 
 import { GrUserManager } from "react-icons/gr";
-import { MdMiscellaneousServices } from "react-icons/md";
+import { MdMiscellaneousServices, MdOutlineMedicalServices } from "react-icons/md";
 import { BsPeople } from "react-icons/bs";
 import { GoCalendar } from "react-icons/go";
 import { AiOutlineTeam } from "react-icons/ai";
@@ -67,6 +68,14 @@ function Body() {
                 }}
                 icon={<AiOutlineTeam className={screenSize.width >= 500 ? "h-7 w-7" : "h-5 w-5"} />}
             />
+            <IconButton
+                highlight={menu === "ourservices" ? true : false}
+                text="Our Services"
+                callback={() => {
+                    setMenu("ourservices");
+                }}
+                icon={<MdOutlineMedicalServices className={screenSize.width >= 500 ? "h-7 w-7" : "h-5 w-5"} />}
+            />
         </div>
     );
 
@@ -90,6 +99,7 @@ function Body() {
                             <ServiceRequests show={menu === "service" ? true : false} />
                             <Resumes show={menu === "resume" ? true : false} />
                             <Team show={menu === "team" ? true : false} />
+                            <OurServices show={menu === "ourservices" ? true : false} />
                         </div>
                     </div>
                     <div className={gutter} />

@@ -5,7 +5,7 @@ export default async function handler(req, res) {
         const findEmployees = await prisma.team.findMany({
             orderBy: [
                 {
-                    orderNumber: "asc",
+                    ordernumber: "asc",
                 },
             ],
         });

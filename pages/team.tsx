@@ -15,9 +15,9 @@ interface employees {
     id: number;
     name: string;
     title: string;
-    descrition: string;
+    description: string;
     filename: string; //file name
-    orderNumber: string;
+    ordernumber: string;
 }
 
 interface props {
@@ -33,7 +33,7 @@ export async function getStaticProps() {
     const employees = await prisma.team.findMany({
         orderBy: [
             {
-                orderNumber: "asc",
+                ordernumber: "asc",
             },
         ],
     });
@@ -76,7 +76,7 @@ function why(p: props) {
                             <Image loader={myLoader} src={val.name} alt={val.name} layout="fill" objectFit="fill" priority />
                         </div>
                         <div className="text-3xl font-bold">{`${val.name}: ${val.title}`}</div>
-                        <div className="whitespace-pre-line">{val.descrition}</div>
+                        <div className="whitespace-pre-line">{val.description}</div>
                     </div>
                     <div className={isOddOrEven(indx, employeeCount) ? gutter : gutterBlack} />
                 </div>

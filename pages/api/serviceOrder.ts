@@ -1,4 +1,4 @@
-import prisma from "./../../lib/prismaPool";
+import prisma from "../../lib/prismaPool";
 
 interface requestBody {
     newOrder: number[];
@@ -11,7 +11,7 @@ export default async function handler(req, res) {
             const updateList = newOrder.map(
                 (el, index) =>
                     new Promise(async (res, rej) => {
-                        await prisma.team.update({
+                        await prisma.services.update({
                             where: {
                                 id: el,
                             },
@@ -31,7 +31,7 @@ export default async function handler(req, res) {
                         },
                     ],
                 });
-                fetch(`${process.env.NEXTAUTH_URL}/api/revalidate?secret=${process.env.NEXT_REVALIDATE}&path=/team`);
+                // fetch(`${process.env.NEXTAUTH_URL}/api/revalidate?secret=${process.env.NEXT_REVALIDATE}&path=/[]`);
                 res.status(200).json({ order: updatedOrder });
             });
         } catch (err) {

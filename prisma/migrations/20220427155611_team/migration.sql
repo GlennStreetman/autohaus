@@ -3,7 +3,7 @@ CREATE TABLE "team" (
     "id" SERIAL NOT NULL,
     "name" TEXT NOT NULL,
     "title" TEXT NOT NULL,
-    "descrition" TEXT NOT NULL,
+    "description" TEXT NOT NULL,
     "filename" TEXT NOT NULL DEFAULT E'pass',
     "order" INTEGER NOT NULL DEFAULT 99,
 

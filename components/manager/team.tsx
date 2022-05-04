@@ -11,9 +11,9 @@ interface employees {
     id: number;
     name: string;
     title: string;
-    descrition: string;
+    description: string;
     filename: string; //file name
-    orderNumber: string;
+    ordernumber: string;
 }
 
 import React from "react";
@@ -254,7 +254,6 @@ function team(p: props) {
     });
 
     function updateOrder(newPlacement, oldId) {
-        console.log("updating", typeof newPlacement, typeof oldId);
         let employeeOrder = employees.reduce((prev, curr) => {
             prev.push(curr.id);
             return prev;
@@ -280,7 +279,7 @@ function team(p: props) {
             });
     }
 
-    const mapTeamMembers = employees.map((el, index) => {
+    const mapTeamMembers = employees.map((el) => {
         const display = el.id.toString() === showDetail ? "" : "hidden";
         const clickDetail = () => {
             el.id.toString() === showDetail ? setShowDetail("-1") : setShowDetail(el.id.toString());
@@ -299,7 +298,7 @@ function team(p: props) {
                                 setEdit(el);
                                 setEmpName(el.name);
                                 setEmpTitle(el.title);
-                                setEmpDescription(el.descrition);
+                                setEmpDescription(el.description);
                                 setEmpPictureRef(el.filename);
                             }}
                         />
@@ -308,7 +307,7 @@ function team(p: props) {
                     <td>
                         <LabeledSelect
                             label=""
-                            value={el.orderNumber}
+                            value={el.ordernumber}
                             onClickCallback={(e) => {
                                 console.log("LIMIT", e);
                                 updateOrder(parseInt(e), el.id);
@@ -339,7 +338,7 @@ function team(p: props) {
                 </tr>
                 <tr key={`${el.id}-employee-team-delete`}>
                     <td className={`${display}`} colSpan={6}>
-                        <p>{el.descrition}</p>
+                        <p>{el.description}</p>
                     </td>
                 </tr>
             </React.Fragment>
@@ -368,8 +367,13 @@ function team(p: props) {
 
     return (
         <div className={p.show === true ? "col-span-12 overflow-auto" : "hidden"}>
+            {!edit ? (
+                <div className="text-center font-bold text-xl text-accent">Review Team</div>
+            ) : (
+                <div className="text-center font-bold text-xl text-accent">Edit Team Member</div>
+            )}
             {addTeamMember}
-            {teamMembersContainer}
+            {!edit ? teamMembersContainer : <></>}
         </div>
     );
 }

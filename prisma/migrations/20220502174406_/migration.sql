@@ -6,4 +6,4 @@
 */
 -- AlterTable
 ALTER TABLE "team" DROP COLUMN "orderBy",
-ADD COLUMN     "orderNumber" INTEGER NOT NULL DEFAULT 99;
+ADD COLUMN     "ordernumber" INTEGER NOT NULL DEFAULT 99;

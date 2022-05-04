@@ -46,39 +46,76 @@ async function saveDataPost(req, fileKey, fields) {
         name: fields.name[0],
         title: fields.title[0],
         description: fields.description[0],
-        id: fields.id[0],
     };
+
+    if (fields.id) formObject["id"] = fields.id[0];
 
     try {
         const maxNumber = await prisma.team.findMany({
             orderBy: [
                 {
-                    orderNumber: "desc",
+                    ordernumber: "desc",
                 },
             ],
             take: 1,
         });
-        const maxNum = maxNumber[0].orderNumber + 1;
-        const update = await prisma.team.upsert({
-            where: {
-                id: parseInt(formObject.id),
-            },
-            update: {
-                title: formObject.title,
-                descrition: formObject.description,
-                filename: fileKey,
-                name: formObject.name,
-            },
-            create: {
-                name: formObject.name,
-                title: formObject.title,
-                descrition: formObject.description,
-                filename: fileKey,
-                orderNumber: maxNum,
-            },
-        });
-        const newTeam = await prisma.team.findMany({});
-        return newTeam;
+        const maxNum = maxNumber?.[0]?.ordernumber ? maxNumber[0].ordernumber + 1 : 1;
+
+        if (fields.id) {
+            const update = await prisma.team.upsert({
+                where: {
+                    id: parseInt(formObject.id),
+                },
+                update: {
+                    title: formObject.title,
+                    description: formObject.description,
+                    filename: fileKey,
+                    name: formObject.name,
+                },
+                create: {
+                    name: formObject.name,
+                    title: formObject.title,
+                    description: formObject.description,
+                    filename: fileKey,
+                    ordernumber: maxNum,
+                },
+            });
+            const newTeam = await prisma.team.findMany({});
+            return newTeam;
+        } else {
+            const update = await prisma.team.create({
+                data: {
+                    name: formObject.name,
+                    title: formObject.title,
+                    description: formObject.description,
+                    filename: fileKey,
+                    ordernumber: maxNum,
+                },
+            });
+            const newTeam = await prisma.team.findMany({});
+            return newTeam;
+        }
+
+        // const update = await prisma.team.upsert({
+        //     where: {
+        //         id: parseInt(formObject.id),
+        //     },
+        //     update: {
+        //         title: formObject.title,
+        //         description: formObject.description,
+        //         filename: fileKey,
+        //         name: formObject.name,
+        //     },
+        //     create: {
+        //         name: formObject.name,
+        //         title: formObject.title,
+        //         description: formObject.description,
+        //         filename: fileKey,
+        //         ordernumber: maxNum,
+        //     },
+        // });
+        // const newTeam = await prisma.team.findMany({});
+        // return newTeam;
     } catch (err) {
         console.log("problem with POST /submitResume DB", err);
     }
@@ -92,13 +129,13 @@ async function saveDataGet(query) {
             },
             update: {
                 title: query.title,
-                descrition: query.description,
+                description: query.description,
                 name: query.name,
             },
             create: {
                 name: query.name,
                 title: query.title,
-                descrition: query.description,
+                description: query.description,
             },
         });
         const newTeam = await prisma.team.findMany({});
@@ -114,11 +151,11 @@ export default async (req, res) => {
     if (session && session.user.role === "admin") {
         if (req.method === "POST") {
             try {
-                const [pass, savedFile, fileds]: any = await saveFile(req);
+                const [pass, savedFile, fields]: any = await saveFile(req);
                 // console.log("file saved", pass, savedFile, fileds);
 
                 if (pass) {
-                    const newTeam = await saveDataPost(req, savedFile.fileKey, fileds);
+                    const newTeam = await saveDataPost(req, savedFile.fileKey, fields);
                     // console.log("newteam", newTeam);
                     res.status(200).json({ msg: "success", employees: newTeam });
                 } else {

@@ -4,22 +4,22 @@ datasource db {
 }
 
 generator client {
-  provider        = "prisma-client-js"
+  provider = "prisma-client-js"
 }
 
 model Account {
-  id                 String  @id @default(cuid())
-  userId             String
-  type               String
-  provider           String
-  providerAccountId  String
-  refresh_token      String?  @db.Text
-  access_token       String?  @db.Text
-  expires_at         Int?
-  token_type         String?
-  scope              String?
-  id_token           String?  @db.Text
-  session_state      String?
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -54,52 +54,71 @@ model VerificationToken {
 }
 
 model servicerequests {
-    id Int @id @default(autoincrement())
-    firstname String 
-    lastname String
-    email String 
-    phone String 
-    prefdate String 
-    preftime String 
-    altdate String 
-    alttime String 
-    make String 
-    model String 
-    modelyear String 
-    reason String 
-    requestdate DateTime @db.Date @default(now()) 
-    archive Boolean @default(false)
+  id          Int      @id @default(autoincrement())
+  firstname   String
+  lastname    String
+  email       String
+  phone       String
+  prefdate    String
+  preftime    String
+  altdate     String
+  alttime     String
+  make        String
+  model       String
+  modelyear   String
+  reason      String
+  requestdate DateTime @default(now()) @db.Date
+  archive     Boolean  @default(false)
 }
 
 model holidays {
-     id Int @id @default(autoincrement())
-     targetdate String
-     holiday String 
-     daysclosed String
+  id         Int    @id @default(autoincrement())
+  targetdate String
+  holiday    String
+  daysclosed String
 }
 
 model resumes {
-    id Int @id @default(autoincrement())
-    firstname String 
-    lastname String 
-    email String 
-    phone String
-    address1 String
-    address2 String 
-    city String 
-    state1 String 
-    zip String 
-    coverletter String
-    submitdate DateTime @db.Date @default(now())  
-    archive Boolean @default(false)
-    filename String @default("pass")
+  id          Int      @id @default(autoincrement())
+  firstname   String
+  lastname    String
+  email       String
+  phone       String
+  address1    String
+  address2    String
+  city        String
+  state1      String
+  zip         String
+  coverletter String
+  submitdate  DateTime @default(now()) @db.Date
+  archive     Boolean  @default(false)
+  filename    String   @default("pass")
 }
 
 model team {
-    id Int @id @default(autoincrement())
-    name String @unique
-    title String
-    descrition String
-    filename String @default("pass")
-    orderNumber Int @default(99)
+  id          Int    @id @default(autoincrement())
+  name        String @unique
+  title       String
+  description String
+  filename    String @default("pass")
+  ordernumber Int    @default(99)
+}
+
+model Services {
+  id             Int              @id @default(autoincrement())
+  name           String           @unique
+  bannerimage    String
+  bannertext     String
+  ordernumber    Int    @default(99)
+  servicesection servicesection[]
+}
+
+model servicesection {
+  id            Int      @id @default(autoincrement())
+  sectionimage  String?
+  sectionheader String
+  sectiontext   String
+  service       Services @relation(fields: [serviceid], references: [id])
+  serviceid     Int
+  ordernumber   Int    @default(99)
 }
