@@ -46,7 +46,7 @@ export default async (req, res) => {
             curr["sections"] = [];
             return prev;
         }, []);
-        console.log("serviceList", serviceList);
+        // console.log("serviceList", serviceList);
         getSections.forEach((el) => {
             serviceList[el.serviceid].sections.push(el);
         });

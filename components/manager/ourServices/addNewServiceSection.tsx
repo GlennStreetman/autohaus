@@ -8,6 +8,7 @@ import FileUploadDragBox from "./../../fileUploadDragBox";
 
 interface props {
     service: service;
+    getServices: Function;
 }
 
 function addNewServiceSection(p: props) {
@@ -28,7 +29,7 @@ function addNewServiceSection(p: props) {
         setFormMessage("");
     }
 
-    function addService() {
+    function addSection() {
         if (uploadReady) {
             const data = fileRef;
             data.append("sectionName", sectionHeader);
@@ -50,6 +51,7 @@ function addNewServiceSection(p: props) {
                 .then((data) => {
                     if (data.msg === "success") {
                         // getServices();
+                        p.getServices();
                         setFormMessage("");
                         cancel();
                     } else {
@@ -69,8 +71,8 @@ function addNewServiceSection(p: props) {
         if (fileRef === "pass") processRequest = false;
 
         if (processRequest) {
-            setFormMessage("false");
-            addService();
+            setFormMessage("");
+            addSection();
         } else {
             setFormMessage("Check that section name and text are filled out, and that picture file is attached.");
             console.log("Check name and image upload.");

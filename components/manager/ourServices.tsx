@@ -41,6 +41,11 @@ function OurServices(p: props) {
             .then((data) => {
                 console.log("services data", data);
                 setOurServices(data.ourServices);
+                if (editService) {
+                    const oldid = editService.id;
+                    const findService = data.ourServices.find((el) => el.id === oldid);
+                    setEditService(findService);
+                }
             });
     }
 

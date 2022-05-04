@@ -1,21 +1,20 @@
 import React, { useState, useContext, useRef } from "react";
 import { ScreenWidth } from "../../screenWidth";
-import { service } from "../ourServices";
+import { section } from "../ourServices";
 import LabeledInput from "./../../labeledInput";
+import LabeledtextArea from "./../../labeledTextArea";
 import FileUploadDragBox from "./../../fileUploadDragBox";
 import IconButton from "./../../iconButton";
 
-import MapServiceSections from "./mapServiceSections";
-
 interface props {
-    service: service;
+    section: section;
     getServices: Function;
-    setEditService: Function;
+    setEditSection: Function;
 }
 
-function editService(p: props) {
-    const [newServiceName, setNewServiceName] = useState(p.service.name);
-    const [newServiceBannerText, setNewServiceBannerText] = useState(p.service.bannertext);
+function editServiceSection(p: props) {
+    const [newSectionHeader, setnewSectionHeader] = useState(p.section.sectionheader);
+    const [sectionText, setSectionText] = useState(p.section.sectiontext);
     const [fileName, setFileName] = useState("");
     const [fileRef, setFileRef] = useState<any>("pass");
     const [serverMsg, setServerMsg] = useState("");
@@ -25,33 +24,32 @@ function editService(p: props) {
     const filtersFormat = screenSize.width <= 700 ? "col-span-12 flex flex-wrap flex-row gap-2 mb-4" : "col-span-12 flex flex-row gap-2  mb-4";
 
     function cancelRequest() {
-        setNewServiceName("");
-        setNewServiceBannerText("");
+        setnewSectionHeader("");
+        setSectionText("");
         setFileRef("");
         setServerMsg("");
-        p.setEditService(false);
+        p.setEditSection(false);
     }
 
-    function processEditService(e) {
-        e.preventDefault();
-        if (newServiceName !== "") {
+    function processEditSection() {
+        if (newSectionHeader !== "") {
             setRequestAdditional(false);
-            postEditService();
+            postEditSection();
         } else {
             setRequestAdditional(true);
             console.log("Check name and banner text.");
         }
     }
 
-    function postEditService() {
+    function postEditSection() {
         if (ready) {
             //process update with picture
             const data = fileRef;
-            data.append("name", newServiceName);
-            data.append("bannerText", newServiceBannerText);
-            data.append("id", p.service.id);
+            data.append("sectionHeader", newSectionHeader);
+            data.append("sectionText", sectionText);
+            data.append("id", p.section.id);
 
-            fetch(`/api/editOurServices`, {
+            fetch(`/api/editServiceSection`, {
                 method: "POST", // or 'PUT'
                 body: data,
             })
@@ -65,7 +63,6 @@ function editService(p: props) {
                 .then((data) => {
                     if (data.msg === "success") {
                         p.getServices();
-                        // setEdit(false);
                         cancelRequest();
                     } else {
                         setServerMsg(data.msg);
@@ -75,7 +72,7 @@ function editService(p: props) {
                     console.log("error submitting employee update", err);
                 });
         } else {
-            fetch(`/api/editOurServices?id=${p.service.id}&serviceName=${newServiceName}&bannerText=${newServiceBannerText}`)
+            fetch(`/api/editServiceSection?id=${p.section.id}&sectionHeader=${newSectionHeader}&sectionText=${sectionText}`)
                 .then(async (res) => {
                     if (res.status === 413) {
                         setServerMsg("Choose file 1mb or smaller.");
@@ -99,12 +96,10 @@ function editService(p: props) {
     }
 
     const editServiceForm = (
-        <div className="mt-4">
-            <div className="text-center font-bold text-xl text-accent m-4">{`Edit Service: ${p.service.name}`}</div>
-            <div className={filtersFormat}>
-                <LabeledInput id="newServiceName" label="New Service Name" value={newServiceName} onClickCallback={setNewServiceName} />
-                <LabeledInput id="newServiceBanner" label={`Banner Text`} value={newServiceBannerText} onClickCallback={setNewServiceBannerText} />
-            </div>
+        <div className="flex flex-col gap-4 mt-4">
+            <div className="text-center font-bold text-xl text-accent m-4">{`Edit Section: ${p.section.sectionheader}`}</div>
+            <LabeledInput id="newSectionHeader" label="Section Heading" value={newSectionHeader} onClickCallback={setnewSectionHeader} />
+            <LabeledtextArea id="editSectionBody" label="Edit Section Text" value={sectionText} callback={setSectionText} />
             <FileUploadDragBox
                 fileName={fileName}
                 fileTypes={["png", "jpg", "svg"]}
@@ -114,7 +109,7 @@ function editService(p: props) {
             />
             <div className="col-span-12 flex justify-center gap-12 mb-2">
                 <IconButton text="Cancel" callback={cancelRequest} icon={<></>} />
-                <IconButton text="Update Service" callback={processEditService} icon={<></>} />
+                <IconButton text="Update Section" callback={processEditSection} icon={<></>} />
             </div>
             <div className="col-span-12 text-red-500 font-bold text-center">{serverMsg}</div>
             <div className="col-span-12 flex justify-center">
@@ -131,12 +126,7 @@ function editService(p: props) {
         </div>
     );
 
-    return (
-        <>
-            {editServiceForm}
-            <MapServiceSections service={p.service} getServices={p.getServices} />
-        </>
-    );
+    return <>{editServiceForm}</>;
 }
 
-export default editService;
+export default editServiceSection;

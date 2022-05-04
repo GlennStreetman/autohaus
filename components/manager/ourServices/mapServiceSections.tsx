@@ -1,14 +1,46 @@
 import React, { useState } from "react";
 import { service, section } from "../ourServices";
 import AddNewServiceSection from "./addNewServiceSection";
+import EditServiceSection from "./editServiceSection";
+import LabeledSelect from "./../../labeledSelect";
 
 interface props {
     service: service;
+    getServices: Function;
 }
 
 function mapServiceSections(p: props) {
     const [showDetail, setShowDetail] = useState(-1);
     const [editSection, setEditSection] = useState<false | section>(false);
+
+    const mapResultLimit = Object.keys(Array.from({ length: p.service.sections.length })).map((key) => {
+        return (
+            <option key={`${key}-limit`} value={parseInt(key) + 1}>
+                {parseInt(key) + 1}
+            </option>
+        );
+    });
+
+    function updateOrder(newPlacement, oldId) {
+        let sectionOrder = p.service.sections.reduce((prev, curr) => {
+            prev.push(curr.id);
+            return prev;
+        }, []);
+        sectionOrder = sectionOrder.filter((n) => {
+            return n != oldId;
+        });
+        sectionOrder.splice(newPlacement - 1, 0, oldId);
+
+        fetch("/api/sectionOrder", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                newOrder: sectionOrder,
+            }),
+        }).then(() => p.getServices());
+    }
 
     const mapSections = p.service.sections.map((el) => {
         const display = el.id === showDetail ? "" : "hidden";
@@ -20,11 +52,44 @@ function mapServiceSections(p: props) {
         return (
             <React.Fragment key={`${el.id}-employee-team-empty`}>
                 <tr key={`mapSection${el.id}`}>
-                    <td></td>
-                    <td></td>
+                    <td className="text-center">
+                        <input
+                            className=""
+                            type="checkbox"
+                            checked={editSection !== false && el.id === editSection.id}
+                            onChange={async (e) => {
+                                setEditSection(el);
+                            }}
+                        />
+                    </td>
+                    <td>
+                        {" "}
+                        <LabeledSelect
+                            label=""
+                            value={el.ordernumber.toString()}
+                            onClickCallback={(e) => {
+                                console.log("LIMIT", e);
+                                updateOrder(parseInt(e), el.id);
+                            }}
+                            id="newDay_ID"
+                        >
+                            {mapResultLimit}
+                        </LabeledSelect>
+                    </td>
                     <td onClick={clickDetail}>{el.sectionheader}</td>
                     <td onClick={clickDetail}>{el.sectionimage}</td>
-                    <td></td>
+                    <td className="text-center">
+                        <input
+                            className=""
+                            type="checkbox"
+                            checked={false}
+                            onChange={async (e) => {
+                                // e.preventDefault();
+                                console.log("click", el.id);
+                                fetch(`/api/deleteServiceSection?id=${el.id}`).then(() => p.getServices());
+                            }}
+                        />
+                    </td>
                 </tr>
                 <tr key={`mapSection2${el.id}`}>
                     <td className={`${display}`} colSpan={12}>
@@ -58,7 +123,8 @@ function mapServiceSections(p: props) {
         <div className="flex flex-col gap-4">
             <div className="text-center font-bold text-xl text-accent">{p.service.name} Page Sections</div>
             {servicesContainer}
-            <AddNewServiceSection service={p.service} />
+            <AddNewServiceSection service={p.service} getServices={p.getServices} />
+            {editSection !== false ? <EditServiceSection section={editSection} setEditSection={setEditSection} getServices={p.getServices} /> : <></>}
         </div>
     );
 }
