@@ -3,56 +3,65 @@ import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai";
 import { RiCheckboxBlankCircleFill, RiCheckboxBlankCircleLine } from "react-icons/ri";
 import { ScreenWidth } from "../components/screenWidth";
 import Image from "next/image";
+import Link from "next/link";
+import { service } from "../components/manager/ourServices";
 
-export interface services {
+export interface serviceBox {
     service: string;
     image: string;
     link: string | undefined;
 }
 
-const ourServices: services[] = [
-    {
-        service: "oil change",
-        image: "/oil.jpg",
-        link: undefined,
-    },
-    {
-        service: "preventative maint",
-        image: "/prevent.jpg",
-        link: undefined,
-    },
-    {
-        service: "brake repair",
-        image: "/brake.jpg",
-        link: undefined,
-    },
-    {
-        service: "steering/suspension",
-        image: "/steering.jpg",
-        link: undefined,
-    },
-    {
-        service: "transmission",
-        image: "/trans.jpg",
-        link: undefined,
-    },
-    {
-        service: "diagnostics",
-        image: "/diagnostic.jpg",
-        link: undefined,
-    },
-];
+// const ourServices: services[] = [
+//     {
+//         service: "oil change",
+//         image: "/oil.jpg",
+//         link: undefined,
+//     },
+//     {
+//         service: "preventative maint",
+//         image: "/prevent.jpg",
+//         link: undefined,
+//     },
+//     {
+//         service: "brake repair",
+//         image: "/brake.jpg",
+//         link: undefined,
+//     },
+//     {
+//         service: "steering/suspension",
+//         image: "/steering.jpg",
+//         link: undefined,
+//     },
+//     {
+//         service: "transmission",
+//         image: "/trans.jpg",
+//         link: undefined,
+//     },
+//     {
+//         service: "diagnostics",
+//         image: "/diagnostic.jpg",
+//         link: undefined,
+//     },
+// ];
 
 const imgBox = "relative bg-black overflow-hidden h-52 w-52 xs:h-64 xs:w-64 md:h-64 md:w-64 lg:h-72 lg:w-72 xl::h-72 xl:w-72 ";
 
-function mapServices(target: number, showCount: number) {
+function mapServices(target: number, showCount: number, ourServices: serviceBox[]) {
     const selectServices = ourServices.slice(target, target + showCount);
 
     const mapSlides = Object.values(selectServices).map((el) => {
+        const myLoader = () => {
+            return `${process.env.NEXT_PUBLIC_AWS_PUBLIC_BUCKET_URL}${el.image}`;
+        };
         return (
             <div key={el.service} className="flex flex-col cursor-pointer bg-red-600 hover:bg-accent">
                 <div className={imgBox}>
-                    <Image src={el.image} alt={`${el.service} picture`} layout="fill" objectFit="fill" />
+                    <Link href={el.link}>
+                        <a>
+                            <Image loader={myLoader} src={el.image} alt={`${el.service} picture`} layout="fill" objectFit="fill" />
+                        </a>
+                    </Link>
                 </div>
                 <div className="text-white font-primary font-bold text-center uppercase">{el.service}</div>
             </div>
@@ -62,21 +71,18 @@ function mapServices(target: number, showCount: number) {
     return mapSlides;
 }
 
-function updateTareget(change: number, target: number, setTarget: Function, showCount: number) {
+function updateTareget(change: number, target: number, setTarget: Function, showCount: number, ourServices: serviceBox[]) {
     const serviceCount = ourServices.length;
     if (target + change < 0) {
-        // console.log("no change1");
         return false;
     } else if (target + change > serviceCount - showCount) {
-        // console.log("no change2");
         return false;
     } else {
-        // console.log("Change!");
         setTarget(target + change);
     }
 }
 
-function makeDots(showCount: number, target: number, setTarget: Function) {
+function makeDots(showCount: number, target: number, setTarget: Function, ourServices: serviceBox[]) {
     const serviceCount = ourServices.length;
     const dotCount = serviceCount - showCount + 1;
     const dotArray = Array.from({ length: dotCount }, (v, k) => k);
@@ -128,10 +134,22 @@ function preventDoubleClick(e) {
     e.preventDefault();
 }
 
-function customCarousel() {
+interface props {
+    services: service[];
+}
+
+function customCarousel(p: props) {
     const [target, setTarget] = useState(0);
     const [showCount, setShowCount] = useState(4);
     const screenSize = useContext(ScreenWidth);
+
+    const ourServices: serviceBox[] = p.services.map((el) => {
+        return {
+            service: el.bannertext,
+            image: el.bannerimage,
+            link: `/services/${el.name.replace(/[^a-z0-9+]+/gi, "")}`,
+        };
+    });
 
     useEffect(() => {
         setSlideCount(screenSize.width, setShowCount, setTarget);
@@ -145,22 +163,22 @@ function customCarousel() {
                         className="h-auto w-7 cursor-pointer"
                         onClick={(e) => {
                             e.preventDefault();
-                            updateTareget(-1, target, setTarget, showCount);
+                            updateTareget(-1, target, setTarget, showCount, ourServices);
                         }}
                     />
                 </div>
-                <div className="flex flex-row gap-2">{mapServices(target, showCount)}</div>
+                <div className="flex flex-row gap-2">{mapServices(target, showCount, ourServices)}</div>
                 <div className="bg-slate-200 text-primary hover:text-white hover:bg-accent rounded-md flex justify-center" onMouseDown={preventDoubleClick}>
                     <AiOutlineArrowRight
                         className="h-auto w-7 cursor-pointer"
                         onClick={(e) => {
                             e.preventDefault();
-                            updateTareget(+1, target, setTarget, showCount);
+                            updateTareget(+1, target, setTarget, showCount, ourServices);
                         }}
                     />
                 </div>
             </div>
-            <div className="flex justify-center">{makeDots(showCount, target, setTarget)}</div>
+            <div className="flex justify-center">{makeDots(showCount, target, setTarget, ourServices)}</div>
         </>
     );
 }
