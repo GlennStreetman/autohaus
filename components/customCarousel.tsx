@@ -12,39 +12,6 @@ export interface serviceBox {
     link: string | undefined;
 }
 
-// const ourServices: services[] = [
-//     {
-//         service: "oil change",
-//         image: "/oil.jpg",
-//         link: undefined,
-//     },
-//     {
-//         service: "preventative maint",
-//         image: "/prevent.jpg",
-//         link: undefined,
-//     },
-//     {
-//         service: "brake repair",
-//         image: "/brake.jpg",
-//         link: undefined,
-//     },
-//     {
-//         service: "steering/suspension",
-//         image: "/steering.jpg",
-//         link: undefined,
-//     },
-//     {
-//         service: "transmission",
-//         image: "/trans.jpg",
-//         link: undefined,
-//     },
-//     {
-//         service: "diagnostics",
-//         image: "/diagnostic.jpg",
-//         link: undefined,
-//     },
-// ];
-
 const imgBox = "relative bg-black overflow-hidden h-52 w-52 xs:h-64 xs:w-64 md:h-64 md:w-64 lg:h-72 lg:w-72 xl::h-72 xl:w-72 ";
 
 function mapServices(target: number, showCount: number, ourServices: serviceBox[]) {

@@ -10,7 +10,7 @@ export interface section {
     id: number;
     serviceid: number;
     sectionimage: string;
-    sectiontext: string;
+    sectiontext: string | any;
     sectionheader: string;
     ordernumber: number;
 }
