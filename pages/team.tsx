@@ -1,6 +1,8 @@
 import prisma from "../lib/prismaPool";
 import Image from "next/image";
 import Banner from "../components/banner";
+import ParseMarkdown from "./../lib/parseMarkdown";
+import styles from "./team.module.css";
 
 //flex grid elements
 const gutter = " hidden lg:block lg:col-span-1 "; //2x
@@ -76,7 +78,9 @@ function why(p: props) {
                             <Image loader={myLoader} src={val.name} alt={val.name} layout="fill" objectFit="fill" priority />
                         </div>
                         <div className="text-3xl font-bold">{`${val.name}: ${val.title}`}</div>
-                        <div className="whitespace-pre-line">{val.description}</div>
+                        <div className="whitespace-pre-line">
+                            <ParseMarkdown text={val.description} />
+                        </div>
                     </div>
                     <div className={isOddOrEven(indx, employeeCount) ? gutter : gutterBlack} />
                 </div>
@@ -89,7 +93,9 @@ function why(p: props) {
             <Banner>
                 <div className={largeTextStyling}>Meet the Auto Haus Team</div>
             </Banner>
-            <div className="flex flex-col">{mapEmployees}</div>
+            <article className={styles.article}>
+                <div className="flex flex-col">{mapEmployees}</div>
+            </article>
         </>
     );
 }

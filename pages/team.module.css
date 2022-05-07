@@ -1,0 +1,47 @@
+.article {
+    @apply mb-3;
+}
+
+.article h1 {
+    @apply text-accent font-bold text-xl py-5;
+}
+
+.article h2 {
+    @apply text-secondary font-bold text-lg;
+}
+
+.article p {
+    @apply text-primary pb-2;
+}
+
+.article a {
+    @apply text-secondary font-bold text-lg italic;
+}
+
+.article a:hover {
+    @apply text-accent font-bold text-lg italic;
+}
+
+.title {
+    @apply text-2xl;
+}
+
+.article li {
+    @apply ml-5;
+}
+
+.article blockquote {
+    @apply bg-secondary text-xs text-accent p-3 rounded-md;
+}
+
+.article table {
+    @apply border-2 m-2 rounded-sm border-solid;
+}
+
+.article thead tr td {
+    @apply text-accent font-bold text-lg italic;
+}
+
+.article td {
+    @apply text-primary p-2;
+}
