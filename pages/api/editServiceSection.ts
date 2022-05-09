@@ -67,25 +67,6 @@ async function saveDataPost(req, fileKey, fields: reqFields) {
     }
 }
 
-async function saveTextEdit(params) {
-    console.log("params", params);
-    try {
-        const updateObj = {
-            where: {
-                id: parseInt(params.id),
-            },
-            data: {
-                sectionheader: params.sectionHeader,
-                sectiontext: params.sectionText,
-            },
-        };
-        await prisma.servicesection.update(updateObj);
-    } catch (err) {
-        console.log("problem with GET /editOurServices DB", err);
-        return false;
-    }
-}
-
 export default async (req, res) => {
     const session = await getSession({ req });
     //@ts-ignore
@@ -103,21 +84,16 @@ export default async (req, res) => {
                     }
                 } else {
                     console.log("denied file save!");
-                    res.status(401).json({ msg: "denied" });
+                    res.status(500).json({ msg: "Problem updating service section" });
                 }
             } catch (err) {
-                console.log("/POST addNewService Error:", err);
-                res.status(400).json({ msg: "denied" });
+                console.log("/POST editServuceSection Error:", err);
+                res.status(500).json({ msg: "Problem updating service section" });
             }
         } else {
-            //no picture, GET
-            try {
-                await saveTextEdit(req.query);
-                res.status(200).json({ msg: "success" });
-            } catch (err) {
-                console.log("/GET submitEmployee Error:", err);
-                res.status(400).json({ msg: "denied" });
-            }
+            res.status(500).json({ msg: "Picture file not included" });
         }
+    } else {
+        res.status(400).json({ msg: "denied" });
     }
 };

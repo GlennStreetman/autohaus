@@ -80,6 +80,39 @@ async function saveDataPost(req, fileKey, fields: reqFields) {
     }
 }
 
+async function saveDataGet(params) {
+    try {
+        const maxNumber = await prisma.servicesection.findMany({
+            where: {
+                serviceid: parseInt(params.serviceID),
+            },
+            orderBy: [
+                {
+                    ordernumber: "desc",
+                },
+            ],
+            take: 1,
+        });
+        const maxNum = maxNumber?.[0]?.ordernumber ? maxNumber[0].ordernumber + 1 : 1;
+
+        const formObject = {
+            sectionheader: params.sectionName,
+            sectiontext: params.sectionBody,
+            serviceid: parseInt(params.serviceID),
+            ordernumber: maxNum,
+        };
+
+        const createObj = {
+            data: formObject,
+        };
+        await prisma.servicesection.create(createObj);
+        return true;
+    } catch (err) {
+        console.log("problem with POST /submitResume DB", err);
+        return false;
+    }
+}
+
 export default async (req, res) => {
     const session = await getSession({ req });
     //@ts-ignore
@@ -101,6 +134,18 @@ export default async (req, res) => {
             } catch (err) {
                 console.log("/POST addNewService Error:", err);
                 res.status(400).json({ msg: "denied" });
+            }
+        } else {
+            try {
+                const servicesUpdated = await saveDataGet(req.query);
+                if (servicesUpdated) {
+                    res.status(200).json({ msg: "success" });
+                } else {
+                    res.status(500).json({ msg: "problem saving service section." });
+                }
+            } catch (err) {
+                console.log("/POST addNewService Error:", err);
+                res;
             }
         }
     }
