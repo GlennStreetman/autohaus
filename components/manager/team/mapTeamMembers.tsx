@@ -1,7 +1,7 @@
 import React from "react";
 import LabeledSelect from "./../../labeledSelect";
 import EditTeamMember from "./editTeamMember";
-
+import OutlinedSurface from "./../../outlinedSurface";
 import { useState } from "react";
 
 interface employees {
@@ -17,6 +17,7 @@ interface props {
     employees: employees[];
     setEmployees: Function;
     getEmployees: Function;
+    setShowAdd: Function;
 }
 
 function mapTeamMembers(p: props) {
@@ -71,8 +72,9 @@ function mapTeamMembers(p: props) {
                             className=""
                             type="checkbox"
                             checked={edit !== false && el.id === edit.id}
-                            onChange={async (e) => {
+                            onChange={async () => {
                                 setEdit(el);
+                                p.setShowAdd();
                             }}
                         />
                     </td>
@@ -117,8 +119,7 @@ function mapTeamMembers(p: props) {
     });
 
     const teamMembersContainer = (
-        <>
-            <div className="text-center font-bold text-xl text-accent">Review Team</div>
+        <OutlinedSurface label="Review Team">
             <div className={"col-span-12 overflow-auto"}>
                 <table className="w-full">
                     <thead>
@@ -134,13 +135,17 @@ function mapTeamMembers(p: props) {
                     <tbody>{mapTeamMembers}</tbody>
                 </table>
             </div>
-        </>
+        </OutlinedSurface>
     );
 
     return (
         <div>
             {teamMembersContainer}
-            {edit !== false ? <EditTeamMember edit={edit} setEdit={setEdit} setEmployees={p.setEmployees} getEmployees={p.getEmployees} /> : <></>}
+            {edit !== false ? (
+                <EditTeamMember edit={edit} setEdit={setEdit} setEmployees={p.setEmployees} getEmployees={p.getEmployees} setShowAdd={p.setShowAdd} />
+            ) : (
+                <></>
+            )}
         </div>
     );
 }

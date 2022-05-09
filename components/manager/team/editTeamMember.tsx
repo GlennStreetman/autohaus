@@ -2,6 +2,8 @@ import React, { useState, useEffect, useContext, useRef } from "react";
 import FileUploadDragBox from "../../fileUploadDragBox";
 import LabeledInput from "../../labeledInput";
 import { ScreenWidth } from "../../screenWidth";
+import OutlinedSurface from "./../../outlinedSurface";
+import IconButton from "./../../iconButton";
 
 interface employees {
     id: number;
@@ -17,6 +19,7 @@ interface props {
     setEdit: Function;
     setEmployees: Function;
     getEmployees: Function;
+    setShowAdd: Function;
 }
 
 function editTeamMember(p: props) {
@@ -37,11 +40,11 @@ function editTeamMember(p: props) {
     }, [p.edit.id]);
 
     function cancelRequest() {
+        p.setShowAdd(true);
         p.setEdit(false);
     }
 
-    function processRequest(e) {
-        e.preventDefault();
+    function processRequest() {
         let processRequest = true;
         if (empName === "") processRequest = false;
         if (empTitle === "") processRequest = false;
@@ -119,8 +122,8 @@ function editTeamMember(p: props) {
 
     const filtersFormat = screenSize.width <= 700 ? "col-span-12 flex flex-wrap flex-row gap-2 mb-4" : "col-span-12 flex flex-row gap-2  mb-4";
     return (
-        <div className="mt-4">
-            <div className="text-center font-bold text-xl text-accent mb-4">Edit Team Member</div>
+        <OutlinedSurface label={`Edit Team Member: ${p.edit.name}`}>
+            {/* <div className="text-center font-bold text-xl text-accent mb-4">Edit Team Member</div> */}
             <div className={filtersFormat}>
                 <LabeledInput id="empName_add" label="Full Name" value={empName} onClickCallback={setEmpName} />
                 <LabeledInput id="empTitle_id" label={`Employee Title`} value={empTitle} onClickCallback={setEmpTitle} />
@@ -147,18 +150,20 @@ function editTeamMember(p: props) {
                 readyCallback={setReady}
             />
             <div className="col-span-12 flex justify-center gap-12">
-                <button
+                {/* <button
                     className="h-[78px] border-2 p-2 rounded-md bg-secondary shadow-sm shadow-slate-600 hover:bg-weak hover:border-black hover:text-accent active:bg-strong text-2x font-bold mb-4"
                     onClick={cancelRequest}
                 >
                     Cancel
-                </button>
-                <button
+                </button> */}
+                <IconButton text="Cancel" icon={<></>} callback={cancelRequest} />
+                <IconButton text="Save" icon={<></>} callback={processRequest} />
+                {/* <button
                     className="h-[78px] border-2 p-2 rounded-md bg-secondary shadow-sm shadow-slate-600 hover:bg-weak hover:border-black hover:text-accent active:bg-strong text-2x font-bold mb-4"
                     onClick={processRequest}
                 >
                     Save Edit
-                </button>
+                </button> */}
             </div>
             <div className="col-span-12 text-red-500 font-bold text-center">{serverMsg}</div>
             <div className="col-span-12 flex justify-center">
@@ -172,7 +177,7 @@ function editTeamMember(p: props) {
                     <></>
                 )}
             </div>
-        </div>
+        </OutlinedSurface>
     );
 }
 
