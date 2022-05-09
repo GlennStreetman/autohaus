@@ -28,6 +28,7 @@ async function saveFile(req) {
             if (checkFileName(files.file[0].originalFilename) === true) {
                 const name = fields.name[0];
                 const uploadResult = await uploadFilePublic(files.file[0], `${name}.portrait.${files.file[0].originalFilename}`);
+                // console.log("s3 Resulte: ", uploadResult);
                 const returnData: savedFileReturn = { fileKey: uploadResult["key"] };
                 resolve([true, returnData, fields]);
             } else {
@@ -44,33 +45,27 @@ async function saveDataPost(req, fileKey, fields) {
         name: fields.name[0],
         title: fields.title[0],
         description: fields.description[0],
+        id: fields.id[0],
     };
 
-    if (fields.id) formObject["id"] = fields.id[0];
-
     try {
-        const maxNumber = await prisma.team.findMany({
-            orderBy: [
-                {
-                    ordernumber: "desc",
+        if (fields.id) {
+            await prisma.team.update({
+                where: {
+                    id: parseInt(formObject.id),
                 },
-            ],
-            take: 1,
-        });
-        const maxNum = maxNumber?.[0]?.ordernumber ? maxNumber[0].ordernumber + 1 : 1;
-        await prisma.team.create({
-            data: {
-                name: formObject.name,
-                title: formObject.title,
-                description: formObject.description,
-                filename: fileKey,
-                ordernumber: maxNum,
-            },
-        });
-        const newTeam = await prisma.team.findMany({});
-        return newTeam;
+                data: {
+                    title: formObject.title,
+                    description: formObject.description,
+                    filename: fileKey,
+                    name: formObject.name,
+                },
+            });
+            const newTeam = await prisma.team.findMany({});
+            return newTeam;
+        }
     } catch (err) {
-        console.log("problem with POST /submitResume DB", err);
+        console.log("problem with POST /editEmployee DB", err);
     }
 }
 
@@ -81,20 +76,20 @@ export default async (req, res) => {
         if (req.method === "POST") {
             try {
                 const [pass, savedFile, fields]: any = await saveFile(req);
-                // console.log("file saved", pass, savedFile, fileds);
 
                 if (pass) {
                     const newTeam = await saveDataPost(req, savedFile.fileKey, fields);
-                    // console.log("newteam", newTeam);
                     res.status(200).json({ msg: "success", employees: newTeam });
                 } else {
                     console.log("denied file save!");
                     res.status(401).json({ msg: "denied" });
                 }
             } catch (err) {
-                console.log("/POST submitEmployee Error:", err);
+                console.log("/POST editEmployee Error:", err);
                 res.status(400).json({ msg: "denied" });
             }
+        } else {
+            res.status(400).json({ msg: "denied" });
         }
     }
 };

@@ -120,7 +120,7 @@ export default async (req, res) => {
                 await saveTextEdit(req.query);
                 res.status(200).json({ msg: "success" });
             } catch (err) {
-                console.log("/GET submitEmployee Error:", err);
+                console.log("/POST editOurServices Error:", err);
                 res.status(400).json({ msg: "denied" });
             }
         }

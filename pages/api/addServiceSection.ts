@@ -19,6 +19,22 @@ export const config = {
     },
 };
 
+async function rerenderRoutes(sectionID) {
+    const serviceID = await prisma.servicesection.findUnique({
+        where: {
+            id: sectionID,
+        },
+    });
+    const serviceName = await prisma.services.findUnique({
+        where: {
+            id: serviceID.serviceid,
+        },
+    });
+    const shortName = serviceName.name.replaceAll(" ", "");
+    fetch(`${process.env.NEXTAUTH_URL}/api/revalidate?secret=${process.env.NEXT_REVALIDATE}&path=/`);
+    fetch(`${process.env.NEXTAUTH_URL}/api/revalidate?secret=${process.env.NEXT_REVALIDATE}&path=/services/${shortName}`);
+}
+
 function checkFileName(fileName) {
     if (fileName !== "" && ["png", "jpg", "svg"].includes(fileName.split(".").pop())) {
         return true;
@@ -123,6 +139,7 @@ export default async (req, res) => {
                 if (pass) {
                     const servicesUpdated = await saveDataPost(req, savedFile.fileKey, fields);
                     if (servicesUpdated) {
+                        rerenderRoutes(fields.serviceID);
                         res.status(200).json({ msg: "success" });
                     } else {
                         res.status(500).json({ msg: "problem saving service section." });
@@ -139,6 +156,7 @@ export default async (req, res) => {
             try {
                 const servicesUpdated = await saveDataGet(req.query);
                 if (servicesUpdated) {
+                    rerenderRoutes(req.query.serviceID);
                     res.status(200).json({ msg: "success" });
                 } else {
                     res.status(500).json({ msg: "problem saving service section." });
