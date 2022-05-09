@@ -9,10 +9,10 @@ function parseMarkdown(p: props) {
         .replace(/^### (.*$)/gim, "<h3>$1</h3>") //three hashes
         .replace(/^## (.*$)/gim, "<h2>$1</h2>") //two hashes
         .replace(/^# (.*$)/gim, "<h1>$1</h1>") //1 hash
-        .replace(/^###--- (.*$)/gim, "<h3>&#x2022$1</h3>") //three hashes Bullet point
-        .replace(/^##--- (.*$)/gim, "<h2>&#x2022$1</h2>") //two hashes Bullet point
-        .replace(/^#--- (.*$)/gim, "<h1>&#x2022$1</h1>") //1 hash Bullet point
-        .replace(/^--- (.*$)/gim, "&#x2022$1") //--- sets bullet point at start of line
+        .replace(/^###--- (.*$)/gim, "<h3>&#x2022 $1</h3>") //three hashes Bullet point
+        .replace(/^##--- (.*$)/gim, "<h2>&#x2022 $1</h2>") //two hashes Bullet point
+        .replace(/^#--- (.*$)/gim, "<h1>&#x2022 $1</h1>") //1 hash Bullet point
+        .replace(/^--- (.*$)/gim, "&#x2022 $1") //--- sets bullet point at start of line
         .replace(/^\> (.*$)/gim, "<blockquote>$1</blockquote>") // >
         .replace(/\*\*(.*)\*\*/gim, "<b>$1</b>") // between two **
         .replace(/\*(.*)\*/gim, "<i>$1</i>") //between one *
