@@ -3,6 +3,7 @@ import { useSession } from "next-auth/react";
 import AddNewService from "./ourServices/addNewService";
 import EditService from "./ourServices/editService";
 import MapServices from "./ourServices/mapServices";
+import OutlinedSurface from "./../outlinedSurface";
 
 export interface section {
     id: number;
@@ -58,13 +59,15 @@ function OurServices(p: props) {
     return (
         <div className={p.show === true ? "col-span-12 overflow-auto" : "hidden"}>
             {!editService ? (
-                <MapServices
-                    ourServices={ourServices}
-                    setOurServices={setOurServices}
-                    editService={editService}
-                    setEditService={setEditService}
-                    getServices={getServices}
-                />
+                <OutlinedSurface label="Review Services">
+                    <MapServices
+                        ourServices={ourServices}
+                        setOurServices={setOurServices}
+                        editService={editService}
+                        setEditService={setEditService}
+                        getServices={getServices}
+                    />
+                </OutlinedSurface>
             ) : (
                 <EditService service={editService} getServices={getServices} setEditService={setEditService} />
             )}

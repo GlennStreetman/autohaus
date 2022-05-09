@@ -7,6 +7,7 @@ import IconButton from "./../../iconButton";
 import FileUploadDragBox from "./../../fileUploadDragBox";
 import { addServiceSectionTextReq } from "./../../../pages/api/services/addServiceSectionText";
 import { addServiceSectionReq } from "./../../../pages/api/services/addServiceSection";
+import OutlinedSurface from "./../../outlinedSurface";
 
 interface props {
     service: service;
@@ -109,28 +110,30 @@ function addNewServiceSection(p: props) {
 
     if (openForm) {
         return (
-            <div className="flex flex-col gap-4">
-                <div className="text-center font-bold text-xl text-accent">{`${p.service.name}: Add New Section`}</div>
-                <LabeledInput id="newSectionName" label="New Section Name" value={sectionHeader} onClickCallback={setSectionHeader} />
-                <LabeledtextArea label="New Section Text" id="newsSectionBody" value={sectionBody} callback={sectionBodyText} />
-                <FileUploadDragBox
-                    fileName={fileName}
-                    fileTypes={["png", "jpg", "svg"]}
-                    fileNameCallback={setFileName}
-                    refCallback={setFileRef}
-                    readyCallback={setReady}
-                />
-                <div className="flex justify-center gap-2 m-1">
-                    <IconButton text="Cancel" callback={cancel} icon={<></>}></IconButton>
-                    <IconButton text="Save Section" callback={processAddService} icon={<></>}></IconButton>
+            <OutlinedSurface label={`New Section: ${p.service.name}`}>
+                <div className="flex flex-col gap-4">
+                    {/* <div className="text-center font-bold text-xl text-accent">{`${p.service.name}: Add New Section`}</div> */}
+                    <LabeledInput id="newSectionName" label="New Section Name" value={sectionHeader} onClickCallback={setSectionHeader} />
+                    <LabeledtextArea label="New Section Text" id="newsSectionBody" value={sectionBody} callback={sectionBodyText} />
+                    <FileUploadDragBox
+                        fileName={fileName}
+                        fileTypes={["png", "jpg", "svg"]}
+                        fileNameCallback={setFileName}
+                        refCallback={setFileRef}
+                        readyCallback={setReady}
+                    />
+                    <div className="flex justify-center gap-8">
+                        <IconButton text="Cancel" callback={cancel} icon={<></>}></IconButton>
+                        <IconButton text="Save Section" callback={processAddService} icon={<></>}></IconButton>
+                    </div>
+                    <div className="text-center font-bold text-xl text-accent">{formMessage}</div>
                 </div>
-                <div className="text-center font-bold text-xl text-accent">{formMessage}</div>
-            </div>
+            </OutlinedSurface>
         );
     } else {
         return (
             <div className="flex flex-col gap-4">
-                <div className="flex justify-left gap-2 m-1">
+                <div className="flex justify-left p-2">
                     <IconButton text="Add New Section" callback={() => setOpenForm(!openForm)} icon={<></>}></IconButton>
                 </div>
             </div>

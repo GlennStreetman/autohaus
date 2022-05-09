@@ -117,8 +117,8 @@ function editServiceSection(p: props) {
     }
 
     const editServiceForm = (
-        <div className="flex flex-col gap-4 mt-4">
-            <div className="text-center font-bold text-xl text-accent m-4">{`Edit Section: ${p.section.sectionheader}`}</div>
+        <div className="flex flex-col gap-4">
+            {/* <div className="text-center font-bold text-xl text-accent m-4">{`Edit Section: ${p.section.sectionheader}`}</div> */}
             <LabeledInput id="newSectionHeader" label="Section Heading" value={newSectionHeader} onClickCallback={setnewSectionHeader} />
             <LabeledtextArea id="editSectionBody" label="Edit Section Text" value={sectionText} callback={setSectionText} />
             <FileUploadDragBox
@@ -128,22 +128,22 @@ function editServiceSection(p: props) {
                 refCallback={setFileRef}
                 readyCallback={setReady}
             />
-            <div className="col-span-12 flex justify-center gap-12 mb-2">
+            <div className="col-span-12 flex justify-center gap-12">
                 <IconButton text="Cancel" callback={cancelRequest} icon={<></>} />
                 <IconButton text="Update Section" callback={processEditSection} icon={<></>} />
             </div>
             <div className="col-span-12 text-red-500 font-bold text-center">{serverMsg}</div>
-            <div className="col-span-12 flex justify-center">
-                {requestAdditional ? (
-                    <div className="col-span-12">
-                        <div className="flex justify-center text-accent active:bg-strong text-1xl font-bold p-6">
-                            <div> fill out all fields and check image.</div>
-                        </div>
+            {/* <div className="col-span-12 flex justify-center"> */}
+            {requestAdditional ? (
+                <div className="col-span-12">
+                    <div className="flex justify-center text-accent active:bg-strong text-1xl font-bold px-6">
+                        <div> Fill out all fields and check image.</div>
                     </div>
-                ) : (
-                    <></>
-                )}
-            </div>
+                </div>
+            ) : (
+                <></>
+            )}
+            {/* </div> */}
         </div>
     );
 

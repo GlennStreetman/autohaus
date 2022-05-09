@@ -7,6 +7,8 @@ import IconButton from "./../../iconButton";
 import MapServiceSections from "./mapServiceSections";
 import { editOurServicesReq } from "./../../../pages/api/services/editOurServices";
 import { editOurServicesTextReq } from "./../../../pages/api/services/editOurServicesText";
+import OutlinedSurface from "./../../outlinedSurface";
+
 interface props {
     service: service;
     getServices: Function;
@@ -113,8 +115,7 @@ function editService(p: props) {
     }
 
     const editServiceForm = (
-        <div className="mt-4">
-            <div className="text-center font-bold text-xl text-accent m-4">{`Edit Service: ${p.service.name}`}</div>
+        <div>
             <div className={filtersFormat}>
                 <LabeledInput id="newServiceName" label="New Service Name" value={newServiceName} onClickCallback={setNewServiceName} />
                 <LabeledInput id="newServiceBanner" label={`Banner Text`} value={newServiceBannerText} onClickCallback={setNewServiceBannerText} />
@@ -147,10 +148,14 @@ function editService(p: props) {
 
     return (
         <>
-            {editServiceForm}
+            <OutlinedSurface label={`Edit Service: ${p.service.name}`}>{editServiceForm}</OutlinedSurface>
             <MapServiceSections service={p.service} getServices={p.getServices} />
         </>
     );
 }
 
 export default editService;
+
+{
+    /* <OutlinedSurface label={`Edit Service: ${editService.bannertext}`}> */
+}

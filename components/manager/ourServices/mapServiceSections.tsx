@@ -3,6 +3,7 @@ import { service, section } from "../ourServices";
 import AddNewServiceSection from "./addNewServiceSection";
 import EditServiceSection from "./editServiceSection";
 import LabeledSelect from "./../../labeledSelect";
+import OutlinedSurface from "./../../outlinedSurface";
 
 interface props {
     service: service;
@@ -99,36 +100,38 @@ function mapServiceSections(p: props) {
     });
 
     const servicesContainer = (
-        <>
-            <div className={"col-span-12 overflow-auto"}>
-                <table className="w-full">
-                    <thead>
-                        <tr>
-                            <td>Edit</td>
-                            <td>Order</td>
-                            <td>Section Heading</td>
-                            <td>Image</td>
-                            <td>Delete</td>
-                        </tr>
-                    </thead>
-                    <tbody>{mapSections}</tbody>
-                </table>
-            </div>
-        </>
+        <div className={"col-span-12 overflow-auto"}>
+            <table className="w-full">
+                <thead>
+                    <tr>
+                        <td>Edit</td>
+                        <td>Order</td>
+                        <td>Section Heading</td>
+                        <td>Image</td>
+                        <td>Delete</td>
+                    </tr>
+                </thead>
+                <tbody>{mapSections}</tbody>
+            </table>
+        </div>
     );
 
     return (
-        <div className="flex flex-col gap-4">
-            <div className="text-center font-bold text-xl text-accent">{p.service.name} Page Sections</div>
-            {servicesContainer}
-            <AddNewServiceSection service={p.service} getServices={p.getServices} />
+        <div className="flex flex-col">
+            <OutlinedSurface label={`Page Sections: ${p.service.name} `}>{servicesContainer}</OutlinedSurface>
+
             {editSection !== false ? (
-                <EditServiceSection section={editSection} setEditSection={setEditSection} getServices={p.getServices} service={p.service} />
+                <OutlinedSurface label={`Edit: ${editSection.sectionheader}`}>
+                    <EditServiceSection section={editSection} setEditSection={setEditSection} getServices={p.getServices} service={p.service} />
+                </OutlinedSurface>
             ) : (
-                <></>
+                <AddNewServiceSection service={p.service} getServices={p.getServices} />
             )}
         </div>
     );
 }
 
 export default mapServiceSections;
+
+{
+}

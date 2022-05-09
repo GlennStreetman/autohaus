@@ -97,24 +97,21 @@ function mapServices(p: props) {
     });
 
     const servicesContainer = (
-        <>
-            <div className="text-center font-bold text-xl text-accent m-4">Review Services</div>
-            <div className={"col-span-12 overflow-auto"}>
-                <table className="w-full">
-                    <thead>
-                        <tr>
-                            <td>Edit</td>
-                            <td>Order</td>
-                            <td>Service</td>
-                            <td>BannerText</td>
-                            <td>BannerImage</td>
-                            <td>Delete</td>
-                        </tr>
-                    </thead>
-                    <tbody>{mapServices}</tbody>
-                </table>
-            </div>
-        </>
+        <div className={"col-span-12 overflow-auto"}>
+            <table className="w-full">
+                <thead>
+                    <tr>
+                        <td>Edit</td>
+                        <td>Order</td>
+                        <td>Service</td>
+                        <td>BannerText</td>
+                        <td>BannerImage</td>
+                        <td>Delete</td>
+                    </tr>
+                </thead>
+                <tbody>{mapServices}</tbody>
+            </table>
+        </div>
     );
 
     return servicesContainer;
