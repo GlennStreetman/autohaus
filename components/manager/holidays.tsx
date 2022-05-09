@@ -5,6 +5,7 @@ import LabeledInput from "./../labeledInput";
 import LabeledSelect from "./../labeledSelect";
 import { GoCalendar } from "react-icons/go";
 import { ScreenWidth } from "../screenWidth";
+import OutlinedSurface from "./../outlinedSurface";
 
 interface holidays {
     id: number;
@@ -67,42 +68,6 @@ function holidays(p: props) {
         </option>
     ));
 
-    const filtersFormat = screenSize.width <= 700 ? "col-span-12 flex flex-wrap  flex-row gap-2" : "col-span-12 flex  flex-row gap-2";
-    const addHoliday = (
-        <div className={p.show === true ? filtersFormat : "hidden"}>
-            <div>
-                <LabeledInput
-                    fieldType="date"
-                    id="fromdate"
-                    label="Start Holiday"
-                    value={newHolidayDate}
-                    onClickCallback={setNewHolidayDate}
-                    helperText="Start Date:"
-                />
-            </div>
-
-            <LabeledInput
-                id="newHolidayDescription"
-                label={`New Holiday Description`}
-                value={newHolidayDescription}
-                onClickCallback={setNewHolidayDescription}
-            />
-
-            <LabeledSelect
-                label="days"
-                value={newDaysOff}
-                onClickCallback={(e) => {
-                    setNewDaysOff(e);
-                }}
-                id="newDay_ID"
-            >
-                {dayKeys}
-            </LabeledSelect>
-
-            <IconButton text="Add" callback={submitAddHoliday} icon={<GoCalendar className="h-7 w-7" />} />
-        </div>
-    );
-
     const mapHolidays = Object.entries(holidays).map(([key, val]) => {
         return (
             <React.Fragment key={`${val.id}-employee-team-empty`}>
@@ -130,19 +95,62 @@ function holidays(p: props) {
         );
     });
 
+    const filtersFormat = screenSize.width <= 700 ? "col-span-12 flex flex-wrap  flex-row gap-2" : "col-span-12 flex  flex-row gap-2";
+
+    const addHoliday = (
+        <div className={p.show === true ? filtersFormat : "hidden"}>
+            <OutlinedSurface label="Add Holiday">
+                <div className={filtersFormat}>
+                    <div>
+                        <LabeledInput
+                            fieldType="date"
+                            id="fromdate"
+                            label="Start Holiday"
+                            value={newHolidayDate}
+                            onClickCallback={setNewHolidayDate}
+                            helperText="Start Date:"
+                        />
+                    </div>
+
+                    <LabeledInput
+                        id="newHolidayDescription"
+                        label={`New Holiday Description`}
+                        value={newHolidayDescription}
+                        onClickCallback={setNewHolidayDescription}
+                    />
+
+                    <LabeledSelect
+                        label="days"
+                        value={newDaysOff}
+                        onClickCallback={(e) => {
+                            setNewDaysOff(e);
+                        }}
+                        id="newDay_ID"
+                    >
+                        {dayKeys}
+                    </LabeledSelect>
+
+                    <IconButton text="Add" callback={submitAddHoliday} icon={<GoCalendar className="h-7 w-7" />} />
+                </div>
+            </OutlinedSurface>
+        </div>
+    );
+
     const holidayContainer = (
         <div className={p.show === true ? "col-span-12 flex flex-row gap-2" : "hidden"}>
-            <table className="w-full">
-                <thead>
-                    <tr>
-                        <td>Date</td>
-                        <td>Name</td>
-                        <td>Days Closed</td>
-                        <td>Delete</td>
-                    </tr>
-                </thead>
-                <tbody>{mapHolidays}</tbody>
-            </table>
+            <OutlinedSurface label="Review Holidays">
+                <table className="w-full">
+                    <thead>
+                        <tr>
+                            <td>Date</td>
+                            <td>Name</td>
+                            <td>Days Closed</td>
+                            <td>Delete</td>
+                        </tr>
+                    </thead>
+                    <tbody>{mapHolidays}</tbody>
+                </table>
+            </OutlinedSurface>
         </div>
     );
 
