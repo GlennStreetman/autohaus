@@ -5,11 +5,13 @@ import Banner from "../../components/banner";
 import Image from "next/image";
 import ParseMarkdown from "./../../lib/parseMarkdown";
 import styles from "./services.module.css";
+import Aside from "../../components/aside";
 
 const gutter = " hidden lg:block lg:col-span-1 "; //2x
-const gutterBlack = " hidden lg:block lg:col-span-1 bg-black"; //2x
-const employees = "      p-2 col-span-12 md:col-span-12 lg:col-span-10"; //1x
-const employeesBlack = " p-2 col-span-12 md:col-span-12 lg:col-span-10 bg-black text-white"; //1x
+// const gutterBlack = " hidden lg:block lg:col-span-1 bg-black"; //2x
+const employees = "      p-2 col-span-12 md:col-span-12 lg:col-span-6"; //1x
+// const employeesBlack = " p-2 col-span-12 md:col-span-12 lg:col-span-6 bg-black text-white"; //1x
+// const aside = "flex justify-center p-2 col-span-12 md:col-span-12 lg:col-span-4 border-2 border-black rounded-md";
 const imgBoxLeft = "relative rounded-md bg-black overflow-hidden h-56 w-56 md:h-80 md:w-80 lg:h-96 lg:w-96 xl::h-96 xl:w-116 float-left m-2 ";
 const imgBoxRight = "relative rounded-md bg-black overflow-hidden h-56 w-56 md:h-80 md:w-80 lg:h-96 lg:w-96 xl::h-96 xl:w-116 float-right m-2 ";
 
@@ -72,19 +74,23 @@ function mapServiceSections(p: service) {
 
         return (
             <section key={`${val.serviceid}${val.ordernumber}-key`}>
-                <div className="grid grid-cols-12">
-                    <div className={isOddOrEven(indx, sectionCount) ? gutter : gutterBlack} />
-                    <div className={isOddOrEven(indx, sectionCount) ? employees : employeesBlack}>
+                {/* <div className="grid grid-cols-12"> */}
+
+                <div className={isOddOrEven(indx, sectionCount) ? employees : employees}>
+                    {val.sectionimage ? (
                         <div className={isOddOrEven(indx, sectionCount) ? imgBoxLeft : imgBoxRight}>
-                            <Image loader={myLoader} src={val.sectionheader} alt={val.sectionheader} layout="fill" objectFit="fill" priority />
+                            {<Image loader={myLoader} src={val.sectionheader} alt={val.sectionheader} layout="fill" objectFit="fill" priority />}
                         </div>
-                        <div className="text-3xl font-bold">{`${val.sectionheader}`}</div>
-                        <div className="whitespace-pre-line">
-                            <ParseMarkdown text={val.sectiontext} />{" "}
-                        </div>
+                    ) : (
+                        <></>
+                    )}
+                    <div className="text-3xl font-bold">{`${val.sectionheader}`}</div>
+                    <div className="whitespace-pre-line">
+                        <ParseMarkdown text={val.sectiontext} />{" "}
                     </div>
-                    <div className={isOddOrEven(indx, sectionCount) ? gutter : gutterBlack} />
                 </div>
+
+                {/* </div> */}
             </section>
         );
     });
@@ -96,7 +102,14 @@ function Services(p: service) {
     return (
         <div>
             <Banner />
-            <div className="flex flex-col">{mapServiceSections(p)}</div>
+            <div className="grid grid-cols-12">
+                <div className={gutter} />
+                <div className="flex flex-col col-span-12 md:col-span-12 lg:col-span-6">{mapServiceSections(p)}</div>
+                {/* <div className={aside}> */}
+                <Aside />
+                {/* </div> */}
+                <div className={gutter} />
+            </div>
         </div>
     );
 }

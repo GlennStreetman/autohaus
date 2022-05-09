@@ -6,9 +6,11 @@ interface props {
     text: string | Element | JSX.Element;
     icon: JSX.Element; //svg icon?
     link: string;
+    textSize?: "small";
 }
 
 const textRegular = "relative flex flex-row p-2 text-xl gap-1 hover:text-accent justify-center z-20 bg-white";
+const textSmall = "relative flex flex-row p-2 text-xs gap-1 hover:text-accent justify-center z-20 bg-white";
 
 // before:absolute before:left-0 before:top-1/2
 
@@ -17,7 +19,7 @@ function NextLinkButton(p: props) {
         <div className="flex p-2 gap-2 justify-center relative">
             <div className="before:w-full before:border-y-2 before:border-black before:hover:border-accent before:-z-10 before:hover:text-accent before:absolute before:left-0 before:top-1/2">
                 <Link href={p.link}>
-                    <a id="lineLink" className={textRegular}>
+                    <a id="lineLink" className={p.textSize === "small" ? textSmall : textRegular}>
                         {p.icon}{" "}
                         <div className="flex">
                             <div className="shrink m-auto">{p.text}</div>
