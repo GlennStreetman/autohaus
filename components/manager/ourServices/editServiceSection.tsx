@@ -1,5 +1,4 @@
-import React, { useState, useContext, useRef } from "react";
-import { ScreenWidth } from "../../screenWidth";
+import React, { useState, useContext, useEffect } from "react";
 import { section } from "../ourServices";
 import LabeledInput from "./../../labeledInput";
 import LabeledtextArea from "./../../labeledTextArea";
@@ -20,8 +19,11 @@ function editServiceSection(p: props) {
     const [serverMsg, setServerMsg] = useState("");
     const [requestAdditional, setRequestAdditional] = useState(false);
     const [ready, setReady] = useState(false);
-    const screenSize = useContext(ScreenWidth);
-    const filtersFormat = screenSize.width <= 700 ? "col-span-12 flex flex-wrap flex-row gap-2 mb-4" : "col-span-12 flex flex-row gap-2  mb-4";
+
+    useEffect(() => {
+        setnewSectionHeader(p.section.sectionheader);
+        setSectionText(p.section.sectiontext);
+    }, [p.section.id]);
 
     function cancelRequest() {
         setnewSectionHeader("");
@@ -72,7 +74,16 @@ function editServiceSection(p: props) {
                     console.log("error submitting employee update", err);
                 });
         } else {
-            fetch(`/api/editServiceSection?id=${p.section.id}&sectionHeader=${newSectionHeader}&sectionText=${sectionText}`)
+            const data = {
+                sectionHeader: newSectionHeader,
+                sectionText: sectionText,
+                id: p.section.id,
+            };
+            const upload = JSON.stringify(data);
+            fetch(`/api/editServiceSectionText`, {
+                method: "POST", // or 'PUT'
+                body: upload,
+            })
                 .then(async (res) => {
                     if (res.status === 413) {
                         setServerMsg("Choose file 1mb or smaller.");

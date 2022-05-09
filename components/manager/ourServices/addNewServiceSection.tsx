@@ -17,7 +17,7 @@ function addNewServiceSection(p: props) {
     const [sectionBody, sectionBodyText] = useState("");
     const [fileRef, setFileRef] = useState<any>("pass");
     const [fileName, setFileName] = useState("");
-    const [uploadReady, setUploadReady] = useState(false);
+    const [ready, setReady] = useState(false);
     const [formMessage, setFormMessage] = useState("");
 
     function cancel() {
@@ -30,7 +30,7 @@ function addNewServiceSection(p: props) {
     }
 
     function addSection() {
-        if (uploadReady) {
+        if (ready) {
             const data = fileRef;
             data.append("sectionName", sectionHeader);
             data.append("sectionBody", sectionBody);
@@ -50,7 +50,22 @@ function addNewServiceSection(p: props) {
                 })
                 .then((data) => {
                     if (data.msg === "success") {
-                        // getServices();
+                        p.getServices();
+                        setFormMessage("");
+                        cancel();
+                    } else {
+                        setFormMessage(data.msg);
+                    }
+                })
+                .catch((err) => {
+                    console.log("error submitting employee update", err);
+                });
+        } else {
+            console.log("GET addServiceSection");
+            fetch(`/api/addServiceSection?sectionName=${sectionHeader}&sectionBody=${sectionBody}&serviceID=${p.service.id}`)
+                .then(async (res) => res.json())
+                .then((data) => {
+                    if (data.msg === "success") {
                         p.getServices();
                         setFormMessage("");
                         cancel();
@@ -68,7 +83,6 @@ function addNewServiceSection(p: props) {
         let processRequest = true;
         if (sectionHeader === "") processRequest = false;
         if (sectionBody === "") processRequest = false;
-        if (fileRef === "pass") processRequest = false;
 
         if (processRequest) {
             setFormMessage("");
@@ -90,7 +104,7 @@ function addNewServiceSection(p: props) {
                     fileTypes={["png", "jpg", "svg"]}
                     fileNameCallback={setFileName}
                     refCallback={setFileRef}
-                    readyCallback={setUploadReady}
+                    readyCallback={setReady}
                 />
                 <div className="flex justify-center gap-2 m-1">
                     <IconButton text="Cancel" callback={cancel} icon={<></>}></IconButton>
