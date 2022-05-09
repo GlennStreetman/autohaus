@@ -1,6 +1,6 @@
-import prisma from "../../lib/prismaPool";
+import prisma from "../../../lib/prismaPool";
 import { IncomingForm } from "formidable";
-import { uploadFilePublic } from "../../lib/s3";
+import { uploadFilePublic } from "../../../lib/s3";
 import { getSession } from "next-auth/react";
 
 export const config = {
@@ -28,7 +28,6 @@ async function saveFile(req) {
             if (checkFileName(files.file[0].originalFilename) === true) {
                 const name = fields.name[0];
                 const uploadResult = await uploadFilePublic(files.file[0], `${name}.portrait.${files.file[0].originalFilename}`);
-                // console.log("s3 Resulte: ", uploadResult);
                 const returnData: savedFileReturn = { fileKey: uploadResult["key"] };
                 resolve([true, returnData, fields]);
             } else {
@@ -76,10 +75,8 @@ export default async (req, res) => {
         if (req.method === "POST") {
             try {
                 const [pass, savedFile, fields]: any = await saveFile(req);
-
                 if (pass) {
-                    const newTeam = await saveDataPost(req, savedFile.fileKey, fields);
-                    res.status(200).json({ msg: "success", employees: newTeam });
+                    res.status(200).json({ msg: "success" });
                 } else {
                     console.log("denied file save!");
                     res.status(401).json({ msg: "denied" });

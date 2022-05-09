@@ -52,8 +52,8 @@ function addNewService(p: props) {
             data.append("name", newServiceName);
             data.append("bannerText", newServiceBannerText);
 
-            fetch(`/api/addOurServices`, {
-                method: "POST", // or 'PUT'
+            fetch(`/api/services/addOurServices`, {
+                method: "POST",
                 body: data,
             })
                 .then(async (res) => {

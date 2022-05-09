@@ -1,22 +1,20 @@
-import { IncomingForm } from "formidable";
-import { uploadFilePublic } from "../../lib/s3";
 import { getSession } from "next-auth/react";
-import prisma from "../../lib/prismaPool";
+import prisma from "../../../lib/prismaPool";
 
-interface reqFields {
+export interface editServiceSectionTextReq {
     sectionHeader: string;
     sectionText: string;
     id: number;
+    service: string;
 }
 
-// export const config = {
-//     api: {
-//         bodyParser: false,
-//     },
-// };
+async function rerenderRoutes(service) {
+    const shortName = service.replaceAll(" ", "");
+    fetch(`${process.env.NEXTAUTH_URL}/api/revalidate?secret=${process.env.NEXT_REVALIDATE}&path=/`); //home page carousel
+    fetch(`${process.env.NEXTAUTH_URL}/api/revalidate?secret=${process.env.NEXT_REVALIDATE}&path=/services/${shortName}`); //route to service
+}
 
 async function saveTextEdit(body) {
-    console.log("BOdy", body);
     try {
         const updateObj = {
             where: {
@@ -40,10 +38,9 @@ export default async (req, res) => {
     if (session && session.user.role === "admin") {
         if (req.method === "POST") {
             try {
-                console.log("-req-", req);
-                const body = JSON.parse(req.body);
-                console.log("--BODY--", body);
+                const body: editServiceSectionTextReq = JSON.parse(req.body);
                 await saveTextEdit(body);
+                rerenderRoutes(body.service);
                 res.status(200).json({ msg: "success" });
             } catch (err) {
                 console.log("/POST editSectionText Error:", err);

@@ -1,9 +1,7 @@
-import { useState, useEffect, useContext, useRef } from "react";
+import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
-// import { ScreenWidth } from "../screenWidth";
 import AddNewService from "./ourServices/addNewService";
 import EditService from "./ourServices/editService";
-
 import MapServices from "./ourServices/mapServices";
 
 export interface section {
@@ -36,7 +34,7 @@ function OurServices(p: props) {
     const [editService, setEditService] = useState<false | service>(false);
 
     function getServices() {
-        fetch(`/api/getOurServices`)
+        fetch(`/api/services/getOurServices`)
             .then((response) => response.json())
             .then((data) => {
                 console.log("services data", data);
@@ -60,7 +58,13 @@ function OurServices(p: props) {
     return (
         <div className={p.show === true ? "col-span-12 overflow-auto" : "hidden"}>
             {!editService ? (
-                <MapServices ourServices={ourServices} setOurServices={setOurServices} editService={editService} setEditService={setEditService} />
+                <MapServices
+                    ourServices={ourServices}
+                    setOurServices={setOurServices}
+                    editService={editService}
+                    setEditService={setEditService}
+                    getServices={getServices}
+                />
             ) : (
                 <EditService service={editService} getServices={getServices} setEditService={setEditService} />
             )}

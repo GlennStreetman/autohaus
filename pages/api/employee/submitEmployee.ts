@@ -1,6 +1,6 @@
-import prisma from "../../lib/prismaPool";
+import prisma from "../../../lib/prismaPool";
 import { IncomingForm } from "formidable";
-import { uploadFilePublic } from "../../lib/s3";
+import { uploadFilePublic } from "../../../lib/s3";
 import { getSession } from "next-auth/react";
 
 export const config = {
@@ -67,8 +67,7 @@ async function saveDataPost(req, fileKey, fields) {
                 ordernumber: maxNum,
             },
         });
-        const newTeam = await prisma.team.findMany({});
-        return newTeam;
+        return true;
     } catch (err) {
         console.log("problem with POST /submitResume DB", err);
     }
@@ -81,12 +80,9 @@ export default async (req, res) => {
         if (req.method === "POST") {
             try {
                 const [pass, savedFile, fields]: any = await saveFile(req);
-                // console.log("file saved", pass, savedFile, fileds);
-
                 if (pass) {
-                    const newTeam = await saveDataPost(req, savedFile.fileKey, fields);
-                    // console.log("newteam", newTeam);
-                    res.status(200).json({ msg: "success", employees: newTeam });
+                    await saveDataPost(req, savedFile.fileKey, fields);
+                    res.status(200).json({ msg: "success" });
                 } else {
                     console.log("denied file save!");
                     res.status(401).json({ msg: "denied" });

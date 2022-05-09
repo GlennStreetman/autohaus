@@ -31,7 +31,7 @@ function mapServiceSections(p: props) {
         });
         sectionOrder.splice(newPlacement - 1, 0, oldId);
 
-        fetch("/api/sectionOrder", {
+        fetch("/api/services/sectionOrder", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -84,9 +84,7 @@ function mapServiceSections(p: props) {
                             type="checkbox"
                             checked={false}
                             onChange={async (e) => {
-                                // e.preventDefault();
-                                console.log("click", el.id);
-                                fetch(`/api/deleteServiceSection?id=${el.id}`).then(() => p.getServices());
+                                fetch(`/api/services/deleteServiceSection?id=${el.id}&name=${p.service.name}`).then(() => p.getServices());
                             }}
                         />
                     </td>
@@ -124,7 +122,11 @@ function mapServiceSections(p: props) {
             <div className="text-center font-bold text-xl text-accent">{p.service.name} Page Sections</div>
             {servicesContainer}
             <AddNewServiceSection service={p.service} getServices={p.getServices} />
-            {editSection !== false ? <EditServiceSection section={editSection} setEditSection={setEditSection} getServices={p.getServices} /> : <></>}
+            {editSection !== false ? (
+                <EditServiceSection section={editSection} setEditSection={setEditSection} getServices={p.getServices} service={p.service} />
+            ) : (
+                <></>
+            )}
         </div>
     );
 }

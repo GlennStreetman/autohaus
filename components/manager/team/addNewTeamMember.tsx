@@ -15,6 +15,7 @@ interface employees {
 interface props {
     setAdd: Function;
     setEmployees: Function;
+    getEmployees: Function;
 }
 
 function addNewTeamMember(p: props) {
@@ -55,10 +56,9 @@ function addNewTeamMember(p: props) {
             data.append("name", empName);
             data.append("title", empTitle);
             data.append("description", empDescription);
-            if (edit) data.append("id", edit.id);
 
-            fetch(`/api/submitEmployee`, {
-                method: "POST", // or 'PUT'
+            fetch(`/api/employee/submitEmployee`, {
+                method: "POST",
                 body: data,
             })
                 .then(async (res) => {
@@ -70,8 +70,7 @@ function addNewTeamMember(p: props) {
                 })
                 .then((data) => {
                     if (data.msg === "success") {
-                        p.setEmployees(data.employees);
-                        setEdit(false);
+                        p.getEmployees();
                         cancelRequest();
                     } else {
                         setServerMsg(data.msg);
@@ -79,25 +78,6 @@ function addNewTeamMember(p: props) {
                 })
                 .catch((err) => {
                     console.log("error submitting employee update", err);
-                });
-        } else if (edit !== false) {
-            let queryString = `/api/submitEmployee?name=${empName}&title=${empTitle}&description=${empDescription}&id=${edit.id}`;
-            fetch(queryString)
-                .then((res) => {
-                    console.log("status", res.status);
-                    return res.json();
-                })
-                .then((data) => {
-                    if (data.msg === "success") {
-                        p.setEmployees(data.employees);
-                        setEdit(false);
-                        cancelRequest();
-                    } else {
-                        setServerMsg(data.msg);
-                    }
-                })
-                .catch((err) => {
-                    console.log("error getting update", err);
                 });
         }
     }

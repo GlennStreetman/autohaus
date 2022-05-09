@@ -16,6 +16,7 @@ interface props {
     edit: employees;
     setEdit: Function;
     setEmployees: Function;
+    getEmployees: Function;
 }
 
 function editTeamMember(p: props) {
@@ -25,7 +26,6 @@ function editTeamMember(p: props) {
     const [empPictureRef, setEmpPictureRef] = useState<any>("pass");
     const [empPictureName, setEmpPictureName] = useState("");
     const [requestAdditional, setRequestAdditional] = useState(false);
-    const [edit, setEdit] = useState<false | employees>(false);
     const [serverMsg, setServerMsg] = useState("");
     const [ready, setReady] = useState(false);
     const screenSize = useContext(ScreenWidth);
@@ -62,10 +62,10 @@ function editTeamMember(p: props) {
             data.append("name", empName);
             data.append("title", empTitle);
             data.append("description", empDescription);
-            if (edit) data.append("id", edit.id);
+            data.append("id", p.edit.id);
 
-            fetch(`/api/submitEmployee`, {
-                method: "POST", // or 'PUT'
+            fetch(`/api/employee/editEmployee`, {
+                method: "POST",
                 body: data,
             })
                 .then(async (res) => {
@@ -77,8 +77,8 @@ function editTeamMember(p: props) {
                 })
                 .then((data) => {
                     if (data.msg === "success") {
-                        p.setEmployees(data.employees);
-                        setEdit(false);
+                        p.getEmployees();
+                        p.setEdit(false);
                         cancelRequest();
                     } else {
                         setServerMsg(data.msg);
@@ -87,17 +87,25 @@ function editTeamMember(p: props) {
                 .catch((err) => {
                     console.log("error submitting employee update", err);
                 });
-        } else if (edit !== false) {
-            let queryString = `/api/submitEmployee?name=${empName}&title=${empTitle}&description=${empDescription}&id=${edit.id}`;
-            fetch(queryString)
+        } else {
+            const data = {
+                name: empName,
+                title: empTitle,
+                description: empDescription,
+                id: p.edit.id,
+            };
+            fetch("/api/employee/editEmployeeText", {
+                method: "POST",
+                body: JSON.stringify(data),
+            })
                 .then((res) => {
                     console.log("status", res.status);
                     return res.json();
                 })
                 .then((data) => {
                     if (data.msg === "success") {
-                        p.setEmployees(data.employees);
-                        setEdit(false);
+                        p.getEmployees();
+                        p.setEdit(false);
                         cancelRequest();
                     } else {
                         setServerMsg(data.msg);
@@ -112,7 +120,7 @@ function editTeamMember(p: props) {
     const filtersFormat = screenSize.width <= 700 ? "col-span-12 flex flex-wrap flex-row gap-2 mb-4" : "col-span-12 flex flex-row gap-2  mb-4";
     return (
         <div className="mt-4">
-            <div className="text-center font-bold text-xl text-accent">Edit Team Member</div>
+            <div className="text-center font-bold text-xl text-accent mb-4">Edit Team Member</div>
             <div className={filtersFormat}>
                 <LabeledInput id="empName_add" label="Full Name" value={empName} onClickCallback={setEmpName} />
                 <LabeledInput id="empTitle_id" label={`Employee Title`} value={empTitle} onClickCallback={setEmpTitle} />
@@ -135,7 +143,7 @@ function editTeamMember(p: props) {
                 fileName={empPictureName}
                 fileTypes={["png", "jpg", "svg"]}
                 fileNameCallback={setEmpPictureName}
-                refCallback={empPictureRef}
+                refCallback={setEmpPictureRef}
                 readyCallback={setReady}
             />
             <div className="col-span-12 flex justify-center gap-12">
@@ -149,7 +157,7 @@ function editTeamMember(p: props) {
                     className="h-[78px] border-2 p-2 rounded-md bg-secondary shadow-sm shadow-slate-600 hover:bg-weak hover:border-black hover:text-accent active:bg-strong text-2x font-bold mb-4"
                     onClick={processRequest}
                 >
-                    {edit ? `Save Edit` : "Add Employee"}
+                    Save Edit
                 </button>
             </div>
             <div className="col-span-12 text-red-500 font-bold text-center">{serverMsg}</div>

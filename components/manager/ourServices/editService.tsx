@@ -1,12 +1,12 @@
-import React, { useState, useContext, useRef } from "react";
+import React, { useState, useContext } from "react";
 import { ScreenWidth } from "../../screenWidth";
 import { service } from "../ourServices";
 import LabeledInput from "./../../labeledInput";
 import FileUploadDragBox from "./../../fileUploadDragBox";
 import IconButton from "./../../iconButton";
-
 import MapServiceSections from "./mapServiceSections";
-
+import { editOurServicesReq } from "./../../../pages/api/services/editOurServices";
+import { editOurServicesTextReq } from "./../../../pages/api/services/editOurServicesText";
 interface props {
     service: service;
     getServices: Function;
@@ -32,8 +32,7 @@ function editService(p: props) {
         p.setEditService(false);
     }
 
-    function processEditService(e) {
-        e.preventDefault();
+    function processEditService() {
         if (newServiceName !== "") {
             setRequestAdditional(false);
             postEditService();
@@ -45,14 +44,21 @@ function editService(p: props) {
 
     function postEditService() {
         if (ready) {
-            //process update with picture
-            const data = fileRef;
-            data.append("name", newServiceName);
-            data.append("bannerText", newServiceBannerText);
-            data.append("id", p.service.id);
+            const body: editOurServicesReq = {
+                name: newServiceName,
+                bannerText: newServiceBannerText,
+                id: p.service.id,
+            };
 
-            fetch(`/api/editOurServices`, {
-                method: "POST", // or 'PUT'
+            const data = fileRef;
+            Object.entries(body).forEach(([key, val]) => {
+                data.append(key, val);
+            });
+
+            console.log("data", data);
+
+            fetch(`/api/services/editOurServices`, {
+                method: "POST",
                 body: data,
             })
                 .then(async (res) => {
@@ -75,7 +81,16 @@ function editService(p: props) {
                     console.log("error submitting employee update", err);
                 });
         } else {
-            fetch(`/api/editOurServices?id=${p.service.id}&serviceName=${newServiceName}&bannerText=${newServiceBannerText}`)
+            const data: editOurServicesTextReq = {
+                name: newServiceName,
+                bannerText: newServiceBannerText,
+                id: p.service.id.toString(),
+            };
+            console.log("data", data);
+            fetch(`/api/services/editOurServicesText`, {
+                method: "POST",
+                body: JSON.stringify(data),
+            })
                 .then(async (res) => {
                     if (res.status === 413) {
                         setServerMsg("Choose file 1mb or smaller.");
@@ -86,7 +101,6 @@ function editService(p: props) {
                 .then((data) => {
                     if (data.msg === "success") {
                         p.getServices();
-                        // setEdit(false);
                         cancelRequest();
                     } else {
                         setServerMsg(data.msg);

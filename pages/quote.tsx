@@ -150,7 +150,7 @@ function Quote() {
             reason: description,
         };
         fetch(`/api/requestQuote`, {
-            method: "POST", // or 'PUT'
+            method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },

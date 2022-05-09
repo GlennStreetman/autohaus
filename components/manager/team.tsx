@@ -27,21 +27,24 @@ function team(p: props) {
     useEffect(() => {
         //update service
         if (session) {
-            fetch(`/api/getEmployees`)
-                .then((response) => response.json())
-                .then((data) => {
-                    setEmployees(data.employees);
-                });
+            getEmployees();
         } else {
             console.log("Session not found, aborting team fetch.");
         }
     }, []);
 
+    function getEmployees() {
+        fetch(`/api/employee/getEmployees`)
+            .then((response) => response.json())
+            .then((data) => {
+                setEmployees(data.employees);
+            });
+    }
+
     return (
         <div className={p.show === true ? "col-span-12 overflow-auto" : "hidden"}>
-            {addEmployee === true ? <AddNewTeamMember setAdd={setAddEmployee} setEmployees={setEmployees} /> : <></>}
-
-            {addEmployee === false ? <MapTeamMembers employees={employees} setEmployees={setEmployees} /> : <></>}
+            {addEmployee === true ? <AddNewTeamMember setAdd={setAddEmployee} setEmployees={setEmployees} getEmployees={getEmployees} /> : <></>}
+            {addEmployee === false ? <MapTeamMembers employees={employees} setEmployees={setEmployees} getEmployees={getEmployees} /> : <></>}
             {addEmployee === false ? (
                 <div className="flex justify-left gap-2 my-3">
                     <IconButton text="Add Team Member" callback={() => setAddEmployee(!addEmployee)} icon={<></>} />

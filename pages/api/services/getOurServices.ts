@@ -1,4 +1,4 @@
-import prisma from "./../../lib/prismaPool";
+import prisma from "./../../../lib/prismaPool";
 import { getSession } from "next-auth/react";
 
 interface section {

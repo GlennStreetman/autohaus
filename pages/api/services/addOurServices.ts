@@ -1,7 +1,7 @@
 import { IncomingForm } from "formidable";
-import { uploadFilePublic } from "../../lib/s3";
+import { uploadFilePublic } from "../../../lib/s3";
 import { getSession } from "next-auth/react";
-import prisma from "../../lib/prismaPool";
+import prisma from "../../../lib/prismaPool";
 
 interface reqBody {
     name: string;
@@ -17,6 +17,12 @@ export const config = {
         bodyParser: false,
     },
 };
+
+async function rerenderRoutes(service) {
+    const shortName = service.replaceAll(" ", "");
+    fetch(`${process.env.NEXTAUTH_URL}/api/revalidate?secret=${process.env.NEXT_REVALIDATE}&path=/`); //home page carousel
+    fetch(`${process.env.NEXTAUTH_URL}/api/revalidate?secret=${process.env.NEXT_REVALIDATE}&path=/services/${shortName}`); //route to service
+}
 
 function checkFileName(fileName) {
     if (fileName !== "" && ["png", "jpg", "svg"].includes(fileName.split(".").pop())) {
@@ -89,6 +95,7 @@ export default async (req, res) => {
                 if (pass) {
                     const servicesUpdated = await saveDataPost(req, savedFile.fileKey, fields);
                     if (servicesUpdated) {
+                        rerenderRoutes(fields.name);
                         res.status(200).json({ msg: "success" });
                     } else {
                         res.status(500).json({ msg: "problem saving service." });

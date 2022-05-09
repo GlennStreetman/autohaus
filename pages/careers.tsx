@@ -178,7 +178,7 @@ function careers() {
             data.append("coverLetter", description);
 
             fetch(`/api/submitResume`, {
-                method: "POST", // or 'PUT'
+                method: "POST",
                 body: data,
             })
                 .then((res) => res.json())

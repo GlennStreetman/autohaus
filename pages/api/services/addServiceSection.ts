@@ -1,12 +1,13 @@
 import { IncomingForm } from "formidable";
-import { uploadFilePublic } from "../../lib/s3";
+import { uploadFilePublic } from "../../../lib/s3";
 import { getSession } from "next-auth/react";
-import prisma from "../../lib/prismaPool";
+import prisma from "../../../lib/prismaPool";
 
-interface reqFields {
+export interface addServiceSectionReq {
     sectionName: string;
     sectionBody: string;
     serviceID: number;
+    serviceName: string;
 }
 
 interface savedFileReturn {
@@ -19,20 +20,10 @@ export const config = {
     },
 };
 
-async function rerenderRoutes(sectionID) {
-    const serviceID = await prisma.servicesection.findUnique({
-        where: {
-            id: sectionID,
-        },
-    });
-    const serviceName = await prisma.services.findUnique({
-        where: {
-            id: serviceID.serviceid,
-        },
-    });
-    const shortName = serviceName.name.replaceAll(" ", "");
-    fetch(`${process.env.NEXTAUTH_URL}/api/revalidate?secret=${process.env.NEXT_REVALIDATE}&path=/`);
-    fetch(`${process.env.NEXTAUTH_URL}/api/revalidate?secret=${process.env.NEXT_REVALIDATE}&path=/services/${shortName}`);
+async function rerenderRoutes(service) {
+    const shortName = service.replaceAll(" ", "");
+    fetch(`${process.env.NEXTAUTH_URL}/api/revalidate?secret=${process.env.NEXT_REVALIDATE}&path=/`); //home page carousel
+    fetch(`${process.env.NEXTAUTH_URL}/api/revalidate?secret=${process.env.NEXT_REVALIDATE}&path=/services/${shortName}`); //route to service
 }
 
 function checkFileName(fileName) {
@@ -46,7 +37,7 @@ function checkFileName(fileName) {
 async function saveFile(req) {
     const form = new IncomingForm();
     const data = await new Promise((resolve, reject) => {
-        form.parse(req, async (err, fields: reqFields, files) => {
+        form.parse(req, async (err, fields: addServiceSectionReq, files) => {
             if (checkFileName(files.file[0].originalFilename) === true) {
                 console.log("fields", fields);
                 const sectionheader = fields.sectionName[0];
@@ -62,7 +53,7 @@ async function saveFile(req) {
     return data;
 }
 
-async function saveDataPost(req, fileKey, fields: reqFields) {
+async function saveDataPost(req, fileKey, fields: addServiceSectionReq) {
     try {
         const maxNumber = await prisma.servicesection.findMany({
             where: {
@@ -96,39 +87,6 @@ async function saveDataPost(req, fileKey, fields: reqFields) {
     }
 }
 
-async function saveDataGet(params) {
-    try {
-        const maxNumber = await prisma.servicesection.findMany({
-            where: {
-                serviceid: parseInt(params.serviceID),
-            },
-            orderBy: [
-                {
-                    ordernumber: "desc",
-                },
-            ],
-            take: 1,
-        });
-        const maxNum = maxNumber?.[0]?.ordernumber ? maxNumber[0].ordernumber + 1 : 1;
-
-        const formObject = {
-            sectionheader: params.sectionName,
-            sectiontext: params.sectionBody,
-            serviceid: parseInt(params.serviceID),
-            ordernumber: maxNum,
-        };
-
-        const createObj = {
-            data: formObject,
-        };
-        await prisma.servicesection.create(createObj);
-        return true;
-    } catch (err) {
-        console.log("problem with POST /submitResume DB", err);
-        return false;
-    }
-}
-
 export default async (req, res) => {
     const session = await getSession({ req });
     //@ts-ignore
@@ -139,7 +97,7 @@ export default async (req, res) => {
                 if (pass) {
                     const servicesUpdated = await saveDataPost(req, savedFile.fileKey, fields);
                     if (servicesUpdated) {
-                        rerenderRoutes(fields.serviceID);
+                        rerenderRoutes(fields.serviceName[0]);
                         res.status(200).json({ msg: "success" });
                     } else {
                         res.status(500).json({ msg: "problem saving service section." });
@@ -151,19 +109,6 @@ export default async (req, res) => {
             } catch (err) {
                 console.log("/POST addNewService Error:", err);
                 res.status(400).json({ msg: "denied" });
-            }
-        } else {
-            try {
-                const servicesUpdated = await saveDataGet(req.query);
-                if (servicesUpdated) {
-                    rerenderRoutes(req.query.serviceID);
-                    res.status(200).json({ msg: "success" });
-                } else {
-                    res.status(500).json({ msg: "problem saving service section." });
-                }
-            } catch (err) {
-                console.log("/POST addNewService Error:", err);
-                res;
             }
         }
     }

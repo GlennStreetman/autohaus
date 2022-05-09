@@ -1,4 +1,4 @@
-import prisma from "../../lib/prismaPool";
+import prisma from "../../../lib/prismaPool";
 import { getSession } from "next-auth/react";
 
 interface savedFileReturn {
@@ -17,10 +17,9 @@ async function updateText(query) {
                 name: query.name,
             },
         });
-        const newTeam = await prisma.team.findMany({});
-        return newTeam;
+        return true;
     } catch (err) {
-        console.log("problem with POST /submitResume DB", err);
+        console.log("problem with POST /employee/editEmployeeText DB", err);
     }
 }
 
@@ -30,10 +29,12 @@ export default async (req, res) => {
     if (session && session.user.role === "admin") {
         if (req.method === "POST") {
             try {
-                const newTeam = await updateText(JSON.stringify(req.body));
-                res.status(200).json({ msg: "success", employees: newTeam });
+                const body = JSON.parse(req.body);
+                console.log("body", body);
+                await updateText(body);
+                res.status(200).json({ msg: "success" });
             } catch (err) {
-                console.log("/GET submitEmployee Error:", err);
+                console.log("/POST /employee/editEmployeeText Error:", err);
                 res.status(400).json({ msg: "denied" });
             }
         }

@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import LabeledSelect from "./../../labeledSelect";
 import { service } from "../ourServices";
-import getServices from "./getServices";
 
 interface props {
     ourServices: service[];
     setOurServices: Function;
     editService: false | service;
     setEditService: Function;
+    getServices: Function;
 }
 
 function mapServices(p: props) {
@@ -31,7 +31,7 @@ function mapServices(p: props) {
         });
         employeeOrder.splice(newPlacement - 1, 0, oldId);
 
-        fetch("/api/serviceOrder", {
+        fetch("/api/services/serviceOrder", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -39,7 +39,11 @@ function mapServices(p: props) {
             body: JSON.stringify({
                 newOrder: employeeOrder,
             }),
-        }).then(() => getServices(p.setOurServices));
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                p.getServices();
+            });
     }
 
     const mapServices = p.ourServices.map((el) => {
@@ -55,8 +59,6 @@ function mapServices(p: props) {
                             checked={p.editService !== false && el.id === p.editService.id}
                             onChange={async (e) => {
                                 p.setEditService(el);
-                                // setNewServiceName(el.name);
-                                // setNewServiceBannerText(el.bannertext);
                             }}
                         />
                     </td>
@@ -82,16 +84,13 @@ function mapServices(p: props) {
                             type="checkbox"
                             checked={false}
                             onChange={async (e) => {
-                                // e.preventDefault();
-                                fetch(`/api/deleteOurServices?id=${el.id}`).then(() => getServices(p.setOurServices));
+                                fetch(`/api/services/deleteOurServices?id=${el.id}&name=${el.name}`).then(() => p.getServices());
                             }}
                         />
                     </td>
                 </tr>
                 <tr key={`${el.id}-employee-team-delete`}>
                     <td className={`${display}`} colSpan={6} />
-                    {/* <p>{el.description}</p>
-                    </td> */}
                 </tr>
             </React.Fragment>
         );

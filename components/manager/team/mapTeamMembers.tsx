@@ -16,6 +16,7 @@ interface employees {
 interface props {
     employees: employees[];
     setEmployees: Function;
+    getEmployees: Function;
 }
 
 function mapTeamMembers(p: props) {
@@ -32,8 +33,8 @@ function mapTeamMembers(p: props) {
         });
         employeeOrder.splice(newPlacement - 1, 0, oldId);
 
-        fetch("/api/employeeOrder", {
-            method: "POST", // or 'PUT'
+        fetch("/api/employee/employeeOrder", {
+            method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
@@ -43,8 +44,7 @@ function mapTeamMembers(p: props) {
         })
             .then((res) => res.json())
             .then((data) => {
-                // console.log(data);
-                p.setEmployees(data.order);
+                p.getEmployees();
             });
     }
 
@@ -101,7 +101,7 @@ function mapTeamMembers(p: props) {
                                 fetch(`/api/deleteEmployee?id=${el.id}`)
                                     .then((response) => response.json())
                                     .then((data) => {
-                                        p.setEmployees(data.team);
+                                        p.getEmployees();
                                     });
                             }}
                         />
@@ -140,7 +140,7 @@ function mapTeamMembers(p: props) {
     return (
         <div>
             {teamMembersContainer}
-            {edit !== false ? <EditTeamMember edit={edit} setEdit={setEdit} setEmployees={p.setEmployees} /> : <></>}
+            {edit !== false ? <EditTeamMember edit={edit} setEdit={setEdit} setEmployees={p.setEmployees} getEmployees={p.getEmployees} /> : <></>}
         </div>
     );
 }

@@ -1,4 +1,4 @@
-import prisma from "./../../lib/prismaPool";
+import prisma from "./../../../lib/prismaPool";
 
 interface requestBody {
     newOrder: number[];
@@ -24,15 +24,8 @@ export default async function handler(req, res) {
             );
 
             Promise.all(updateList).then(async () => {
-                const updatedOrder = await prisma.team.findMany({
-                    orderBy: [
-                        {
-                            ordernumber: "asc",
-                        },
-                    ],
-                });
                 fetch(`${process.env.NEXTAUTH_URL}/api/revalidate?secret=${process.env.NEXT_REVALIDATE}&path=/team`);
-                res.status(200).json({ order: updatedOrder });
+                res.status(200).json({ msg: "success" });
             });
         } catch (err) {
             console.log("update employee order err", err);

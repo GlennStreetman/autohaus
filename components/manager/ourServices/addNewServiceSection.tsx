@@ -5,6 +5,8 @@ import LabeledInput from "./../../labeledInput";
 import LabeledtextArea from "./../../labeledTextArea";
 import IconButton from "./../../iconButton";
 import FileUploadDragBox from "./../../fileUploadDragBox";
+import { addServiceSectionTextReq } from "./../../../pages/api/services/addServiceSectionText";
+import { addServiceSectionReq } from "./../../../pages/api/services/addServiceSection";
 
 interface props {
     service: service;
@@ -31,14 +33,18 @@ function addNewServiceSection(p: props) {
 
     function addSection() {
         if (ready) {
+            const fields: addServiceSectionReq = {
+                sectionName: sectionHeader,
+                sectionBody: sectionBody,
+                serviceID: p.service.id,
+                serviceName: p.service.name,
+            };
             const data = fileRef;
-            data.append("sectionName", sectionHeader);
-            data.append("sectionBody", sectionBody);
-            data.append("serviceID", p.service.id);
-
-            // if (edit) data.append("id", edit.id);
-            fetch(`/api/addServiceSection`, {
-                method: "POST", // or 'PUT'
+            Object.entries(fields).forEach(([key, val]) => {
+                data.append(key, val);
+            });
+            fetch(`/api/services/addServiceSection`, {
+                method: "POST",
                 body: data,
             })
                 .then(async (res) => {
@@ -61,8 +67,16 @@ function addNewServiceSection(p: props) {
                     console.log("error submitting employee update", err);
                 });
         } else {
-            console.log("GET addServiceSection");
-            fetch(`/api/addServiceSection?sectionName=${sectionHeader}&sectionBody=${sectionBody}&serviceID=${p.service.id}`)
+            const data: addServiceSectionTextReq = {
+                sectionName: sectionHeader,
+                sectionBody: sectionBody,
+                serviceID: p.service.id,
+                serviceName: p.service.name,
+            };
+            fetch(`/api/services/addServiceSectionText`, {
+                method: "POST",
+                body: JSON.stringify(data),
+            })
                 .then(async (res) => res.json())
                 .then((data) => {
                     if (data.msg === "success") {

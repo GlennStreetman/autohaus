@@ -1,12 +1,13 @@
 import { IncomingForm } from "formidable";
-import { uploadFilePublic } from "../../lib/s3";
+import { uploadFilePublic } from "../../../lib/s3";
 import { getSession } from "next-auth/react";
-import prisma from "../../lib/prismaPool";
+import prisma from "../../../lib/prismaPool";
 
-interface reqFields {
+export interface editServiceSectionReq {
     sectionHeader: string;
     sectionText: string;
     id: number;
+    service: string;
 }
 
 interface savedFileReturn {
@@ -19,6 +20,12 @@ export const config = {
     },
 };
 
+async function rerenderRoutes(service) {
+    const shortName = service.replaceAll(" ", "");
+    fetch(`${process.env.NEXTAUTH_URL}/api/revalidate?secret=${process.env.NEXT_REVALIDATE}&path=/`); //home page carousel
+    fetch(`${process.env.NEXTAUTH_URL}/api/revalidate?secret=${process.env.NEXT_REVALIDATE}&path=/services/${shortName}`); //route to service
+}
+
 function checkFileName(fileName) {
     if (fileName !== "" && ["png", "jpg", "svg"].includes(fileName.split(".").pop())) {
         return true;
@@ -30,9 +37,8 @@ function checkFileName(fileName) {
 async function saveFile(req) {
     const form = new IncomingForm();
     const data = await new Promise((resolve, reject) => {
-        form.parse(req, async (err, fields: reqFields, files) => {
+        form.parse(req, async (err, fields: editServiceSectionReq, files) => {
             if (checkFileName(files.file[0].originalFilename) === true) {
-                console.log("fields", fields);
                 const sectionheader = fields.sectionHeader[0];
                 const uploadResult = await uploadFilePublic(files.file[0], `${sectionheader}.section.${files.file[0].originalFilename}`);
                 // console.log("s3 Resulte: ", uploadResult);
@@ -47,7 +53,7 @@ async function saveFile(req) {
     return data;
 }
 
-async function saveDataPost(req, fileKey, fields: reqFields) {
+async function saveDataPost(req, fileKey, fields: editServiceSectionReq) {
     try {
         const updateObj = {
             where: {
@@ -62,7 +68,7 @@ async function saveDataPost(req, fileKey, fields: reqFields) {
         await prisma.servicesection.update(updateObj);
         return true;
     } catch (err) {
-        console.log("problem with POST /editOurServices DB", err);
+        console.log("problem with POST /editServiceSection DB", err);
         return false;
     }
 }
@@ -78,6 +84,7 @@ export default async (req, res) => {
                 if (pass) {
                     const servicesUpdated = await saveDataPost(req, savedFile.fileKey, fields);
                     if (servicesUpdated) {
+                        rerenderRoutes(fields.service[0]);
                         res.status(200).json({ msg: "success" });
                     } else {
                         res.status(500).json({ msg: "problem saving service." });

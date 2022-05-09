@@ -1,14 +1,17 @@
 import React, { useState, useContext, useEffect } from "react";
-import { section } from "../ourServices";
+import { section, service } from "../ourServices";
 import LabeledInput from "./../../labeledInput";
 import LabeledtextArea from "./../../labeledTextArea";
 import FileUploadDragBox from "./../../fileUploadDragBox";
 import IconButton from "./../../iconButton";
+import { editServiceSectionReq } from "./../../../pages/api/services/editServiceSection";
+import { editServiceSectionTextReq } from "./../../../pages/api/services/editServiceSectionText";
 
 interface props {
     section: section;
     getServices: Function;
     setEditSection: Function;
+    service: service;
 }
 
 function editServiceSection(p: props) {
@@ -45,14 +48,20 @@ function editServiceSection(p: props) {
 
     function postEditSection() {
         if (ready) {
-            //process update with picture
-            const data = fileRef;
-            data.append("sectionHeader", newSectionHeader);
-            data.append("sectionText", sectionText);
-            data.append("id", p.section.id);
+            const body: editServiceSectionReq = {
+                sectionHeader: newSectionHeader,
+                sectionText: sectionText,
+                id: p.section.id,
+                service: p.service.name,
+            };
 
-            fetch(`/api/editServiceSection`, {
-                method: "POST", // or 'PUT'
+            const data = fileRef;
+            Object.entries(body).forEach(([key, val]) => {
+                data.append(key, val);
+            });
+
+            fetch(`/api/services/editServiceSection`, {
+                method: "POST",
                 body: data,
             })
                 .then(async (res) => {
@@ -74,14 +83,15 @@ function editServiceSection(p: props) {
                     console.log("error submitting employee update", err);
                 });
         } else {
-            const data = {
+            const data: editServiceSectionTextReq = {
                 sectionHeader: newSectionHeader,
                 sectionText: sectionText,
                 id: p.section.id,
+                service: p.service.name,
             };
             const upload = JSON.stringify(data);
-            fetch(`/api/editServiceSectionText`, {
-                method: "POST", // or 'PUT'
+            fetch(`/api/services/editServiceSectionText`, {
+                method: "POST",
                 body: upload,
             })
                 .then(async (res) => {
