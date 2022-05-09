@@ -39,35 +39,6 @@ async function saveFile(req) {
     return data;
 }
 
-async function saveDataPost(req, fileKey, fields) {
-    const formObject = {
-        name: fields.name[0],
-        title: fields.title[0],
-        description: fields.description[0],
-        id: fields.id[0],
-    };
-
-    try {
-        if (fields.id) {
-            await prisma.team.update({
-                where: {
-                    id: parseInt(formObject.id),
-                },
-                data: {
-                    title: formObject.title,
-                    description: formObject.description,
-                    filename: fileKey,
-                    name: formObject.name,
-                },
-            });
-            const newTeam = await prisma.team.findMany({});
-            return newTeam;
-        }
-    } catch (err) {
-        console.log("problem with POST /editEmployee DB", err);
-    }
-}
-
 export default async (req, res) => {
     const session = await getSession({ req });
     //@ts-ignore
@@ -76,6 +47,7 @@ export default async (req, res) => {
             try {
                 const [pass, savedFile, fields]: any = await saveFile(req);
                 if (pass) {
+                    fetch(`${process.env.NEXTAUTH_URL}/api/revalidate?secret=${process.env.NEXT_REVALIDATE}&path=/team`);
                     res.status(200).json({ msg: "success" });
                 } else {
                     console.log("denied file save!");
