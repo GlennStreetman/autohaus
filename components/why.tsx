@@ -1,7 +1,6 @@
 import React from "react";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import NextLinkButton from "./nextLinkButton";
 import LineLinkButton from "./lineLinkButton";
 import { SiPorsche } from "react-icons/si";
 
