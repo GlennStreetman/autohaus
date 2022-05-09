@@ -13,31 +13,31 @@ interface employees {
 }
 
 interface props {
-    show: boolean;
+    edit: employees;
+    setEdit: Function;
+    setEmployees: Function;
 }
 
-function editTeamMember() {
-    const [employees, setEmployees] = useState<employees[]>([]);
+function editTeamMember(p: props) {
     const [empName, setEmpName] = useState("");
     const [empTitle, setEmpTitle] = useState("");
     const [empDescription, setEmpDescription] = useState("");
     const [empPictureRef, setEmpPictureRef] = useState<any>("pass");
     const [empPictureName, setEmpPictureName] = useState("");
     const [requestAdditional, setRequestAdditional] = useState(false);
-    const [showDetail, setShowDetail] = useState("-1");
     const [edit, setEdit] = useState<false | employees>(false);
     const [serverMsg, setServerMsg] = useState("");
     const [ready, setReady] = useState(false);
     const screenSize = useContext(ScreenWidth);
 
+    useEffect(() => {
+        setEmpName(p.edit.name);
+        setEmpTitle(p.edit.title);
+        setEmpDescription(p.edit.description);
+    }, [p.edit.id]);
+
     function cancelRequest() {
-        setEmpName("");
-        setEmpTitle("");
-        setEmpDescription("");
-        setEmpPictureRef("");
-        setEmpPictureName("");
-        setEdit(false);
-        setServerMsg("");
+        p.setEdit(false);
     }
 
     function processRequest(e) {
@@ -77,7 +77,7 @@ function editTeamMember() {
                 })
                 .then((data) => {
                     if (data.msg === "success") {
-                        setEmployees(data.employees);
+                        p.setEmployees(data.employees);
                         setEdit(false);
                         cancelRequest();
                     } else {
@@ -96,7 +96,7 @@ function editTeamMember() {
                 })
                 .then((data) => {
                     if (data.msg === "success") {
-                        setEmployees(data.employees);
+                        p.setEmployees(data.employees);
                         setEdit(false);
                         cancelRequest();
                     } else {

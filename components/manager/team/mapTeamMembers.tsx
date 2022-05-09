@@ -1,5 +1,6 @@
 import React from "react";
 import LabeledSelect from "./../../labeledSelect";
+import EditTeamMember from "./editTeamMember";
 
 import { useState } from "react";
 
@@ -15,7 +16,6 @@ interface employees {
 interface props {
     employees: employees[];
     setEmployees: Function;
-    setEditEmployee: Function;
 }
 
 function mapTeamMembers(p: props) {
@@ -72,7 +72,7 @@ function mapTeamMembers(p: props) {
                             type="checkbox"
                             checked={edit !== false && el.id === edit.id}
                             onChange={async (e) => {
-                                p.setEditEmployee(el);
+                                setEdit(el);
                             }}
                         />
                     </td>
@@ -137,7 +137,12 @@ function mapTeamMembers(p: props) {
         </>
     );
 
-    return <div>{teamMembersContainer}</div>;
+    return (
+        <div>
+            {teamMembersContainer}
+            {edit !== false ? <EditTeamMember edit={edit} setEdit={setEdit} setEmployees={p.setEmployees} /> : <></>}
+        </div>
+    );
 }
 
 export default mapTeamMembers;
