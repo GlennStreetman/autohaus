@@ -1,5 +1,14 @@
 version: "3.9"
 services:
+    autohaus:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        ports:
+            - 3005:3000
+        volumes:
+            - ./:/autohaus/
+        command: "npm run start"
     postgresdockerautohaus:
         image: postgres
         restart: always
@@ -10,16 +19,6 @@ services:
             - 5446:5432
         volumes:
             - postgres-data:/var/lib/postgresql/data
-    autohaus:
-        build:
-            context: .
-            dockerfile: Dockerfile
-        ports:
-            - 3005:3000
-        volumes:
-            - ./:/autohaus/
-        command: "npm run start"
-
     # adminer:
     #     image: adminer
     #     restart: always

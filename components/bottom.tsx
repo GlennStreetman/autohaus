@@ -25,7 +25,10 @@ function bottom() {
 
     const telephoneText = publicData.phone ? addDashes(publicData.phone) : "";
     const email = publicData.serviceEmail ? publicData.serviceEmail : "";
-    const long = publicData.addressLong ? publicData.addressLong : "";
+    const longAddress = publicData.addressLong ? publicData.addressLong : "";
+    const locationLink = publicData.googleLink ? publicData.googleLink : "";
+    const socialLink = publicData.socialLink ? publicData.socialLink : "";
+    const reviewLink = publicData.reviewLink ? publicData.reviewLink : "";
     const openShort = publicData.openShort ? publicData.openShort : "";
     const openLong = publicData.openLong ? publicData.openLong : "";
 
@@ -45,7 +48,7 @@ function bottom() {
                             // }}
                             icon={<MdOutlineMailOutline className="h-7 w-7" />}
                         />
-                        <LinkButton text={long} link={process.env.NEXT_PUBLIC_ADDRESS_MAP_LINK} icon={<HiOutlineLocationMarker className="h-7 w-7" />} />
+                        <LinkButton text={longAddress} link={locationLink} icon={<HiOutlineLocationMarker className="h-7 w-7" />} />
                         {path !== "/calendar" ? (
                             <NextLinkButton text={`${openShort} ${openLong}`} icon={<GoCalendar className="h-7 w-7" />} link="/calendar" />
                         ) : (
@@ -63,8 +66,8 @@ function bottom() {
                         ) : (
                             <></>
                         )}
-                        <LinkButton text="Social" link={process.env.NEXT_PUBLIC_SOCIAL} icon={<AiOutlineInstagram className="h-7 w-7" />} />
-                        <LinkButton text="Google Reviews" link={process.env.NEXT_PUBLIC_GOOGLE} icon={<FcGoogle className="h-7 w-7 " />} />
+                        <LinkButton text="Social" link={socialLink} icon={<AiOutlineInstagram className="h-7 w-7" />} />
+                        <LinkButton text="Google Reviews" link={reviewLink} icon={<FcGoogle className="h-7 w-7 " />} />
                         <NextLinkButton text="Careers" icon={<GiMechanicGarage className="h-7 w-7" />} link="/careers" />
                     </div>
                 </div>

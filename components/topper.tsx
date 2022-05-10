@@ -19,11 +19,9 @@ function Topper() {
     const publicData = useContext(PublicData);
 
     const telephoneText = screenSize.width >= 1024 && publicData.phone ? addDashes(publicData.phone) : "";
-
     const locationText = screenSize.width >= 1024 && publicData.address ? publicData.address : "";
-
+    const locationLink = publicData.googleLink ? publicData.googleLink : "";
     const repairText = screenSize.width >= 1024 ? "Request Quote" : "";
-
     const calendarText = screenSize.width >= 1024 && publicData.openShort ? publicData.openShort : "";
 
     return (
@@ -34,11 +32,7 @@ function Topper() {
                 <></>
             )}
 
-            <LinkButton
-                text={locationText}
-                link={`${process.env.NEXT_PUBLIC_ADDRESS_MAP_LINK}`}
-                icon={<HiOutlineLocationMarker className="h-5 w-5 xs:h-7  xs:w-7" />}
-            />
+            <LinkButton text={locationText} link={locationLink} icon={<HiOutlineLocationMarker className="h-5 w-5 xs:h-7  xs:w-7" />} />
 
             <LinkButton text={telephoneText} link={`tel:${publicData.phone}`} icon={<BsTelephoneInboundFill className="h-5 w-5 xs:h-7  xs:w-7" />} />
 

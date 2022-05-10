@@ -1,10 +1,6 @@
 import Image from "next/image";
 import Logo from "./logo";
 
-//     // example styling
-//     // const smallTextStyling = `font-heading bold text-1xl sm:text-2xl lg:text-3xl`;
-//     // const largeTextStyling = `font-heading bold text-3xl sm:text-4xl lg:text-6xl3`;
-
 interface props {
     children?: JSX.Element;
 }
@@ -13,7 +9,6 @@ function banner(p: props) {
     const logoBox = "col-span-12"; //1x
     const textBox = "col-span-12 relative "; //1x
     const height = `w-full h-auto grid grid-cols-12 relative`;
-
     const bannerImage = <Image src="/shrink2.png" alt="orange porche" layout="fill" objectFit="cover" priority />;
 
     return (

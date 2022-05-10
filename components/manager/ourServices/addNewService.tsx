@@ -17,7 +17,6 @@ function addNewService(p: props) {
     const [fileRef, setFileRef] = useState<any>("pass");
     const [serverMsg, setServerMsg] = useState("");
     const [requestAdditional, setRequestAdditional] = useState(false);
-    // const [edit, setEdit] = useState<false | service>(false);
     const [ready, setReady] = useState(false);
     const screenSize = useContext(ScreenWidth);
 
@@ -26,7 +25,6 @@ function addNewService(p: props) {
         if (newServiceName === "") processRequest = false;
         if (fileName === "") processRequest = false;
         if (fileRef === "pass") processRequest = false;
-
         if (processRequest) {
             setRequestAdditional(false);
             addService();
@@ -94,12 +92,6 @@ function addNewService(p: props) {
                 readyCallback={setReady}
             />
             <div className="col-span-12 flex justify-center gap-12 py-2">
-                {/* <button
-                    className="h-[78px] border-2 p-2 rounded-md bg-secondary shadow-sm shadow-slate-600 hover:bg-weak hover:border-black hover:text-accent active:bg-strong text-2x font-bold mb-4"
-                    onClick={cancelRequest}
-                >
-                    Cancel
-                </button> */}
                 <IconButton text="Cancel" callback={cancelRequest} icon={<></>}></IconButton>
 
                 <IconButton
@@ -109,12 +101,6 @@ function addNewService(p: props) {
                     }}
                     icon={<></>}
                 ></IconButton>
-                {/* <button
-                    className="h-[78px] border-2 p-2 rounded-md bg-secondary shadow-sm shadow-slate-600 hover:bg-weak hover:border-black hover:text-accent active:bg-strong text-2x font-bold mb-4"
-                    onClick={processAddService}
-                >
-                    Add Service
-                </button> */}
             </div>
             <div className="col-span-12 text-red-500 font-bold text-center">{serverMsg}</div>
             <div className="col-span-12 flex justify-center">
