@@ -1,22 +1,23 @@
 import { useContext } from "react";
-import Holidays from "./holidays";
-import Resumes from "./resumes";
-import ServiceRequests from "./serviceRequests";
-import Team from "./team";
-import OurServices from "./ourServices";
 import IconButton from "../iconButton";
 import Banner from "../banner";
 import NextLinkButton from "../nextLinkButton";
 import { ScreenWidth } from "../screenWidth";
-
 import { useState } from "react";
 import { useSession } from "next-auth/react";
-
 import { GrUserManager } from "react-icons/gr";
 import { MdMiscellaneousServices, MdOutlineMedicalServices } from "react-icons/md";
 import { BsPeople } from "react-icons/bs";
 import { GoCalendar } from "react-icons/go";
 import { AiOutlineTeam } from "react-icons/ai";
+import { VscSymbolMisc } from "react-icons/vsc";
+
+import Holidays from "./holidays";
+import Resumes from "./resumes";
+import ServiceRequests from "./serviceRequests";
+import Team from "./team";
+import OurServices from "./ourServices";
+import Setup from "./setup";
 
 const smallTextStyling = `text-white font-heading bold text-1xl sm:text-2xl lg:text-3xl [text-shadow:2px_2px_rgba(0,0,0,1)] antialiased`;
 const largeTextStyling = `text-white font-heading bold text-3xl sm:text-4xl lg:text-6xl3 [text-shadow:2px_2px_rgba(0,0,0,1)] antialiased `;
@@ -76,6 +77,14 @@ function Body() {
                 }}
                 icon={<MdOutlineMedicalServices className={screenSize.width >= 500 ? "h-7 w-7" : "h-5 w-5"} />}
             />
+            <IconButton
+                highlight={menu === "setup" ? true : false}
+                text="Site Setup"
+                callback={() => {
+                    setMenu("setup");
+                }}
+                icon={<VscSymbolMisc className={screenSize.width >= 500 ? "h-7 w-7" : "h-5 w-5"} />}
+            />
         </div>
     );
 
@@ -100,6 +109,7 @@ function Body() {
                             <Resumes show={menu === "resume" ? true : false} />
                             <Team show={menu === "team" ? true : false} />
                             <OurServices show={menu === "ourservices" ? true : false} />
+                            <Setup show={menu === "setup" ? true : false} />
                         </div>
                     </div>
                     <div className={gutter} />

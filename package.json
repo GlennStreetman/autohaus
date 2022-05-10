@@ -8,7 +8,7 @@
         "start": "next start",
         "startd": "next start -p 3005",
         "lint": "next lint",
-        "dUp": "docker-compose -f app.yaml up",
+        "dUp": " docker-compose -f app.yaml up",
         "buildd": "docker-compose -f app.yaml up --build ",
         "pUp": "docker-compose -f app.prod.yaml up",
         "buildp": "docker-compose -f app.prod.yaml up --build "

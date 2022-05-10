@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useRouter } from "next/router";
 import NextLinkButton from "./nextLinkButton";
 import LinkButton from "./linkButton";
-
+import { PublicData } from "../components/publicData";
 import { BsTelephoneInboundFill } from "react-icons/bs";
 import { HiOutlineLocationMarker } from "react-icons/hi";
 import { FcGoogle } from "react-icons/fc";
@@ -11,6 +11,7 @@ import { MdOutlineMailOutline } from "react-icons/md";
 import { GoCalendar } from "react-icons/go";
 import { AiOutlineInstagram, AiOutlineHome } from "react-icons/ai";
 import { GiAutoRepair } from "react-icons/gi";
+import addDashes from "../lib/formatPhone";
 
 //flex grid elements
 const gutter = "p-2 col-span-0  md:col-span-1 lg:col-span-1 xl:col-span-2"; //2x
@@ -20,6 +21,13 @@ const data = "p-2   col-span-12 md:col-span-5 lg:col-span-5 xl:col-span-3"; //2x
 function bottom() {
     const router = useRouter();
     const path = router.pathname;
+    const publicData = useContext(PublicData);
+
+    const telephoneText = publicData.phone ? addDashes(publicData.phone) : "";
+    const email = publicData.serviceEmail ? publicData.serviceEmail : "";
+    const long = publicData.addressLong ? publicData.addressLong : "";
+    const openShort = publicData.openShort ? publicData.openShort : "";
+    const openLong = publicData.openLong ? publicData.openLong : "";
 
     return (
         <>
@@ -28,26 +36,18 @@ function bottom() {
                 <div className={data}>
                     <div className="flex flex-col gap-2">
                         <div className="text-white font-semibold">Contact Details:</div>
+                        <LinkButton text={telephoneText} link={`tel:${publicData.phone}`} icon={<BsTelephoneInboundFill className="h-7 w-7" />} />
                         <LinkButton
-                            text={process.env.NEXT_PUBLIC_PHONE}
-                            link={`tel:${process.env.NEXT_PUBLIC_PHONE}`}
-                            icon={<BsTelephoneInboundFill className="h-7 w-7" />}
-                        />
-                        <LinkButton
-                            text={process.env.NEXT_PUBLIC_EMAIL}
-                            link={`mailto: ${process.env.NEXT_PUBLIC_EMAIL}`}
+                            text={email}
+                            link={`mailto: ${email}`}
                             // callback={() => {
-                            //     if (navigator.clipboard) navigator.clipboard.writeText(process.env.NEXT_PUBLIC_EMAIL);
+                            //     if (navigator.clipboard) navigator.clipboard.writeText(process.env.);
                             // }}
                             icon={<MdOutlineMailOutline className="h-7 w-7" />}
                         />
-                        <LinkButton
-                            text={process.env.NEXT_PUBLIC_ADDRESS_LONG}
-                            link={process.env.NEXT_PUBLIC_ADDRESS_MAP_LINK}
-                            icon={<HiOutlineLocationMarker className="h-7 w-7" />}
-                        />
+                        <LinkButton text={long} link={process.env.NEXT_PUBLIC_ADDRESS_MAP_LINK} icon={<HiOutlineLocationMarker className="h-7 w-7" />} />
                         {path !== "/calendar" ? (
-                            <NextLinkButton text="Open: Mon-Fri 8am-5pm : Closed Weekend/Holidays" icon={<GoCalendar className="h-7 w-7" />} link="/calendar" />
+                            <NextLinkButton text={`${openShort} ${openLong}`} icon={<GoCalendar className="h-7 w-7" />} link="/calendar" />
                         ) : (
                             <></>
                         )}

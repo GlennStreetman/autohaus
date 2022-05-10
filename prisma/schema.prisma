@@ -122,3 +122,8 @@ model servicesection {
   serviceid     Int
   ordernumber   Int    @default(99)
 }
+
+model sitesetup {
+  name          String    @unique
+  value         String
+}

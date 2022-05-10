@@ -52,7 +52,6 @@ function holidays(p: props) {
 
         fetch(`/api/addHoliday`, {
             method: "POST",
-
             body: JSON.stringify(options),
         })
             .then((response) => response.json())
