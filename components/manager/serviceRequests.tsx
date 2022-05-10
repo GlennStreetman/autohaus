@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useContext } from "react";
 import produce from "immer";
-import { useSession, signIn, signOut } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import LabeledInput from "./../labeledInput";
 import LabeledSelect from "./../labeledSelect";
 import { filters } from "./../../pages/api/getServiceRequests";
 import formatPhone from "./../../lib/formatPhone";
 import { ScreenWidth } from "../screenWidth";
+import OutlinedSurface from "./../outlinedSurface";
 
 const serviceFilters = {
     ["Email"]: "email",
@@ -134,9 +135,9 @@ function ServiceRequests(p: props) {
         </>
     );
 
-    const filtersFormat = screenSize.width <= 500 ? "col-span-12 flex flex-wrap  flex-row gap-2" : "col-span-12 flex  flex-row gap-2";
+    const filtersFormat = screenSize.width <= 500 ? "col-span-12 flex flex-wrap  flex-row gap-2 mb-4" : "col-span-12 flex  flex-row gap-2 mb-4";
     const filters = (
-        <div className={p.show === true ? filtersFormat : "hidden"}>
+        <div className={filtersFormat}>
             {filterDropDown}
             <LabeledInput
                 id="serviceSearch"
@@ -160,7 +161,7 @@ function ServiceRequests(p: props) {
     );
 
     const filterDates = (
-        <div className={p.show === true ? "col-span-12 flex flex-wrap flex-row gap-2" : "hidden"}>
+        <div className="col-span-12 flex flex-wrap flex-row gap-2 mb-4">
             <div>
                 <LabeledInput fieldType="date" id="fromdate" label="From Date" value={fromDate} onClickCallback={setFromDate} helperText="From Date:" />
             </div>
@@ -242,7 +243,7 @@ function ServiceRequests(p: props) {
     });
 
     const serviceRequestContainer = (
-        <div className={p.show === true ? "col-span-12 overflow-auto" : "hidden"}>
+        <div className="col-span-12 overflow-auto">
             <table className="w-full">
                 <thead>
                     <tr>
@@ -267,11 +268,13 @@ function ServiceRequests(p: props) {
     );
 
     return (
-        <>
-            {filters}
-            {filterDates}
-            {serviceRequestContainer}
-        </>
+        <div className={p.show === true ? "col-span-12 overflow-auto" : "hidden"}>
+            <OutlinedSurface label="Review Service Requests">
+                {filters}
+                {filterDates}
+                {serviceRequestContainer}
+            </OutlinedSurface>
+        </div>
     );
 }
 

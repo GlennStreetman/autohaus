@@ -6,6 +6,7 @@ import LabeledSelect from "./../labeledSelect";
 import { filters } from "./../../pages/api/getResumes";
 import formatPhone from "./../../lib/formatPhone";
 import { ScreenWidth } from "../screenWidth";
+import OutlinedSurface from "./../outlinedSurface";
 
 interface resumes {
     id: number;
@@ -44,7 +45,6 @@ interface props {
 
 function Resumes(p: props) {
     const { data: session } = useSession();
-    // const [filterService, setFilterService] = useState(""); //text used to filter services
     const [resumes, setResumes] = useState<resumes[]>([]); //returned data
     const [filterResumes, setFilterResumes] = useState(""); //text used to filter resumes
     const [showArchived, setShowArchived] = useState(false);
@@ -110,9 +110,9 @@ function Resumes(p: props) {
         </>
     );
 
-    const filtersFormat = screenSize.width <= 500 ? "col-span-12 flex flex-wrap  flex-row gap-2" : "col-span-12 flex  flex-row gap-2";
+    const filtersFormat = screenSize.width <= 500 ? "col-span-12 flex flex-wrap  flex-row gap-2 mb-4" : "col-span-12 flex  flex-row gap-2 mb-4";
     const filters = (
-        <div className={p.show === true ? filtersFormat : "hidden"}>
+        <div className={filtersFormat}>
             {filterDropDown}
             <LabeledInput
                 id="resumeSearch"
@@ -159,7 +159,7 @@ function Resumes(p: props) {
     );
 
     const filterDates = (
-        <div className={p.show === true ? "col-span-12 flex flex-wrap flex-row gap-2" : "hidden"}>
+        <div className="col-span-12 flex flex-wrap flex-row gap-2 mb-4">
             <div>
                 <LabeledInput fieldType="date" id="fromdate" label="From Date" value={fromDate} onClickCallback={setFromDate} helperText="From Date:" />
             </div>
@@ -260,7 +260,7 @@ function Resumes(p: props) {
     });
 
     const resumesContainer = (
-        <div className={p.show === true ? "col-span-12 overflow-auto" : "hidden"}>
+        <div className="col-span-12 overflow-auto">
             <table className="w-full">
                 <thead>
                     <tr>
@@ -284,11 +284,13 @@ function Resumes(p: props) {
     );
 
     return (
-        <>
-            {filters}
-            {filterDates}
-            {resumesContainer}
-        </>
+        <div className={p.show === true ? "col-span-12 overflow-auto" : "hidden"}>
+            <OutlinedSurface label="Review Resumes">
+                {filters}
+                {filterDates}
+                {resumesContainer}
+            </OutlinedSurface>
+        </div>
     );
 }
 
