@@ -4,6 +4,7 @@ import LabeledInput from "../components/labeledInput";
 import ReCAPTCHA from "react-google-recaptcha";
 import { useRouter } from "next/router";
 import formatPhone, { stripPhone } from "./../lib/formatPhone";
+import OutlinedSurface from "./../components/outlinedSurface";
 
 const timeOptions = [
     "8:00 AM",
@@ -27,7 +28,7 @@ const mapTimeOptions = timeOptions.map((el) => <option key={el} value={el} />);
 const timeOptionsDatalist = <datalist id="timeOptions">{mapTimeOptions}</datalist>;
 
 const gutter = "col-span-0 lg:col-span-1 xl:col-span-3"; //2x
-const body = "col-span-12 lg:col-span-10 xl:col-span-6 mb-4"; //1x
+const body = "col-span-12 lg:col-span-10 xl:col-span-6 my-4"; //1x
 const big = " col-span-12 lg:col-span-6";
 const medium = "col-span-12 lg:col-span-4";
 const small = "col-span-6 lg:col-span-3";
@@ -166,172 +167,174 @@ function Quote() {
             <div className="grid grid-row grid-cols-12 p-1">
                 <div className={gutter} />
                 <div className={body}>
-                    <div className="flex justify-center text-accent active:bg-strong text-3xl font-bold p-6">Request Service Quote</div>
-                    <div className="grid grid-row grid-cols-12 gap-x-2 gap-y-4">
-                        <div className={big}>
-                            <LabeledInput
-                                autocomplete="given-name"
-                                id="first_id"
-                                label="First Name"
-                                value={firstName}
-                                onClickCallback={setFirstName}
-                                helperText={firstNameHelp}
-                            />
-                        </div>
-                        <div className={big}>
-                            <LabeledInput
-                                autocomplete="family-name"
-                                id="last_id"
-                                label="Last Name"
-                                value={lastName}
-                                onClickCallback={setLastName}
-                                helperText={lastNameHelp}
-                            />
-                        </div>
-                        <div className={big}>
-                            <LabeledInput
-                                autocomplete="email"
-                                fieldType="email"
-                                id="email_id"
-                                label="Email"
-                                value={email}
-                                onClickCallback={setEmail}
-                                helperText={emailHelp}
-                            />
-                        </div>
-                        <div className={big}>
-                            <LabeledInput
-                                autocomplete="tel"
-                                fieldType="tel"
-                                id="phone_id"
-                                label="Phone"
-                                value={formatPhone(phone)}
-                                onClickCallback={(e) => {
-                                    setPhone(stripPhone(e));
-                                }}
-                                helperText={phoneHelp}
-                            />
-                        </div>
-                        <div className={small}>
-                            <LabeledInput
-                                fieldType="date"
-                                id="date1_id"
-                                label="Preferred Date"
-                                value={date1}
-                                onClickCallback={setDate1}
-                                helperText={date1Help}
-                            />
-                        </div>
-                        <div className={small}>
-                            <LabeledInput
-                                fieldType="list"
-                                id="time1_id"
-                                label="Preffered Time"
-                                value={time1}
-                                onClickCallback={setTime1}
-                                helperText={time1Help}
-                                dataList={timeOptionsDatalist}
-                                datalistID="timeOptions"
-                                onFocusCallback={(e) => {
-                                    e.preventDefault();
-                                    setTime1("");
-                                }}
-                            />
-                        </div>
-                        <div className={small}>
-                            <LabeledInput
-                                fieldType="date"
-                                id="date2_id"
-                                label="Alternative Date"
-                                value={date2}
-                                onClickCallback={setDate2}
-                                helperText={date2Help}
-                            />
-                        </div>
-                        <div className={small}>
-                            <LabeledInput
-                                fieldType="list"
-                                id="time2_id"
-                                label="Alternative Time"
-                                value={time2}
-                                onClickCallback={setTime2}
-                                helperText={time2Help}
-                                dataList={timeOptionsDatalist}
-                                datalistID="timeOptions"
-                                onFocusCallback={(e) => {
-                                    e.preventDefault();
-                                    setTime2("");
-                                }}
-                            />
-                        </div>
-                        <div className={medium}>
-                            <LabeledInput
-                                fieldType="text"
-                                id="make_id"
-                                label="Verhicle Make"
-                                value={carMake}
-                                onClickCallback={setCarMake}
-                                helperText={carMakeHelp}
-                            />
-                        </div>
+                    <OutlinedSurface>
+                        <div className="flex justify-center text-accent active:bg-strong text-3xl font-bold p-6">Request Service Quote</div>
+                        <div className="grid grid-row grid-cols-12 gap-x-2 gap-y-4">
+                            <div className={big}>
+                                <LabeledInput
+                                    autocomplete="given-name"
+                                    id="first_id"
+                                    label="First Name"
+                                    value={firstName}
+                                    onClickCallback={setFirstName}
+                                    helperText={firstNameHelp}
+                                />
+                            </div>
+                            <div className={big}>
+                                <LabeledInput
+                                    autocomplete="family-name"
+                                    id="last_id"
+                                    label="Last Name"
+                                    value={lastName}
+                                    onClickCallback={setLastName}
+                                    helperText={lastNameHelp}
+                                />
+                            </div>
+                            <div className={big}>
+                                <LabeledInput
+                                    autocomplete="email"
+                                    fieldType="email"
+                                    id="email_id"
+                                    label="Email"
+                                    value={email}
+                                    onClickCallback={setEmail}
+                                    helperText={emailHelp}
+                                />
+                            </div>
+                            <div className={big}>
+                                <LabeledInput
+                                    autocomplete="tel"
+                                    fieldType="tel"
+                                    id="phone_id"
+                                    label="Phone"
+                                    value={formatPhone(phone)}
+                                    onClickCallback={(e) => {
+                                        setPhone(stripPhone(e));
+                                    }}
+                                    helperText={phoneHelp}
+                                />
+                            </div>
+                            <div className={small}>
+                                <LabeledInput
+                                    fieldType="date"
+                                    id="date1_id"
+                                    label="Preferred Date"
+                                    value={date1}
+                                    onClickCallback={setDate1}
+                                    helperText={date1Help}
+                                />
+                            </div>
+                            <div className={small}>
+                                <LabeledInput
+                                    fieldType="list"
+                                    id="time1_id"
+                                    label="Preffered Time"
+                                    value={time1}
+                                    onClickCallback={setTime1}
+                                    helperText={time1Help}
+                                    dataList={timeOptionsDatalist}
+                                    datalistID="timeOptions"
+                                    onFocusCallback={(e) => {
+                                        e.preventDefault();
+                                        setTime1("");
+                                    }}
+                                />
+                            </div>
+                            <div className={small}>
+                                <LabeledInput
+                                    fieldType="date"
+                                    id="date2_id"
+                                    label="Alternative Date"
+                                    value={date2}
+                                    onClickCallback={setDate2}
+                                    helperText={date2Help}
+                                />
+                            </div>
+                            <div className={small}>
+                                <LabeledInput
+                                    fieldType="list"
+                                    id="time2_id"
+                                    label="Alternative Time"
+                                    value={time2}
+                                    onClickCallback={setTime2}
+                                    helperText={time2Help}
+                                    dataList={timeOptionsDatalist}
+                                    datalistID="timeOptions"
+                                    onFocusCallback={(e) => {
+                                        e.preventDefault();
+                                        setTime2("");
+                                    }}
+                                />
+                            </div>
+                            <div className={medium}>
+                                <LabeledInput
+                                    fieldType="text"
+                                    id="make_id"
+                                    label="Verhicle Make"
+                                    value={carMake}
+                                    onClickCallback={setCarMake}
+                                    helperText={carMakeHelp}
+                                />
+                            </div>
 
-                        <div className={medium}>
-                            <LabeledInput
-                                fieldType="text"
-                                id="model_id"
-                                label="Vehicle Model"
-                                value={carModel}
-                                onClickCallback={setCarModel}
-                                helperText={carModelHelp}
-                            />
-                        </div>
-                        <div className={medium}>
-                            <LabeledInput
-                                fieldType="text"
-                                id="year_id"
-                                label="Vehicle Year"
-                                value={carYear}
-                                onClickCallback={setCarYear}
-                                helperText={carYearHelp}
-                            />
-                        </div>
-                        <div className="col-span-12 border-2 p-2 relative">
-                            <label className="absolute -top-4 left-4 z-2  text-accent bg-primary">Reason for Visit</label>
-                            <textarea
-                                rows={6}
-                                className="bg-primary outline-none w-full"
-                                value={description}
-                                onChange={(e) => {
-                                    e.preventDefault();
-                                    setDescription(e.target.value);
-                                }}
-                            />
-                        </div>
-                        {requestAdditional ? (
-                            <div className="col-span-12">
-                                <div className="flex justify-center text-accent active:bg-strong text-1xl font-bold p-6">
-                                    <div> Review request fields and check captcha below.</div>
+                            <div className={medium}>
+                                <LabeledInput
+                                    fieldType="text"
+                                    id="model_id"
+                                    label="Vehicle Model"
+                                    value={carModel}
+                                    onClickCallback={setCarModel}
+                                    helperText={carModelHelp}
+                                />
+                            </div>
+                            <div className={medium}>
+                                <LabeledInput
+                                    fieldType="text"
+                                    id="year_id"
+                                    label="Vehicle Year"
+                                    value={carYear}
+                                    onClickCallback={setCarYear}
+                                    helperText={carYearHelp}
+                                />
+                            </div>
+                            <div className="col-span-12 border-2 p-2 relative">
+                                <label className="absolute -top-4 left-4 z-2  text-accent bg-primary">Reason for Visit</label>
+                                <textarea
+                                    rows={6}
+                                    className="bg-primary outline-none w-full"
+                                    value={description}
+                                    onChange={(e) => {
+                                        e.preventDefault();
+                                        setDescription(e.target.value);
+                                    }}
+                                />
+                            </div>
+                            {requestAdditional ? (
+                                <div className="col-span-12">
+                                    <div className="flex justify-center text-accent active:bg-strong text-1xl font-bold p-6">
+                                        <div> Review request fields and check captcha below.</div>
+                                    </div>
+                                </div>
+                            ) : (
+                                <></>
+                            )}
+                            <div className={big}>
+                                <div className="flex justify-center">
+                                    <ReCAPTCHA sitekey={process.env.NEXT_PUBLIC_CAPCHA_PUBLIC_KEY} onChange={runCapcha} onExpired={expiredCapcha} />
                                 </div>
                             </div>
-                        ) : (
-                            <></>
-                        )}
-                        <div className={big}>
-                            <div className="flex justify-center">
-                                <ReCAPTCHA sitekey={process.env.NEXT_PUBLIC_CAPCHA_PUBLIC_KEY} onChange={runCapcha} onExpired={expiredCapcha} />
+                            <div className={big}>
+                                <div className="flex justify-center">
+                                    <button
+                                        className="h-[78px] border-2 p-2 rounded-md bg-secondary shadow-sm shadow-slate-600 hover:bg-weak hover:border-black hover:text-accent active:bg-strong text-2x font-bold"
+                                        onClick={processRequest}
+                                    >
+                                        Request Quote
+                                    </button>
+                                </div>
                             </div>
                         </div>
-                        <div className={big}>
-                            <div className="flex justify-center">
-                                <button
-                                    className="h-[78px] border-2 p-2 rounded-md bg-secondary shadow-sm shadow-slate-600 hover:bg-weak hover:border-black hover:text-accent active:bg-strong text-2x font-bold"
-                                    onClick={processRequest}
-                                >
-                                    Request Quote
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+                    </OutlinedSurface>
                 </div>
                 <div className={gutter} />
             </div>
