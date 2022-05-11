@@ -9,6 +9,7 @@ interface savedContact {
     aboutBody?: string;
     thanksResume?: string;
     thanksService?: string;
+    holidayMessage?: string;
 }
 
 function contactInfo() {
@@ -18,6 +19,7 @@ function contactInfo() {
     const [aboutBody, setAboutBody] = useState("");
     const [thanksResume, setThanksResume] = useState("");
     const [thanksService, setThanksService] = useState("");
+    const [holidayMessage, setHolidayMessage] = useState("");
     const [saveLinks, setSaveLinks] = useState(false);
 
     useEffect(() => {
@@ -31,6 +33,7 @@ function contactInfo() {
         if (savedContact.aboutBody !== aboutBody) setSaved = true;
         if (savedContact.thanksResume !== thanksResume) setSaved = true;
         if (savedContact.thanksService !== thanksService) setSaved = true;
+        if (savedContact.holidayMessage !== holidayMessage) setSaved = true;
 
         setSaveLinks(setSaved);
     }, [savedContact, FPBannerText, aboutHeading, aboutBody, thanksResume, thanksService]);
@@ -44,6 +47,7 @@ function contactInfo() {
                 if (data.aboutBody) setAboutBody(data.aboutBody);
                 if (data.thanksResume) setThanksResume(data.thanksResume);
                 if (data.thanksService) setThanksService(data.thanksService);
+                if (data.holidayMessage) setHolidayMessage(data.holidayMessage);
                 setSavedContact(data);
             });
     }
@@ -57,6 +61,7 @@ function contactInfo() {
                 aboutBody: aboutBody,
                 thanksResume: thanksResume,
                 thanksService: thanksService,
+                holidayMessage: holidayMessage,
             }),
         })
             .then((res) => res.json())
@@ -70,10 +75,11 @@ function contactInfo() {
         <OutlinedSurface label="Site Literature">
             <div className="flex flex-col gap-4">
                 <LabeledtextArea id="fpBanner" label="Front Page Banner Text" value={FPBannerText} callback={setFPBannerText} />
-                <LabeledtextArea id="fpBanner" label="Front Page About Heading" value={aboutHeading} callback={setAboutHeading} />
-                <LabeledtextArea id="fpBanner" label="Front Page About Body" value={aboutBody} callback={setAboutBody} />
-                <LabeledtextArea id="fpBanner" label="Thanks your Resume Message" value={thanksResume} callback={setThanksResume} />
-                <LabeledtextArea id="fpBanner" label="Thanks you Service Message" value={thanksService} callback={setThanksService} />
+                <LabeledtextArea id="aboutheading" label="Front Page About Heading" value={aboutHeading} callback={setAboutHeading} />
+                <LabeledtextArea id="aboutBody" label="Front Page About Body" value={aboutBody} callback={setAboutBody} />
+                <LabeledtextArea id="thanksR" label="Thanks your Resume Message" value={thanksResume} callback={setThanksResume} />
+                <LabeledtextArea id="thanksS" label="Thanks you Service Message" value={thanksService} callback={setThanksService} />
+                <LabeledtextArea id="holiday-id" label="Holiday Announcement Header" value={holidayMessage} callback={setHolidayMessage} />
 
                 <div className="flex justify-center">{saveLinks ? <IconButton text="Save Updates" callback={() => saveContacts()} icon={<></>} /> : <></>}</div>
             </div>

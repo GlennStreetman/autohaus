@@ -1,6 +1,7 @@
+import React, { useContext } from "react";
 import Banner from "../components/banner";
 import prisma from "../lib/prismaPool";
-import { PublicHOC } from "../components/publicData";
+import { PublicContext, PublicHOC } from "../components/publicData";
 
 export async function getStaticProps() {
     const holidays = await prisma.holidays.findMany({});
@@ -8,7 +9,7 @@ export async function getStaticProps() {
     return {
         props: {
             holidays,
-            data: data
+            data: data,
         },
         // revalidate: 10,
     };
@@ -31,12 +32,13 @@ interface holidayObject {
 }
 
 const tableCell = "p-2 ";
-function Calendar({ holidays }) {
+function Calendar(p) {
+    const publicData = useContext(PublicContext);
     const gutter = "col-span-0 lg:col-span-1 xl:col-span-3"; //2x
     const body = "col-span-12 lg:col-span-10 xl:col-span-6 mb-4  text-white p-2"; //1x
 
-    const smallTextStyling = `text-white font-heading bold text-1xl sm:text-2xl lg:text-3xl [text-shadow:2px_2px_rgba(0,0,0,1)] antialiased`;
-    const largeTextStyling = `text-white font-heading bold text-3xl sm:text-4xl lg:text-6xl3 [text-shadow:2px_2px_rgba(0,0,0,1)] antialiased `;
+    const smallTextStyling = `text-white font-heading bold text-1xl sm:text-2xl lg:text-3xl [text-shadow:2px_2px_rgba(0,0,0,1)] antialiased whitespace-pre-line`;
+    // const largeTextStyling = `text-white font-heading bold text-3xl sm:text-4xl lg:text-6xl3 [text-shadow:2px_2px_rgba(0,0,0,1)] antialiased `;
 
     function mapCalendar(calendar: holidayObject[]) {
         const mapped = Object.values(calendar).map((el) => {
@@ -56,12 +58,12 @@ function Calendar({ holidays }) {
 
     return (
         <>
-            {/* height={72} */}
             <Banner>
-                <div>
-                    <div className={largeTextStyling}>Open Monday through Friday 8am to 5pm.</div>
+                <div className={smallTextStyling}>
+                    {publicData.holidayMessage}
+                    {/* <div className={largeTextStyling}>Open Monday through Friday 8am to 5pm.</div>
                     <div className={largeTextStyling}>Closed Weekends and certain holidays. Key drop available after hours.</div>
-                    <div className={smallTextStyling}>Call or email to enquire about complementary shuttle service availability.</div>
+                    <div className={smallTextStyling}>Call or email to enquire about complementary shuttle service availability.</div> */}
                 </div>
             </Banner>
             <div className="grid grid-row grid-cols-12 bg-white">
@@ -78,7 +80,7 @@ function Calendar({ holidays }) {
                                     <td className="p-2 text-center">Days Closed:</td>
                                 </tr>
                             </thead>
-                            <tbody>{mapCalendar(holidays)}</tbody>
+                            <tbody>{mapCalendar(p.holidays)}</tbody>
                         </table>
                     </div>
                 </div>
