@@ -95,7 +95,8 @@ export default async (req, res) => {
                 if (pass) {
                     const servicesUpdated = await saveDataPost(req, savedFile.fileKey, fields);
                     if (servicesUpdated) {
-                        rerenderRoutes(fields.name);
+                        console.log("servicesUpdated", servicesUpdated);
+                        rerenderRoutes(fields.name[0]);
                         res.status(200).json({ msg: "success" });
                     } else {
                         res.status(500).json({ msg: "problem saving service." });

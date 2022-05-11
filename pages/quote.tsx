@@ -6,6 +6,12 @@ import { useRouter } from "next/router";
 import formatPhone, { stripPhone } from "./../lib/formatPhone";
 import OutlinedSurface from "./../components/outlinedSurface";
 
+export async function getStaticProps() {
+    return {
+        props: {},
+    };
+}
+
 const timeOptions = [
     "8:00 AM",
     "8:30 AM",

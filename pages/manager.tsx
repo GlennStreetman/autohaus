@@ -2,6 +2,12 @@ import { SessionProvider } from "next-auth/react";
 
 import Body from "../components/manager/body";
 
+export async function getStaticProps() {
+    return {
+        props: {},
+    };
+}
+
 function manager() {
     return (
         <SessionProvider

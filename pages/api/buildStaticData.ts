@@ -7,9 +7,6 @@ export default async (req, res) => {
     if (session && session.user.role === "admin") {
         try {
             buildPublicData();
-            // const findSiteData = await prisma.sitesetup.findMany({});
-            // const dataString = JSON.stringify(findSiteData);
-            // fs.writeFileSync("./registers/public.json", dataString, "utf8");
         } catch (err) {
             console.log("POST /addHoliday: Problem creating record: ", err);
             res.status(400).json("problem archiving record");

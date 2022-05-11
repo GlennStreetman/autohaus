@@ -6,6 +6,12 @@ import { PublicData } from "../components/publicData";
 const gutter = "col-span-0 lg:col-span-1 xl:col-span-3"; //2x
 const body = "col-span-12 lg:col-span-10 xl:col-span-6 mb-4  text-white p-2 whitespace-pre-line"; //1x
 
+export async function getStaticProps() {
+    return {
+        props: {},
+    };
+}
+
 function Thankyou() {
     const publicData = useContext(PublicData);
     return (

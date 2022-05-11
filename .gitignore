@@ -34,3 +34,4 @@ yarn-error.log*
 .env
 
 /public/uploads/*
+/registers/public.json

@@ -11,6 +11,12 @@ import { BiUpload } from "react-icons/bi";
 import { AiFillCheckCircle } from "react-icons/ai";
 import { HiOutlineEmojiSad } from "react-icons/hi";
 
+export async function getStaticProps() {
+    return {
+        props: {},
+    };
+}
+
 function emailIsValid(email: string): boolean {
     return /\S+@\S+\.\S+/.test(email);
 }

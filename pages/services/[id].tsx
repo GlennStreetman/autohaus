@@ -8,10 +8,7 @@ import styles from "./services.module.css";
 import Aside from "../../components/aside";
 
 const gutter = " hidden lg:block lg:col-span-1 "; //2x
-// const gutterBlack = " hidden lg:block lg:col-span-1 bg-black"; //2x
 const employees = "      p-2 col-span-12 md:col-span-12 lg:col-span-6"; //1x
-// const employeesBlack = " p-2 col-span-12 md:col-span-12 lg:col-span-6 bg-black text-white"; //1x
-// const aside = "flex justify-center p-2 col-span-12 md:col-span-12 lg:col-span-4 border-2 border-black rounded-md";
 const imgBoxLeft = "relative rounded-md bg-black overflow-hidden h-56 w-56 md:h-80 md:w-80 lg:h-96 lg:w-96 xl::h-96 xl:w-116 float-left m-2 ";
 const imgBoxRight = "relative rounded-md bg-black overflow-hidden h-56 w-56 md:h-80 md:w-80 lg:h-96 lg:w-96 xl::h-96 xl:w-116 float-right m-2 ";
 
@@ -42,6 +39,7 @@ function getPaths() {
                 },
             };
         });
+        console.log("servicelist", serviceList);
         res(serviceList);
     });
 }
@@ -50,7 +48,7 @@ export async function getStaticPaths() {
     const paths = await getPaths();
     return {
         paths,
-        fallback: false,
+        fallback: "blocking",
     };
 }
 

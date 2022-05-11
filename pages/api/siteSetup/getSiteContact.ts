@@ -1,4 +1,3 @@
-import type { NextApiRequest, NextApiResponse } from "next";
 import prisma from "../../../lib/prismaPool";
 import { getSession } from "next-auth/react";
 
