@@ -3,6 +3,7 @@ import Image from "next/image";
 import Banner from "../components/banner";
 import ParseMarkdown from "./../lib/parseMarkdown";
 import styles from "./team.module.css";
+import { PublicHOC } from "../components/publicData";
 
 //flex grid elements
 const gutter = " hidden lg:block lg:col-span-1 "; //2x
@@ -39,9 +40,11 @@ export async function getStaticProps() {
             },
         ],
     });
+    const data = await prisma.sitesetup.findMany({});
     return {
         props: {
             employees,
+            data: data,
         },
         // revalidate: 10,
     };
@@ -62,7 +65,7 @@ function isOddOrEven(n, length) {
     }
 }
 
-function why(p: props) {
+function Team(p: props) {
     const employeeCount = Object.keys(p.employees).length;
     const mapEmployees = Object.values(p.employees).map((val, indx) => {
         const myLoader = () => {
@@ -100,4 +103,10 @@ function why(p: props) {
     );
 }
 
-export default why;
+export default function Main(p: props) {
+    return (
+        <PublicHOC {...p}>
+            <Team {...p} />
+        </PublicHOC>
+    );
+}

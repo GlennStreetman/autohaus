@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { ScreenWidth } from "../components/screenWidth";
-import { PublicData } from "../components/publicData";
+import { PublicContext } from "../components/publicData";
 import NextLinkButton from "./nextLinkButton";
 import LinkButton from "./linkButton";
 import { useRouter } from "next/router";
@@ -16,7 +16,7 @@ function Topper() {
     const router = useRouter();
     const path = router.pathname;
     const screenSize = useContext(ScreenWidth);
-    const publicData = useContext(PublicData);
+    const publicData = useContext(PublicContext);
 
     const telephoneText = screenSize.width >= 1024 && publicData.phone ? addDashes(publicData.phone) : "";
     const locationText = screenSize.width >= 1024 && publicData.address ? publicData.address : "";

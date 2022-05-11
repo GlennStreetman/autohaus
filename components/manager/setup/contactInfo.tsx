@@ -66,7 +66,6 @@ function contactInfo() {
         })
             .then((res) => res.json())
             .then((data) => {
-                fetch("/api/buildStaticData");
                 getSiteContacts();
                 setSaveContact(false);
             });

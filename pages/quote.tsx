@@ -5,10 +5,15 @@ import ReCAPTCHA from "react-google-recaptcha";
 import { useRouter } from "next/router";
 import formatPhone, { stripPhone } from "./../lib/formatPhone";
 import OutlinedSurface from "./../components/outlinedSurface";
+import { PublicHOC } from "../components/publicData";
+import prisma from "../lib/prismaPool";
 
 export async function getStaticProps() {
+    const data = await prisma.sitesetup.findMany({});
     return {
-        props: {},
+        props: {
+            data: data,
+        },
     };
 }
 
@@ -348,4 +353,10 @@ function Quote() {
     );
 }
 
-export default Quote;
+export default function Main(p) {
+    return (
+        <PublicHOC {...p}>
+            <Quote />
+        </PublicHOC>
+    );
+}

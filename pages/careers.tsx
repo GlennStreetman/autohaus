@@ -4,16 +4,20 @@ import LabeledInput from "../components/labeledInput";
 import ReCAPTCHA from "react-google-recaptcha";
 import formatPhone, { stripPhone } from "./../lib/formatPhone";
 import OutlinedSurface from "./../components/outlinedSurface";
-
+import { PublicHOC } from "../components/publicData";
+import prisma from "../lib/prismaPool";
 import { useRouter } from "next/router";
-
 import { BiUpload } from "react-icons/bi";
 import { AiFillCheckCircle } from "react-icons/ai";
 import { HiOutlineEmojiSad } from "react-icons/hi";
 
 export async function getStaticProps() {
+    const data = await prisma.sitesetup.findMany({});
     return {
-        props: {},
+        props: {
+            data: data,
+        },
+        // revalidate: 10,
     };
 }
 
@@ -35,7 +39,7 @@ const big = " col-span-12 lg:col-span-6";
 const medium = "col-span-12 lg:col-span-4";
 const small = "col-span-6 lg:col-span-3";
 
-function careers() {
+function Careers() {
     function dropHandler(ev) {
         console.log("File(s) dropped");
         ev.preventDefault();
@@ -389,4 +393,10 @@ function careers() {
     );
 }
 
-export default careers;
+export default function Main(p) {
+    return (
+        <PublicHOC {...p}>
+            <Careers />
+        </PublicHOC>
+    );
+}

@@ -1,6 +1,5 @@
 import prisma from "../../../lib/prismaPool";
 import { getSession } from "next-auth/react";
-import { resolve } from "path";
 
 interface savedContact {
     phone: string;
@@ -72,7 +71,6 @@ export default async (req, res) => {
             // } else {
             const secviceRoutes: string[] = await (await dynamicRoutes.service()).map((el) => `/services/${el.name.replaceAll(" ", "")}`);
             const allRoutes = staticRoutes.concat(secviceRoutes);
-            console.log("allRoutes", allRoutes);
             for (const el of allRoutes) {
                 await fetch(`${process.env.NEXTAUTH_URL}/api/revalidate?secret=${process.env.NEXT_REVALIDATE}&path=${el}`); //home page carousel
             }

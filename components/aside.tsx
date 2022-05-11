@@ -5,13 +5,13 @@ import { GiAutoRepair } from "react-icons/gi";
 import { BsTelephoneInboundFill } from "react-icons/bs";
 import { HiOutlineLocationMarker } from "react-icons/hi";
 import { GoCalendar } from "react-icons/go";
-import { PublicData } from "../components/publicData";
+import { PublicContext } from "../components/publicData";
 import addDashes from "../lib/formatPhone";
 import { AiOutlineInstagram, AiOutlineHome } from "react-icons/ai";
 import { FcGoogle } from "react-icons/fc";
 
 function aside() {
-    const publicData = useContext(PublicData);
+    const publicData = useContext(PublicContext);
     const telephoneText = publicData.phone ? addDashes(publicData.phone) : "";
     const email = publicData.serviceEmail ? publicData.serviceEmail : "";
     const longAddress = publicData.addressLong ? publicData.addressLong : "";

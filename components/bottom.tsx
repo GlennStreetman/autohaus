@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { useRouter } from "next/router";
 import NextLinkButton from "./nextLinkButton";
 import LinkButton from "./linkButton";
-import { PublicData } from "../components/publicData";
+import { PublicContext } from "../components/publicData";
 import { BsTelephoneInboundFill } from "react-icons/bs";
 import { HiOutlineLocationMarker } from "react-icons/hi";
 import { FcGoogle } from "react-icons/fc";
@@ -21,7 +21,7 @@ const data = "p-2   col-span-12 md:col-span-5 lg:col-span-5 xl:col-span-3"; //2x
 function bottom() {
     const router = useRouter();
     const path = router.pathname;
-    const publicData = useContext(PublicData);
+    const publicData = useContext(PublicContext);
 
     const telephoneText = publicData.phone ? addDashes(publicData.phone) : "";
     const email = publicData.serviceEmail ? publicData.serviceEmail : "";

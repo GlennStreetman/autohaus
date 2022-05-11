@@ -6,6 +6,7 @@ import Image from "next/image";
 import ParseMarkdown from "./../../lib/parseMarkdown";
 import styles from "./services.module.css";
 import Aside from "../../components/aside";
+import { PublicHOC } from "../../components/publicData";
 
 const gutter = " hidden lg:block lg:col-span-1 "; //2x
 const employees = "      p-2 col-span-12 md:col-span-12 lg:col-span-6"; //1x
@@ -23,9 +24,16 @@ export async function getStaticProps(params) {
         },
     });
 
+    const data = await prisma.sitesetup.findMany({});
+
     findService["sections"] = sections;
 
-    return { props: findService };
+    return {
+        props: {
+            services: findService,
+            data: data,
+        },
+    };
 }
 
 function getPaths() {
@@ -39,7 +47,6 @@ function getPaths() {
                 },
             };
         });
-        console.log("servicelist", serviceList);
         res(serviceList);
     });
 }
@@ -112,4 +119,10 @@ function Services(p: service) {
     );
 }
 
-export default Services;
+export default function Main(p) {
+    return (
+        <PublicHOC {...p}>
+            <Services {...p.services} />
+        </PublicHOC>
+    );
+}

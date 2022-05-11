@@ -1,11 +1,14 @@
 import Banner from "../components/banner";
 import prisma from "../lib/prismaPool";
+import { PublicHOC } from "../components/publicData";
 
 export async function getStaticProps() {
     const holidays = await prisma.holidays.findMany({});
+    const data = await prisma.sitesetup.findMany({});
     return {
         props: {
             holidays,
+            data: data
         },
         // revalidate: 10,
     };
@@ -85,4 +88,10 @@ function Calendar({ holidays }) {
     );
 }
 
-export default Calendar;
+export default function Main(p) {
+    return (
+        <PublicHOC {...p}>
+            <Calendar holidays={p.holidays} />
+        </PublicHOC>
+    );
+}

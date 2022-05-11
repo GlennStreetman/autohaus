@@ -1,19 +1,21 @@
 import Banner from "../components/banner";
 import Why from "../components/why";
 import React, { useContext } from "react";
-import { PublicData } from "../components/publicData";
-
+import { PublicContext } from "../components/publicData";
+import { PublicHOC } from "../components/publicData";
+import prisma from "../lib/prismaPool";
 const gutter = "col-span-0 lg:col-span-1 xl:col-span-3"; //2x
 const body = "col-span-12 lg:col-span-10 xl:col-span-6 mb-4  text-white p-2 whitespace-pre-line"; //1x
 
 export async function getStaticProps() {
+    const data = await prisma.sitesetup.findMany({});
     return {
-        props: {},
+        props: { data: data },
     };
 }
 
 function Thankyou() {
-    const publicData = useContext(PublicData);
+    const publicData = useContext(PublicContext);
     return (
         <>
             <Banner>
@@ -29,4 +31,10 @@ function Thankyou() {
     );
 }
 
-export default Thankyou;
+export default function Main(p) {
+    return (
+        <PublicHOC {...p}>
+            <Thankyou />
+        </PublicHOC>
+    );
+}

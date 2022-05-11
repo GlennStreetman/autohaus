@@ -1,14 +1,16 @@
 import { SessionProvider } from "next-auth/react";
-
 import Body from "../components/manager/body";
+import { PublicHOC } from "../components/publicData";
+import prisma from "../lib/prismaPool";
 
 export async function getStaticProps() {
+    const data = await prisma.sitesetup.findMany({});
     return {
-        props: {},
+        props: { data: data },
     };
 }
 
-function manager() {
+function Manager() {
     return (
         <SessionProvider
             // @ts-ignore
@@ -22,4 +24,10 @@ function manager() {
     );
 }
 
-export default manager;
+export default function Main(p) {
+    return (
+        <PublicHOC {...p}>
+            <Manager />
+        </PublicHOC>
+    );
+}
