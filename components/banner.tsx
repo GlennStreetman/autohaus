@@ -1,15 +1,23 @@
+import { useContext } from "react";
 import Image from "next/image";
 import Logo from "./logo";
+import { PublicContext } from "../components/publicData";
 
 interface props {
     children?: JSX.Element;
 }
 
 function banner(p: props) {
+    const publicData = useContext(PublicContext);
     const logoBox = "col-span-12"; //1x
     const textBox = "col-span-12 relative "; //1x
     const height = `w-full h-auto grid grid-cols-12 relative`;
-    const bannerImage = <Image src="/shrink2.png" alt="orange porche" layout="fill" objectFit="cover" priority />;
+
+    const myLoader = () => {
+        return `${process.env.NEXT_PUBLIC_AWS_PUBLIC_BUCKET_URL}${publicData.bannerImage}`;
+    };
+
+    const bannerImage = <Image loader={myLoader} src="banner" alt="site banner" layout="fill" objectFit="cover" priority />;
 
     return (
         <div className={height}>

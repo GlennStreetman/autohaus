@@ -18,7 +18,7 @@ export default async (req, res) => {
             const siteContacts = await prisma.sitesetup.findMany({
                 where: {
                     name: {
-                        in: ["FPBannerText", "aboutHeading", "aboutBody", "thanksResume", "thanksService"],
+                        in: ["FPBannerText", "aboutHeading", "aboutBody", "thanksResume", "thanksService", "holidayMessage"],
                     },
                 },
             });

@@ -1,6 +1,6 @@
 import prisma from "./../../lib/prismaPool";
 import { IncomingForm } from "formidable";
-import mv from "mv";
+// import mv from "mv";
 import { uploadFile } from "./../../lib/s3";
 import { stripPhone } from "./../../lib/formatPhone";
 
@@ -15,7 +15,6 @@ interface savedFileReturn {
 }
 
 function checkFileName(fileName) {
-    console.log("FILENAME-----", fileName);
     if (fileName !== "" && ["txt", "doc", "docx"].includes(fileName.split(".").pop())) {
         return true;
     } else {
@@ -28,14 +27,14 @@ async function saveFile(req) {
     const data = await new Promise((resolve, reject) => {
         form.parse(req, async (err, fields, files) => {
             if (checkFileName(files.file[0].originalFilename) === true) {
-                // if (err) return reject(err);
+                if (err) return reject(err);
                 // console.log("---1---", fields);
-                var oldPath = files.file[0].filepath;
+                // var oldPath = files.file[0].filepath;
                 // console.log("FILE", files.file[0]);
-                var newPath = `./public/uploads/${fields.email[0]}.${files.file[0].originalFilename}`;
-                mv(oldPath, newPath, function (err) {
-                    if (err !== null) console.log("POST /submitResume problem saving file", err);
-                });
+                // var newPath = `./public/uploads/${fields.email[0]}.${files.file[0].originalFilename}`;
+                // mv(oldPath, newPath, function (err) {
+                //     if (err !== null) console.log("POST /submitResume problem saving file", err);
+                // });
 
                 // console.log("resume submitted:", fields.email[0]);
                 const uploadResult = await uploadFile(files.file[0], `${fields.email[0]}.${files.file[0].originalFilename}`);
@@ -69,7 +68,7 @@ async function saveData(req, fileKey, fields) {
 
     try {
         // console.log("update db");
-        const update = await prisma.resumes.create({
+        await prisma.resumes.create({
             data: {
                 firstname: formObject.firstName,
                 lastname: formObject.lastName,

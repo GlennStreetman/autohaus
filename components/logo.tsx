@@ -1,7 +1,9 @@
 import { useContext, useState, useEffect } from "react";
 import Image from "next/image";
 import { ScreenWidth } from "../components/screenWidth";
-import { useRouter } from "next/router";
+// import { useRouter } from "next/router";
+
+import { PublicContext } from "../components/publicData";
 
 function setLogoDimensions(width: number, setWidth: Function, setHeight: Function) {
     if (width < 640) {
@@ -26,26 +28,31 @@ function setLogoDimensions(width: number, setWidth: Function, setHeight: Functio
 }
 
 function Logo() {
-    const router = useRouter();
-    const path = router.pathname;
-
+    // const router = useRouter();
+    // const path = router.pathname;
+    const publicData = useContext(PublicContext);
     const screenSize = useContext(ScreenWidth);
     const [width, setWidth] = useState("250");
     const [height, setHeight] = useState("250");
 
-    const logoImage =
-        path === "/" ? (
-            <Image src="/log_transparent.png" width={width} height={height} />
-        ) : (
-            <div
-                className="cursor-pointer"
-                onClick={() => {
-                    router.push("/");
-                }}
-            >
-                <Image src="/log_transparent.png" width={width} height={height} />
-            </div>
-        );
+    const myLoader = () => {
+        return `${process.env.NEXT_PUBLIC_AWS_PUBLIC_BUCKET_URL}${publicData.logoImage}`;
+    };
+
+    const logoImage = (
+        // path === "/" ? (
+        <Image loader={myLoader} src="logo" alt="logo" width={width} height={height} />
+    );
+    // ) : (
+    //     <div
+    //         className="cursor-pointer"
+    //         onClick={() => {
+    //             router.push("/");
+    //         }}
+    //     >
+    //         <Image src="/log_transparent.png" width={width} height={height} />
+    //     </div>
+    // );
 
     useEffect(() => {
         setLogoDimensions(screenSize.width, setWidth, setHeight);
