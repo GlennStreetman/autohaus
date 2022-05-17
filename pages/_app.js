@@ -1,4 +1,5 @@
 import "../styles/globals.css";
+
 import React from "react";
 import ScreenWidth from "../components/screenWidth";
 

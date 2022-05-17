@@ -1,4 +1,5 @@
 module.exports = {
+    darkMode: "class",
     content: ["./pages/**/*.{js,ts,jsx,tsx}", "./components/**/*.{js,ts,jsx,tsx}"],
     theme: {
         extend: {
@@ -30,11 +31,10 @@ module.exports = {
                 116: "28rem",
             },
             backgroundColor: {
-                primary: "#f8fafc", //blue
-                secondary: "#e2e8f0", //grey
-                accent: "#ea580c", //orange
-                almostBlack: "#1b1b1c", //dark grey
-                veryDark: "#334155",
+                primary: "#f8fafc", //light default background
+                secondary: "#e2e8f0", //grey button background
+                accent: "#ea580c", //orange carousel hover
+                primaryDark: "#1b1b1c",
             },
             textColor: {
                 primary: "#334155",

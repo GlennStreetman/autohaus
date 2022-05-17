@@ -28,8 +28,6 @@ function setLogoDimensions(width: number, setWidth: Function, setHeight: Functio
 }
 
 function Logo() {
-    // const router = useRouter();
-    // const path = router.pathname;
     const publicData = useContext(PublicContext);
     const screenSize = useContext(ScreenWidth);
     const [width, setWidth] = useState("250");
@@ -39,31 +37,13 @@ function Logo() {
         return `${process.env.NEXT_PUBLIC_AWS_PUBLIC_BUCKET_URL}${publicData.logoImage}`;
     };
 
-    const logoImage = (
-        // path === "/" ? (
-        <Image loader={myLoader} src="logo" alt="logo" width={width} height={height} />
-    );
-    // ) : (
-    //     <div
-    //         className="cursor-pointer"
-    //         onClick={() => {
-    //             router.push("/");
-    //         }}
-    //     >
-    //         <Image src="/log_transparent.png" width={width} height={height} />
-    //     </div>
-    // );
+    const logoImage = <Image loader={myLoader} src="logo" alt="logo" width={width} height={height} />;
 
     useEffect(() => {
         setLogoDimensions(screenSize.width, setWidth, setHeight);
     }, [screenSize.width]);
 
-    return (
-        // <div className="z-10 absolute top-0 left-0 ">
-        <div className="w-full h-auto">{logoImage}</div>
-    );
+    return <div className="w-full h-auto">{logoImage}</div>;
 }
 
 export default Logo;
-
-//About, Location, Social Schedule Appointment

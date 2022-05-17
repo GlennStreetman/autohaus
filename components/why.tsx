@@ -3,6 +3,7 @@ import Image from "next/image";
 import LineLinkButton from "./lineLinkButton";
 import { SiPorsche } from "react-icons/si";
 import { PublicContext } from "../components/publicData";
+import ParseMarkdown from "./../lib/parseMarkdown";
 
 //flex grid elements
 const gutter = " hidden lg:block lg:col-span-1 "; //2x
@@ -19,7 +20,9 @@ function why() {
     return (
         <div className="flex flex-col">
             <div className="grid justify-items-center w-screen p-3">
-                <div className="text-3xl font-bold">{publicData.aboutHeading}</div>
+                <div className="text-3xl font-bold">
+                    <ParseMarkdown text={publicData.aboutHeading} />
+                </div>
             </div>
             <div className="grid grid-cols-12">
                 <div className={gutter} />
@@ -27,7 +30,10 @@ function why() {
                     <div className={imgBox}>
                         <Image loader={myLoader} src="decorationImage" layout="fill" objectFit="fill" />
                     </div>
-                    <div className="whitespace-pre-line">{publicData.aboutBody}</div>
+                    <div className="p-2">
+                        <ParseMarkdown text={publicData.aboutBody} />
+                    </div>
+
                     <br />
 
                     <LineLinkButton text={"Meet the team"} icon={<SiPorsche className="h-7 w-7" />} link="/team" />

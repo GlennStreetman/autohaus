@@ -111,20 +111,8 @@ function addNewTeamMember(p: props) {
                 readyCallback={setReady}
             />
             <div className="col-span-12 flex justify-center gap-12">
-                {/* <button
-                    className="h-[78px] border-2 p-2 rounded-md bg-secondary shadow-sm shadow-slate-600 hover:bg-weak hover:border-black hover:text-accent active:bg-strong text-2x font-bold mb-4"
-                    onClick={cancelRequest}
-                >
-                    Cancel
-                </button> */}
                 <IconButton text="Cancel" icon={<></>} callback={cancelRequest} />
                 <IconButton text="Add Employee" icon={<></>} callback={processRequest} />
-                {/* <button
-                    className="h-[78px] border-2 p-2 rounded-md bg-secondary shadow-sm shadow-slate-600 hover:bg-weak hover:border-black hover:text-accent active:bg-strong text-2x font-bold mb-4"
-                    onClick={processRequest}
-                >
-                    {edit ? `Save Edit` : "Add Employee"}
-                </button> */}
             </div>
             <div className="col-span-12 text-red-500 font-bold text-center">{serverMsg}</div>
             <div className="col-span-12 flex justify-center">

@@ -5,6 +5,7 @@ import Services from "../components/services";
 import Why from "../components/why";
 import { service } from "../components/manager/ourServices";
 import { PublicContext, PublicHOC } from "../components/publicData";
+import ParseMarkdown from "./../lib/parseMarkdown";
 
 const smallTextStyling = `text-white font-heading bold text-1xl sm:text-2xl lg:text-3xl [text-shadow:2px_2px_rgba(0,0,0,1)] antialiased whitespace-pre-line`;
 
@@ -38,7 +39,9 @@ export function Home(p: props) {
             <main>
                 <section>
                     <Banner>
-                        <div className={smallTextStyling}>{publicData.FPBannerText}</div>
+                        <div className={smallTextStyling}>
+                            <ParseMarkdown text={publicData.FPBannerText} />
+                        </div>
                     </Banner>
                 </section>
                 <section>

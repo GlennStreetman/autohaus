@@ -1,7 +1,9 @@
 import DOMPurify from "isomorphic-dompurify";
+import styles from "./parseMarkdown.module.css";
 
 interface props {
     text: string;
+    dark?: boolean;
 }
 
 function parseMarkdown(p: props) {
@@ -13,9 +15,9 @@ function parseMarkdown(p: props) {
         .replace(/^##--- (.*$)/gim, "<h2>&#x2022 $1</h2>") //two hashes Bullet point
         .replace(/^#--- (.*$)/gim, "<h1>&#x2022 $1</h1>") //1 hash Bullet point
         .replace(/^--- (.*$)/gim, "&#x2022 $1") //--- sets bullet point at start of line
-        .replace(/^\> (.*$)/gim, "<blockquote>$1</blockquote>") // >
-        .replace(/\*\*(.*)\*\*/gim, "<b>$1</b>") // between two **
-        .replace(/\*(.*)\*/gim, "<i>$1</i>") //between one *
+        .replace(/\*Q(.*)\*Q/gim, "<blockquote>$1</blockquote>") // between *Q
+        .replace(/\*B(.*)\*B/gim, "<b>$1</b>") // between *B
+        .replace(/\*I(.*)\*I/gim, "<i>$1</i>") //between  *I
         .replace(/!\[(.*?)\]\((.*?)\)/gim, "<img alt='$1' src='$2' />") // ![text](link)
         .replace(/\[(.*?)\]\((.*?)\)/gim, "<a href='$2'>$1</a>"); // [text](link)
     // .replace(/\n$/gim, "<br />"); // \n is newline
@@ -23,8 +25,12 @@ function parseMarkdown(p: props) {
     const sanitizedData = () => ({
         __html: DOMPurify.sanitize(text),
     });
-    //@ts-ignore
-    const cleanHTML = <div dangerouslySetInnerHTML={sanitizedData()} />;
+
+    const cleanHTML = (
+        <div className={p.dark === true ? "dark" : ""}>
+            <article className={styles.article} dangerouslySetInnerHTML={sanitizedData()} />
+        </div>
+    );
     return cleanHTML;
 }
 

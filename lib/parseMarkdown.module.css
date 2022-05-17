@@ -1,13 +1,17 @@
 .article {
-    @apply mb-3;
+    @apply whitespace-pre-line;
 }
 
 .article h1 {
-    @apply text-accent font-bold text-xl py-5;
+    @apply text-accent font-bold text-4xl inline;
 }
 
 .article h2 {
-    @apply text-secondary font-bold text-lg;
+    @apply text-secondary font-bold text-lg inline;
+}
+
+.article h3 {
+    @apply text-secondary font-bold text-sm inline;
 }
 
 .article p {

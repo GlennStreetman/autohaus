@@ -22,37 +22,20 @@ function aside() {
     const reviewLink = publicData.reviewLink ? publicData.reviewLink : "";
 
     return (
-        <div className="flex flex-col justify-center p-2 col-span-12 md:col-span-12 lg:col-span-4 my-4 p-4">
-            <div className="grow" />
-            <div className="flex flex-row">
-                <div className="grow" />
-                <div className="flex flex-col border-2 border-black rounded-md">
-                    <div>
-                        <div className="font-bold bg-black text-white text-center">Contact/Location</div>
+        <div className="flex flex-col border-4 border-red-500 rounded-md bg-primary overflow-hidden">
+            <div className="font-bold bg-black text-white text-center">Contact/Location</div>
+            <LineLinkButton text="Request Service Quote" icon={<GiAutoRepair className="h-7 w-7" />} link="/quote" textSize="small" />
+            <LineLinkButton text={telephoneText} link={`tel:${publicData.phone}`} icon={<BsTelephoneInboundFill className="h-7 w-7" />} textSize="small" />
+            <LineLinkButton text={email} link={`mailto: ${email}`} icon={<MdOutlineMailOutline className="h-7 w-7" />} textSize="small" />
+            <LineLinkButton text={longAddress} link={locationLink} icon={<HiOutlineLocationMarker className="h-7 w-7" />} textSize="small" />
 
-                        <LineLinkButton text="Request Service Quote" icon={<GiAutoRepair className="h-7 w-7" />} link="/quote" textSize="small" />
-                        <LineLinkButton
-                            text={telephoneText}
-                            link={`tel:${publicData.phone}`}
-                            icon={<BsTelephoneInboundFill className="h-7 w-7" />}
-                            textSize="small"
-                        />
-                        <LineLinkButton text={email} link={`mailto: ${email}`} icon={<MdOutlineMailOutline className="h-7 w-7" />} textSize="small" />
-                        <LineLinkButton text={longAddress} link={locationLink} icon={<HiOutlineLocationMarker className="h-7 w-7" />} textSize="small" />
+            <div className="font-bold bg-black text-white text-center">Hours of Opperation</div>
+            <LineLinkButton text={openShort} icon={<GoCalendar className="h-7 w-7" />} link="/calendar" textSize="small" />
+            <LineLinkButton text={openLong} icon={<GoCalendar className="h-7 w-7" />} link="/calendar" textSize="small" />
 
-                        <div className="font-bold bg-black text-white text-center">Hours of Opperation</div>
-
-                        <LineLinkButton text={openShort} icon={<GoCalendar className="h-7 w-7" />} link="/calendar" textSize="small" />
-                        <LineLinkButton text={openLong} icon={<GoCalendar className="h-7 w-7" />} link="/calendar" textSize="small" />
-                        <div className="font-bold bg-black text-white text-center">Social</div>
-
-                        <LineLinkButton text="Social" link={socialLink} icon={<AiOutlineInstagram className="h-7 w-7" />} textSize="small" />
-                        <LineLinkButton text="Google Reviews" link={reviewLink} icon={<FcGoogle className="h-7 w-7 " />} textSize="small" />
-                    </div>
-                </div>
-                <div className="grow" />
-            </div>
-            <div className="grow" />
+            <div className="font-bold bg-black text-white text-center">Social</div>
+            <LineLinkButton text="Social" link={socialLink} icon={<AiOutlineInstagram className="h-7 w-7" />} textSize="small" />
+            <LineLinkButton text="Google Reviews" link={reviewLink} icon={<FcGoogle className="h-7 w-7 " />} textSize="small" />
         </div>
     );
 }
