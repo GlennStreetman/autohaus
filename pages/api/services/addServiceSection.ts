@@ -53,7 +53,7 @@ async function saveFile(req) {
     return data;
 }
 
-async function saveDataPost(req, fileKey, fields: addServiceSectionReq) {
+async function saveDataPost(fileKey, fields: addServiceSectionReq) {
     try {
         const maxNumber = await prisma.servicesection.findMany({
             where: {
@@ -87,7 +87,7 @@ async function saveDataPost(req, fileKey, fields: addServiceSectionReq) {
     }
 }
 
-export default async (req, res) => {
+const addServiceSection = async (req, res) => {
     const session = await getSession({ req });
     //@ts-ignore
     if (session && session.user.role === "admin") {
@@ -95,7 +95,7 @@ export default async (req, res) => {
             try {
                 const [pass, savedFile, fields]: any = await saveFile(req);
                 if (pass) {
-                    const servicesUpdated = await saveDataPost(req, savedFile.fileKey, fields);
+                    const servicesUpdated = await saveDataPost(savedFile.fileKey, fields);
                     if (servicesUpdated) {
                         rerenderRoutes(fields.serviceName[0]);
                         res.status(200).json({ msg: "success" });
@@ -113,3 +113,5 @@ export default async (req, res) => {
         }
     }
 };
+
+export default addServiceSection;

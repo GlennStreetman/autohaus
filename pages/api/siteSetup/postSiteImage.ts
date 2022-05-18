@@ -73,7 +73,7 @@ async function saveData(fields: postSiteImageReq) {
     }
 }
 
-export default async (req: NextApiRequest, res: postSiteImageRes) => {
+const postSiteImage = async (req: NextApiRequest, res: postSiteImageRes) => {
     const session = await getSession({ req });
     // @ts-ignore
     if (session && session.user.role === "admin") {
@@ -94,3 +94,5 @@ export default async (req: NextApiRequest, res: postSiteImageRes) => {
         res.status(401);
     }
 };
+
+export default postSiteImage;

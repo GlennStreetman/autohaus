@@ -20,7 +20,7 @@ interface props {
     getEmployees: Function;
 }
 
-function addNewTeamMember(p: props) {
+function AddNewTeamMember(p: props) {
     const [empName, setEmpName] = useState("");
     const [empTitle, setEmpTitle] = useState("");
     const [empDescription, setEmpDescription] = useState("");
@@ -130,4 +130,4 @@ function addNewTeamMember(p: props) {
     );
 }
 
-export default addNewTeamMember;
+export default AddNewTeamMember;

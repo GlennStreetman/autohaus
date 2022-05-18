@@ -18,7 +18,7 @@ interface props {
     show: boolean;
 }
 
-function team(p: props) {
+function Team(p: props) {
     const { data: session } = useSession();
     const [employees, setEmployees] = useState<employees[]>([]);
     const [addEmployee, setAddEmployee] = useState(false);
@@ -60,4 +60,4 @@ function team(p: props) {
     );
 }
 
-export default team;
+export default Team;

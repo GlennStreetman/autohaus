@@ -10,7 +10,7 @@ import addDashes from "../lib/formatPhone";
 import { AiOutlineInstagram, AiOutlineHome } from "react-icons/ai";
 import { FcGoogle } from "react-icons/fc";
 
-function aside() {
+function Aside() {
     const publicData = useContext(PublicContext);
     const telephoneText = publicData.phone ? addDashes(publicData.phone) : "";
     const email = publicData.serviceEmail ? publicData.serviceEmail : "";
@@ -40,4 +40,4 @@ function aside() {
     );
 }
 
-export default aside;
+export default Aside;

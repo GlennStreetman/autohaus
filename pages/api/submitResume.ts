@@ -1,6 +1,5 @@
 import prisma from "./../../lib/prismaPool";
 import { IncomingForm } from "formidable";
-// import mv from "mv";
 import { uploadFile } from "./../../lib/s3";
 import { stripPhone } from "./../../lib/formatPhone";
 
@@ -28,15 +27,6 @@ async function saveFile(req) {
         form.parse(req, async (err, fields, files) => {
             if (checkFileName(files.file[0].originalFilename) === true) {
                 if (err) return reject(err);
-                // console.log("---1---", fields);
-                // var oldPath = files.file[0].filepath;
-                // console.log("FILE", files.file[0]);
-                // var newPath = `./public/uploads/${fields.email[0]}.${files.file[0].originalFilename}`;
-                // mv(oldPath, newPath, function (err) {
-                //     if (err !== null) console.log("POST /submitResume problem saving file", err);
-                // });
-
-                // console.log("resume submitted:", fields.email[0]);
                 const uploadResult = await uploadFile(files.file[0], `${fields.email[0]}.${files.file[0].originalFilename}`);
                 console.log("s3 Resulte: ", uploadResult);
                 const returnData: savedFileReturn = { fileKey: uploadResult["key"] };
@@ -45,8 +35,6 @@ async function saveFile(req) {
                 resolve([false, false, false]);
             }
         });
-
-        // });
     });
 
     return data;
@@ -67,7 +55,6 @@ async function saveData(req, fileKey, fields) {
     };
 
     try {
-        // console.log("update db");
         await prisma.resumes.create({
             data: {
                 firstname: formObject.firstName,
@@ -83,14 +70,12 @@ async function saveData(req, fileKey, fields) {
                 filename: fileKey,
             },
         });
-        // console.log("update complete", update);
     } catch (err) {
         console.log("problem with POST /submitResume DB", err);
     }
-    // });
 }
 
-export default async (req, res) => {
+const submitResume = async (req, res) => {
     const [pass, savedFile, fileds]: any = await saveFile(req);
     try {
         if (pass) {
@@ -104,3 +89,5 @@ export default async (req, res) => {
         res.status(400).json({ msg: "denied" });
     }
 };
+
+export default submitResume;

@@ -20,7 +20,7 @@ interface props {
     setShowAdd: Function;
 }
 
-function mapTeamMembers(p: props) {
+function MapTeamMembers(p: props) {
     const [showDetail, setShowDetail] = useState("-1");
     const [edit, setEdit] = useState<false | employees>(false);
 
@@ -150,4 +150,4 @@ function mapTeamMembers(p: props) {
     );
 }
 
-export default mapTeamMembers;
+export default MapTeamMembers;

@@ -73,7 +73,7 @@ async function saveDataPost(req, fileKey, fields) {
     }
 }
 
-export default async (req, res) => {
+const editOurServices = async (req, res) => {
     const session = await getSession({ req });
     //@ts-ignore
     if (session && session.user.role === "admin") {
@@ -99,3 +99,5 @@ export default async (req, res) => {
         }
     }
 };
+
+export default editOurServices;

@@ -1,7 +1,7 @@
 import prisma from "../../../lib/prismaPool";
 import { getSession } from "next-auth/react";
 
-export default async (req, res) => {
+const getSiteContact = async (req, res) => {
     const session = await getSession({ req });
     // @ts-ignore
     if (session && session.user.role === "admin") {
@@ -26,5 +26,6 @@ export default async (req, res) => {
         console.log("not signed in");
         res.status(401);
     }
-    res.end();
 };
+
+export default getSiteContact;

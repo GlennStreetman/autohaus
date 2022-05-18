@@ -12,7 +12,7 @@ interface savedContact {
     holidayMessage?: string;
 }
 
-function contactInfo() {
+function ContactInfo() {
     const [savedContact, setSavedContact] = useState<savedContact>({});
     const [FPBannerText, setFPBannerText] = useState("");
     const [aboutHeading, setAboutHeading] = useState("");
@@ -87,4 +87,4 @@ function contactInfo() {
     );
 }
 
-export default contactInfo;
+export default ContactInfo;

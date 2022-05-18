@@ -14,7 +14,7 @@ interface props {
     service: service;
 }
 
-function editServiceSection(p: props) {
+function EditServiceSection(p: props) {
     const [newSectionHeader, setnewSectionHeader] = useState(p.section.sectionheader);
     const [sectionText, setSectionText] = useState(p.section.sectiontext);
     const [fileName, setFileName] = useState("");
@@ -150,4 +150,4 @@ function editServiceSection(p: props) {
     return <>{editServiceForm}</>;
 }
 
-export default editServiceSection;
+export default EditServiceSection;

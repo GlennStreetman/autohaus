@@ -27,7 +27,7 @@ const mapFilterOptions = Object.entries(userTypes).map(([key, val]) => {
     );
 });
 
-function users(p: props) {
+function Users(p: props) {
     const { data: session } = useSession();
     const [users, setUsers] = useState<user[]>([]);
 
@@ -54,7 +54,7 @@ function users(p: props) {
     }
 
     const mapUsers = users.map((el: user) => (
-        <tr id={`${el.email}-${el.role}`}>
+        <tr key={`keyUser-${el.email}`} id={`${el.email}-${el.role}`}>
             <td>{el.email}</td>
             <td>
                 <LabeledSelect
@@ -90,4 +90,4 @@ function users(p: props) {
     return <div className={p.show === true ? "col-span-12 overflow-auto" : "hidden"}>{userContainer}</div>;
 }
 
-export default users;
+export default Users;

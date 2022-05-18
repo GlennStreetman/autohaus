@@ -45,7 +45,7 @@ function Calendar(p) {
             const date = el.targetdate.replace("T00:00:00.000Z", "").split("-");
             const dateNumber = new Date(parseInt(date[0]), parseInt(date[1]) - 1, parseInt(date[2])).getDay();
             return (
-                <tr>
+                <tr key={`calendarRow-${el.holiday}`}>
                     <td className={tableCell}>{el.targetdate.replace("T00:00:00.000Z", "")}</td>
                     <td className={tableCell}>{el.holiday}</td>
                     <td className={tableCell}>{days[dateNumber]}</td>

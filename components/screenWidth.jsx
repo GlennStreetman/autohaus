@@ -10,7 +10,7 @@ function getWindowDimensions() {
 
 export const ScreenWidth = React.createContext();
 
-function screenWidth({ children }) {
+function ScreenWidthComponent({ children }) {
     const [width, setWidth] = useState(0);
 
     useEffect(() => {
@@ -34,4 +34,4 @@ function screenWidth({ children }) {
     return <ScreenWidth.Provider value={width}>{children}</ScreenWidth.Provider>;
 }
 
-export default screenWidth;
+export default ScreenWidthComponent;

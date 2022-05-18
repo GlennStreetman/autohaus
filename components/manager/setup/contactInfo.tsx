@@ -13,7 +13,7 @@ interface savedContact {
     openLong?: string;
 }
 
-function contactInfo() {
+function ContactInfo() {
     const [savedContact, setSavedContact] = useState<savedContact>({});
     const [phone, setPhone] = useState("");
     const [serviceEmail, setServiceEmail] = useState("");
@@ -136,4 +136,4 @@ function contactInfo() {
     );
 }
 
-export default contactInfo;
+export default ContactInfo;

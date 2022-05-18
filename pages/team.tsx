@@ -24,11 +24,6 @@ interface employees {
 }
 
 interface props {
-    // children: JSX.Element;
-    // image: string;
-    // black: boolean;
-    // name: string;
-    // title: string;
     employees: employees[];
 }
 
@@ -46,21 +41,13 @@ export async function getStaticProps() {
             employees,
             data: data,
         },
-        // revalidate: 10,
     };
 }
 
-// function isOdd(n) {
-//     return Math.abs(n % 2) === 1;
-// }
-
 function isOddOrEven(n, length) {
-    // console.log("is odd or even");
     if (Math.abs(length % 2) === 1) {
-        // console.log("odd length", length, "n", n, Math.abs(n % 2) === 1);
         return Math.abs(n % 2) !== 1;
     } else {
-        // console.log("even length", length, "n", n, Math.abs(n % 2) === 1);
         return Math.abs(n % 2) === 1;
     }
 }
@@ -72,7 +59,7 @@ function Team(p: props) {
             return `${process.env.NEXT_PUBLIC_AWS_PUBLIC_BUCKET_URL}${val.filename}`;
         };
         return (
-            <section>
+            <section key={`keySec-${val.name}`}>
                 <div className="grid grid-cols-12">
                     <div className={isOddOrEven(indx, employeeCount) ? gutter : gutterBlack} />
                     <div className={isOddOrEven(indx, employeeCount) ? employees : employeesBlack}>

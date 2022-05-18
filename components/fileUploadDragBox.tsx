@@ -13,7 +13,7 @@ interface props {
     backgroundImage?: String;
 }
 
-function fileUploadDragBox(p: props) {
+function FileUploadDragBox(p: props) {
     const inputReference = useRef<HTMLInputElement>(null);
 
     const myLoader = () => {
@@ -98,4 +98,4 @@ function fileUploadDragBox(p: props) {
     );
 }
 
-export default fileUploadDragBox;
+export default FileUploadDragBox;

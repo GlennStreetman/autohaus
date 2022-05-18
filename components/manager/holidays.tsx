@@ -20,7 +20,7 @@ interface props {
     show: boolean;
 }
 
-function holidays(p: props) {
+function Holidays(p: props) {
     const { data: session } = useSession();
     const [holidays, setHolidays] = useState<holidays[]>([]);
     const [newHolidayDate, setNewHolidayDate] = useState("");
@@ -30,16 +30,12 @@ function holidays(p: props) {
     const screenSize = useContext(ScreenWidth);
 
     useEffect(() => {
-        //update holidays
         if (session) {
             fetch(`/api/getHolidays`)
                 .then((response) => response.json())
                 .then((data) => {
-                    // console.log("response", data);
                     setHolidays(data.holidays);
                 });
-        } else {
-            // console.log("Session not found, aborting fetch.");
         }
     }, []);
 
@@ -97,68 +93,64 @@ function holidays(p: props) {
     const filtersFormat = screenSize.width <= 700 ? "col-span-12 flex flex-wrap  flex-row gap-2" : "col-span-12 flex  flex-row gap-2";
 
     const addHoliday = (
-        <div className={p.show === true ? filtersFormat : "hidden"}>
-            <OutlinedSurface label="Add Holiday">
-                <div className={filtersFormat}>
-                    <div>
-                        <LabeledInput
-                            fieldType="date"
-                            id="fromdate"
-                            label="Start Holiday"
-                            value={newHolidayDate}
-                            onClickCallback={setNewHolidayDate}
-                            helperText="Start Date:"
-                        />
-                    </div>
-
+        <OutlinedSurface label="Add Holiday">
+            <div className={filtersFormat}>
+                <div>
                     <LabeledInput
-                        id="newHolidayDescription"
-                        label={`New Holiday Description`}
-                        value={newHolidayDescription}
-                        onClickCallback={setNewHolidayDescription}
+                        fieldType="date"
+                        id="fromdate"
+                        label="Start Holiday"
+                        value={newHolidayDate}
+                        onClickCallback={setNewHolidayDate}
+                        helperText="Start Date:"
                     />
-
-                    <LabeledSelect
-                        label="days"
-                        value={newDaysOff}
-                        onClickCallback={(e) => {
-                            setNewDaysOff(e);
-                        }}
-                        id="newDay_ID"
-                    >
-                        {dayKeys}
-                    </LabeledSelect>
-
-                    <IconButton text="Add" callback={submitAddHoliday} icon={<GoCalendar className="h-7 w-7" />} />
                 </div>
-            </OutlinedSurface>
-        </div>
+
+                <LabeledInput
+                    id="newHolidayDescription"
+                    label={`New Holiday Description`}
+                    value={newHolidayDescription}
+                    onClickCallback={setNewHolidayDescription}
+                />
+
+                <LabeledSelect
+                    label="days"
+                    value={newDaysOff}
+                    onClickCallback={(e) => {
+                        setNewDaysOff(e);
+                    }}
+                    id="newDay_ID"
+                >
+                    {dayKeys}
+                </LabeledSelect>
+
+                <IconButton text="Add" callback={submitAddHoliday} icon={<GoCalendar className="h-7 w-7" />} />
+            </div>
+        </OutlinedSurface>
     );
 
     const holidayContainer = (
-        <div className={p.show === true ? "col-span-12 flex flex-row gap-2" : "hidden"}>
-            <OutlinedSurface label="Review Holidays">
-                <table className="w-full">
-                    <thead>
-                        <tr>
-                            <td>Date</td>
-                            <td>Name</td>
-                            <td>Days Closed</td>
-                            <td>Delete</td>
-                        </tr>
-                    </thead>
-                    <tbody>{mapHolidays}</tbody>
-                </table>
-            </OutlinedSurface>
-        </div>
+        <OutlinedSurface label="Review Holidays">
+            <table className="w-full">
+                <thead>
+                    <tr>
+                        <td>Date</td>
+                        <td>Name</td>
+                        <td>Days Closed</td>
+                        <td>Delete</td>
+                    </tr>
+                </thead>
+                <tbody>{mapHolidays}</tbody>
+            </table>
+        </OutlinedSurface>
     );
 
     return (
-        <>
+        <div className={p.show === true ? "col-span-12 overflow-auto" : "hidden"}>
             {addHoliday}
             {holidayContainer}
-        </>
+        </div>
     );
 }
 
-export default holidays;
+export default Holidays;

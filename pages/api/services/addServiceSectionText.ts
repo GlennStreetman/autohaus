@@ -47,7 +47,7 @@ async function saveTextPost(body) {
     }
 }
 
-export default async (req, res) => {
+const addServiceSectionText = async (req, res) => {
     const session = await getSession({ req });
     //@ts-ignore
     if (session && session.user.role === "admin") {
@@ -69,3 +69,5 @@ export default async (req, res) => {
         }
     }
 };
+
+export default addServiceSectionText;

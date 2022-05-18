@@ -8,12 +8,12 @@ interface filters {
     record: number;
 }
 
-export default async (req, res) => {
+const updateArchived = async (req: NextApiRequest, res: NextApiResponse) => {
     const session = await getSession({ req });
     // @ts-ignore
     if (session && session.user.role === "admin") {
         try {
-            const body = JSON.parse(req.body);
+            const body: filters = JSON.parse(req.body);
             const table = body.table;
             const findServiceRequests = await prisma[table].update({
                 where: {
@@ -32,5 +32,6 @@ export default async (req, res) => {
         console.log("not signed in");
         res.status(401);
     }
-    res.end();
 };
+
+export default updateArchived;

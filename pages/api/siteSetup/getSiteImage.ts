@@ -13,7 +13,7 @@ export interface getSiteImageResBody {
 
 export type getSiteImageRes = NextApiResponse<getSiteImageResBody>;
 
-export default async (req, res: getSiteImageRes) => {
+const getSiteImage = async (req, res: getSiteImageRes) => {
     const session = await getSession({ req });
     // @ts-ignore
     if (session && session.user.role === "admin") {
@@ -34,3 +34,5 @@ export default async (req, res: getSiteImageRes) => {
         res.status(401).json({ msg: "Forbidden" });
     }
 };
+
+export default getSiteImage;

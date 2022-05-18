@@ -105,7 +105,7 @@ interface props {
     services: service[];
 }
 
-function customCarousel(p: props) {
+function CustomCarousel(p: props) {
     const [target, setTarget] = useState(0);
     const [showCount, setShowCount] = useState(4);
     const screenSize = useContext(ScreenWidth);
@@ -150,4 +150,4 @@ function customCarousel(p: props) {
     );
 }
 
-export default customCarousel;
+export default CustomCarousel;

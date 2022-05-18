@@ -9,7 +9,7 @@ interface savedContact {
     reviewLink?: string;
 }
 
-function contactInfo() {
+function ContactInfo() {
     const [savedContact, setSavedContact] = useState<savedContact>({});
     const [socialLink, setSocialLink] = useState("");
     const [googleLink, setGoogleLink] = useState("");
@@ -92,4 +92,4 @@ function contactInfo() {
     );
 }
 
-export default contactInfo;
+export default ContactInfo;

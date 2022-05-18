@@ -10,7 +10,7 @@ interface props {
     getServices: Function;
 }
 
-function mapServices(p: props) {
+function MapServices(p: props) {
     const [showDetail, setShowDetail] = useState("-1");
 
     const mapResultLimit = Object.keys(Array.from({ length: p.ourServices.length })).map((key) => {
@@ -117,4 +117,4 @@ function mapServices(p: props) {
     return servicesContainer;
 }
 
-export default mapServices;
+export default MapServices;

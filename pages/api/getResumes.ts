@@ -11,13 +11,9 @@ export interface filters {
     limit: string; //20,24,60,'max'
 }
 
-interface reqBody {
-    filters: filters;
-}
-
 function buildFilters(req) {
     const filters = {};
-    const body = req.body;
+    const body: filters = req.body;
     if (body.archived === false) filters["archive"] = { not: true };
     if (body.filterService !== "") filters[body.filterField] = { contains: body.filterService, mode: "insensitive" };
     if (body.fromDate !== "" || body.toDate !== "") filters["submitdate"] = {};
@@ -26,7 +22,7 @@ function buildFilters(req) {
     return filters;
 }
 
-export default async (req, res) => {
+const getResumes = async (req, res) => {
     const session = await getSession({ req });
     const limit = req.body.limit !== "max" ? parseInt(req.body.limit) : 9999;
     // @ts-ignore
@@ -45,5 +41,6 @@ export default async (req, res) => {
         console.log("not signed in");
         res.status(401);
     }
-    res.end();
 };
+
+export default getResumes;

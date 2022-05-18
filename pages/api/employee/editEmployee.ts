@@ -39,7 +39,7 @@ async function saveFile(req) {
     return data;
 }
 
-export default async (req, res) => {
+const editEmployee = async (req, res) => {
     const session = await getSession({ req });
     //@ts-ignore
     if (session && session.user.role === "admin") {
@@ -62,3 +62,5 @@ export default async (req, res) => {
         }
     }
 };
+
+export default editEmployee;

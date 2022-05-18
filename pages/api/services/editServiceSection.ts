@@ -53,7 +53,7 @@ async function saveFile(req) {
     return data;
 }
 
-async function saveDataPost(req, fileKey, fields: editServiceSectionReq) {
+async function saveDataPost(fileKey, fields: editServiceSectionReq) {
     try {
         const updateObj = {
             where: {
@@ -73,7 +73,7 @@ async function saveDataPost(req, fileKey, fields: editServiceSectionReq) {
     }
 }
 
-export default async (req, res) => {
+const editServiceSection = async (req, res) => {
     const session = await getSession({ req });
     //@ts-ignore
     if (session && session.user.role === "admin") {
@@ -82,7 +82,7 @@ export default async (req, res) => {
             try {
                 const [pass, savedFile, fields]: any = await saveFile(req);
                 if (pass) {
-                    const servicesUpdated = await saveDataPost(req, savedFile.fileKey, fields);
+                    const servicesUpdated = await saveDataPost(savedFile.fileKey, fields);
                     if (servicesUpdated) {
                         rerenderRoutes(fields.service[0]);
                         res.status(200).json({ msg: "success" });
@@ -104,3 +104,5 @@ export default async (req, res) => {
         res.status(400).json({ msg: "denied" });
     }
 };
+
+export default editServiceSection;

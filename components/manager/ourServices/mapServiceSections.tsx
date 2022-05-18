@@ -10,7 +10,7 @@ interface props {
     getServices: Function;
 }
 
-function mapServiceSections(p: props) {
+function MapServiceSections(p: props) {
     const [showDetail, setShowDetail] = useState(-1);
     const [editSection, setEditSection] = useState<false | section>(false);
 
@@ -131,7 +131,4 @@ function mapServiceSections(p: props) {
     );
 }
 
-export default mapServiceSections;
-
-{
-}
+export default MapServiceSections;

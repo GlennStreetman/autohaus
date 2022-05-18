@@ -3,7 +3,7 @@ import { getSession } from "next-auth/react";
 import { getFileStream } from "./../../lib/s3";
 import fs from "fs";
 
-export default async (req, res) => {
+const getFile = async (req, res) => {
     const session = await getSession({ req });
     // @ts-ignore
     if (session && session.user.role === "admin") {
@@ -28,3 +28,5 @@ export default async (req, res) => {
     }
     res.end();
 };
+
+export default getFile;

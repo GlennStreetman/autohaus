@@ -32,7 +32,7 @@ async function saveTextEdit(body) {
     }
 }
 
-export default async (req, res) => {
+const editServiceSectionText = async (req, res) => {
     const session = await getSession({ req });
     //@ts-ignore
     if (session && session.user.role === "admin") {
@@ -53,3 +53,5 @@ export default async (req, res) => {
         res.status(400).json({ msg: "denied" });
     }
 };
+
+export default editServiceSectionText;

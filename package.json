@@ -3,6 +3,7 @@
     "version": "0.1.0",
     "private": true,
     "scripts": {
+        "find:unused": "next-unused",
         "devdb": "docker-compose -f app.devdb.yaml up",
         "dev": "next dev",
         "build": "next build",
@@ -24,7 +25,6 @@
         "immer": "^9.0.12",
         "isomorphic-dompurify": "^0.18.0",
         "mailgun.js": "^5.2.0",
-        "mv": "^2.1.1",
         "next": "12.1.4",
         "next-auth": "^4.3.2",
         "nodemailer": "^6.7.3",
@@ -41,6 +41,7 @@
         "autoprefixer": "^10.4.4",
         "eslint": "8.12.0",
         "eslint-config-next": "12.1.4",
+        "next-unused": "^0.0.6",
         "postcss": "^8.4.12",
         "prisma": "^3.12.0",
         "tailwindcss": "^3.0.23"
@@ -48,5 +49,11 @@
     "engines": {
         "npm": ">=v8.0.0",
         "node": ">=16.0.0"
+    },
+    "next-unused": {
+        "alias": {},
+        "include": [],
+        "exclude": [],
+        "entrypoints": []
     }
 }

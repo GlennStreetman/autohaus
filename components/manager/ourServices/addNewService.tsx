@@ -9,7 +9,7 @@ interface props {
     getServices: Function;
 }
 
-function addNewService(p: props) {
+function AddNewService(p: props) {
     const [addNew, setAddNew] = useState(false);
     const [newServiceName, setNewServiceName] = useState("");
     const [newServiceBannerText, setNewServiceBannerText] = useState("");
@@ -127,4 +127,4 @@ function addNewService(p: props) {
     }
 }
 
-export default addNewService;
+export default AddNewService;

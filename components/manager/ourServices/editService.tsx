@@ -15,7 +15,7 @@ interface props {
     setEditService: Function;
 }
 
-function editService(p: props) {
+function EditService(p: props) {
     const [newServiceName, setNewServiceName] = useState(p.service.name);
     const [newServiceBannerText, setNewServiceBannerText] = useState(p.service.bannertext);
     const [fileName, setFileName] = useState("");
@@ -154,7 +154,7 @@ function editService(p: props) {
     );
 }
 
-export default editService;
+export default EditService;
 
 {
     /* <OutlinedSurface label={`Edit Service: ${editService.bannertext}`}> */

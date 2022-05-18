@@ -14,7 +14,7 @@ interface props {
     getServices: Function;
 }
 
-function addNewServiceSection(p: props) {
+function AddNewServiceSection(p: props) {
     const [openForm, setOpenForm] = useState(false);
     const [sectionHeader, setSectionHeader] = useState("");
     const [sectionBody, sectionBodyText] = useState("");
@@ -141,4 +141,4 @@ function addNewServiceSection(p: props) {
     }
 }
 
-export default addNewServiceSection;
+export default AddNewServiceSection;

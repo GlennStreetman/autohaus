@@ -32,7 +32,7 @@ async function saveTextEdit(params: editOurServicesTextReq) {
     }
 }
 
-export default async (req, res) => {
+const editOurServicesText = async (req, res) => {
     const session = await getSession({ req });
     //@ts-ignore
     if (session && session.user.role === "admin") {
@@ -50,3 +50,5 @@ export default async (req, res) => {
         }
     }
 };
+
+export default editOurServicesText;

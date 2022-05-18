@@ -23,7 +23,7 @@ async function updateText(query) {
     }
 }
 
-export default async (req, res) => {
+const editEmployeeText = async (req, res) => {
     const session = await getSession({ req });
     //@ts-ignore
     if (session && session.user.role === "admin") {
@@ -41,3 +41,5 @@ export default async (req, res) => {
         }
     }
 };
+
+export default editEmployeeText;

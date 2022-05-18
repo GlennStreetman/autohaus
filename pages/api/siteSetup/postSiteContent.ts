@@ -9,25 +9,6 @@ interface savedContact {
     openLong: string;
 }
 
-//bespoke updates not implemented, re-render entire site.
-// const actions = {
-//     email: "all",
-//     socialLink: "all",
-//     reviewLink: "all",
-//     googleLink: "all",
-//     thanksService: "/thankyou",
-//     FPBannerText: "/",
-//     aboutBody: "/",
-//     aboutHeading: "/",
-//     thanksResume: "/resumeSubmitted",
-//     phone: "all",
-//     serviceEmail: "all",
-//     openShort: "all",
-//     openLong: "all",
-//     addressLong: "all",
-//     address: "all",
-// };
-
 const staticRoutes = ["/", "/calendar", "/careers", "/manager", "/quote", "/resumeSubmitted", "/team", "/thankyou"];
 
 const dynamicRoutes = {
@@ -36,9 +17,8 @@ const dynamicRoutes = {
     },
 };
 
-export default async (req, res) => {
+const postSiteContent = async (req, res) => {
     const session = await getSession({ req });
-
     // @ts-ignore
     if (session && session.user.role === "admin") {
         try {
@@ -61,14 +41,6 @@ export default async (req, res) => {
                 });
             });
             await Promise.all(updateList);
-
-            //Updates to db complete, update routes as needed.
-            // const updateSet = new Set(Object.entries(body).map(([key, val]) => actions[key]));
-            // if (!updateSet.has("all")) {
-            //     updateList.forEach((el) => {
-            //         fetch(`${process.env.NEXTAUTH_URL}/api/revalidate?secret=${process.env.NEXT_REVALIDATE}&path=${el}`); //home page carousel
-            //     });
-            // } else {
             const secviceRoutes: string[] = await (await dynamicRoutes.service()).map((el) => `/services/${el.name.replaceAll(" ", "")}`);
             const allRoutes = staticRoutes.concat(secviceRoutes);
             for (const el of allRoutes) {
@@ -84,5 +56,6 @@ export default async (req, res) => {
         console.log("not signed in");
         res.status(401).json({ msg: "Denied" });
     }
-    res.end();
 };
+
+export default postSiteContent;

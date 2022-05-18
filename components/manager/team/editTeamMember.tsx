@@ -22,7 +22,7 @@ interface props {
     setShowAdd: Function;
 }
 
-function editTeamMember(p: props) {
+function EditTeamMember(p: props) {
     const [empName, setEmpName] = useState("");
     const [empTitle, setEmpTitle] = useState("");
     const [empDescription, setEmpDescription] = useState("");
@@ -181,4 +181,4 @@ function editTeamMember(p: props) {
     );
 }
 
-export default editTeamMember;
+export default EditTeamMember;

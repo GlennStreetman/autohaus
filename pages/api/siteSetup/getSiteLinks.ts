@@ -8,7 +8,7 @@ interface savedContact {
     reviewLink?: string;
 }
 
-export default async (req, res) => {
+const getSiteLink = async (req, res) => {
     const session = await getSession({ req });
     // @ts-ignore
     if (session && session.user.role === "admin") {
@@ -35,3 +35,5 @@ export default async (req, res) => {
     }
     res.end();
 };
+
+export default getSiteLink;

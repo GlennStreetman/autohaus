@@ -18,7 +18,7 @@ const gutter = "p-2 col-span-0  md:col-span-1 lg:col-span-1 xl:col-span-2"; //2x
 const spacer = "p-2 col-span-0  md:col-span-0 lg:col-span-0 xl:col-span-2"; //1x
 const data = "p-2   col-span-12 md:col-span-5 lg:col-span-5 xl:col-span-3"; //2x
 
-function bottom() {
+function Bottom() {
     const router = useRouter();
     const path = router.pathname;
     const publicData = useContext(PublicContext);
@@ -78,4 +78,4 @@ function bottom() {
     );
 }
 
-export default bottom;
+export default Bottom;

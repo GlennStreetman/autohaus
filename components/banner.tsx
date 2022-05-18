@@ -7,7 +7,7 @@ interface props {
     children?: JSX.Element;
 }
 
-function banner(p: props) {
+function Banner(p: props) {
     const publicData = useContext(PublicContext);
     const logoBox = "col-span-12"; //1x
     const textBox = "col-span-12 relative "; //1x
@@ -41,4 +41,4 @@ function banner(p: props) {
     );
 }
 
-export default banner;
+export default Banner;

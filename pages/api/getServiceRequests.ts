@@ -12,10 +12,6 @@ export interface filters {
     limit: string; //20,24,60,'max'
 }
 
-// interface reqBody {
-//     filters: filters;
-// }
-
 function buildFilters(req) {
     const filters = {};
     const body = req.body;
@@ -27,7 +23,7 @@ function buildFilters(req) {
     return filters;
 }
 
-export default async (req, res) => {
+const getServiceRequests = async (req: NextApiRequest, res: NextApiResponse) => {
     const session = await getSession({ req });
     const limit = req.body.limit !== "max" ? parseInt(req.body.limit) : 9999;
     // @ts-ignore
@@ -45,5 +41,6 @@ export default async (req, res) => {
         console.log("not signed in");
         res.status(401).json({ records: [] });
     }
-    res.end();
 };
+
+export default getServiceRequests;

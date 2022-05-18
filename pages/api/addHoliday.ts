@@ -8,25 +8,22 @@ interface newHoliday {
     daysclosed: string;
 }
 
-export default async (req, res) => {
+const addHoliday = async (req: NextApiRequest, res: NextApiResponse) => {
     const session = await getSession({ req });
     // @ts-ignore
     if (session && session.user.role === "admin") {
         try {
-            const body = JSON.parse(req.body);
+            const body: newHoliday = JSON.parse(req.body);
 
-            const findServiceRequests = await prisma.holidays.create({
+            await prisma.holidays.create({
                 data: {
                     targetdate: body.targetDate,
                     holiday: body.holiday,
                     daysclosed: body.daysclosed,
                 },
             });
-            // console.log("req", `/api/revalidate?secret=${process.env.NEXT_REVALIDATE}&path=http://autohaus.gstreet.test/calendar`);
             fetch(`${process.env.NEXTAUTH_URL}/api/revalidate?secret=${process.env.NEXT_REVALIDATE}&path=/calendar`);
-
             const newHolidaySchedule = await prisma.holidays.findMany({});
-            // console.log("newHolidaySchedule", newHolidaySchedule);
             res.status(200).json({ holidays: newHolidaySchedule });
         } catch (err) {
             console.log("POST /addHoliday: Problem creating record: ", err);
@@ -36,5 +33,6 @@ export default async (req, res) => {
         console.log("not signed in");
         res.status(401);
     }
-    res.end();
 };
+
+export default addHoliday;

@@ -35,9 +35,11 @@ function checkFileName(fileName) {
 async function saveFile(req) {
     const form = new IncomingForm();
     const data = await new Promise((resolve, reject) => {
-        form.parse(req, async (err, fields, files) => {
+        form.parse(req, async (err, fields: reqBody, files) => {
+            if (err) {
+                console.log("addOurServices saveFile error", err);
+            }
             if (checkFileName(files.file[0].originalFilename) === true) {
-                console.log("fields", fields);
                 const name = fields.name[0];
                 const uploadResult = await uploadFilePublic(files.file[0], `${name}.serviceBanner.${files.file[0].originalFilename}`);
                 // console.log("s3 Resulte: ", uploadResult);
@@ -52,7 +54,7 @@ async function saveFile(req) {
     return data;
 }
 
-async function saveDataPost(req, fileKey, fields) {
+async function saveDataPost(fileKey, fields) {
     const formObject = {
         serviceName: fields.name[0],
         bannerText: fields.bannerText[0],
@@ -85,7 +87,7 @@ async function saveDataPost(req, fileKey, fields) {
     }
 }
 
-export default async (req, res) => {
+const addOurServices = async (req, res) => {
     const session = await getSession({ req });
     //@ts-ignore
     if (session && session.user.role === "admin") {
@@ -93,7 +95,7 @@ export default async (req, res) => {
             try {
                 const [pass, savedFile, fields]: any = await saveFile(req);
                 if (pass) {
-                    const servicesUpdated = await saveDataPost(req, savedFile.fileKey, fields);
+                    const servicesUpdated = await saveDataPost(savedFile.fileKey, fields);
                     if (servicesUpdated) {
                         console.log("servicesUpdated", servicesUpdated);
                         rerenderRoutes(fields.name[0]);
@@ -112,3 +114,5 @@ export default async (req, res) => {
         }
     }
 };
+
+export default addOurServices;
