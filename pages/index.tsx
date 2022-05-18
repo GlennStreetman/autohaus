@@ -6,6 +6,7 @@ import Why from "../components/why";
 import { service } from "../components/manager/ourServices";
 import { PublicContext, PublicHOC } from "../components/publicData";
 import ParseMarkdown from "./../lib/parseMarkdown";
+import Head from "next/head";
 
 const smallTextStyling = `text-white font-heading bold text-1xl sm:text-2xl lg:text-3xl [text-shadow:2px_2px_rgba(0,0,0,1)] antialiased whitespace-pre-line`;
 
@@ -32,10 +33,13 @@ interface props {
 }
 
 export function Home(p: props) {
-    const publicData = useContext(PublicContext);
+    const publicData: any = useContext(PublicContext);
 
     return (
         <>
+            <Head>
+                <title>{`${process.env.NEXT_PUBLIC_BUSINESS_NAME}: Home`}</title>
+            </Head>
             <main>
                 <section>
                     <Banner>
@@ -51,8 +55,6 @@ export function Home(p: props) {
                     <Why />
                 </section>
             </main>
-
-            <footer></footer>
         </>
     );
 }

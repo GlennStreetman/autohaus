@@ -7,6 +7,7 @@ import formatPhone, { stripPhone } from "./../lib/formatPhone";
 import OutlinedSurface from "./../components/outlinedSurface";
 import { PublicHOC } from "../components/publicData";
 import prisma from "../lib/prismaPool";
+import Head from "next/head";
 
 export async function getStaticProps() {
     const data = await prisma.sitesetup.findMany({});
@@ -174,6 +175,9 @@ function Quote() {
 
     return (
         <>
+            <Head>
+                <title>{`${process.env.NEXT_PUBLIC_BUSINESS_NAME}: Request Service Quote`}</title>
+            </Head>
             <Banner />
             <div className="grid grid-row grid-cols-12 p-1">
                 <div className={gutter} />

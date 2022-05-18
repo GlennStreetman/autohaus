@@ -6,6 +6,7 @@ import Banner from "../components/banner";
 import prisma from "../lib/prismaPool";
 import Link from "next/link";
 import OutlinedSurface from "../components/outlinedSurface";
+import Head from "next/head";
 
 const largeTextStyling = `text-white font-heading bold text-3xl sm:text-4xl lg:text-6xl3 [text-shadow:2px_2px_rgba(0,0,0,1)] antialiased `;
 
@@ -15,7 +16,6 @@ export async function getStaticProps() {
         props: {
             data: data,
         },
-        // revalidate: 10,
     };
 }
 
@@ -44,6 +44,9 @@ function FormattingHelp() {
 export default function Main(p) {
     return (
         <PublicHOC {...p}>
+            <Head>
+                <title>{`${process.env.NEXT_PUBLIC_BUSINESS_NAME}: Formatting Text`}</title>
+            </Head>
             <Banner>
                 <div className={largeTextStyling}>Text Formating: Guide by example</div>
             </Banner>

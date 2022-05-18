@@ -4,6 +4,7 @@ import React, { useContext } from "react";
 import { PublicContext } from "../components/publicData";
 import { PublicHOC } from "../components/publicData";
 import prisma from "../lib/prismaPool";
+import Head from "next/head";
 
 export async function getStaticProps() {
     const data = await prisma.sitesetup.findMany({});
@@ -21,7 +22,9 @@ function Thankyou() {
     const publicData = useContext(PublicContext);
     return (
         <>
-            {/* height="h-72" */}
+            <Head>
+                <title>{`${process.env.NEXT_PUBLIC_BUSINESS_NAME}: Thank you!`}</title>
+            </Head>
             <Banner>
                 <></>
             </Banner>

@@ -4,6 +4,8 @@ import React, { useContext } from "react";
 import { PublicContext } from "../components/publicData";
 import { PublicHOC } from "../components/publicData";
 import prisma from "../lib/prismaPool";
+import Head from "next/head";
+
 const gutter = "col-span-0 lg:col-span-1 xl:col-span-3"; //2x
 const body = "col-span-12 lg:col-span-10 xl:col-span-6 mb-4  text-white p-2 whitespace-pre-line"; //1x
 
@@ -34,6 +36,9 @@ function Thankyou() {
 export default function Main(p) {
     return (
         <PublicHOC {...p}>
+            <Head>
+                <title>{`${process.env.NEXT_PUBLIC_BUSINESS_NAME}: Thank you!`}</title>
+            </Head>
             <Thankyou />
         </PublicHOC>
     );

@@ -1,6 +1,6 @@
 import React from "react";
-import Topper from "../components/topper";
-import Bottom from "../components/bottom";
+import Topper from "./topper";
+import Bottom from "./bottom";
 
 export const PublicContext = React.createContext();
 

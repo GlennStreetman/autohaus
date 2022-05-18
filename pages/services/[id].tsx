@@ -6,6 +6,7 @@ import Image from "next/image";
 import ParseMarkdown from "./../../lib/parseMarkdown";
 import Aside from "../../components/aside";
 import { PublicHOC } from "../../components/publicData";
+import Head from "next/head";
 
 const imgBoxLeft = "relative rounded-md bg-black overflow-hidden h-56 w-56 md:h-80 md:w-80 lg:h-96 lg:w-96 xl::h-96 xl:w-116 float-left m-2 ";
 const imgBoxRight = "relative rounded-md bg-black overflow-hidden h-56 w-56 md:h-80 md:w-80 lg:h-96 lg:w-96 xl::h-96 xl:w-116 float-right m-2 ";
@@ -106,6 +107,9 @@ function mapServiceSections(p: service) {
 function Services(p: service) {
     return (
         <div>
+            <Head>
+                <title>{`${process.env.NEXT_PUBLIC_BUSINESS_NAME}: ${p.name}`}</title>
+            </Head>
             <Banner />
             <div className="grid grid-cols-12 relative">
                 {mapServiceSections(p)}

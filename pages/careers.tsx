@@ -10,6 +10,7 @@ import { useRouter } from "next/router";
 import { BiUpload } from "react-icons/bi";
 import { AiFillCheckCircle } from "react-icons/ai";
 import { HiOutlineEmojiSad } from "react-icons/hi";
+import Head from "next/head";
 
 export async function getStaticProps() {
     const data = await prisma.sitesetup.findMany({});
@@ -213,9 +214,11 @@ function Careers() {
 
     return (
         <div>
+            <Head>
+                <title>{`${process.env.NEXT_PUBLIC_BUSINESS_NAME}: Careers`}</title>
+            </Head>
             <Banner />
 
-            {/* <div className="h-32"></div> */}
             <div className="grid grid-row grid-cols-12 p-1">
                 <div className={gutter} />
                 <div className={body}>

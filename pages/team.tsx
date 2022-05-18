@@ -4,6 +4,7 @@ import Banner from "../components/banner";
 import ParseMarkdown from "./../lib/parseMarkdown";
 import styles from "./team.module.css";
 import { PublicHOC } from "../components/publicData";
+import Head from "next/head";
 
 //flex grid elements
 const gutter = " hidden lg:block lg:col-span-1 "; //2x
@@ -95,6 +96,9 @@ function Team(p: props) {
 export default function Main(p: props) {
     return (
         <PublicHOC {...p}>
+            <Head>
+                <title>{`${process.env.NEXT_PUBLIC_BUSINESS_NAME}: Meet the team`}</title>
+            </Head>
             <Team {...p} />
         </PublicHOC>
     );
