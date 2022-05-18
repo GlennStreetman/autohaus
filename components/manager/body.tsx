@@ -26,9 +26,6 @@ const largeTextStyling = `text-white font-heading bold text-3xl sm:text-4xl lg:t
 
 const gutter = "col-span-0 lg:col-span-1 xl:col-span-1"; //2x
 const body = "col-span-12 lg:col-span-10 xl:col-span-10 mb-4"; //1x
-// const big = " col-span-12 lg:col-span-6";
-// const medium = "col-span-12 lg:col-span-4";
-// const small = "col-span-6 lg:col-span-3";
 
 function Body() {
     const { data: session } = useSession();
