@@ -18,15 +18,17 @@ function mapServices(target: number, showCount: number, ourServices: serviceBox[
     const selectServices = ourServices.slice(target, target + showCount);
 
     const mapSlides = Object.values(selectServices).map((el) => {
-        const myLoader = () => {
-            return `${process.env.NEXT_PUBLIC_AWS_PUBLIC_BUCKET_URL}${el.image}`;
-        };
         return (
             <div key={el.service} className="flex flex-col cursor-pointer bg-red-600 hover:bg-accent">
                 <div className={imgBox}>
                     <Link href={el.link}>
                         <a>
-                            <Image loader={myLoader} src={el.image} alt={`${el.service} picture`} layout="fill" objectFit="fill" />
+                            <Image
+                                src={`${process.env.NEXT_PUBLIC_AWS_PUBLIC_BUCKET_URL}${el.image}`}
+                                alt={`${el.service} picture`}
+                                layout="fill"
+                                objectFit="fill"
+                            />
                         </a>
                     </Link>
                 </div>

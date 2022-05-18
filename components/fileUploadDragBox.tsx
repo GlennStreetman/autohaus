@@ -16,10 +16,6 @@ interface props {
 function FileUploadDragBox(p: props) {
     const inputReference = useRef<HTMLInputElement>(null);
 
-    const myLoader = () => {
-        return `${process.env.NEXT_PUBLIC_AWS_PUBLIC_BUCKET_URL}${p.backgroundImage}`;
-    };
-
     function selectFile(e) {
         e.preventDefault();
         const data = new FormData();
@@ -82,7 +78,13 @@ function FileUploadDragBox(p: props) {
         >
             {p.backgroundImage ? (
                 <div>
-                    <Image loader={myLoader} src="bannerImage" alt="bannerImage" layout="fill" objectFit="fill" priority />
+                    <Image
+                        src={`${process.env.NEXT_PUBLIC_AWS_PUBLIC_BUCKET_URL}${p.backgroundImage}`}
+                        alt="bannerImage"
+                        layout="fill"
+                        objectFit="fill"
+                        priority
+                    />
                 </div>
             ) : (
                 <></>

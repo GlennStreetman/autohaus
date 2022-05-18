@@ -55,17 +55,19 @@ function isOddOrEven(n, length) {
 function Team(p: props) {
     const employeeCount = Object.keys(p.employees).length;
     const mapEmployees = Object.values(p.employees).map((val, indx) => {
-        const myLoader = () => {
-            return `${process.env.NEXT_PUBLIC_AWS_PUBLIC_BUCKET_URL}${val.filename}`;
-        };
         return (
             <section key={`keySec-${val.name}`}>
                 <div className="grid grid-cols-12">
                     <div className={isOddOrEven(indx, employeeCount) ? gutter : gutterBlack} />
                     <div className={isOddOrEven(indx, employeeCount) ? employees : employeesBlack}>
                         <div className={isOddOrEven(indx, employeeCount) ? imgBoxLeft : imgBoxRight}>
-                            {/* <img src={`${process.env.NEXT_PUBLIC_AWS_PUBLIC_BUCKET_URL}${val.filename}`} /> */}
-                            <Image loader={myLoader} src={val.name} alt={val.name} layout="fill" objectFit="fill" priority />
+                            <Image
+                                src={`${process.env.NEXT_PUBLIC_AWS_PUBLIC_BUCKET_URL}${val.filename}`}
+                                alt={val.name}
+                                layout="fill"
+                                objectFit="fill"
+                                priority
+                            />
                         </div>
                         <div className="text-3xl font-bold">{`${val.name}: ${val.title}`}</div>
                         <div className="whitespace-pre-line">

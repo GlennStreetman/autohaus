@@ -13,10 +13,6 @@ const imgBox = "relative rounded-md bg-black overflow-hidden h-40 w-40 md:h-80 m
 function Why() {
     const publicData = useContext(PublicContext);
 
-    const myLoader = () => {
-        return `${process.env.NEXT_PUBLIC_AWS_PUBLIC_BUCKET_URL}${publicData.bannerImage}`;
-    };
-
     return (
         <div className="flex flex-col">
             <div className="grid justify-items-center w-screen p-3">
@@ -28,7 +24,12 @@ function Why() {
                 <div className={gutter} />
                 <div className={dataLeft}>
                     <div className={imgBox}>
-                        <Image alt="whyImage" loader={myLoader} src="decorationImage" layout="fill" objectFit="fill" />
+                        <Image
+                            alt="whyImage"
+                            src={`${process.env.NEXT_PUBLIC_AWS_PUBLIC_BUCKET_URL}${publicData.bannerImage}`}
+                            layout="fill"
+                            objectFit="fill"
+                        />
                     </div>
                     <div className="p-2">
                         <ParseMarkdown text={publicData.aboutBody} />

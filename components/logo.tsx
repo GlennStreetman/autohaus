@@ -33,11 +33,7 @@ function Logo() {
     const [width, setWidth] = useState("250");
     const [height, setHeight] = useState("250");
 
-    const myLoader = () => {
-        return `${process.env.NEXT_PUBLIC_AWS_PUBLIC_BUCKET_URL}${publicData.logoImage}`;
-    };
-
-    const logoImage = <Image loader={myLoader} src="logo" alt="logo" width={width} height={height} />;
+    const logoImage = <Image src={`${process.env.NEXT_PUBLIC_AWS_PUBLIC_BUCKET_URL}${publicData.logoImage}`} alt="logo" width={width} height={height} />;
 
     useEffect(() => {
         setLogoDimensions(screenSize.width, setWidth, setHeight);

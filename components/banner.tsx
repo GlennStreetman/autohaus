@@ -13,11 +13,9 @@ function Banner(p: props) {
     const textBox = "col-span-12 relative "; //1x
     const height = `w-full h-auto grid grid-cols-12 relative`;
 
-    const myLoader = () => {
-        return `${process.env.NEXT_PUBLIC_AWS_PUBLIC_BUCKET_URL}${publicData.bannerImage}`;
-    };
-
-    const bannerImage = <Image loader={myLoader} src="banner" alt="site banner" layout="fill" objectFit="cover" priority />;
+    const bannerImage = (
+        <Image src={`${process.env.NEXT_PUBLIC_AWS_PUBLIC_BUCKET_URL}${publicData.bannerImage}`} alt="site banner" layout="fill" objectFit="cover" priority />
+    );
 
     return (
         <div className={height}>

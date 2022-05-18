@@ -67,9 +67,6 @@ function isOddOrEven(n, length) {
 function mapServiceSections(p: service) {
     const sectionCount = Object.keys(p.sections).length;
     const sectionMap = p.sections.map((val, indx) => {
-        const myLoader = () => {
-            return `${process.env.NEXT_PUBLIC_AWS_PUBLIC_BUCKET_URL}${val.sectionimage}`;
-        };
         const odd = !isOddOrEven(indx, sectionCount);
         return (
             <React.Fragment key={`${val.serviceid}${val.ordernumber}-key`}>
@@ -78,7 +75,15 @@ function mapServiceSections(p: service) {
                     <div className={`p-2 bg-primary dark:bg-primaryDark ${odd ? "bg-primaryDark" : ""}`}>
                         {val.sectionimage ? (
                             <div className={isOddOrEven(indx, sectionCount) ? imgBoxLeft : imgBoxRight}>
-                                {<Image loader={myLoader} src={val.sectionheader} alt={val.sectionheader} layout="fill" objectFit="fill" priority />}
+                                {
+                                    <Image
+                                        src={`${process.env.NEXT_PUBLIC_AWS_PUBLIC_BUCKET_URL}${val.sectionimage}`}
+                                        alt={val.sectionheader}
+                                        layout="fill"
+                                        objectFit="fill"
+                                        priority
+                                    />
+                                }
                             </div>
                         ) : (
                             <></>
