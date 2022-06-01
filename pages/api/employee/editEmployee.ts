@@ -1,4 +1,3 @@
-import prisma from "../../../lib/prismaPool";
 import { IncomingForm } from "formidable";
 import { uploadFilePublic } from "../../../lib/s3";
 import { getSession } from "next-auth/react";
