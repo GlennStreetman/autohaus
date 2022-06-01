@@ -22,3 +22,11 @@ services:
 volumes:
     postgres-data:
         driver: local
+networks:
+    default:
+        external:
+            name: gstreet
+networks:
+    default:
+        external:
+            name: "${DOCKER_NETWORK}"
