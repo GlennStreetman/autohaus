@@ -14,7 +14,7 @@ function setup(p: props) {
     return (
         <div className={p.show === true ? "col-span-12 overflow-auto" : "hidden"}>
             <div className="flex justify-center pb-4">
-                <NextLinkButton text="Formatting Help" link="/formattingHelp" icon={<></>} />
+                <NextLinkButton text="Formatting Help" link="/formattingHelp" icon={<></>} newtab={true} />
             </div>
             <ContactInfo />
             <Links />

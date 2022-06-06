@@ -7,6 +7,7 @@ interface props {
     icon: JSX.Element; //svg icon?
     link: string;
     highlight?: boolean;
+    newtab?: boolean;
 }
 
 const textHighlight =
@@ -18,12 +19,21 @@ function NextLinkButton(p: props) {
     return (
         <div className="flex z-20">
             <Link href={p.link}>
-                <a className={p.highlight === true ? textHighlight : textRegular}>
-                    {p.icon}{" "}
-                    <div className="flex">
-                        <div className="shrink m-auto">{p.text}</div>
-                    </div>
-                </a>
+                {p.newtab ? (
+                    <a target="_blank" className={p.highlight === true ? textHighlight : textRegular}>
+                        {p.icon}{" "}
+                        <div className="flex">
+                            <div className="shrink m-auto">{p.text}</div>
+                        </div>
+                    </a>
+                ) : (
+                    <a className={p.highlight === true ? textHighlight : textRegular}>
+                        {p.icon}{" "}
+                        <div className="flex">
+                            <div className="shrink m-auto">{p.text}</div>
+                        </div>
+                    </a>
+                )}
             </Link>
             <div className="flex grow" />
         </div>

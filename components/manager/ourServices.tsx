@@ -4,6 +4,7 @@ import AddNewService from "./ourServices/addNewService";
 import EditService from "./ourServices/editService";
 import MapServices from "./ourServices/mapServices";
 import OutlinedSurface from "./../outlinedSurface";
+import NextLinkButton from "../nextLinkButton";
 
 export interface section {
     id: number;
@@ -58,6 +59,9 @@ function OurServices(p: props) {
 
     return (
         <div className={p.show === true ? "col-span-12 overflow-auto" : "hidden"}>
+            <div className="flex justify-center pb-4">
+                <NextLinkButton text="Formatting Help" link="/formattingHelp" icon={<></>} newtab={true} />
+            </div>
             {!editService ? (
                 <OutlinedSurface label="Review Services">
                     <MapServices

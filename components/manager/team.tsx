@@ -4,6 +4,7 @@ import AddNewTeamMember from "./team/addNewTeamMember";
 import MapTeamMembers from "./team/mapTeamMembers";
 import IconButton from "./../iconButton";
 import { useSession } from "next-auth/react";
+import NextLinkButton from "../nextLinkButton";
 
 interface employees {
     id: number;
@@ -43,6 +44,9 @@ function Team(p: props) {
 
     return (
         <div className={p.show === true ? "col-span-12 overflow-auto" : "hidden"}>
+            <div className="flex justify-center pb-4">
+                <NextLinkButton text="Formatting Help" link="/formattingHelp" icon={<></>} newtab={true} />
+            </div>
             {addEmployee === true ? <AddNewTeamMember setAdd={setAddEmployee} setEmployees={setEmployees} getEmployees={getEmployees} /> : <></>}
             {addEmployee === false ? (
                 <MapTeamMembers employees={employees} setEmployees={setEmployees} getEmployees={getEmployees} setShowAdd={setShowAdd} />
