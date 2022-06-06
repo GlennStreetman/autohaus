@@ -24,12 +24,7 @@ function Why() {
                 <div className={gutter} />
                 <div className={dataLeft}>
                     <div className={imgBox}>
-                        <Image
-                            alt="whyImage"
-                            src={`${process.env.NEXT_PUBLIC_AWS_PUBLIC_BUCKET_URL}${publicData.bannerImage}`}
-                            layout="fill"
-                            objectFit="fill"
-                        />
+                        <Image alt="whyImage" src={`${process.env.NEXT_PUBLIC_AWS_PUBLIC_BUCKET_URL}${publicData.aboutImage}`} layout="fill" objectFit="fill" />
                     </div>
                     <div className="p-2">
                         <ParseMarkdown text={publicData.aboutBody} />
