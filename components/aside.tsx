@@ -22,7 +22,7 @@ function Aside() {
     const reviewLink = publicData.reviewLink ? publicData.reviewLink : "";
 
     return (
-        <div className="flex flex-col border-4 border-red-500 rounded-md bg-primary overflow-hidden">
+        <div className="flex flex-col border-4 border-accent rounded-md bg-primary overflow-hidden">
             <div className="font-bold bg-black text-white text-center">Contact/Location</div>
             <LineLinkButton text="Request Service Quote" icon={<GiAutoRepair className="h-7 w-7" />} link="/quote" textSize="small" />
             <LineLinkButton text={telephoneText} link={`tel:${publicData.phone}`} icon={<BsTelephoneInboundFill className="h-7 w-7" />} textSize="small" />

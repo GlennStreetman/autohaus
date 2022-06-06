@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import prisma from "./../../lib/prismaPool";
 import { service } from "./../../components/manager/ourServices";
 import Banner from "../../components/banner";
@@ -7,6 +7,7 @@ import ParseMarkdown from "./../../lib/parseMarkdown";
 import Aside from "../../components/aside";
 import { PublicHOC } from "../../components/publicData";
 import Head from "next/head";
+import Screen, { ScreenWidth } from "../../components/screenWidth";
 
 const imgBoxLeft = "relative rounded-md bg-black overflow-hidden h-56 w-56 md:h-80 md:w-80 lg:h-96 lg:w-96 xl::h-96 xl:w-116 float-left m-2 ";
 const imgBoxRight = "relative rounded-md bg-black overflow-hidden h-56 w-56 md:h-80 md:w-80 lg:h-96 lg:w-96 xl::h-96 xl:w-116 float-right m-2 ";
@@ -71,8 +72,8 @@ function mapServiceSections(p: service) {
         const odd = !isOddOrEven(indx, sectionCount);
         return (
             <React.Fragment key={`${val.serviceid}${val.ordernumber}-key`}>
-                <div className={`lg:block col-span-0 lg:col-span-2 ${odd ? "bg-primaryDark" : ""}`} />
-                <section className="flex flex-col col-span-12 md:col-span-12 lg:col-span-7">
+                <div className={`lg:block col-span-0 lg:col-span-1 xl:col-span-2 ${odd ? "bg-primaryDark" : ""}`} />
+                <section className="flex flex-col col-span-12 md:col-span-12 lg:col-span-10 xl:col-span-8">
                     <div className={`p-2 bg-primary dark:bg-primaryDark ${odd ? "bg-primaryDark" : ""}`}>
                         {val.sectionimage ? (
                             <div className={isOddOrEven(indx, sectionCount) ? imgBoxLeft : imgBoxRight}>
@@ -95,7 +96,7 @@ function mapServiceSections(p: service) {
                         </div>
                     </div>
                 </section>
-                <div className={`lg:block col-span-0 lg:col-span-3 ${odd ? "bg-primaryDark" : ""}`} />
+                <div className={`lg:block col-span-0 lg:col-span-1 xl:col-span-2 ${odd ? "bg-primaryDark" : ""}`} />
             </React.Fragment>
         );
     });
@@ -105,6 +106,8 @@ function mapServiceSections(p: service) {
 }
 
 function Services(p: service) {
+    const screenSize = useContext(ScreenWidth);
+
     return (
         <div>
             <Head>
@@ -116,14 +119,18 @@ function Services(p: service) {
                 <div
                     className="h-full flex flex-col justify-center shrink"
                     style={{
-                        gridArea: "1 / 11",
+                        gridArea: "1 / 11 / 1 / 11",
                         position: "absolute",
                     }}
                 >
                     <div className="grow" />
-                    <div>
-                        <Aside />
-                    </div>
+                    {screenSize.width > 1285 ? (
+                        <div>
+                            <Aside />
+                        </div>
+                    ) : (
+                        <></>
+                    )}
                     <div className="grow" />
                 </div>
             </div>
@@ -134,7 +141,9 @@ function Services(p: service) {
 export default function Main(p) {
     return (
         <PublicHOC {...p}>
-            <Services {...p.services} />
+            <Screen>
+                <Services {...p.services} />
+            </Screen>
         </PublicHOC>
     );
 }
