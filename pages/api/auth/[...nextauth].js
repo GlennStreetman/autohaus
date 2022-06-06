@@ -33,7 +33,7 @@ export default NextAuth({
 
     callbacks: {
         async session({ session, token, user }) {
-            console.log("--Session CALLED--", session, "--user--", user, "--token--", token);
+            // console.log("--Session CALLED--", session, "--user--", user, "--token--", token);
             session.user.role = user.role;
             return session;
         },
