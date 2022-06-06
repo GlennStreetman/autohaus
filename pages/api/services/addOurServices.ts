@@ -33,34 +33,38 @@ function checkFileName(fileName) {
 }
 
 async function saveFile(req) {
-    const form = new IncomingForm();
-    const data = await new Promise((resolve, reject) => {
-        form.parse(req, async (err, fields: reqBody, files) => {
-            if (err) {
-                console.log("addOurServices saveFile error", err);
-            }
-            if (checkFileName(files.file[0].originalFilename) === true) {
-                const name = fields.name[0];
-                const uploadResult = await uploadFilePublic(files.file[0], `${name}.serviceBanner.${files.file[0].originalFilename}`);
-                // console.log("s3 Resulte: ", uploadResult);
-                const returnData: savedFileReturn = { fileKey: uploadResult["key"] };
-                resolve([true, returnData, fields]);
-            } else {
-                resolve([false, false, false]);
-            }
+    try {
+        const form = new IncomingForm();
+        const data = await new Promise((resolve, reject) => {
+            form.parse(req, async (err, fields: reqBody, files) => {
+                if (err) {
+                    console.log("addOurServices saveFile error", err);
+                }
+                if (checkFileName(files.file[0] && files?.file[0]?.originalFilename) === true) {
+                    const name = fields.name[0];
+                    const uploadResult = await uploadFilePublic(files.file[0], `${name}.serviceBanner.${files.file[0].originalFilename}`);
+                    // console.log("s3 Resulte: ", uploadResult);
+                    const returnData: savedFileReturn = { fileKey: uploadResult["key"] };
+                    resolve([true, returnData, fields]);
+                } else {
+                    resolve([false, false, false]);
+                }
+            });
         });
-    });
 
-    return data;
+        return data;
+    } catch (err) {
+        console.log("problem with POST /submitResume saveFile", err);
+        return false;
+    }
 }
 
 async function saveDataPost(fileKey, fields) {
-    const formObject = {
-        serviceName: fields.name[0],
-        bannerText: fields.bannerText[0],
-    };
-
     try {
+    const formObject = {
+        serviceName: fields.name[0] ? fields.name[0] : '',
+        bannerText: fields.bannerText[0] ? fields.bannerText[0] : '',
+    };
         const maxNumber = await prisma.team.findMany({
             orderBy: [
                 {

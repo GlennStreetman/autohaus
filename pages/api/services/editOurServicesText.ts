@@ -38,7 +38,6 @@ const editOurServicesText = async (req, res) => {
     if (session && session.user.role === "admin") {
         if (req.method === "POST") {
             try {
-                console.log("body", req.body);
                 const body: editOurServicesTextReq = JSON.parse(req.body);
                 await saveTextEdit(body);
                 rerenderRoutes(body.name);

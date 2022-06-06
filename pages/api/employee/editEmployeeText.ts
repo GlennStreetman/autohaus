@@ -30,7 +30,6 @@ const editEmployeeText = async (req, res) => {
         if (req.method === "POST") {
             try {
                 const body = JSON.parse(req.body);
-                console.log("body", body);
                 await updateText(body);
                 fetch(`${process.env.NEXTAUTH_URL}/api/revalidate?secret=${process.env.NEXT_REVALIDATE}&path=/team`);
                 res.status(200).json({ msg: "success" });

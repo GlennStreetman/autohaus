@@ -9,9 +9,16 @@ export interface addServiceSectionTextReq {
 }
 
 async function rerenderRoutes(service) {
-    const shortName = service.replaceAll(" ", "");
-    fetch(`${process.env.NEXTAUTH_URL}/api/revalidate?secret=${process.env.NEXT_REVALIDATE}&path=/`); //home page carousel
-    fetch(`${process.env.NEXTAUTH_URL}/api/revalidate?secret=${process.env.NEXT_REVALIDATE}&path=/services/${shortName}`); //route to service
+    try {
+    if (service){
+        const shortName = service.replaceAll(" ", "");
+        fetch(`${process.env.NEXTAUTH_URL}/api/revalidate?secret=${process.env.NEXT_REVALIDATE}&path=/`); //home page carousel
+        fetch(`${process.env.NEXTAUTH_URL}/api/revalidate?secret=${process.env.NEXT_REVALIDATE}&path=/services/${shortName}`); //route to service
+    }
+    } catch (err) {
+        console.log("problem with POST /addServiceSectionText RERENDER", err);
+        return false;
+    }
 }
 
 async function saveTextPost(body) {
@@ -54,7 +61,6 @@ const addServiceSectionText = async (req, res) => {
         if (req.method === "POST") {
             try {
                 const body = JSON.parse(req.body);
-                console.log("body", body);
                 const servicesUpdated = await saveTextPost(body);
                 if (servicesUpdated) {
                     rerenderRoutes(body.name);
