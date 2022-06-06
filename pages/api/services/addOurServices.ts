@@ -48,7 +48,7 @@ async function saveFile(req) {
                 if (err) {
                     console.log("addOurServices saveFile error", err);
                 }
-                if (checkFileName(files.file[0] && files?.file[0]?.originalFilename) === true) {
+                if (checkFileName(files?.file[0] && files?.file[0]?.originalFilename) === true) {
                     const name = fields.name[0];
                     const uploadResult = await uploadFilePublic(files.file[0], `${name}.serviceBanner.${files.file[0].originalFilename}`);
                     // console.log("s3 Resulte: ", uploadResult);
