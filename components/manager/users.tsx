@@ -72,7 +72,7 @@ function Users(p: props) {
     ));
 
     const userContainer = (
-        <OutlinedSurface label="Review Site Managers">
+        <OutlinedSurface label="Review Site Manager Account Permissions">
             <div className={"col-span-12 overflow-auto"}>
                 <table className="w-full">
                     <thead>
