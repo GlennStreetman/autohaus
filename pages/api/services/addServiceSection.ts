@@ -21,36 +21,48 @@ export const config = {
 };
 
 async function rerenderRoutes(service) {
-    const shortName = service.replaceAll(" ", "");
-    fetch(`${process.env.NEXTAUTH_URL}/api/revalidate?secret=${process.env.NEXT_REVALIDATE}&path=/`); //home page carousel
-    fetch(`${process.env.NEXTAUTH_URL}/api/revalidate?secret=${process.env.NEXT_REVALIDATE}&path=/services/${shortName}`); //route to service
+    try {
+        const shortName = service.replaceAll(" ", "");
+        fetch(`${process.env.NEXTAUTH_URL}/api/revalidate?secret=${process.env.NEXT_REVALIDATE}&path=/`); //home page carousel
+        fetch(`${process.env.NEXTAUTH_URL}/api/revalidate?secret=${process.env.NEXT_REVALIDATE}&path=/services/${shortName}`); //route to service
+    } catch (err) {
+        console.log("/addOurServiceSection rerenderRoutes", err);
+    }
 }
 
 function checkFileName(fileName) {
-    if (fileName !== "" && ["png", "jpg", "svg"].includes(fileName.split(".").pop())) {
-        return true;
-    } else {
-        return false;
+    try {
+        if (fileName !== "" && ["png", "jpg", "svg"].includes(fileName.split(".").pop())) {
+            return true;
+        } else {
+            return false;
+        }
+    } catch (err) {
+        console.log("/addServiceSection rerenderRoutes", err);
     }
 }
 
 async function saveFile(req) {
-    const form = new IncomingForm();
-    const data = await new Promise((resolve, reject) => {
-        form.parse(req, async (err, fields: addServiceSectionReq, files) => {
-            if (checkFileName(files.file[0].originalFilename) === true) {
-                console.log("fields", fields);
-                const sectionheader = fields.sectionName[0];
-                const uploadResult = await uploadFilePublic(files.file[0], `${sectionheader}.section.${files.file[0].originalFilename}`);
-                const returnData: savedFileReturn = { fileKey: uploadResult["key"] };
-                resolve([true, returnData, fields]);
-            } else {
-                resolve([false, false, false]);
-            }
+    try {
+        const form = new IncomingForm();
+        const data = await new Promise((resolve, reject) => {
+            form.parse(req, async (err, fields: addServiceSectionReq, files) => {
+                if (checkFileName(files.file[0].originalFilename) === true) {
+                    console.log("fields", fields);
+                    const sectionheader = fields.sectionName[0];
+                    const uploadResult = await uploadFilePublic(files.file[0], `${sectionheader}.section.${files.file[0].originalFilename}`);
+                    const returnData: savedFileReturn = { fileKey: uploadResult["key"] };
+                    resolve([true, returnData, fields]);
+                } else {
+                    resolve([false, false, false]);
+                }
+            });
         });
-    });
 
-    return data;
+        return data;
+    } catch (err) {
+        console.log("/addOurServiceSection saveFile", err);
+    }
 }
 
 async function saveDataPost(fileKey, fields: addServiceSectionReq) {

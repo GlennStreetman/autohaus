@@ -19,16 +19,24 @@ export const config = {
 };
 
 async function rerenderRoutes(service) {
-    const shortName = service.replaceAll(" ", "");
-    fetch(`${process.env.NEXTAUTH_URL}/api/revalidate?secret=${process.env.NEXT_REVALIDATE}&path=/`); //home page carousel
-    fetch(`${process.env.NEXTAUTH_URL}/api/revalidate?secret=${process.env.NEXT_REVALIDATE}&path=/services/${shortName}`); //route to service
+    try {
+        const shortName = service.replaceAll(" ", "");
+        fetch(`${process.env.NEXTAUTH_URL}/api/revalidate?secret=${process.env.NEXT_REVALIDATE}&path=/`); //home page carousel
+        fetch(`${process.env.NEXTAUTH_URL}/api/revalidate?secret=${process.env.NEXT_REVALIDATE}&path=/services/${shortName}`); //route to service
+    } catch (err) {
+        console.log("/addOurService addOurServices", err);
+    }
 }
 
 function checkFileName(fileName) {
-    if (fileName !== "" && ["png", "jpg", "svg"].includes(fileName.split(".").pop())) {
-        return true;
-    } else {
-        return false;
+    try {
+        if (fileName !== "" && ["png", "jpg", "svg"].includes(fileName.split(".").pop())) {
+            return true;
+        } else {
+            return false;
+        }
+    } catch (err) {
+        console.log("/addOurService checkFileNsame", err);
     }
 }
 
@@ -61,10 +69,10 @@ async function saveFile(req) {
 
 async function saveDataPost(fileKey, fields) {
     try {
-    const formObject = {
-        serviceName: fields.name[0] ? fields.name[0] : '',
-        bannerText: fields.bannerText[0] ? fields.bannerText[0] : '',
-    };
+        const formObject = {
+            serviceName: fields.name[0] ? fields.name[0] : "",
+            bannerText: fields.bannerText[0] ? fields.bannerText[0] : "",
+        };
         const maxNumber = await prisma.team.findMany({
             orderBy: [
                 {

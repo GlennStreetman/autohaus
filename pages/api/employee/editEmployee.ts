@@ -13,29 +13,37 @@ interface savedFileReturn {
 }
 
 function checkFileName(fileName) {
-    if (fileName !== "" && ["png", "jpg", "svg"].includes(fileName.split(".").pop())) {
-        return true;
-    } else {
-        return false;
+    try {
+        if (fileName !== "" && ["png", "jpg", "svg"].includes(fileName.split(".").pop())) {
+            return true;
+        } else {
+            return false;
+        }
+    } catch (err) {
+        console.log("/editEmployee checkFileName", err);
     }
 }
 
 async function saveFile(req) {
-    const form = new IncomingForm();
-    const data = await new Promise((resolve, reject) => {
-        form.parse(req, async (err, fields, files) => {
-            if (checkFileName(files.file[0].originalFilename) === true) {
-                const name = fields.name[0];
-                const uploadResult = await uploadFilePublic(files.file[0], `${name}.portrait.${files.file[0].originalFilename}`);
-                const returnData: savedFileReturn = { fileKey: uploadResult["key"] };
-                resolve([true, returnData, fields]);
-            } else {
-                resolve([false, false, false]);
-            }
+    try {
+        const form = new IncomingForm();
+        const data = await new Promise((resolve, reject) => {
+            form.parse(req, async (err, fields, files) => {
+                if (checkFileName(files.file[0].originalFilename) === true) {
+                    const name = fields.name[0];
+                    const uploadResult = await uploadFilePublic(files.file[0], `${name}.portrait.${files.file[0].originalFilename}`);
+                    const returnData: savedFileReturn = { fileKey: uploadResult["key"] };
+                    resolve([true, returnData, fields]);
+                } else {
+                    resolve([false, false, false]);
+                }
+            });
         });
-    });
 
-    return data;
+        return data;
+    } catch (err) {
+        console.log("/editEmployee saveFile", err);
+    }
 }
 
 const editEmployee = async (req, res) => {

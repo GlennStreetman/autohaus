@@ -9,9 +9,13 @@ export interface editServiceSectionTextReq {
 }
 
 async function rerenderRoutes(service) {
-    const shortName = service.replaceAll(" ", "");
-    fetch(`${process.env.NEXTAUTH_URL}/api/revalidate?secret=${process.env.NEXT_REVALIDATE}&path=/`); //home page carousel
-    fetch(`${process.env.NEXTAUTH_URL}/api/revalidate?secret=${process.env.NEXT_REVALIDATE}&path=/services/${shortName}`); //route to service
+    try {
+        const shortName = service.replaceAll(" ", "");
+        fetch(`${process.env.NEXTAUTH_URL}/api/revalidate?secret=${process.env.NEXT_REVALIDATE}&path=/`); //home page carousel
+        fetch(`${process.env.NEXTAUTH_URL}/api/revalidate?secret=${process.env.NEXT_REVALIDATE}&path=/services/${shortName}`); //route to service
+    } catch (err) {
+        console.log("/editServiceSectionText rerenderRoutes", err);
+    }
 }
 
 async function saveTextEdit(body) {

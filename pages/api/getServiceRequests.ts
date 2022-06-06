@@ -13,14 +13,18 @@ export interface filters {
 }
 
 function buildFilters(req) {
-    const filters = {};
-    const body = req.body;
-    if (body.archived === false) filters["archive"] = { not: true };
-    if (body.filterService !== "") filters[body.filterField] = { contains: body.filterService, mode: "insensitive" };
-    if (body.fromDate !== "" || body.toDate !== "") filters["requestdate"] = {};
-    if (body.fromDate !== "") filters["requestdate"].gte = `${body.fromDate}T00:00:00Z`;
-    if (body.toDate !== "") filters["requestdate"].lte = `${body.toDate}T00:00:00Z`;
-    return filters;
+    try {
+        const filters = {};
+        const body = req.body;
+        if (body.archived === false) filters["archive"] = { not: true };
+        if (body.filterService !== "") filters[body.filterField] = { contains: body.filterService, mode: "insensitive" };
+        if (body.fromDate !== "" || body.toDate !== "") filters["requestdate"] = {};
+        if (body.fromDate !== "") filters["requestdate"].gte = `${body.fromDate}T00:00:00Z`;
+        if (body.toDate !== "") filters["requestdate"].lte = `${body.toDate}T00:00:00Z`;
+        return filters;
+    } catch (err) {
+        console.log("/getServiceRequests buildFilters", err);
+    }
 }
 
 const getServiceRequests = async (req: NextApiRequest, res: NextApiResponse) => {

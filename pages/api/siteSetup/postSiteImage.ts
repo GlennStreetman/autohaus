@@ -26,10 +26,14 @@ interface savedFileReturn {
 }
 
 function checkFileName(fileName) {
-    if (fileName !== "" && ["png", "jpg", "svg"].includes(fileName.split(".").pop())) {
-        return true;
-    } else {
-        return false;
+    try {
+        if (fileName !== "" && ["png", "jpg", "svg"].includes(fileName.split(".").pop())) {
+            return true;
+        } else {
+            return false;
+        }
+    } catch (err) {
+        console.log("/postSiteImage checkFileName", err);
     }
 }
 

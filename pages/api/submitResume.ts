@@ -14,47 +14,55 @@ interface savedFileReturn {
 }
 
 function checkFileName(fileName) {
-    if (fileName !== "" && ["txt", "doc", "docx"].includes(fileName.split(".").pop())) {
-        return true;
-    } else {
-        return false;
+    try {
+        if (fileName !== "" && ["txt", "doc", "docx"].includes(fileName.split(".").pop())) {
+            return true;
+        } else {
+            return false;
+        }
+    } catch (err) {
+        console.log("/submitResume checkFileName", err);
     }
 }
 
 async function saveFile(req) {
-    const form = new IncomingForm();
-    const data = await new Promise((resolve, reject) => {
-        form.parse(req, async (err, fields, files) => {
-            if (checkFileName(files.file[0].originalFilename) === true) {
-                if (err) return reject(err);
-                const uploadResult = await uploadFile(files.file[0], `${fields.email[0]}.${files.file[0].originalFilename}`);
-                console.log("s3 Resulte: ", uploadResult);
-                const returnData: savedFileReturn = { fileKey: uploadResult["key"] };
-                resolve([true, returnData, fields]);
-            } else {
-                resolve([false, false, false]);
-            }
+    try {
+        const form = new IncomingForm();
+        const data = await new Promise((resolve, reject) => {
+            form.parse(req, async (err, fields, files) => {
+                if (checkFileName(files.file[0].originalFilename) === true) {
+                    if (err) return reject(err);
+                    const uploadResult = await uploadFile(files.file[0], `${fields.email[0]}.${files.file[0].originalFilename}`);
+                    console.log("s3 Resulte: ", uploadResult);
+                    const returnData: savedFileReturn = { fileKey: uploadResult["key"] };
+                    resolve([true, returnData, fields]);
+                } else {
+                    resolve([false, false, false]);
+                }
+            });
         });
-    });
 
-    return data;
+        return data;
+    } catch (err) {
+        console.log("/submitResume saveFile", err);
+    }
 }
 
 async function saveData(req, fileKey, fields) {
-    const formObject = {
-        firstName: fields.firstName[0],
-        lastName: fields.lastName[0],
-        email: fields.email[0],
-        phone: stripPhone(fields.phone[0]),
-        address1: fields.address[0],
-        address2: fields.address2[0],
-        city: fields.city[0],
-        state1: fields.state[0],
-        zip: fields.zip[0],
-        coverletter: fields.coverLetter[0],
-    };
-
     try {
+        const formObject = {
+            firstName: fields.firstName[0],
+            lastName: fields.lastName[0],
+            email: fields.email[0],
+            phone: stripPhone(fields.phone[0]),
+            address1: fields.address[0],
+            address2: fields.address2[0],
+            city: fields.city[0],
+            state1: fields.state[0],
+            zip: fields.zip[0],
+            coverletter: fields.coverLetter[0],
+        };
+
         await prisma.resumes.create({
             data: {
                 firstname: formObject.firstName,
