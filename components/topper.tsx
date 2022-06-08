@@ -4,7 +4,7 @@ import { PublicContext } from "../components/publicData";
 import NextLinkButton from "./nextLinkButton";
 import LinkButton from "./linkButton";
 import { useRouter } from "next/router";
-import addDashes from "../lib/formatPhone";
+import { addDashes } from "../lib/formatPhone";
 
 import { BsTelephoneInboundFill } from "react-icons/bs";
 import { GiAutoRepair } from "react-icons/gi";

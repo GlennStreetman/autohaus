@@ -1,10 +1,9 @@
-import React from "react";
-
 interface props {
     text: string | Element | JSX.Element;
-    icon: JSX.Element; //svg icon?
     link: string;
+    icon?: JSX.Element; //svg icon?
     highlight?: boolean;
+    newtab?: boolean;
 }
 
 const textHighlight =
@@ -14,15 +13,29 @@ const textRegular =
 
 function LinkButton(p: props) {
     return (
-        <div className="flex z-20">
-            <a href={p.link} className={p.highlight === true ? textHighlight : textRegular}>
-                {p.icon}
-                <div className="flex">
-                    <div className="shrink m-auto">{p.text}</div>
+        <>
+            {p.newtab === true ? (
+                <div className="flex z-20">
+                    <a target="_blank" href={p.link} className={p.highlight === true ? textHighlight : textRegular}>
+                        {p.icon ? p.icon : <></>}
+                        <div className="flex">
+                            <div className="shrink m-auto">{p.text}</div>
+                        </div>
+                    </a>
+                    <div className="flex grow" />
                 </div>
-            </a>
-            <div className="flex grow" />
-        </div>
+            ) : (
+                <div className="flex z-20">
+                    <a href={p.link} className={p.highlight === true ? textHighlight : textRegular}>
+                        {p.icon ? p.icon : <></>}
+                        <div className="flex">
+                            <div className="shrink m-auto">{p.text}</div>
+                        </div>
+                    </a>
+                    <div className="flex grow" />
+                </div>
+            )}
+        </>
     );
 }
 

@@ -11,7 +11,7 @@ import { MdOutlineMailOutline } from "react-icons/md";
 import { GoCalendar } from "react-icons/go";
 import { AiOutlineInstagram, AiOutlineHome } from "react-icons/ai";
 import { GiAutoRepair } from "react-icons/gi";
-import addDashes from "../lib/formatPhone";
+import { addDashes } from "../lib/formatPhone";
 
 //flex grid elements
 const gutter = "p-2 col-span-0  md:col-span-1 lg:col-span-1 xl:col-span-2"; //2x

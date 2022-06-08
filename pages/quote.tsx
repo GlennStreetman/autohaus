@@ -3,11 +3,14 @@ import Banner from "./../components/banner";
 import LabeledInput from "../components/labeledInput";
 import ReCAPTCHA from "react-google-recaptcha";
 import { useRouter } from "next/router";
-import formatPhone, { stripPhone } from "./../lib/formatPhone";
 import OutlinedSurface from "./../components/outlinedSurface";
 import { PublicHOC } from "../components/publicData";
 import prisma from "../lib/prismaPool";
 import Head from "next/head";
+import LinkButton from "../components/linkButton";
+import { vinLengthText, testVin, formatVin } from "../lib/vin";
+import { addDashes, stripPhone, validPhone } from "../lib/formatPhone";
+import validEmail from "../lib/validEmail";
 
 export async function getStaticProps() {
     const data = await prisma.sitesetup.findMany({});
@@ -45,13 +48,10 @@ const big = " col-span-12 lg:col-span-6";
 const medium = "col-span-12 lg:col-span-4";
 const small = "col-span-6 lg:col-span-3";
 
-function emailIsValid(email: string): boolean {
-    return /\S+@\S+\.\S+/.test(email);
-}
-
-function phoneIsValid(phone: string): boolean {
-    //https://stackoverflow.com/questions/16699007/regular-expression-to-match-standard-10-digit-phone-number
-    return /^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$/.test(phone);
+function formatCarYear(e) {
+    let carYear = e.replace(/\D/g, "");
+    carYear = carYear.slice(0, 4);
+    return carYear;
 }
 
 function stringLength(testString: string, testLength: number): boolean {
@@ -60,6 +60,11 @@ function stringLength(testString: string, testLength: number): boolean {
     } else {
         return false;
     }
+}
+
+function formatName(name) {
+    let formatName = name.replaceAll(/[^a-zA-Z\s]/gs, "");
+    return formatName.charAt(0).toUpperCase() + formatName.slice(1);
 }
 
 function Quote() {
@@ -74,19 +79,15 @@ function Quote() {
     const [phone, setPhone] = useState("");
     const [phoneHelp, setPhoneHelp] = useState("");
     const [date1, setDate1] = useState("");
-    const [date1Help, setDate1Help] = useState("");
     const [time1, setTime1] = useState("");
-    const [time1Help, setTime1Help] = useState("");
     const [date2, setDate2] = useState("");
-    const [date2Help, setDate2Help] = useState("");
     const [time2, setTime2] = useState("");
-    const [time2Help, setTime2Help] = useState("");
     const [carYear, setCarYear] = useState("");
     const [carYearHelp, setCarYearHelp] = useState("");
     const [carMake, setCarMake] = useState("Porsche");
-    const [carMakeHelp, setCarMakeHelp] = useState("");
     const [carModel, setCarModel] = useState("");
-    const [carModelHelp, setCarModelHelp] = useState("");
+    const [vinNumber, setVinNumber] = useState("");
+    const [vinNumberHelp, setVinNumberHelp] = useState("");
     const [description, setDescription] = useState("");
 
     const router = useRouter();
@@ -103,14 +104,14 @@ function Quote() {
         e.preventDefault();
         let processRequest = true;
         //test email
-        if (!emailIsValid(email)) {
+        if (!validEmail(email)) {
             processRequest = false;
             setEmailHelp("Please enter a valid email address");
         } else {
             setEmailHelp("");
         }
         //test phone
-        if (!phoneIsValid(phone)) {
+        if (!validPhone(phone)) {
             processRequest = false;
             setPhoneHelp("Please enter a valid phone number");
         } else {
@@ -130,7 +131,19 @@ function Quote() {
         } else {
             setLastNameHelp("");
         }
-        //test capcha has been clicked
+        //four digit year
+        if (carYear && carYear.length !== 4) {
+            processRequest = false;
+            setCarYearHelp("Please enter four digit year");
+        } else {
+            setCarYearHelp("");
+        }
+        //test vin number
+        if (carYear && carYear.length === 4 && vinNumber && vinNumber.length !== testVin(vinNumber)) {
+            processRequest = false;
+            setVinNumberHelp(`Vin number must be ${vinLengthText(carYear)}  for ${carYear}`);
+        }
+        // test capcha has been clicked
         if (!enableSubmit) {
             processRequest = false;
         }
@@ -176,14 +189,14 @@ function Quote() {
     return (
         <>
             <Head>
-                <title>{`${process.env.NEXT_PUBLIC_BUSINESS_NAME}: Request Service Quote`}</title>
+                <title>{`${process.env.NEXT_PUBLIC_BUSINESS_NAME}: Request Service Appointment`}</title>
             </Head>
             <Banner />
             <div className="grid grid-row grid-cols-12 p-1">
                 <div className={gutter} />
                 <div className={body}>
                     <OutlinedSurface>
-                        <div className="flex justify-center text-accent active:bg-strong text-3xl font-bold p-6">Request Service Quote</div>
+                        <div className="flex justify-center text-accent active:bg-strong text-3xl font-bold p-6">Request Service Appointment</div>
                         <div className="grid grid-row grid-cols-12 gap-x-2 gap-y-4">
                             <div className={big}>
                                 <LabeledInput
@@ -191,7 +204,9 @@ function Quote() {
                                     id="first_id"
                                     label="First Name"
                                     value={firstName}
-                                    onClickCallback={setFirstName}
+                                    onClickCallback={(e) => {
+                                        setFirstName(formatName(e));
+                                    }}
                                     helperText={firstNameHelp}
                                 />
                             </div>
@@ -201,7 +216,9 @@ function Quote() {
                                     id="last_id"
                                     label="Last Name"
                                     value={lastName}
-                                    onClickCallback={setLastName}
+                                    onClickCallback={(e) => {
+                                        setLastName(formatName(e));
+                                    }}
                                     helperText={lastNameHelp}
                                 />
                             </div>
@@ -222,7 +239,7 @@ function Quote() {
                                     fieldType="tel"
                                     id="phone_id"
                                     label="Phone"
-                                    value={formatPhone(phone)}
+                                    value={addDashes(phone)}
                                     onClickCallback={(e) => {
                                         setPhone(stripPhone(e));
                                     }}
@@ -230,14 +247,7 @@ function Quote() {
                                 />
                             </div>
                             <div className={small}>
-                                <LabeledInput
-                                    fieldType="date"
-                                    id="date1_id"
-                                    label="Preferred Date"
-                                    value={date1}
-                                    onClickCallback={setDate1}
-                                    helperText={date1Help}
-                                />
+                                <LabeledInput fieldType="date" id="date1_id" label="Preferred Date" value={date1} onClickCallback={setDate1} />
                             </div>
                             <div className={small}>
                                 <LabeledInput
@@ -246,7 +256,6 @@ function Quote() {
                                     label="Preffered Time"
                                     value={time1}
                                     onClickCallback={setTime1}
-                                    helperText={time1Help}
                                     dataList={timeOptionsDatalist}
                                     datalistID="timeOptions"
                                     onFocusCallback={(e) => {
@@ -256,14 +265,7 @@ function Quote() {
                                 />
                             </div>
                             <div className={small}>
-                                <LabeledInput
-                                    fieldType="date"
-                                    id="date2_id"
-                                    label="Alternative Date"
-                                    value={date2}
-                                    onClickCallback={setDate2}
-                                    helperText={date2Help}
-                                />
+                                <LabeledInput fieldType="date" id="date2_id" label="Alternative Date" value={date2} onClickCallback={setDate2} />
                             </div>
                             <div className={small}>
                                 <LabeledInput
@@ -272,7 +274,6 @@ function Quote() {
                                     label="Alternative Time"
                                     value={time2}
                                     onClickCallback={setTime2}
-                                    helperText={time2Help}
                                     dataList={timeOptionsDatalist}
                                     datalistID="timeOptions"
                                     onFocusCallback={(e) => {
@@ -282,25 +283,11 @@ function Quote() {
                                 />
                             </div>
                             <div className={medium}>
-                                <LabeledInput
-                                    fieldType="text"
-                                    id="make_id"
-                                    label="Verhicle Make"
-                                    value={carMake}
-                                    onClickCallback={setCarMake}
-                                    helperText={carMakeHelp}
-                                />
+                                <LabeledInput fieldType="text" id="make_id" label="Verhicle Make" value={carMake} onClickCallback={setCarMake} />
                             </div>
 
                             <div className={medium}>
-                                <LabeledInput
-                                    fieldType="text"
-                                    id="model_id"
-                                    label="Vehicle Model"
-                                    value={carModel}
-                                    onClickCallback={setCarModel}
-                                    helperText={carModelHelp}
-                                />
+                                <LabeledInput fieldType="text" id="model_id" label="Vehicle Model" value={carModel} onClickCallback={setCarModel} />
                             </div>
                             <div className={medium}>
                                 <LabeledInput
@@ -308,9 +295,25 @@ function Quote() {
                                     id="year_id"
                                     label="Vehicle Year"
                                     value={carYear}
-                                    onClickCallback={setCarYear}
+                                    onClickCallback={(e) => {
+                                        setCarYear(formatCarYear(e));
+                                    }}
                                     helperText={carYearHelp}
                                 />
+                            </div>
+                            <div className="col-span-12 relative">
+                                <div className={big}>
+                                    <LabeledInput
+                                        fieldType="text"
+                                        id="vin_id"
+                                        label={`${vinLengthText(carYear)} Vin Number`}
+                                        value={vinNumber}
+                                        onClickCallback={(e) => {
+                                            setVinNumber(formatVin(e, carYear));
+                                        }}
+                                        helperText={vinNumberHelp}
+                                    />
+                                </div>
                             </div>
                             <div className="col-span-12 border-2 p-2 relative">
                                 <label className="absolute -top-4 left-4 z-2  text-accent bg-primary">Reason for Visit</label>
@@ -344,12 +347,15 @@ function Quote() {
                                         className="h-[78px] border-2 p-2 rounded-md bg-secondary shadow-sm shadow-slate-600 hover:bg-weak hover:border-black hover:text-accent active:bg-strong text-2x font-bold"
                                         onClick={processRequest}
                                     >
-                                        Request Quote
+                                        Request Appointment
                                     </button>
                                 </div>
                             </div>
                         </div>
                     </OutlinedSurface>
+                    <div className="flex justify-center ">
+                        <LinkButton newtab={true} text="Help Finding Your Vin" link="https://www.stuttcars.com/porsche-data/porsche-vin-decoder/" />
+                    </div>
                 </div>
                 <div className={gutter} />
             </div>

@@ -2,7 +2,7 @@ import { useState, useRef } from "react";
 import Banner from "./../components/banner";
 import LabeledInput from "../components/labeledInput";
 import ReCAPTCHA from "react-google-recaptcha";
-import formatPhone, { stripPhone } from "./../lib/formatPhone";
+import { addDashes, stripPhone, validPhone } from "../lib/formatPhone";
 import OutlinedSurface from "./../components/outlinedSurface";
 import { PublicHOC } from "../components/publicData";
 import prisma from "../lib/prismaPool";
@@ -25,13 +25,6 @@ export async function getStaticProps() {
 function emailIsValid(email: string): boolean {
     return /\S+@\S+\.\S+/.test(email);
 }
-
-function phoneIsValid(phone: string): boolean {
-    //https://stackoverflow.com/questions/16699007/regular-expression-to-match-standard-10-digit-phone-number
-    return /^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$/.test(phone);
-}
-
-//.pdf .txt, .doc, .docx,
 
 const gutter = "col-span-0 lg:col-span-1 xl:col-span-3"; //2x
 const body = "col-span-12 lg:col-span-10 xl:col-span-6 my-4"; //1x
@@ -82,21 +75,11 @@ function Careers() {
     const [emailHelp, setEmailHelp] = useState("");
     const [phone, setPhone] = useState("");
     const [phoneHelp, setPhoneHelp] = useState("");
-
     const [address, setAddress] = useState("");
-    const [addressHelp, setAddressHelp] = useState("");
     const [address2, setAddress2] = useState("");
-    const [addressHelp2, setAddressHelp2] = useState("");
-
     const [city, setCity] = useState("");
-    const [cityHelp, setCityHelp] = useState("");
-
     const [state, setState] = useState("");
-    const [stateHelp, setStateHelp] = useState("");
-
     const [zip, setZip] = useState("");
-    const [zipHelp, setZipHelp] = useState("");
-
     const [description, setDescription] = useState("Tell us about yourself. Why do you want to join the team?");
 
     const [fileReference, setFileReference] = useState<any>();
@@ -136,7 +119,7 @@ function Careers() {
             setEmailHelp("");
         }
         //test phone
-        if (!phoneIsValid(phone)) {
+        if (!validPhone(phone)) {
             processRequest = false;
             setPhoneHelp("Please enter a valid phone number");
         } else {
@@ -262,7 +245,7 @@ function Careers() {
                                     fieldType="tel"
                                     id="phone_id"
                                     label="Phone"
-                                    value={formatPhone(phone)}
+                                    value={addDashes(phone)}
                                     onClickCallback={(e) => {
                                         setPhone(stripPhone(e));
                                     }}
@@ -277,7 +260,6 @@ function Careers() {
                                     label="Address"
                                     value={address}
                                     onClickCallback={setAddress}
-                                    helperText={addressHelp}
                                 />
                             </div>
                             <div className={max}>
@@ -288,20 +270,11 @@ function Careers() {
                                     label="Address Line 2"
                                     value={address2}
                                     onClickCallback={setAddress2}
-                                    helperText={addressHelp2}
                                 />
                             </div>
 
                             <div className={medium}>
-                                <LabeledInput
-                                    autocomplete="address-level2"
-                                    fieldType="text"
-                                    id="city-id"
-                                    label="City"
-                                    value={city}
-                                    onClickCallback={setCity}
-                                    helperText={cityHelp}
-                                />
+                                <LabeledInput autocomplete="address-level2" fieldType="text" id="city-id" label="City" value={city} onClickCallback={setCity} />
                             </div>
 
                             <div className={medium}>
@@ -312,20 +285,11 @@ function Careers() {
                                     label="State"
                                     value={state}
                                     onClickCallback={setState}
-                                    helperText={stateHelp}
                                 />
                             </div>
 
                             <div className={medium}>
-                                <LabeledInput
-                                    autocomplete="postal-code"
-                                    fieldType="text"
-                                    id="zip-id"
-                                    label="Zip Code"
-                                    value={zip}
-                                    onClickCallback={setZip}
-                                    helperText={zipHelp}
-                                />
+                                <LabeledInput autocomplete="postal-code" fieldType="text" id="zip-id" label="Zip Code" value={zip} onClickCallback={setZip} />
                             </div>
                             <div className="col-span-12 border-2 p-2 relative">
                                 <label className="absolute -top-4 left-4 z-2  text-accent bg-primary">Cover Letter:</label>
