@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import OutlinedSurface from "./../../outlinedSurface";
 import LabeledInput from "./../../../components/labeledInput";
-import formatPhone, { stripPhone } from "./../../../lib/formatPhone";
+import { addDashes, stripPhone } from "./../../../lib/formatPhone";
 import IconButton from "./../../iconButton";
 
 interface savedContact {
@@ -79,7 +79,7 @@ function ContactInfo() {
                     fieldType="tel"
                     id="phone_id"
                     label="Public Phone"
-                    value={formatPhone(phone)}
+                    value={addDashes(phone)}
                     onClickCallback={(e) => {
                         setPhone(stripPhone(e));
                     }}

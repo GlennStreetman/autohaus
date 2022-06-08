@@ -4,7 +4,7 @@ import { useSession } from "next-auth/react";
 import LabeledInput from "./../labeledInput";
 import LabeledSelect from "./../labeledSelect";
 import { filters } from "./../../pages/api/getServiceRequests";
-import formatPhone from "./../../lib/formatPhone";
+import { addDashes } from "./../../lib/formatPhone";
 import { ScreenWidth } from "../screenWidth";
 import OutlinedSurface from "./../outlinedSurface";
 
@@ -213,7 +213,7 @@ function ServiceRequests(p: props) {
                         <a href={`mailto:${val.email}`}>{val.email}</a>
                     </td>
                     <td>
-                        <a href={`tel:${val.phone}`}>{formatPhone(val.phone)}</a>
+                        <a href={`tel:${val.phone}`}>{addDashes(val.phone)}</a>
                     </td>
                     <td onClick={clickDetail}>{val.prefdate}</td>
                     <td onClick={clickDetail}>{val.preftime}</td>

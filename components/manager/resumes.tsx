@@ -4,7 +4,7 @@ import { useSession, signIn, signOut } from "next-auth/react";
 import LabeledInput from "./../labeledInput";
 import LabeledSelect from "./../labeledSelect";
 import { filters } from "./../../pages/api/getResumes";
-import formatPhone from "./../../lib/formatPhone";
+import { addDashes } from "./../../lib/formatPhone";
 import { ScreenWidth } from "../screenWidth";
 import OutlinedSurface from "./../outlinedSurface";
 
@@ -227,7 +227,7 @@ function Resumes(p: props) {
                         <a href={`mailto:${val.email}`}>{val.email}</a>
                     </td>
                     <td>
-                        <a href={`tel:${val.phone}`}>{formatPhone(val.phone)}</a>
+                        <a href={`tel:${val.phone}`}>{addDashes(val.phone)}</a>
                     </td>
                     <td onClick={clickDetail}>{val.address1}</td>
                     <td onClick={clickDetail}>{val.address2}</td>

@@ -6,7 +6,7 @@ import { BsTelephoneInboundFill } from "react-icons/bs";
 import { HiOutlineLocationMarker } from "react-icons/hi";
 import { GoCalendar } from "react-icons/go";
 import { PublicContext } from "../components/publicData";
-import addDashes from "../lib/formatPhone";
+import { addDashes } from "../lib/formatPhone";
 import { AiOutlineInstagram, AiOutlineHome } from "react-icons/ai";
 import { FcGoogle } from "react-icons/fc";
 
