@@ -7,31 +7,31 @@ import { PublicContext } from "../components/publicData";
 
 function setLogoDimensions(width: number, setWidth: Function, setHeight: Function) {
     if (width < 640) {
-        setWidth(100);
-        setHeight(100);
+        setWidth(410);
+        setHeight(110);
     } else if (width < 768) {
-        setWidth(100);
-        setHeight(100);
+        setWidth(410);
+        setHeight(110);
     } else if (width < 1024) {
-        setWidth(125);
-        setHeight(125);
+        setWidth(410);
+        setHeight(110);
     } else if (width < 1280) {
-        setWidth(150);
-        setHeight(150);
+        setWidth(410);
+        setHeight(110);
     } else if (width < 1536) {
-        setWidth(150);
-        setHeight(150);
+        setWidth(820);
+        setHeight(220);
     } else {
-        setWidth(175);
-        setHeight(175);
+        setWidth(820);
+        setHeight(220);
     }
 }
 
 function Logo() {
     const publicData = useContext(PublicContext);
     const screenSize = useContext(ScreenWidth);
-    const [width, setWidth] = useState("250");
-    const [height, setHeight] = useState("250");
+    const [width, setWidth] = useState("820");
+    const [height, setHeight] = useState("220");
 
     const logoImage = <Image src={`${process.env.NEXT_PUBLIC_AWS_PUBLIC_BUCKET_URL}${publicData.logoImage}`} alt="logo" width={width} height={height} />;
 
@@ -39,7 +39,12 @@ function Logo() {
         setLogoDimensions(screenSize.width, setWidth, setHeight);
     }, [screenSize.width]);
 
-    return <div className="w-full h-auto">{logoImage}</div>;
+    return (
+        <>
+            {screenSize.width <= 640 ? <div className="w-full h-9" /> : <></>}
+            <div className="w-full h-auto">{logoImage}</div>
+        </>
+    );
 }
 
 export default Logo;
