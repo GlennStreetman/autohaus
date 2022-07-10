@@ -39,6 +39,7 @@ function MapServiceSections(p: props) {
             },
             body: JSON.stringify({
                 newOrder: sectionOrder,
+                service: p.service.name,
             }),
         }).then(() => p.getServices());
     }

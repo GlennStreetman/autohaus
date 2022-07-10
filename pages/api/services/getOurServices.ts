@@ -19,10 +19,6 @@ interface service {
     sections: section[];
 }
 
-interface allServices {
-    id: service;
-}
-
 const getOurServices = async (req, res) => {
     const session = await getSession({ req });
     // @ts-ignore
@@ -41,16 +37,20 @@ const getOurServices = async (req, res) => {
                 },
             ],
         });
+        //convert to object
         const serviceList = getServices.reduce((prev, curr) => {
-            prev[curr.id] = curr;
             curr["sections"] = [];
+            prev[curr.id] = curr;
             return prev;
-        }, []);
+        }, {});
+
+        //add sections
         getSections.forEach((el) => {
             serviceList[el.serviceid].sections.push(el);
         });
-
-        const mapServiceList = Object.values(serviceList);
+        //sort sections
+        // @ts-ignore
+        const mapServiceList = Object.values(serviceList).sort((a, b) => (a.ordernumber > b.ordernumber ? 1 : -1));
 
         res.status(200).json({ ourServices: mapServiceList });
     } else {
