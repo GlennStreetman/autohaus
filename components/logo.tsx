@@ -7,23 +7,23 @@ import { PublicContext } from "../components/publicData";
 
 function setLogoDimensions(width: number, setWidth: Function, setHeight: Function) {
     if (width < 640) {
-        setWidth(410);
-        setHeight(110);
+        setWidth(125);
+        setHeight(125);
     } else if (width < 768) {
-        setWidth(410);
-        setHeight(110);
+        setWidth(125);
+        setHeight(125);
     } else if (width < 1024) {
-        setWidth(410);
-        setHeight(110);
+        setWidth(200);
+        setHeight(200);
     } else if (width < 1280) {
-        setWidth(410);
-        setHeight(110);
+        setWidth(200);
+        setHeight(200);
     } else if (width < 1536) {
-        setWidth(820);
-        setHeight(220);
+        setWidth(300);
+        setHeight(300);
     } else {
-        setWidth(820);
-        setHeight(220);
+        setWidth(300);
+        setHeight(300);
     }
 }
 
@@ -41,7 +41,7 @@ function Logo() {
 
     return (
         <>
-            {screenSize.width <= 640 ? <div className="w-full h-9" /> : <></>}
+            {/* {screenSize.width <= 640 ? <div className="w-full h-9" /> : <></>} */}
             <div className="w-full h-auto">{logoImage}</div>
         </>
     );
