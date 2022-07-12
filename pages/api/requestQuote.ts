@@ -64,18 +64,38 @@ function emailRequest(req) {
         const client = mailGun.client({ username: "api", key: API_KEY });
         const mailGunEmail = process.env.SUPPORT_EMAIL;
         const emailBody = `
-    firstName: ${req.body.firstName}
-    lastName: ${req.body.lastName}
-    email: ${req.body.email}
-    phone: ${req.body.phone}
-    prefDate: ${req.body.prefDate}
-    prefTime: ${req.body.prefTime}
-    altDate: ${req.body.altDate}
-    altTime: ${req.body.altTime}
-    make: ${req.body.make}
-    model: ${req.body.model}
-    year: ${req.body.year}
-    reason: ${req.body.reason}
+        <!DOCTYPE html>
+        <html lang="en">
+            <head>
+                <meta charset="UTF-8" />
+                <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+                <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+                <title>Document</title>
+            </head>
+            <body>
+                <div className="w-full h-auto">
+                    <a href="autohaus.gstreet.dev" target="_blank">
+                        <img src="/public/mockLogo.png" alt="logo" width="100px" height="'100px" />
+                    </a>
+                </div>
+                <div className="w-full h-auto">
+                    <ul>
+                        <li>firstName: ${req.body.firstName}</li>
+                        <li>lastName: ${req.body.lastName}</li>
+                        <li>email: ${req.body.email}</li>
+                        <li>phone: ${req.body.phone}</li>
+                        <li>prefDate: ${req.body.prefDate}</li>
+                        <li>prefTime: ${req.body.prefTime}</li>
+                        <li>altDate: ${req.body.altDate}</li>
+                        <li>altTime: ${req.body.altTime}</li>
+                        <li>make: ${req.body.make}</li>
+                        <li>model: ${req.body.model}</li>
+                        <li>year: ${req.body.year}</li>
+                        <li>reason: ${req.body.reason}</li>
+                    </ul>
+                </div>
+            </body>
+        </html>
     `;
         const data = {
             from: mailGunEmail,
