@@ -12,7 +12,7 @@ interface savedContact {
     holidayMessage?: string;
 }
 
-function ContactInfo() {
+function Literature() {
     const [savedContact, setSavedContact] = useState<savedContact>({});
     const [FPBannerText, setFPBannerText] = useState("");
     const [aboutHeading, setAboutHeading] = useState("");
@@ -36,7 +36,7 @@ function ContactInfo() {
         if (savedContact.holidayMessage !== holidayMessage) setSaved = true;
 
         setSaveLinks(setSaved);
-    }, [savedContact, FPBannerText, aboutHeading, aboutBody, thanksResume, thanksService]);
+    }, [savedContact, FPBannerText, aboutHeading, aboutBody, thanksResume, thanksService, holidayMessage]);
 
     function getSiteLinks() {
         fetch("/api/siteSetup/getSiteLiterature")
@@ -79,7 +79,7 @@ function ContactInfo() {
                 <LabeledtextArea id="aboutBody" label="Front Page About Body" value={aboutBody} callback={setAboutBody} />
                 <LabeledtextArea id="thanksR" label="Thanks your Resume Message" value={thanksResume} callback={setThanksResume} />
                 <LabeledtextArea id="thanksS" label="Thanks you Service Message" value={thanksService} callback={setThanksService} />
-                <LabeledtextArea id="holiday-id" label="Holiday Announcement Header" value={holidayMessage} callback={setHolidayMessage} />
+                <LabeledtextArea id="holidayid" label="Holiday Announcement Header" value={holidayMessage} callback={setHolidayMessage} />
 
                 <div className="flex justify-center">{saveLinks ? <IconButton text="Save Updates" callback={() => saveContacts()} icon={<></>} /> : <></>}</div>
             </div>
@@ -87,4 +87,4 @@ function ContactInfo() {
     );
 }
 
-export default ContactInfo;
+export default Literature;
