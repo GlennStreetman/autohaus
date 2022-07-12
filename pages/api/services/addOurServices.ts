@@ -62,7 +62,7 @@ async function saveFile(req) {
 
         return data;
     } catch (err) {
-        console.log("problem with POST /submitResume saveFile", err);
+        console.log("problem with POST /addOurService saveFile", err);
         return false;
     }
 }
@@ -94,7 +94,7 @@ async function saveDataPost(fileKey, fields) {
         return true;
         // }
     } catch (err) {
-        console.log("problem with POST /submitResume DB", err);
+        console.log("problem with POST /addOurService DB", err);
         return false;
     }
 }
@@ -120,7 +120,7 @@ const addOurServices = async (req, res) => {
                     res.status(401).json({ msg: "denied" });
                 }
             } catch (err) {
-                console.log("/POST addNewService Error:", err);
+                console.log("/POST addOurService Error:", err);
                 res.status(400).json({ msg: "denied" });
             }
         }
