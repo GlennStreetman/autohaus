@@ -84,7 +84,7 @@ function Team(p: props) {
     return (
         <>
             <Banner>
-                <div className={largeTextStyling}>Meet the Auto Haus Team</div>
+                <div className={largeTextStyling}>Meet the Team</div>
             </Banner>
             <article className={styles.article}>
                 <div className="flex flex-col">{mapEmployees}</div>
