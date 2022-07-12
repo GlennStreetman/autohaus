@@ -62,7 +62,7 @@ function Bottom() {
                         <div className="text-white font-semibold">Other Actions:</div>
                         {path !== "/" ? <NextLinkButton text="Back" link="/" icon={<AiOutlineHome className="h-7 w-7" />} /> : <></>}
                         {path !== "/quote" ? (
-                            <NextLinkButton text="Request Service Quote" icon={<GiAutoRepair className="h-7 w-7" />} link="/quote" highlight={true} />
+                            <NextLinkButton text="Request Service Appointment" icon={<GiAutoRepair className="h-7 w-7" />} link="/quote" highlight={true} />
                         ) : (
                             <></>
                         )}

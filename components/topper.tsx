@@ -21,7 +21,7 @@ function Topper() {
     const telephoneText = screenSize.width >= 1024 && publicData.phone ? addDashes(publicData.phone) : "";
     const locationText = screenSize.width >= 1024 && publicData.address ? publicData.address : "";
     const locationLink = publicData.googleLink ? publicData.googleLink : "";
-    const repairText = screenSize.width >= 1024 ? "Request Quote" : "";
+    const repairText = screenSize.width >= 1024 ? "Request Service" : "";
     const calendarText = screenSize.width >= 1024 && publicData.openShort ? publicData.openShort : "";
 
     return (
