@@ -1,7 +1,8 @@
 import mailgun from "mailgun.js";
 import formData from "form-data";
 import prisma from "./../../lib/prismaPool";
-import { stripPhone } from "./../../lib/formatPhone";
+import { stripPhone, addDashes } from "./../../lib/formatPhone";
+import { PublicContext } from "../../components/publicData";
 
 interface requestBody {
     firstName: string;
@@ -16,37 +17,27 @@ interface requestBody {
     model: string;
     year: string;
     reason: string;
+    vinNumber: string;
 }
 
 async function saveRequestToDB(req) {
     try {
-        const firstName = req.body.firstName;
-        const lastName = req.body.lastName;
-        const email = req.body.email;
-        const phone = stripPhone(req.body.phone);
-        const prefDate = req.body.prefDate;
-        const prefTime = req.body.prefTime;
-        const altDate = req.body.altDate;
-        const altTime = req.body.altTime;
-        const make = req.body.make;
-        const model = req.body.model;
-        const year = req.body.year;
-        const reason = req.body.reason;
 
         const saveRequest = await prisma.servicerequests.create({
             data: {
-                firstname: firstName,
-                lastname: lastName,
-                email: email,
-                phone: phone,
-                prefdate: prefDate,
-                preftime: prefTime,
-                altdate: altDate,
-                alttime: altTime,
-                make: make,
-                model: model,
-                modelyear: year,
-                reason: reason,
+                firstname:  req.body.firstName,
+                lastname: req.body.lastName,
+                email: req.body.email,
+                phone:  stripPhone(req.body.phone),
+                prefdate:  req.body.prefDate,
+                preftime: req.body.prefTime,
+                altdate:  req.body.altDate,
+                alttime: req.body.altTime,
+                make: req.body.make,
+                model: req.body.model,
+                modelyear: req.body.year,
+                reason: req.body.reason,
+                vin: req.body.vinNumber,
             },
         });
 
@@ -56,7 +47,7 @@ async function saveRequestToDB(req) {
     }
 }
 
-function emailRequest(req) {
+function emailRequest(req, logoImage) {
     try {
         const API_KEY = process.env.MAILGUN_API_KEY;
         const DOMAIN = process.env.DOMAIN;
@@ -74,25 +65,23 @@ function emailRequest(req) {
             </head>
             <body>
                 <div className="w-full h-auto">
-                    <a href="autohaus.gstreet.dev" target="_blank">
-                        <img src="/public/mockLogo.png" alt="logo" width="100px" height="'100px" />
+                    <a href="${process.env.NEXTAUTH_URL}" target="_blank">
+                        <img src="${process.env.NEXT_PUBLIC_AWS_PUBLIC_BUCKET_URL}${logoImage}" alt="logo" width="200px" height="200px" />
                     </a>
                 </div>
                 <div className="w-full h-auto">
+                <b>New Service Request:</b>
                     <ul>
-                        <li>firstName: ${req.body.firstName}</li>
-                        <li>lastName: ${req.body.lastName}</li>
-                        <li>email: ${req.body.email}</li>
-                        <li>phone: ${req.body.phone}</li>
-                        <li>prefDate: ${req.body.prefDate}</li>
-                        <li>prefTime: ${req.body.prefTime}</li>
-                        <li>altDate: ${req.body.altDate}</li>
-                        <li>altTime: ${req.body.altTime}</li>
-                        <li>make: ${req.body.make}</li>
-                        <li>model: ${req.body.model}</li>
-                        <li>year: ${req.body.year}</li>
-                        <li>reason: ${req.body.reason}</li>
+                        <li> ${req.body.firstName} ${req.body.lastName}</li>
+                        <li>${req.body.email}</li>
+                        <li><a href="tel:${addDashes(req.body.phone)}">${addDashes(req.body.phone)}</a></li>
+                        <li>Preferrred Date: ${req.body.prefDate} - ${req.body.prefTime}</li>
+                        <li>Alternative Date: ${req.body.altDate} - ${req.body.altTime}</li>
+                        <li>Make: ${req.body.year} ${req.body.make} ${req.body.model}</li>
+                        <li>Vin: ${req.body.vinNumber}</li> 
                     </ul>
+                <b>Reason for visit:</b> <br />
+                ${req.body.reason}
                 </div>
             </body>
         </html>
@@ -101,7 +90,7 @@ function emailRequest(req) {
             from: mailGunEmail,
             to: req.body.email,
             subject: `Service Request: ${req.body.firstName} ${req.body.lastName} ${req.body.make} ${req.body.model}`,
-            text: emailBody,
+            html: emailBody,
         };
 
         client.messages
@@ -118,9 +107,14 @@ function emailRequest(req) {
 }
 
 export default async function handler(req, res) {
+    const logoImage = await prisma.sitesetup.findMany({
+        where: {
+            name: 'logoImage'
+        }
+    });
     if (req.method === "POST") {
         saveRequestToDB(req);
-        emailRequest(req);
+        emailRequest(req, logoImage[0].value);
         res.status(200).json("Quote Saved");
     }
 }

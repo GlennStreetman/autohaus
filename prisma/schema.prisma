@@ -70,6 +70,7 @@ model servicerequests {
   modelyear   String
   reason      String
   requestdate DateTime @default(now()) @db.Date
+  vin         String
   archive     Boolean  @default(false)
 }
 

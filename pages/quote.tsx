@@ -150,7 +150,7 @@ function Quote() {
 
         if (processRequest) {
             //all tests passed.
-            console.log("requests passed.");
+            // console.log("requests passed.");
             setRequestAdditional(false);
             postQuote();
             router.push("/thankyou");
@@ -160,7 +160,7 @@ function Quote() {
         }
     }
 
-    function postQuote() {
+    async function postQuote() {
         const data = {
             firstName: firstName,
             lastName: lastName,
@@ -173,6 +173,7 @@ function Quote() {
             make: carMake,
             model: carModel,
             year: carYear,
+            vinNumber: vinNumber,
             reason: description,
         };
         fetch(`/api/requestQuote`, {
