@@ -4,13 +4,13 @@ import { service } from "./../../components/manager/ourServices";
 import Banner from "../../components/banner";
 import Image from "next/image";
 import ParseMarkdown from "./../../lib/parseMarkdown";
-import Aside from "../../components/aside";
+// import Aside from "../../components/aside";
 import { PublicHOC } from "../../components/publicData";
 import Head from "next/head";
 import Screen, { ScreenWidth } from "../../components/screenWidth";
 
-const imgBoxLeft = "relative rounded-md bg-black overflow-hidden h-56 w-56 md:h-80 md:w-80 lg:h-96 lg:w-96 xl::h-96 xl:w-116 float-left m-2 ";
-const imgBoxRight = "relative rounded-md bg-black overflow-hidden h-56 w-56 md:h-80 md:w-80 lg:h-96 lg:w-96 xl::h-96 xl:w-116 float-right m-2 ";
+const imgBoxLeft = "relative rounded-md bg-black overflow-hidden h-36 w-36 md:h-80 md:w-80 lg:h-96 lg:w-96 xl::h-96 xl:w-96 float-left m-4 ";
+const imgBoxRight = "relative rounded-md bg-black overflow-hidden h-36 w-36 md:h-80 md:w-80 lg:h-96 lg:w-96 xl::h-96 xl:w-96 float-right m-4 ";
 
 export async function getStaticProps(params) {
     const serviceProps = await prisma.services.findMany({});
@@ -90,8 +90,10 @@ function mapServiceSections(p: service) {
                         ) : (
                             <></>
                         )}
-                        <div className="text-3xl font-bold text-accent">{`${val.sectionheader}`}</div>
-                        <div className={`whitespace-pre-line ${odd ? "text-white" : "text-black"}`}>
+                        <div className="text-3xl font-bold text-accent mt-4 mx-4">{`${val.sectionheader}`}</div>
+                        
+                        <div className={`whitespace-pre-line ${odd ? "text-white" : "text-black"} mx-4 mb-2` }>
+                            <br />
                             <ParseMarkdown dark={odd} text={val.sectiontext} />{" "}
                         </div>
                     </div>
@@ -124,13 +126,13 @@ function Services(p: service) {
                     }}
                 >
                     <div className="grow" />
-                    {screenSize.width > 1285 ? (
+                    {/* {screenSize.width > 1285 ? (
                         <div>
                             <Aside />
                         </div>
                     ) : (
                         <></>
-                    )}
+                    )} */}
                     <div className="grow" />
                 </div>
             </div>
