@@ -153,7 +153,7 @@ function Quote() {
             // console.log("requests passed.");
             setRequestAdditional(false);
             postQuote();
-            router.push("/thankyou");
+            router.push(`/thankyou?first=${firstName}`);
         } else {
             setRequestAdditional(true);
             console.log("problem processing request");

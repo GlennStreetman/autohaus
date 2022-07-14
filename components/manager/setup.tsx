@@ -5,6 +5,7 @@ import BannerImage from "./setup/bannerImage";
 import LogoImage from "./setup/logoImage";
 import AboutImage from "./setup/aboutImage";
 import NextLinkButton from "../nextLinkButton";
+import EmailImage from "./setup/emailImage";
 
 interface props {
     show: boolean;
@@ -22,6 +23,7 @@ function setup(p: props) {
             <BannerImage />
             <LogoImage />
             <AboutImage />
+            <EmailImage />
         </div>
     );
 }
