@@ -45,7 +45,7 @@ module.exports = {
             fontFamily: {
                 logo: ['"Saira Stencil One"', "sans-serif"],
                 heading: ["Righteous", "sans-serif"],
-                body: ["Roboto", "sans-serif"],
+                body: [ "Roboto-Condensed","Roboto", "sans-serif"],
             },
         },
     },
