@@ -30,8 +30,8 @@ function setLogoDimensions(width: number, setWidth: Function, setHeight: Functio
 function Logo() {
     const publicData = useContext(PublicContext);
     const screenSize = useContext(ScreenWidth);
-    const [width, setWidth] = useState("820");
-    const [height, setHeight] = useState("220");
+    const [width, setWidth] = useState("125");
+    const [height, setHeight] = useState("125");
 
     const logoImage = <Image src={`${process.env.NEXT_PUBLIC_AWS_PUBLIC_BUCKET_URL}${publicData.logoImage}`} alt="logo" width={width} height={height} />;
 
