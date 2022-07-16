@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import prisma from "./../lib/prismaPool";
 import Banner from "../components/banner";
+import Team from "../components/team";
 import Services from "../components/services";
 import Why from "../components/why";
 import { service } from "../components/manager/ourServices";
@@ -65,6 +66,9 @@ export function Home(p: props) {
                 </section>
                 <section>
                     <Why />
+                </section>
+                <section>
+                <Team />
                 </section>
                 <section>
                 <FAQ faq={p.faq} />

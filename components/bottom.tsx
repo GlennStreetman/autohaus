@@ -34,7 +34,7 @@ function Bottom() {
 
     return (
         <>
-            <div className="grid grid-cols-12 w-full bg-neutral-900 p-2">
+            <div className="grid grid-cols-12 w-full bg-neutral-900 p-2 relative">
                 <div className={gutter}></div>
                 <div className={data}>
                     <div className="flex flex-col gap-2">
@@ -43,9 +43,6 @@ function Bottom() {
                         <LinkButton
                             text={email}
                             link={`mailto: ${email}`}
-                            // callback={() => {
-                            //     if (navigator.clipboard) navigator.clipboard.writeText(process.env.);
-                            // }}
                             icon={<MdOutlineMailOutline className="h-7 w-7" />}
                         />
                         <LinkButton text={longAddress} link={locationLink} icon={<HiOutlineLocationMarker className="h-7 w-7" />} />
@@ -71,7 +68,7 @@ function Bottom() {
                         <NextLinkButton text="Careers" icon={<GiMechanicGarage className="h-7 w-7" />} link="/careers" />
                     </div>
                 </div>
-
+                <div className='text-slate-500 absolute bottom-2 right-8'>{process.env.NEXT_PUBLIC_BUSINESS_NAME_LEGAL}</div>
                 <div className={gutter}></div>
             </div>
         </>

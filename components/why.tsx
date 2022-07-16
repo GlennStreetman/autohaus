@@ -29,10 +29,7 @@ function Why() {
                     <div className="p-2">
                         <ParseMarkdown text={publicData.aboutBody} />
                     </div>
-
                     <br />
-
-                    <LineLinkButton text={"Meet the team"} icon={<SiPorsche className="h-7 w-7" />} link="/team" />
                 </div>
                 <div className={gutter} />
             </div>
