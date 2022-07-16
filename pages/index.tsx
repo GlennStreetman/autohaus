@@ -7,6 +7,8 @@ import { service } from "../components/manager/ourServices";
 import { PublicContext, PublicHOC } from "../components/publicData";
 import ParseMarkdown from "./../lib/parseMarkdown";
 import Head from "next/head";
+import FAQ from '../components/faq'
+import {faqObj} from './api/getFAQ'
 
 const smallTextStyling = `text-white font-heading bold text-1xl sm:text-2xl lg:text-3xl [text-shadow:2px_2px_rgba(0,0,0,1)] antialiased whitespace-pre-line`;
 
@@ -20,16 +22,26 @@ export async function getStaticProps() {
     });
 
     const data = await prisma.sitesetup.findMany({});
+    const faqData = await prisma.faq.findMany({
+        orderBy: [
+            {
+                ordernumber: "asc",
+            },
+        ],
+    });
+
     return {
         props: {
             services: services,
             data: data,
+            faq: faqData
         },
     };
 }
 
 interface props {
-    services: service[];
+    services: service[],
+    faq: faqObj[],
 }
 
 export function Home(p: props) {
@@ -54,6 +66,9 @@ export function Home(p: props) {
                 <section>
                     <Why />
                 </section>
+                <section>
+                <FAQ faq={p.faq} />
+                </section>
             </main>
         </>
     );
@@ -62,7 +77,7 @@ export function Home(p: props) {
 export default function Main(p: props) {
     return (
         <PublicHOC {...p}>
-            <Home services={p.services} />
+            <Home services={p.services} faq={p.faq} />
         </PublicHOC>
     );
 }

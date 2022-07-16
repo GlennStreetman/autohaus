@@ -130,3 +130,10 @@ model sitesetup {
   name          String    @unique
   value         String
 }
+
+model faq {
+  id            Int      @id @default(autoincrement())
+  question      String   @unique
+  answer        String   
+  ordernumber   Int      @default(99)
+}
