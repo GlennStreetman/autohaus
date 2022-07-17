@@ -9,8 +9,6 @@ interface props {
 
 function Banner(p: props) {
     const publicData = useContext(PublicContext);
-    const logoBox = "col-span-12"; //1x
-    const textBox = "col-span-12 relative "; //1x
     const height = `w-full h-auto grid grid-cols-12 relative`;
 
     const bannerImage = (
@@ -21,21 +19,21 @@ function Banner(p: props) {
         <div className={height}>
             {bannerImage}
             <div className="flex flex-col col-span-12 p-2">
-                <div className={logoBox}>
                     <Logo />
-                </div>
-                {p.children ? (
-                    <div className={textBox}>
-                        <div className="flex flex-row w-full gap-2">
-                            <div className="flex grow" />
-                            <div className="flex p-2 rounded-md gap-2 bg-slate-500/50 justify-end xl:mr-12 2xl:mr-24">{p.children}</div>
-                        </div>
-                    </div>
-                ) : (
-                    <></>
-                )}
+                    <div className='h-14' />
+                    {p.children ? (
+                            <div className="flex flex-row w-full absolute bottom-1">
+                                <div className="grow" />
+                                <div className="text-2xl lg:text-2xl  tracking-wider p-2  rounded-md gap-2">{p.children}</div>
+                                <div className="grow" />
+                            </div>
+                    ) : (
+                        <></>
+                    )}
             </div>
         </div>
+
+        
     );
 }
 
