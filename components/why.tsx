@@ -16,7 +16,7 @@ function Why() {
     return (
         <div className="flex flex-col">
             <div className="grid justify-items-center w-screen p-3">
-                <div className="text-3xl font-bold">
+                <div className="text-3xl font-bold text-center">
                     <ParseMarkdown text={publicData.aboutHeading} />
                 </div>
             </div>

@@ -15,7 +15,7 @@ function Team() {
         <div className="w-full flex justify-center bg-primaryDark p-4">
         <div className="flex flex-col">
             <div className="flex justify-center text-white font-bold text-3xl relative">
-                <div className="z-10 bg-primaryDark px-2 ">Meet the team!</div>
+                <div className="z-10 bg-primaryDark px-2 text-center">Meet the team!</div>
                 <div className="absolute left-20 right-20 h-0 border-y-2 top-1/2" />
             </div>
             <div className={imgContent}> 

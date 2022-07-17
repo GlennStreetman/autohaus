@@ -31,7 +31,7 @@ function Announcements(p) {
   }, [index]);
 
   return (
-    <div  key={`${index}-slide`}>
+    <div className='text-center'  key={`${index}-slide`}>
       {slides[index]} 
     </div>
   );
