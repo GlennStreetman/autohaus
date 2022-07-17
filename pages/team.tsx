@@ -8,11 +8,11 @@ import Head from "next/head";
 
 //flex grid elements
 const gutter = " hidden lg:block lg:col-span-1 "; //2x
-const gutterBlack = " hidden lg:block lg:col-span-1 bg-black"; //2x
-const employees = "      p-2 col-span-12 md:col-span-12 lg:col-span-10"; //1x
-const employeesBlack = " p-2 col-span-12 md:col-span-12 lg:col-span-10 bg-black text-white"; //1x
-const imgBoxLeft = "relative rounded-md bg-black overflow-hidden h-56 w-56 md:h-80 md:w-80 lg:h-96 lg:w-96 xl::h-96 xl:w-116 float-left m-2 ";
-const imgBoxRight = "relative rounded-md bg-black overflow-hidden h-56 w-56 md:h-80 md:w-80 lg:h-96 lg:w-96 xl::h-96 xl:w-116 float-right m-2 ";
+const gutterBlack = " hidden lg:block lg:col-span-1 bg-slate-200"; //2x
+const employees = "      p-2 col-span-12 lg:col-span-10 "; //1x
+const employeesBlack = " p-2 col-span-12 lg:col-span-10 bg-slate-200"; //1xmd:
+const imgBoxLeft = "mx-auto col-span-12 md:col-span-auto relative rounded-md bg-slate-200 overflow-md:hidden h-56 w-56 md:h-80 md:w-80 lg:h-96 lg:w-96 xl::h-96 xl:w-116  float-none md:float-left m-2 ";
+const imgBoxRight = "mx-auto col-span-12 md:col-span-auto relative rounded-md bg-slate-200 overflow-hidden h-56 w-56 md:h-80 md:w-80 lg:h-96 lg:w-96 xl::h-96 xl:w-116 float-none  md:float-right m-2 ";
 const largeTextStyling = `text-white font-heading bold text-3xl sm:text-4xl lg:text-6xl3 [text-shadow:2px_2px_rgba(0,0,0,1)] antialiased `;
 
 interface employees {
@@ -58,7 +58,7 @@ function Team(p: props) {
     const mapEmployees = Object.values(p.employees).map((val, indx) => {
         return (
             <section key={`keySec-${val.name}`}>
-                <div className="grid grid-cols-12">
+                <div className="grid grid-cols-12 ">
                     <div className={isOddOrEven(indx, employeeCount) ? gutter : gutterBlack} />
                     <div className={isOddOrEven(indx, employeeCount) ? employees : employeesBlack}>
                         <div className={isOddOrEven(indx, employeeCount) ? imgBoxLeft : imgBoxRight}>
@@ -70,7 +70,8 @@ function Team(p: props) {
                                 priority
                             />
                         </div>
-                        <div className="text-3xl font-bold">{`${val.name}: ${val.title}`}</div>
+                        <div className="text-2xl font-bold">{`${val.name}`}</div>
+                        <div className="text-1xl font-bold">{`${val.title}`}</div>
                         <div className="whitespace-pre-line">
                             <ParseMarkdown text={val.description} />
                         </div>

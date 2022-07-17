@@ -1,9 +1,6 @@
 import React, { useContext } from "react";
 import Image from "next/image";
-import LineLinkButton from "./lineLinkButton";
-import { SiPorsche } from "react-icons/si";
 import { PublicContext } from "../components/publicData";
-import ParseMarkdown from "./../lib/parseMarkdown";
 
 //flex grid elements
 const gutter = " hidden lg:block col-span-0 lg:col-span-1 "; //2x
@@ -23,10 +20,10 @@ function Team() {
             </div>
             <div className={imgContent}> 
             <a href='/team' className={imgBox}>
-                <Image alt="whyImage" src={`${process.env.NEXT_PUBLIC_AWS_PUBLIC_BUCKET_URL}${publicData.aboutImage}`} layout="fill" objectFit="fill" />
+                <Image alt="whyImage" src={`${process.env.NEXT_PUBLIC_AWS_PUBLIC_BUCKET_URL}${publicData.teamOne}`} layout="fill" objectFit="fill" />
             </a>
             <a href='/team' className={imgBox}>
-                <Image alt="whyImage" src={`${process.env.NEXT_PUBLIC_AWS_PUBLIC_BUCKET_URL}${publicData.aboutImage}`} layout="fill" objectFit="fill" />
+                <Image alt="whyImage" src={`${process.env.NEXT_PUBLIC_AWS_PUBLIC_BUCKET_URL}${publicData.teamTwo}`} layout="fill" objectFit="fill" />
             </a>
         </div>
         </div>
@@ -38,23 +35,3 @@ export default Team;
 
 
 
-// <div className="flex flex-col bg-primaryDark text-white py-4">
-// <div className="grid grid-cols-12 justify-items-center w-screen p-1 shrink">
-//     <div className={gutter} />
-//     <div className={textContent}> 
-//             <div className="z-10 bg-primaryDark px-2  font-bold text-3xl">Meet the team!</div> 
-//             <div className="absolute left-20 right-20 h-0 border-y-2 top-1/2" />
-//     </div>
-//     <div className={gutter} />
-//     <div className={gutter} />
-//         <div className={imgContent}> 
-//             <a href='/team' className={imgBox}>
-//                 <Image alt="whyImage" src={`${process.env.NEXT_PUBLIC_AWS_PUBLIC_BUCKET_URL}${publicData.aboutImage}`} layout="fill" objectFit="fill" />
-//             </a>
-//             <a href='/team' className={imgBox}>
-//                 <Image alt="whyImage" src={`${process.env.NEXT_PUBLIC_AWS_PUBLIC_BUCKET_URL}${publicData.aboutImage}`} layout="fill" objectFit="fill" />
-//             </a>
-//         </div>
-//     <div className={gutter} />
-// </div>
-// </div>
