@@ -53,7 +53,7 @@ function Users(p: props) {
         getUsers();
     }
 
-    const mapUsers = users.map((el: user) => (
+    const mapUsers = users ? users.map((el: user) => (
         <tr key={`keyUser-${el.email}`} id={`${el.email}-${el.role}`}>
             <td>{el.email}</td>
             <td>
@@ -69,7 +69,7 @@ function Users(p: props) {
                 </LabeledSelect>
             </td>
         </tr>
-    ));
+    )) : <></>
 
     const userContainer = (
         <OutlinedSurface label="Review Site Manager Account Permissions">

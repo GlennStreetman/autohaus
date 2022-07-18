@@ -37,7 +37,10 @@ function ContactInfo() {
                 if (data.reviewLink) setReviewLink(data.reviewLink);
 
                 setSavedContact(data);
-            });
+            })
+            .catch((error) => {
+                console.error('get Links:', error);
+              });
     }
 
     function saveContacts() {

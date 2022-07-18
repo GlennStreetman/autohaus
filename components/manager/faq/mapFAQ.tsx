@@ -13,7 +13,6 @@ interface props {
 }
 
 function MapFAQ(p: props) {
-    console.log('faqProps', p)
     const [showDetail, setShowDetail] = useState("-1");
     const [edit, setEdit] = useState<false | faqObj>(false);
 
@@ -94,7 +93,7 @@ function MapFAQ(p: props) {
                             checked={false}
                             onChange={async (e) => {
                                 e.preventDefault();
-                                console.log('click', el.id)
+                                // console.log('click', el.id)
                                 fetch(`/api/faq/deleteFAQ?id=${el.id}`)
                                     .then((response) => response.json())
                                     .then((data) => {

@@ -49,7 +49,10 @@ function Literature() {
                 if (data.thanksService) setThanksService(data.thanksService);
                 if (data.holidayMessage) setHolidayMessage(data.holidayMessage);
                 setSavedContact(data);
-            });
+            }).catch((error) => {
+                console.error('Error:', error);
+              });
+            
     }
 
     function saveContacts() {
