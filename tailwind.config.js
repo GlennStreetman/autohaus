@@ -33,19 +33,19 @@ module.exports = {
             backgroundColor: {
                 primary: "#f8fafc", //light default background
                 secondary: "#e2e8f0", //grey button background
-                accent: "#ea580c", //orange carousel hover
+                accent: "#ea580c", //orange carousel hover #B12B28
                 primaryDark: "#1b1b1c",
             },
             textColor: {
                 primary: "#334155",
                 secondary: "#3b82f6",
-                accent: "#ea580c",
+                accent: "#fe7730",
                 gold: "#5EEAD4",
             },
             fontFamily: {
                 logo: ['"Saira Stencil One"', "sans-serif"],
                 heading: ["Righteous", "sans-serif"],
-                body: [ "Roboto-Condensed","Roboto", "sans-serif"],
+                body: ["Roboto-Condensed", "Roboto", "sans-serif"],
             },
         },
     },
