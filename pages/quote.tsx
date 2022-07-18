@@ -310,7 +310,7 @@ function Quote() {
                                         label={`${vinLengthText(carYear)} Vin Number`}
                                         value={vinNumber}
                                         onClickCallback={(e) => {
-                                            setVinNumber(formatVin(e, carYear));
+                                            setVinNumber(formatVin(e, carYear, carMake));
                                         }}
                                         helperText={vinNumberHelp}
                                     />
