@@ -100,11 +100,11 @@ function MapTeamMembers(p: props) {
                             type="checkbox"
                             checked={false}
                             onChange={async (e) => {
-                                fetch(`/api/deleteEmployee?id=${el.id}`)
+                                fetch(`/api/employee/deleteEmployee?id=${el.id}`)
                                     .then((response) => response.json())
                                     .then((data) => {
                                         p.getEmployees();
-                                    });
+                                });
                             }}
                         />
                     </td>
