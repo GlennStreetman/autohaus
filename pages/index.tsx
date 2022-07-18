@@ -7,9 +7,9 @@ import Why from "../components/why";
 import { service } from "../components/manager/ourServices";
 import { PublicContext, PublicHOC } from "../components/publicData";
 import Head from "next/head";
-import FAQ from '../components/faq'
-import {faqObj} from './api/getFAQ'
-import Announcements from '../components/announcements'
+import FAQ from "../components/faq";
+import { faqObj } from "./api/getFAQ";
+import Announcements from "../components/announcements";
 
 const smallTextStyling = `text-white font-heading bold text-1xl sm:text-2xl lg:text-3xl [text-shadow:2px_2px_rgba(0,0,0,1)] antialiased whitespace-pre-line`;
 
@@ -35,14 +35,14 @@ export async function getStaticProps() {
         props: {
             services: services,
             data: data,
-            faq: faqData
+            faq: faqData,
         },
     };
 }
 
 interface props {
-    services: service[],
-    faq: faqObj[],
+    services: service[];
+    faq: faqObj[];
 }
 
 export function Home(p: props) {
@@ -57,10 +57,9 @@ export function Home(p: props) {
                 <section>
                     <Banner>
                         <div className={smallTextStyling}>
-                           <Announcements text={publicData.FPBannerText}/>
+                            <Announcements text={publicData.FPBannerText} />
                         </div>
                     </Banner>
-                    
                 </section>
                 <section>
                     <Services services={p.services} />
@@ -68,11 +67,11 @@ export function Home(p: props) {
                 <section>
                     <Why />
                 </section>
-                <section>
+                {/* <section>
                 <Team />
-                </section>
+                </section> */}
                 <section>
-                <FAQ faq={p.faq} />
+                    <FAQ faq={p.faq} />
                 </section>
             </main>
         </>

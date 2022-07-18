@@ -20,19 +20,21 @@ function mapServices(target: number, showCount: number, ourServices: serviceBox[
     const mapSlides = Object.values(selectServices).map((el) => {
         return (
             <div key={el.service} className="flex flex-col cursor-pointer bg-red-600 hover:bg-accent">
-                <div className={imgBox}>
-                    <Link href={el.link}>
-                        <a>
-                            <Image
-                                src={`${process.env.NEXT_PUBLIC_AWS_PUBLIC_BUCKET_URL}${el.image}`}
-                                alt={`${el.service} picture`}
-                                layout="fill"
-                                objectFit="fill"
-                            />
-                        </a>
-                    </Link>
-                </div>
-                <div className="text-white font-primary font-bold text-center uppercase">{el.service}</div>
+                <Link href={el.link}>
+                    <div>
+                        <div className={imgBox}>
+                            <a>
+                                <Image
+                                    src={`${process.env.NEXT_PUBLIC_AWS_PUBLIC_BUCKET_URL}${el.image}`}
+                                    alt={`${el.service} picture`}
+                                    layout="fill"
+                                    objectFit="fill"
+                                />
+                            </a>
+                        </div>
+                        <div className="text-white font-primary font-bold text-center uppercase">{el.service}</div>
+                    </div>
+                </Link>
             </div>
         );
     });
