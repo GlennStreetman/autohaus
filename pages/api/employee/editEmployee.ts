@@ -1,12 +1,32 @@
 import { IncomingForm } from "formidable";
 import { uploadFilePublic } from "../../../lib/s3";
 import { getSession } from "next-auth/react";
+import prisma from "../../../lib/prismaPool";
 
 export const config = {
     api: {
         bodyParser: false,
     },
 };
+
+async function updateText(savedFile, fields) {
+        try {
+        await prisma.team.update({
+            where: {
+                id: parseInt(fields.id),
+            },
+            data: {
+                title: fields.title[0],
+                description: fields.description[0],
+                name: fields.name[0],
+                filename: savedFile.fileKey
+            },
+        });
+        return true;
+    } catch (err) {
+        console.log("problem with POST /employee/editEmployeeText DB", err);
+    }
+}
 
 interface savedFileReturn {
     fileKey: string;
@@ -54,6 +74,7 @@ const editEmployee = async (req, res) => {
             try {
                 const [pass, savedFile, fields]: any = await saveFile(req);
                 if (pass) {
+                    await updateText(savedFile, fields);
                     fetch(`${process.env.NEXTAUTH_URL}/api/revalidate?secret=${process.env.NEXT_REVALIDATE}&path=/team`);
                     res.status(200).json({ msg: "success" });
                 } else {
@@ -70,4 +91,4 @@ const editEmployee = async (req, res) => {
     }
 };
 
-export default editEmployee;
+export default editEmployee; 
