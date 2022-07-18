@@ -2,6 +2,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { IncomingForm } from "formidable";
 import { uploadFilePublic } from "./../../../lib/s3";
 import prisma from "../../../lib/prismaPool";
+import revalidateAll from "../../../lib/revalidateAll";
 import { getSession } from "next-auth/react";
 
 export interface postSiteImageReq {
@@ -85,6 +86,7 @@ const postSiteImage = async (req: NextApiRequest, res: postSiteImageRes) => {
             const [pass, savedFile, fileds]: any = await saveFile(req);
             if (pass) {
                 saveData(fileds);
+                revalidateAll();
                 res.status(200).json({ msg: "success" });
             } else {
                 res.status(401).json({ msg: "denied" });
