@@ -65,6 +65,7 @@ function EditTeamMember(p: props) {
             data.append("name", empName);
             data.append("title", empTitle);
             data.append("description", empDescription);
+            data.append('filename', empPictureName)
             data.append("id", p.edit.id);
 
             fetch(`/api/employee/editEmployee`, {
