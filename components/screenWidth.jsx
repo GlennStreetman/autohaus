@@ -25,7 +25,7 @@ function ScreenWidthComponent({ children }) {
         function handleResize() {
             setWidth(getWindowDimensions());
         }
-        console.log('vw', Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0), 'vh', Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0))
+        // console.log('vw', Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0), 'vh', Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0))
 
         setTimeout(() => setWidth(getWindowDimensions(), 2000));
         setTimeout(() => setWidth(getWindowDimensions(), 10000));
