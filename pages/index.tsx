@@ -11,7 +11,7 @@ import FAQ from "../components/faq";
 import { faqObj } from "./api/getFAQ";
 import Announcements from "../components/announcements";
 
-const smallTextStyling = `text-white font-heading bold text-1xl sm:text-2xl lg:text-3xl [text-shadow:2px_2px_rgba(0,0,0,1)] antialiased whitespace-pre-line`;
+const smallTextStyling = `text-white font-heading bold text-1xl sm:text-2xl lg:text-3xl xl:text-5xl [text-shadow:2px_2px_rgba(0,0,0,1)] antialiased whitespace-pre-line`;
 
 export async function getStaticProps() {
     const services = await prisma.services.findMany({
