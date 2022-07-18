@@ -1,9 +1,13 @@
 import prisma from "../../../lib/prismaPool";
+import { getSession } from "next-auth/react";
 
 export default async function handler(req, res) {
+    const session = await getSession({ req });
+    //@ts-ignore
+    if (session && session.user.role === "admin") {
+
     if (req.method === "POST") {
         try {
-            console.log("body", req.body);
             const newOrder = req.body.newOrder;
             const updateList = newOrder.map(
                 (el, index) =>
@@ -28,5 +32,9 @@ export default async function handler(req, res) {
             console.log("update service order err", err);
             res.status(500);
         }
+    }
+    } else {
+        console.log("not signed in");
+        res.status(401);
     }
 }

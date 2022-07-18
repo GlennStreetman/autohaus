@@ -73,7 +73,7 @@ async function saveDataPost(req, fileKey, fields) {
         });
         return true;
     } catch (err) {
-        console.log("problem with POST /submitResume DB", err);
+        console.log("problem with POST /submitEmployee DB", err);
     }
 }
 

@@ -2,11 +2,9 @@ import prisma from "../../../lib/prismaPool";
 import { getSession } from "next-auth/react";
 
 export default async function handler(req, res) {
-    console.log('delete FAQ')
     const session = await getSession({ req });
     // @ts-ignore
     if (session && session.user.role === "admin") {
-        console.log('query', req.query)
         await prisma.faq.delete({
             where: {
                 id: parseInt(req.query.id),

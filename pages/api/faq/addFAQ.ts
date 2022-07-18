@@ -7,10 +7,8 @@ const addFAQ = async (req, res) => {
     //@ts-ignore
     if (session && session.user.role === "admin") {
         if (req.method === "POST") {
-            console.log('post addFAQ')
             try {
                 const body = JSON.parse(req.body);
-                console.log('body', body)
                 await prisma.faq.create({
                     data: {
                         question: body.question,
