@@ -11,8 +11,8 @@ const gutter = " hidden lg:block lg:col-span-1 "; //2x
 const gutterBlack = " hidden lg:block lg:col-span-1 bg-slate-200"; //2x
 const employees = "      p-2 col-span-12 lg:col-span-10 "; //1x
 const employeesBlack = " p-2 col-span-12 lg:col-span-10 bg-slate-200"; //1xmd:
-const imgBoxLeft = "mx-auto col-span-12 md:col-span-auto relative rounded-md bg-slate-200 overflow-md:hidden h-56 w-56 md:h-80 md:w-80 lg:h-96 lg:w-96 xl::h-96 xl:w-116  float-none md:float-left m-2 ";
-const imgBoxRight = "mx-auto col-span-12 md:col-span-auto relative rounded-md bg-slate-200 overflow-hidden h-56 w-56 md:h-80 md:w-80 lg:h-96 lg:w-96 xl::h-96 xl:w-116 float-none  md:float-right m-2 ";
+const imgBoxLeft = " mx-auto md:m-3 col-span-12 md:col-span-auto relative rounded-md bg-slate-200 overflow-hidden h-56 w-56 md:h-80 md:w-80 lg:h-96 lg:w-96 xl::h-96 xl:w-116  float-none md:float-left  ";
+const imgBoxRight = "mx-auto md:m-3 col-span-12 md:col-span-auto relative rounded-md bg-slate-200 overflow-hidden h-56 w-56 md:h-80 md:w-80 lg:h-96 lg:w-96 xl::h-96 xl:w-116 float-none  md:float-right ";
 const largeTextStyling = `text-white font-heading bold text-3xl sm:text-4xl lg:text-6xl3 [text-shadow:2px_2px_rgba(0,0,0,1)] antialiased `;
 
 interface employees {
@@ -85,7 +85,7 @@ function Team(p: props) {
     return (
         <>
             <Banner>
-                <div className={largeTextStyling}>Meet the Team</div>
+                <div className={largeTextStyling}>Meet The Werkstatt Team</div>
             </Banner>
             <article className={styles.article}>
                 <div className="flex flex-col">{mapEmployees}</div>
