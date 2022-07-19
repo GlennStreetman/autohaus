@@ -31,7 +31,9 @@ export default function Main(p) {
             <Head>
                 <title>{`${process.env.NEXT_PUBLIC_BUSINESS_NAME}: Manager Portal`}</title>
             </Head>
-            <Manager />
+            <div className="bg-white">
+                <Manager />
+            </div>
         </PublicHOC>
     );
 }

@@ -21,7 +21,7 @@ const body = "col-span-12 lg:col-span-10 xl:col-span-6 mb-4  text-white p-2 whit
 function Thankyou() {
     const publicData = useContext(PublicContext);
     return (
-        <>
+        <div className="bg-white">
             <Head>
                 <title>{`${process.env.NEXT_PUBLIC_BUSINESS_NAME}: Thank you!`}</title>
             </Head>
@@ -34,7 +34,7 @@ function Thankyou() {
                 <div className={gutter}></div>
             </div>
             <Why />
-        </>
+        </div>
     );
 }
 

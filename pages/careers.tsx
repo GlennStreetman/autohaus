@@ -202,7 +202,7 @@ function Careers() {
             </Head>
             <Banner />
 
-            <div className="grid grid-row grid-cols-12 p-1">
+            <div className="grid grid-row grid-cols-12 p-1 bg-white">
                 <div className={gutter} />
                 <div className={body}>
                     <OutlinedSurface>
