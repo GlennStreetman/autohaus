@@ -91,8 +91,8 @@ function mapServiceSections(p: service) {
                             <></>
                         )}
                         <div className="text-3xl font-bold text-accent mt-4 mx-4">{`${val.sectionheader}`}</div>
-                        
-                        <div className={`whitespace-pre-line ${odd ? "text-white" : "text-black"} mx-4 mb-2` }>
+
+                        <div className={`whitespace-pre-line ${odd ? "text-white" : "text-black"} mx-4 mb-2`}>
                             <br />
                             <ParseMarkdown dark={odd} text={val.sectiontext} />{" "}
                         </div>
@@ -116,7 +116,7 @@ function Services(p: service) {
                 <title>{`${process.env.NEXT_PUBLIC_BUSINESS_NAME}: ${p.name}`}</title>
             </Head>
             <Banner />
-            <div className="grid grid-cols-12 relative">
+            <div className="grid grid-cols-12 relative bg-white">
                 {mapServiceSections(p)}
                 <div
                     className="h-full flex flex-col justify-center shrink"
