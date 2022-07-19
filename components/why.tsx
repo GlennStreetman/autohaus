@@ -14,7 +14,7 @@ function Why() {
     const publicData = useContext(PublicContext);
 
     return (
-        <div className="flex flex-col">
+        <div className="flex flex-col bg-white">
             <div className="grid justify-items-center w-screen p-3">
                 <div className="text-3xl font-bold text-center">
                     <ParseMarkdown text={publicData.aboutHeading} />

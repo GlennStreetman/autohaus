@@ -47,7 +47,7 @@ function FAQ(p: { faq: faqObj[] }) {
     }, [show]);
 
     return (
-        <div className="flex flex-col pb-4 ">
+        <div className="flex flex-col pb-4 bg-white">
             <div className="grid justify-items-center w-screen p-3">
                 <div className="text-3xl font-bold text-center">Frequenty Asked Questions</div>
             </div>
