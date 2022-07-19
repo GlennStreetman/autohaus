@@ -222,6 +222,7 @@ function ServiceRequests(p: props) {
                     <td onClick={clickDetail}>{val.make}</td>
                     <td onClick={clickDetail}>{val.model}</td>
                     <td onClick={clickDetail}>{val.modelyear}</td>
+                    <td onClick={clickDetail}>{val.vin}</td>
                     <td className="text-center">
                         <input
                             className=""
@@ -259,6 +260,7 @@ function ServiceRequests(p: props) {
                         <td>Make</td>
                         <td>Model</td>
                         <td>Year</td>
+                        <td>VIN</td>
                         <td>Archived</td>
                     </tr>
                 </thead>
