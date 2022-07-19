@@ -37,6 +37,7 @@ interface serviceReq {
     modelyear: string;
     reason: string;
     requestdate: string;
+    vin: string;
     archive: boolean;
 }
 
