@@ -19,21 +19,19 @@ function Banner(p: props) {
         <div className={height}>
             {bannerImage}
             <div className="flex flex-col col-span-12 p-2">
-                    <Logo />
-                    <div className='h-14' />
-                    {p.children ? (
-                            <div className="flex flex-row w-full absolute bottom-1">
-                                <div className="grow" />
-                                <div className="text-2xl lg:text-2xl  tracking-wider p-2  rounded-md gap-2">{p.children}</div>
-                                <div className="grow" />
-                            </div>
-                    ) : (
-                        <></>
-                    )}
+                <Logo />
+                <div className="h-14" />
+                {p.children ? (
+                    <div className="flex flex-row w-full absolute bottom-1">
+                        <div className="grow" />
+                        <div className="text-2xl lg:text-2xl  tracking-wider p-2  rounded-md gap-2">{p.children}</div>
+                        <div className="grow" />
+                    </div>
+                ) : (
+                    <></>
+                )}
             </div>
         </div>
-
-        
     );
 }
 

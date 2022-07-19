@@ -10,7 +10,8 @@ html,
 body {
     padding: 0;
     margin: 0;
-    font-family: Roboto-Condensed, Roboto,-apple-system, BlinkMacSystemFont, Segoe UI, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+    font-family: Roboto-Condensed, Roboto, -apple-system, BlinkMacSystemFont, Segoe UI, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
+        sans-serif;
     line-height: 1.6;
     font-size: 18px;
     background-color: #f8fafc;
@@ -23,9 +24,8 @@ a {
 
 * {
     box-sizing: border-box;
-}crossorigin
-
-img {
+}
+crossorigin img {
     max-width: 100%;
     display: block;
 }

@@ -33,18 +33,14 @@ function Bottom() {
     const openLong = publicData.openLong ? publicData.openLong : "";
 
     return (
-        <>
-            <div className="grid grid-cols-12 w-full bg-neutral-900 p-2 relative">
+        <div>
+            <div className="grid grid-cols-12 w-full bg-neutral-900 p-2 relative ">
                 <div className={gutter}></div>
                 <div className={data}>
                     <div className="flex flex-col gap-2">
                         <div className="text-white font-semibold">Contact Details:</div>
                         <LinkButton text={telephoneText} link={`tel:${publicData.phone}`} icon={<BsTelephoneInboundFill className="h-7 w-7" />} />
-                        <LinkButton
-                            text={email}
-                            link={`mailto: ${email}`}
-                            icon={<MdOutlineMailOutline className="h-7 w-7" />}
-                        />
+                        <LinkButton text={email} link={`mailto: ${email}`} icon={<MdOutlineMailOutline className="h-7 w-7" />} />
                         <LinkButton text={longAddress} link={locationLink} icon={<HiOutlineLocationMarker className="h-7 w-7" />} />
                         {path !== "/calendar" ? (
                             <NextLinkButton text={`${openShort} ${openLong}`} icon={<GoCalendar className="h-7 w-7" />} link="/calendar" />
@@ -68,10 +64,10 @@ function Bottom() {
                         <NextLinkButton text="Careers" icon={<GiMechanicGarage className="h-7 w-7" />} link="/careers" />
                     </div>
                 </div>
-                <div className='text-slate-500 absolute bottom-2 right-8'>{process.env.NEXT_PUBLIC_BUSINESS_NAME_LEGAL}</div>
+                <div className="text-slate-500 absolute bottom-2 right-8">{process.env.NEXT_PUBLIC_BUSINESS_NAME_LEGAL}</div>
                 <div className={gutter}></div>
             </div>
-        </>
+        </div>
     );
 }
 
