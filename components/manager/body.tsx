@@ -12,7 +12,7 @@ import { GoCalendar } from "react-icons/go";
 import { AiOutlineTeam } from "react-icons/ai";
 import { VscSymbolMisc } from "react-icons/vsc";
 import { FiUsers } from "react-icons/fi";
-import {FaQuestionCircle} from 'react-icons/fa'
+import { FaQuestionCircle } from "react-icons/fa";
 
 import Holidays from "./holidays";
 import Resumes from "./resumes";
@@ -21,7 +21,7 @@ import Team from "./team";
 import OurServices from "./ourServices";
 import Setup from "./setup";
 import Users from "./users";
-import FAQ from './faq'
+import FAQ from "./faq";
 
 const smallTextStyling = `text-white font-heading bold text-1xl sm:text-2xl lg:text-3xl [text-shadow:2px_2px_rgba(0,0,0,1)] antialiased`;
 const largeTextStyling = `text-white font-heading bold text-3xl sm:text-4xl lg:text-6xl3 [text-shadow:2px_2px_rgba(0,0,0,1)] antialiased `;

@@ -128,6 +128,11 @@ function ContactInfo() {
                     onClickCallback={setOpenLong}
                     // helperText={emailHelp}
                 />
+
+                <a target="_blank" className="text-center font-bold text-xl text-red-600 py-4 underline hover:text-red-700" href="https://business.google.com">
+                    Remember to update your Google Business Dashboard with your changes!
+                </a>
+
                 <div className="flex justify-center">
                     {saveContact ? <IconButton text="Save Updates" callback={() => saveContacts()} icon={<></>} /> : <></>}
                 </div>
