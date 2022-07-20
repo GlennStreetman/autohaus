@@ -38,7 +38,7 @@ function Bottom() {
                 <div className={gutter}></div>
                 <div className={data}>
                     <div className="flex flex-col gap-2">
-                        <div className="text-white font-semibold">Contact Details:</div>
+                        <div className="text-white font-semibold tracking-wider">Contact Details:</div>
                         <LinkButton text={telephoneText} link={`tel:${publicData.phone}`} icon={<BsTelephoneInboundFill className="h-7 w-7" />} />
                         <LinkButton text={email} link={`mailto: ${email}`} icon={<MdOutlineMailOutline className="h-7 w-7" />} />
                         <LinkButton text={longAddress} link={locationLink} icon={<HiOutlineLocationMarker className="h-7 w-7" />} />
@@ -52,7 +52,7 @@ function Bottom() {
                 <div className={spacer} />
                 <div className={data}>
                     <div className="flex flex-col gap-2">
-                        <div className="text-white font-semibold">Other Actions:</div>
+                        <div className="text-white font-semibold tracking-wider">Other Actions:</div>
                         {path !== "/" ? <NextLinkButton text="Back" link="/" icon={<AiOutlineHome className="h-7 w-7" />} /> : <></>}
                         {path !== "/quote" ? (
                             <NextLinkButton text="Request Service Appointment" icon={<GiAutoRepair className="h-7 w-7" />} link="/quote" highlight={true} />
