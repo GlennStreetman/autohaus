@@ -63,8 +63,8 @@ function Resumes(p: props) {
                 archived: showArchived, //show archived?
                 filterField: filterField, //which value to filter by
                 filterService: filterResumes, //filter text for servicess
-                fromDate: fromDate, //min date
-                toDate: toDate, //max date
+                fromDate: fromDate !== " " ? fromDate : "", //min date
+                toDate: toDate !== " " ? toDate : "", //max date
                 limit: limitResults, //max returned
             };
 
