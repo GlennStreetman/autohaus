@@ -50,8 +50,8 @@ function ServiceRequests(p: props) {
     const [serviceRequests, setServiceRequests] = useState<serviceReq[]>([]); //returned data
     const [filterService, setFilterService] = useState(""); //text used to filter services
     const [showArchived, setShowArchived] = useState(false);
-    const [fromDate, setFromDate] = useState("");
-    const [toDate, setToDate] = useState("");
+    const [fromDate, setFromDate] = useState(" ");
+    const [toDate, setToDate] = useState(" ");
     const [filterField, setFilterField] = useState("email");
     const [showDetail, setShowDetail] = useState("-1");
     const [limitResults, setLimitResults] = useState("20");
@@ -164,10 +164,10 @@ function ServiceRequests(p: props) {
     const filterDates = (
         <div className="col-span-12 flex flex-wrap flex-row gap-2 mb-4">
             <div>
-                <LabeledInput fieldType="date" id="fromdate" label="From Date" value={fromDate} onClickCallback={setFromDate} helperText="From Date:" />
+                <LabeledInput fieldType="date" id="fromdate" label="From Date" value={fromDate} onClickCallback={setFromDate} />
             </div>
             <div>
-                <LabeledInput fieldType="date" id="toDate" label="To Date" value={toDate} onClickCallback={setToDate} helperText="To Date:" />
+                <LabeledInput fieldType="date" id="toDate" label="To Date" value={toDate} onClickCallback={setToDate} />
             </div>
             <div>{limitResultsSelect}</div>
         </div>

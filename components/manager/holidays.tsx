@@ -23,7 +23,7 @@ interface props {
 function Holidays(p: props) {
     const { data: session } = useSession();
     const [holidays, setHolidays] = useState<holidays[]>([]);
-    const [newHolidayDate, setNewHolidayDate] = useState("");
+    const [newHolidayDate, setNewHolidayDate] = useState(" ");
     const [newHolidayDescription, setNewHolidayDescription] = useState("");
     const [newDaysOff, setNewDaysOff] = useState("1");
 
@@ -40,21 +40,22 @@ function Holidays(p: props) {
     }, []);
 
     const submitAddHoliday = () => {
-        const options = {
-            targetDate: newHolidayDate,
-            holiday: newHolidayDescription,
-            daysclosed: newDaysOff,
-        };
+        if (newHolidayDescription !== "" && Date.parse(newHolidayDate)) {
+            const options = {
+                targetDate: newHolidayDate,
+                holiday: newHolidayDescription,
+                daysclosed: newDaysOff,
+            };
 
-        fetch(`/api/addHoliday`, {
-            method: "POST",
-            body: JSON.stringify(options),
-        })
-            .then((response) => response.json())
-            .then((data) => {
-                console.log("response", data);
-                if (data?.holidays) setHolidays(data.holidays);
-            });
+            fetch(`/api/addHoliday`, {
+                method: "POST",
+                body: JSON.stringify(options),
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    if (data?.holidays) setHolidays(data.holidays);
+                });
+        }
     };
 
     const dayKeys = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14"].map((el) => (
@@ -96,14 +97,7 @@ function Holidays(p: props) {
         <OutlinedSurface label="Add Holiday">
             <div className={filtersFormat}>
                 <div>
-                    <LabeledInput
-                        fieldType="date"
-                        id="fromdate"
-                        label="Start Holiday"
-                        value={newHolidayDate}
-                        onClickCallback={setNewHolidayDate}
-                        helperText="Start Date:"
-                    />
+                    <LabeledInput fieldType="date" id="fromdate" label="Start Holiday" value={newHolidayDate} onClickCallback={setNewHolidayDate} />
                 </div>
 
                 <LabeledInput
