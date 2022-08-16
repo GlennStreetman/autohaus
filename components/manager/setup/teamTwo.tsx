@@ -6,7 +6,7 @@ import FileUploadDragBox from "../../fileUploadDragBox";
 import { postSiteImageReq, postSiteImageresBody } from "../../../pages/api/siteSetup/postSiteImage";
 import { getSiteImageReq, getSiteImageResBody } from "../../../pages/api/siteSetup/getSiteImage";
 
-function teamTwo() {
+function TeamTwo() {
     const [imageSaved, setImageSaved] = useState("");
     const [imageName, setImageName] = useState("");
     const [imageRef, setImageRef] = useState<any>();
@@ -73,7 +73,7 @@ function teamTwo() {
     }
 
     return (
-        <OutlinedSurface label="Email Banner Light">
+        <OutlinedSurface label="Team Member 2">
             <div className="flex flex-col gap-2">
                 <FileUploadDragBox
                     fileName={imageName}
@@ -92,4 +92,4 @@ function teamTwo() {
     );
 }
 
-export default teamTwo;
+export default TeamTwo;

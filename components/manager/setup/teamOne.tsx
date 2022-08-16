@@ -73,7 +73,7 @@ function teamOne() {
     }
 
     return (
-        <OutlinedSurface label="Email Banner Light">
+        <OutlinedSurface label="Team Member One">
             <div className="flex flex-col gap-2">
                 <FileUploadDragBox
                     fileName={imageName}
