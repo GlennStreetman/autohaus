@@ -74,7 +74,7 @@ function EmailImage() {
     }
 
     return (
-        <OutlinedSurface label="Email Banner: w/h 2x1">
+        <OutlinedSurface label="Email Banner: PNG Recommend Around 2x width 1x height. Example 600 width 300 height">
             <div className="flex flex-col gap-2">
                 <FileUploadDragBox
                     fileName={imageName}

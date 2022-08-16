@@ -2,7 +2,7 @@ import IconButton from "./iconButton";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
 
-function sendTests(email, updateStatus) {
+function sendTests(email, updateStatus, message) {
     const data = {
         firstName: "Test",
         lastName: "Email",
@@ -27,18 +27,24 @@ function sendTests(email, updateStatus) {
     })
         .then((response) => response.json())
         .then((data) => {
-            updateStatus(true);
+            console.log('test:', data)
+            data.message === 'success' ? message(`Test customer receipt sent to ${email}`) : message('Problem sending email')
+        })
+        .catch((err) => {
+            console.error("mailgun error /requestQuote:", err);
         });
+        updateStatus(true)
 }
 
 function TestEmails() {
     const { data: session } = useSession();
 
     const [emailSent, setEmailSent] = useState(false);
+    const [emailMessage, setEmailMessage] = useState('');
 
     return emailSent ? (
         <IconButton
-            text="Test Email sent to session.user.email."
+            text={emailMessage}
             callback={() => {
                 setEmailSent(false);
             }}
@@ -48,7 +54,7 @@ function TestEmails() {
         <IconButton
             text="Test Email"
             callback={() => {
-                sendTests(session.user.email, setEmailSent);
+                sendTests(session.user.email, setEmailSent, setEmailMessage);
             }}
             icon={<></>}
         />

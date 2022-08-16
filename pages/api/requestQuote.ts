@@ -161,7 +161,7 @@ function emailRequest(req, publicData) {
         client.messages
             .create(DOMAIN, data)
             .then((res) => {
-                // console.log("mailgun success:", res);
+                console.log("Service Request sent to:",  publicData.serviceEmail);
             })
             .catch((err) => {
                 console.error("mailgun error /requestQuote:", err);
@@ -310,6 +310,6 @@ export default async function handler(req, res) {
         saveRequestToDB(req);
         emailRequest(req, publicData);
         emailClient(req, publicData)
-        res.status(200).json("Success");
+        res.status(200).json({message: 'success'});
     }
 }
