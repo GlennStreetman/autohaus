@@ -14,7 +14,7 @@ function Announcements(p) {
     }
 
     useEffect(() => {
-        const slideText = p.text.split(",");
+        const slideText = p?.text ? p.text.split(",") : [""];
         setSlides(slideText);
         resetTimeout();
         timeoutRef.current = setTimeout(() => setIndex((prevIndex) => (prevIndex === slides.length - 1 ? 0 : prevIndex + 1)), delay);
