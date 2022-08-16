@@ -2,11 +2,12 @@ import React, { useState, useEffect } from "react";
 import OutlinedSurface from "../../outlinedSurface";
 import IconButton from "../../iconButton";
 import FileUploadDragBox from "../../fileUploadDragBox";
+import TestEmail from "../../testEmail";
 
 import { postSiteImageReq, postSiteImageresBody } from "../../../pages/api/siteSetup/postSiteImage";
 import { getSiteImageReq, getSiteImageResBody } from "../../../pages/api/siteSetup/getSiteImage";
 
-function emailImage() {
+function EmailImage() {
     const [imageSaved, setImageSaved] = useState("");
     const [imageName, setImageName] = useState("");
     const [imageRef, setImageRef] = useState<any>();
@@ -73,7 +74,7 @@ function emailImage() {
     }
 
     return (
-        <OutlinedSurface label="Email Banner Light">
+        <OutlinedSurface label="Email Banner: w/h 2x1">
             <div className="flex flex-col gap-2">
                 <FileUploadDragBox
                     fileName={imageName}
@@ -88,8 +89,11 @@ function emailImage() {
                 </div>
                 {serverMsg ? <div>{serverMsg}</div> : <></>}
             </div>
+            <div className="flex justify-center">
+                <TestEmail />
+            </div>
         </OutlinedSurface>
     );
 }
 
-export default emailImage;
+export default EmailImage;
