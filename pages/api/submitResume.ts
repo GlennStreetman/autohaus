@@ -33,7 +33,7 @@ async function saveFile(req) {
                 if (checkFileName(files.file[0].originalFilename) === true) {
                     if (err) return reject(err);
                     const uploadResult = await uploadFile(files.file[0], `${fields.email[0]}.${files.file[0].originalFilename}`);
-                    console.log("s3 Resulte: ", uploadResult);
+                    // console.log("s3 Resulte: ", uploadResult);
                     const returnData: savedFileReturn = { fileKey: uploadResult["key"] };
                     resolve([true, returnData, fields]);
                 } else {

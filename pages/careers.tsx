@@ -35,13 +35,13 @@ const small = "col-span-6 lg:col-span-3";
 
 function Careers() {
     function dropHandler(ev) {
-        console.log("File(s) dropped");
+        // console.log("File(s) dropped");
         ev.preventDefault();
         if (ev.dataTransfer.items) {
             // Use DataTransferItemList interface to access the file(s)
             if (ev.dataTransfer.items[0].kind === "file") {
                 var file = ev.dataTransfer.items[0].getAsFile();
-                console.log("... file[" + 0 + "].name = " + file.name);
+                // console.log("... file[" + 0 + "].name = " + file.name);
                 const data = new FormData();
                 data.append("file", file);
                 setFileReference(data);
@@ -53,7 +53,7 @@ function Careers() {
             data.append("file", ev.dataTransfer.files[0]);
             setFileReference(data);
             setFileName(ev.dataTransfer.files[0].name);
-            console.log("... file[" + 0 + "].name = " + ev.dataTransfer.files[0].name);
+            // console.log("... file[" + 0 + "].name = " + ev.dataTransfer.files[0].name);
         }
     }
 
