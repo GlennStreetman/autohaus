@@ -11,6 +11,7 @@ interface props {
     refCallback: Function;
     readyCallback: Function;
     backgroundImage?: String;
+    bgSize?: string;
 }
 
 function FileUploadDragBox(p: props) {
@@ -68,7 +69,7 @@ function FileUploadDragBox(p: props) {
     return (
         <div
             id="drop_zone"
-            className="col-span-12 border-2 p-2 relative bg-slate-100 cursor-pointer h-32 flex flex-col place-content-center mb-4"
+            className={`col-span-12 border-2 p-2 relative bg-slate-100 cursor-pointer h-32 flex flex-col place-content-center mb-4 ${p.bgSize}`}
             onClick={fileUploadAction}
             onDrop={dropHandler}
             onDragOver={(e) => {
@@ -77,15 +78,7 @@ function FileUploadDragBox(p: props) {
             }}
         >
             {p.backgroundImage ? (
-                <div>
-                    <Image
-                        src={`${process.env.NEXT_PUBLIC_AWS_PUBLIC_BUCKET_URL}${p.backgroundImage}`}
-                        alt="bannerImage"
-                        layout="fill"
-                        objectFit="fill"
-                        priority
-                    />
-                </div>
+                <Image src={`${process.env.NEXT_PUBLIC_AWS_PUBLIC_BUCKET_URL}${p.backgroundImage}`} alt="bannerImage" layout="fill" objectFit="fill" priority />
             ) : (
                 <></>
             )}
