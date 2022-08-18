@@ -16,8 +16,8 @@ export async function getStaticProps(context) {
     const serviceProps = await prisma.services.findMany({});
     // console.log("service props: ", serviceProps, "params: ", context);
     const findService = serviceProps.find((el) => {
-        const compName = el.name.replace(/[^a-z0-9+]+/gi, "");
-        const compID = context.params.id.replace(/[^a-z0-9+]+/gi, "");
+        const compName = el.name.replace(/[^a-z0-9]+/gi, "");
+        const compID = context.params.id.replace(/[^a-z0-9]+/gi, "");
         // console.log("Test", compName, compID, compName === compID);
         return compName === compID;
     });
@@ -45,7 +45,7 @@ function getPaths() {
     return new Promise(async (res) => {
         const services = await prisma.services.findMany({});
         const serviceList = services.map((el) => {
-            const name = el.name.replace(/[^a-z0-9+]+/gi, "");
+            const name = el.name.replace(/[^a-z0-9]+/gi, "");
             return {
                 params: {
                     id: name,
