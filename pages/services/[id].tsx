@@ -12,10 +12,15 @@ import Screen, { ScreenWidth } from "../../components/screenWidth";
 const imgBoxLeft = "relative rounded-md bg-black overflow-hidden h-36 w-36 md:h-80 md:w-80 lg:h-96 lg:w-96 xl::h-96 xl:w-96 float-left m-4 ";
 const imgBoxRight = "relative rounded-md bg-black overflow-hidden h-36 w-36 md:h-80 md:w-80 lg:h-96 lg:w-96 xl::h-96 xl:w-96 float-right m-4 ";
 
-export async function getStaticProps(params) {
+export async function getStaticProps(context) {
     const serviceProps = await prisma.services.findMany({});
-    console.log(serviceProps);
-    const findService = serviceProps.find((el) => el.name.replace(/[^a-z0-9+]+/gi, "") === params.params.id);
+    // console.log("service props: ", serviceProps, "params: ", context);
+    const findService = serviceProps.find((el) => {
+        const compName = el.name.replace(/[^a-z0-9+]+/gi, "");
+        const compID = context.params.id.replace(/[^a-z0-9+]+/gi, "");
+        // console.log("Test", compName, compID, compName === compID);
+        return compName === compID;
+    });
     const sections = await prisma.servicesection.findMany({
         where: {
             serviceid: {
@@ -47,6 +52,7 @@ function getPaths() {
                 },
             };
         });
+        // console.log(serviceList);
         res(serviceList);
     });
 }
