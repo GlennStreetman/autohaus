@@ -12,6 +12,7 @@ const revalidateAll = async function () {
     const allRoutes = staticRoutes.concat(serviceRoutes);
     // console.log("allRoutes", allRoutes);
     for (const el of allRoutes) {
+        console.log("revalidating:", el);
         await fetch(`${process.env.NEXTAUTH_URL}/api/revalidate?secret=${process.env.NEXT_REVALIDATE}&path=${el}`); //home page carousel
     }
 };
