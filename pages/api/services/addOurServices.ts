@@ -20,7 +20,7 @@ export const config = {
 
 async function rerenderRoutes(service) {
     try {
-        const shortName = service.replaceAll(" ", "");
+        let shortName = service.replace(/[^a-z0-9+]+/gi, "");
         fetch(`${process.env.NEXTAUTH_URL}/api/revalidate?secret=${process.env.NEXT_REVALIDATE}&path=/`); //home page carousel
         fetch(`${process.env.NEXTAUTH_URL}/api/revalidate?secret=${process.env.NEXT_REVALIDATE}&path=/services/${shortName}`); //route to service
     } catch (err) {

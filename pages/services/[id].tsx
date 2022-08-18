@@ -14,6 +14,7 @@ const imgBoxRight = "relative rounded-md bg-black overflow-hidden h-36 w-36 md:h
 
 export async function getStaticProps(params) {
     const serviceProps = await prisma.services.findMany({});
+    console.log(serviceProps);
     const findService = serviceProps.find((el) => el.name.replace(/[^a-z0-9+]+/gi, "") === params.params.id);
     const sections = await prisma.servicesection.findMany({
         where: {
