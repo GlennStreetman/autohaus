@@ -48,7 +48,7 @@ async function saveFile(req) {
         const data = await new Promise((resolve, reject) => {
             form.parse(req, async (err, fields: addServiceSectionReq, files) => {
                 if (checkFileName(files.file[0].originalFilename) === true) {
-                    console.log("fields", fields);
+                    // console.log("fields", fields);
                     const sectionheader = fields.sectionName[0];
                     const uploadResult = await uploadFilePublic(files.file[0], `${sectionheader}.section.${files.file[0].originalFilename}`);
                     const returnData: savedFileReturn = { fileKey: uploadResult["key"] };

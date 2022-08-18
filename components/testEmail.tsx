@@ -27,20 +27,19 @@ function sendTests(email, updateStatus, message) {
     })
         .then((response) => response.json())
         .then((data) => {
-            console.log('test:', data)
-            data.message === 'success' ? message(`Test customer receipt sent to ${email}`) : message('Problem sending email')
+            data.message === "success" ? message(`Test customer receipt sent to ${email}`) : message("Problem sending email");
         })
         .catch((err) => {
             console.error("mailgun error /requestQuote:", err);
         });
-        updateStatus(true)
+    updateStatus(true);
 }
 
 function TestEmails() {
     const { data: session } = useSession();
 
     const [emailSent, setEmailSent] = useState(false);
-    const [emailMessage, setEmailMessage] = useState('');
+    const [emailMessage, setEmailMessage] = useState("");
 
     return emailSent ? (
         <IconButton

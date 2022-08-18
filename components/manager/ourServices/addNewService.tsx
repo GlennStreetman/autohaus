@@ -30,7 +30,7 @@ function AddNewService(p: props) {
             addService();
         } else {
             setRequestAdditional(true);
-            console.log("Check name and image upload.");
+            // console.log("Check name and image upload.");
         }
     }
 

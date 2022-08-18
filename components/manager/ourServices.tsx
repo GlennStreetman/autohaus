@@ -39,7 +39,7 @@ function OurServices(p: props) {
         fetch(`/api/services/getOurServices`)
             .then((response) => response.json())
             .then((data) => {
-                console.log("services data", data);
+                // console.log("services data", data);
                 setOurServices(data.ourServices);
                 if (editService) {
                     const oldid = editService.id;

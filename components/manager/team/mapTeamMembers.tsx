@@ -83,7 +83,7 @@ function MapTeamMembers(p: props) {
                             label=""
                             value={el.ordernumber}
                             onClickCallback={(e) => {
-                                console.log("LIMIT", e);
+                                // console.log("LIMIT", e);
                                 updateOrder(parseInt(e), el.id);
                             }}
                             id="newDay_ID"
@@ -104,7 +104,7 @@ function MapTeamMembers(p: props) {
                                     .then((response) => response.json())
                                     .then((data) => {
                                         p.getEmployees();
-                                });
+                                    });
                             }}
                         />
                     </td>

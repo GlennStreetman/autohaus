@@ -45,7 +45,6 @@ async function saveFile(req) {
     const form = new IncomingForm();
     const data = await new Promise((resolve, reject) => {
         form.parse(req, async (err, fields: editOurServicesReq, files) => {
-            console.log("FIELDS", fields);
             if (checkFileName(files.file[0].originalFilename) === true) {
                 const name = fields.name[0];
                 const uploadResult = await uploadFilePublic(files.file[0], `${name}.serviceBanner.${files.file[0].originalFilename}`);
