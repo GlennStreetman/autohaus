@@ -73,7 +73,7 @@ async function saveDataPost(fileKey, fields) {
             serviceName: fields.name[0] ? fields.name[0] : "",
             bannerText: fields.bannerText[0] ? fields.bannerText[0] : "",
         };
-        const maxNumber = await prisma.team.findMany({
+        const maxNumber = await prisma.services.findMany({
             orderBy: [
                 {
                     ordernumber: "desc",
