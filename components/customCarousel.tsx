@@ -12,7 +12,9 @@ export interface serviceBox {
     link: string | undefined;
 }
 
-const imgBox = "relative bg-black overflow-hidden h-52 w-52 xs:h-64 xs:w-64 md:h-64 md:w-64 lg:h-72 lg:w-72 xl::h-72 xl:w-72 ";
+// const imgBox = "relative bg-black overflow-hidden h-52 w-52 xs:h-64 xs:w-64 md:h-64 md:w-64 lg:h-72 lg:w-72 xl::h-72 xl:w-72 ";
+const imgBox =
+    "relative bg-black overflow-hidden h-52 min-w-[208px] w-full xs:h-64 xs:min-w-[256px] xs:w-full md:h-64 md:min-w-[256px] md:w-full lg:h-72 lg:min-w-[288px] lg:w-full xl::h-72 xl:min-w-[288px] xl:w-full ";
 
 function mapServices(target: number, showCount: number, ourServices: serviceBox[]) {
     const selectServices = ourServices.slice(target, target + showCount);
