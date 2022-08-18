@@ -65,7 +65,7 @@ function EditTeamMember(p: props) {
             data.append("name", empName);
             data.append("title", empTitle);
             data.append("description", empDescription);
-            data.append('filename', empPictureName)
+            data.append("filename", empPictureName);
             data.append("id", p.edit.id);
 
             fetch(`/api/employee/editEmployee`, {
@@ -103,7 +103,6 @@ function EditTeamMember(p: props) {
                 body: JSON.stringify(data),
             })
                 .then((res) => {
-                    console.log("status", res.status);
                     return res.json();
                 })
                 .then((data) => {
@@ -151,10 +150,8 @@ function EditTeamMember(p: props) {
                 readyCallback={setReady}
             />
             <div className="col-span-12 flex justify-center gap-12">
-
                 <IconButton text="Cancel" icon={<></>} callback={cancelRequest} />
                 <IconButton text="Save" icon={<></>} callback={processRequest} />
-
             </div>
             <div className="col-span-12 text-red-500 font-bold text-center">{serverMsg}</div>
             <div className="col-span-12 flex justify-center">

@@ -61,16 +61,17 @@ async function saveFile(req) {
 
 async function saveData(fields: postSiteImageReq) {
     try {
+        const saveName = fields.value[0].replace(/[^a-z0-9.]+/gi, "");
         await prisma.sitesetup.upsert({
             where: {
                 name: fields.name[0],
             },
             update: {
-                value: fields.value[0],
+                value: saveName,
             },
             create: {
                 name: fields.name[0],
-                value: fields.value[0],
+                value: saveName,
             },
         });
     } catch (err) {

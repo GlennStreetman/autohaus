@@ -30,7 +30,7 @@ function FileUploadDragBox(p: props) {
     }
 
     function dropHandler(ev) {
-        console.log("File(s) dropped");
+        // console.log("File(s) dropped");
         ev.preventDefault();
         if (ev.dataTransfer.items) {
             // Use DataTransferItemList interface to access the file(s)
@@ -47,7 +47,7 @@ function FileUploadDragBox(p: props) {
             data.append("file", ev.dataTransfer.files[0]);
             p.refCallback(data);
             p.fileNameCallback(ev.dataTransfer.files[0].name);
-            console.log("... file[" + 0 + "].name = " + ev.dataTransfer.files[0].name);
+            // console.log("... file[" + 0 + "].name = " + ev.dataTransfer.files[0].name);
         }
     }
 
