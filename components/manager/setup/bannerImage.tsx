@@ -74,7 +74,7 @@ function BannerImage() {
 
     return (
         <OutlinedSurface label="Banner Image">
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-2 h-80">
                 <FileUploadDragBox
                     fileName={imageName}
                     fileTypes={["png", "jpg", "svg"]}
@@ -82,6 +82,7 @@ function BannerImage() {
                     refCallback={setImageRef}
                     readyCallback={setReady}
                     backgroundImage={bannerSaved}
+                    bgSize={"w-full h-80"}
                 />
                 <div className="flex justify-center">
                     {ready ? <IconButton text="Update Banner Image" callback={() => processSaveImage()} icon={<></>} /> : <></>}

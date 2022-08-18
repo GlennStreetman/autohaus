@@ -74,7 +74,7 @@ function TeamTwo() {
 
     return (
         <OutlinedSurface label="Team Member 2">
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-2 h-80 items-center">
                 <FileUploadDragBox
                     fileName={imageName}
                     fileTypes={["png", "jpg", "svg"]}
@@ -82,6 +82,7 @@ function TeamTwo() {
                     refCallback={setImageRef}
                     readyCallback={setReady}
                     backgroundImage={imageSaved}
+                    bgSize={"w-[300px] h-[300px]"}
                 />
                 <div className="flex justify-center">
                     {ready ? <IconButton text="Update Team Member Two Image" callback={() => processSaveImage()} icon={<></>} /> : <></>}

@@ -74,7 +74,7 @@ function LogoImage() {
 
     return (
         <OutlinedSurface label="Logo Image">
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-2 w-full h-80  items-center">
                 <FileUploadDragBox
                     fileName={imageName}
                     fileTypes={["png", "jpg", "svg"]}
@@ -82,6 +82,7 @@ function LogoImage() {
                     refCallback={setImageRef}
                     readyCallback={setReady}
                     backgroundImage={imageSaved}
+                    bgSize={"w-[300px] h-[300px]"}
                 />
                 <div className="flex justify-center">
                     {ready ? <IconButton text="Update Logo Image" callback={() => processSaveImage()} icon={<></>} /> : <></>}

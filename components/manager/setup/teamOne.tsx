@@ -6,7 +6,7 @@ import FileUploadDragBox from "../../fileUploadDragBox";
 import { postSiteImageReq, postSiteImageresBody } from "../../../pages/api/siteSetup/postSiteImage";
 import { getSiteImageReq, getSiteImageResBody } from "../../../pages/api/siteSetup/getSiteImage";
 
-function teamOne() {
+function TeamOne() {
     const [imageSaved, setImageSaved] = useState("");
     const [imageName, setImageName] = useState("");
     const [imageRef, setImageRef] = useState<any>();
@@ -74,7 +74,7 @@ function teamOne() {
 
     return (
         <OutlinedSurface label="Team Member One">
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-2 h-80 item-center items-center">
                 <FileUploadDragBox
                     fileName={imageName}
                     fileTypes={["png", "jpg", "svg"]}
@@ -82,6 +82,7 @@ function teamOne() {
                     refCallback={setImageRef}
                     readyCallback={setReady}
                     backgroundImage={imageSaved}
+                    bgSize={"w-[300px] h-[300px]"}
                 />
                 <div className="flex justify-center">
                     {ready ? <IconButton text="Update Team Member One Image" callback={() => processSaveImage()} icon={<></>} /> : <></>}
@@ -92,4 +93,4 @@ function teamOne() {
     );
 }
 
-export default teamOne;
+export default TeamOne;

@@ -120,13 +120,17 @@ function EditService(p: props) {
                 <LabeledInput id="newServiceName" label="New Service Name" value={newServiceName} onClickCallback={setNewServiceName} />
                 <LabeledInput id="newServiceBanner" label={`Banner Text`} value={newServiceBannerText} onClickCallback={setNewServiceBannerText} />
             </div>
-            <FileUploadDragBox
-                fileName={fileName}
-                fileTypes={["png", "jpg", "svg"]}
-                fileNameCallback={setFileName}
-                refCallback={setFileRef}
-                readyCallback={setReady}
-            />
+            <div className="flex flex-col gap-2 h-80 items-center">
+                <FileUploadDragBox
+                    fileName={fileName}
+                    fileTypes={["png", "jpg", "svg"]}
+                    fileNameCallback={setFileName}
+                    refCallback={setFileRef}
+                    readyCallback={setReady}
+                    backgroundImage={p.service.bannerimage}
+                    bgSize={"w-[300px] h-[300px]"}
+                />
+            </div>
             <div className="col-span-12 flex justify-center gap-12 mb-2">
                 <IconButton text="Cancel" callback={cancelRequest} icon={<></>} />
                 <IconButton text="Update Service" callback={processEditService} icon={<></>} />

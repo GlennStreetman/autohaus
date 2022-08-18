@@ -75,7 +75,7 @@ function EmailImage() {
 
     return (
         <OutlinedSurface label="Email Banner: PNG Recommend Around 2x width 1x height. Example 600 width 300 height">
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-2 h-80 item-center">
                 <FileUploadDragBox
                     fileName={imageName}
                     fileTypes={["png", "jpg", "svg"]}
@@ -83,6 +83,7 @@ function EmailImage() {
                     refCallback={setImageRef}
                     readyCallback={setReady}
                     backgroundImage={imageSaved}
+                    bgSize={"w-full h-80"}
                 />
                 <div className="flex justify-center">
                     {ready ? <IconButton text="Update Logo Image" callback={() => processSaveImage()} icon={<></>} /> : <></>}

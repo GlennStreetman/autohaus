@@ -121,13 +121,17 @@ function EditServiceSection(p: props) {
             {/* <div className="text-center font-bold text-xl text-accent m-4">{`Edit Section: ${p.section.sectionheader}`}</div> */}
             <LabeledInput id="newSectionHeader" label="Section Heading" value={newSectionHeader} onClickCallback={setnewSectionHeader} />
             <LabeledtextArea id="editSectionBody" label="Edit Section Text" value={sectionText} callback={setSectionText} />
-            <FileUploadDragBox
-                fileName={fileName}
-                fileTypes={["png", "jpg", "svg"]}
-                fileNameCallback={setFileName}
-                refCallback={setFileRef}
-                readyCallback={setReady}
-            />
+            <div className="flex flex-col gap-2 h-80 items-center">
+                <FileUploadDragBox
+                    fileName={fileName}
+                    fileTypes={["png", "jpg", "svg"]}
+                    fileNameCallback={setFileName}
+                    refCallback={setFileRef}
+                    readyCallback={setReady}
+                    backgroundImage={p.section.sectionimage}
+                    bgSize={"w-[300px] h-[300px]"}
+                />
+            </div>
             <div className="col-span-12 flex justify-center gap-12">
                 <IconButton text="Cancel" callback={cancelRequest} icon={<></>} />
                 <IconButton text="Update Section" callback={processEditSection} icon={<></>} />
