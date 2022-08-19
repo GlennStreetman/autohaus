@@ -85,13 +85,13 @@ function EmailImage() {
                     backgroundImage={imageSaved}
                     bgSize={"w-full h-80"}
                 />
-                <div className="flex justify-center">
+                <div className="flex justify-center gap-2">
                     {ready ? <IconButton text="Update Logo Image" callback={() => processSaveImage()} icon={<></>} /> : <></>}
+                    {/* <div className="flex justify-center"> */}
+                    <TestEmail />
+                    {/* </div> */}
                 </div>
                 {serverMsg ? <div>{serverMsg}</div> : <></>}
-            </div>
-            <div className="flex justify-center">
-                <TestEmail />
             </div>
         </OutlinedSurface>
     );
