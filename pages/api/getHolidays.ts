@@ -2,7 +2,13 @@ import prisma from "../../lib/prismaPool";
 
 export default async function handler(req, res) {
     try {
-        const findHolidays = await prisma.holidays.findMany({});
+        const findHolidays = await prisma.holidays.findMany({
+            orderBy: [
+                {
+                    targetdate: "asc",
+                },
+            ],
+        });
         res.status(200).json({ holidays: findHolidays });
     } catch (err) {
         console.log("problem with get /holidays", err);

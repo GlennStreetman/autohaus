@@ -142,7 +142,12 @@ function Holidays(p: props) {
     return (
         <div className={p.show === true ? "col-span-12 overflow-auto" : "hidden"}>
             <div className="py-4 text-center">
-                <a target="_blank" className="text-center font-bold text-xl text-red-600 py-4 underline hover:text-red-700" href="https://business.google.com">
+                <a
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-center font-bold text-xl text-red-600 py-4 underline hover:text-red-700"
+                    href="https://business.google.com"
+                >
                     Remember to update your Google Business Dashboard with your holidays!
                 </a>
             </div>

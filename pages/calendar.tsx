@@ -6,7 +6,13 @@ import Head from "next/head";
 import FAQ from "../components/faq";
 
 export async function getStaticProps() {
-    const holidays = await prisma.holidays.findMany({});
+    const holidays = await prisma.holidays.findMany({
+        orderBy: [
+            {
+                targetdate: "asc",
+            },
+        ],
+    });
     const data = await prisma.sitesetup.findMany({});
     const faqData = await prisma.faq.findMany({
         orderBy: [
