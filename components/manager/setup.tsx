@@ -6,8 +6,8 @@ import LogoImage from "./setup/logoImage";
 import AboutImage from "./setup/aboutImage";
 import NextLinkButton from "../nextLinkButton";
 import EmailImage from "./setup/emailImage";
-import TeamOne from "./setup/teamOne";
-import TeamTwo from "./setup/teamTwo";
+// import TeamOne from "./setup/teamOne";
+// import TeamTwo from "./setup/teamTwo";
 
 interface props {
     show: boolean;
@@ -26,8 +26,8 @@ function setup(p: props) {
             <LogoImage />
             <AboutImage />
             <EmailImage />
-            <TeamOne />
-            <TeamTwo />
+            {/* <TeamOne />
+            <TeamTwo /> */}
         </div>
     );
 }

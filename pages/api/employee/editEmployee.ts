@@ -11,6 +11,7 @@ export const config = {
 
 async function updateText(savedFile, fields) {
         try {
+            console.log('updatetext', savedFile, fields)
         await prisma.team.update({
             where: {
                 id: parseInt(fields.id),

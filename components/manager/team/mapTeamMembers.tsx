@@ -4,7 +4,7 @@ import EditTeamMember from "./editTeamMember";
 import OutlinedSurface from "./../../outlinedSurface";
 import { useState } from "react";
 
-interface employees {
+export interface employees {
     id: number;
     name: string;
     title: string;
