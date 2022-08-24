@@ -4,15 +4,7 @@ import LabeledInput from "../../labeledInput";
 import { ScreenWidth } from "../../screenWidth";
 import OutlinedSurface from "./../../outlinedSurface";
 import IconButton from "./../../iconButton";
-
-interface employees {
-    id: number;
-    name: string;
-    title: string;
-    description: string;
-    filename: string; //file name
-    ordernumber: string;
-}
+import {employees} from './mapTeamMembers'
 
 interface props {
     edit: employees;
@@ -148,6 +140,8 @@ function EditTeamMember(p: props) {
                 fileNameCallback={setEmpPictureName}
                 refCallback={setEmpPictureRef}
                 readyCallback={setReady}
+                backgroundImage={p.edit.filename}
+                bgSize={"w-[300px] h-[300px]"} 
             />
             <div className="col-span-12 flex justify-center gap-12">
                 <IconButton text="Cancel" icon={<></>} callback={cancelRequest} />
@@ -161,9 +155,11 @@ function EditTeamMember(p: props) {
                             <div> fill out all fields and check image.</div>
                         </div>
                     </div>
+                    
                 ) : (
                     <></>
                 )}
+            {serverMsg ? <div>{serverMsg}</div> : <></>}
             </div>
         </OutlinedSurface>
     );

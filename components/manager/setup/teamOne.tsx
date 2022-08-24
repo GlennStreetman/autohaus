@@ -84,9 +84,7 @@ function TeamOne() {
                     backgroundImage={imageSaved}
                     bgSize={"w-[300px] h-[300px]"}
                 />
-                <div className="flex justify-center">
                     {ready ? <IconButton text="Update Team Member One Image" callback={() => processSaveImage()} icon={<></>} /> : <></>}
-                </div>
                 {serverMsg ? <div>{serverMsg}</div> : <></>}
             </div>
         </OutlinedSurface>

@@ -8,7 +8,19 @@ const imgContent = "p-2 col-span-12 md:col-span-12 lg:col-span-10 flex items-cen
 const textContent = 'p-2 col-span-12 md:col-span-12 lg:col-span-10 flex items-center grow relative'
 const imgBox = "relative rounded-md bg-black overflow-hidden h-36 w-36 md:h-72 md:w-72 lg:h-72 lg:w-72 xl:h-80 xl:w-80 float-left m-2 ";
 
-function Team() {
+export interface team {
+    id: number,
+    name: string,
+    description: string,
+    filename: string,
+    ordernumber: number,
+}
+
+interface props {
+    team: team[]
+}
+
+function Team(p: props) {
     const publicData = useContext(PublicContext);
 
     return (
@@ -20,10 +32,10 @@ function Team() {
             </div>
             <div className={imgContent}> 
             <a href='/team' className={imgBox}>
-                <Image alt="whyImage" src={`${process.env.NEXT_PUBLIC_AWS_PUBLIC_BUCKET_URL}${publicData.teamOne}`} layout="fill" objectFit="fill" />
+                <Image alt="whyImage" src={`${process.env.NEXT_PUBLIC_AWS_PUBLIC_BUCKET_URL}${p.team[0].filename}`} layout="fill" objectFit="fill" />
             </a>
             <a href='/team' className={imgBox}>
-                <Image alt="whyImage" src={`${process.env.NEXT_PUBLIC_AWS_PUBLIC_BUCKET_URL}${publicData.teamTwo}`} layout="fill" objectFit="fill" />
+                <Image alt="whyImage" src={`${process.env.NEXT_PUBLIC_AWS_PUBLIC_BUCKET_URL}${p.team[1].filename}`} layout="fill" objectFit="fill" />
             </a>
         </div>
         </div>
