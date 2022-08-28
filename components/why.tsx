@@ -23,9 +23,9 @@ function Why() {
             <div className="grid grid-cols-12">
                 <div className={gutter} />
                 <div className={dataLeft}>
-                    <div className={imgBox}>
+                    {/* <div className={imgBox}>
                         <Image alt="whyImage" src={`${process.env.NEXT_PUBLIC_AWS_PUBLIC_BUCKET_URL}${publicData.aboutImage}`} layout="fill" objectFit="fill" />
-                    </div>
+                    </div> */}
                     <div className="p-2">
                         <ParseMarkdown text={publicData.aboutBody} />
                     </div>
