@@ -7,22 +7,22 @@ import { PublicContext } from "../components/publicData";
 
 function setLogoDimensions(width: number, setWidth: Function, setHeight: Function) {
     if (width < 640) {
-        setWidth(125);
+        setWidth(202);
         setHeight(125);
     } else if (width < 768) {
-        setWidth(125);
+        setWidth(202);
         setHeight(125);
     } else if (width < 1024) {
-        setWidth(200);
+        setWidth(323);
         setHeight(200);
     } else if (width < 1280) {
-        setWidth(200);
+        setWidth(323);
         setHeight(200);
     } else if (width < 1536) {
-        setWidth(300);
+        setWidth(485);
         setHeight(300);
     } else {
-        setWidth(300);
+        setWidth(485);
         setHeight(300);
     }
 }
