@@ -46,6 +46,7 @@ module.exports = {
                 logo: ['"Saira Stencil One"', "sans-serif"],
                 heading: ["Righteous", "sans-serif"],
                 body: ["Roboto-Condensed", "Roboto", "sans-serif"],
+                banner: ["Lato", "sans-serif"]
             },
         },
     },
