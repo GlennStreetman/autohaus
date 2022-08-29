@@ -79,9 +79,9 @@ function mapServiceSections(p: service) {
         const odd = !isOddOrEven(indx, sectionCount);
         return (
             <React.Fragment key={`${val.serviceid}${val.ordernumber}-key`}>
-                <div className={`lg:block col-span-0 lg:col-span-1 xl:col-span-2 ${odd ? "bg-primaryDark" : ""}`} />
+                <div className={`lg:block col-span-0 lg:col-span-1 xl:col-span-2 ${odd ? "bg-primaryDark" : "bg-primary"}`} />
                 <section className="flex flex-col col-span-12 md:col-span-12 lg:col-span-10 xl:col-span-8">
-                    <div className={`p-2 bg-primary dark:bg-primaryDark ${odd ? "bg-primaryDark" : ""}`}>
+                    <div className={`p-2 bg-primary dark:bg-primaryDark ${odd ? "bg-primaryDark" : "bg-primary"}`}>
                         {val.sectionimage ? (
                             <div className={isOddOrEven(indx, sectionCount) ? imgBoxLeft : imgBoxRight}>
                                 {
