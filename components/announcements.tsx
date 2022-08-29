@@ -25,7 +25,7 @@ function Announcements(p) {
     }, [index]);
 
     return (
-        <div className="text-center font-banner text-red-600" key={`${index}-slide`}>
+        <div className="text-center font-extrabold lg:font-bold xl:font-normal font-banner text-1xl sm:text-2xl md:text-3xl xl:text-5xl [text-shadow:2px_2px_rgba(0,0,0,1)] antialiased whitespace-pre-line text-accentRed" key={`${index}-slide`}>
             {slides[index]}
         </div>
     );
