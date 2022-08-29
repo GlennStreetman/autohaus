@@ -317,7 +317,7 @@ function Quote() {
                                 </div>
                             </div>
                             <div className="col-span-12 border-2 p-2 relative">
-                                <label className="absolute -top-4 left-4 z-2  text-accent bg-primary">Reason for Visit</label>
+                                <label className="absolute -top-4 left-4 z-2  text-accentBlue bg-primary">Reason for Visit</label>
                                 <textarea
                                     rows={6}
                                     className="bg-primary outline-none w-full"

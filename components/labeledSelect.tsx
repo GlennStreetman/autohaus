@@ -10,7 +10,7 @@ interface props {
 }
 
 function LabeledSelect(p: props) {
-    const [labelStyling, setLabelStyling] = useState("absolute text-accent bg-primary ");
+    const [labelStyling, setLabelStyling] = useState("absolute text-accentBlue bg-primary ");
 
     function handleChange(e: React.ChangeEvent<HTMLSelectElement>, callback: Function) {
         e.preventDefault();
@@ -19,18 +19,18 @@ function LabeledSelect(p: props) {
 
     function helperFocus(helperStyling: Function) {
         //on focus, move helper text to upper left side of input form, set zIndex to bring it above outline.
-        helperStyling("absolute bottom-8 left-4 z-2  text-accent bg-primary");
+        helperStyling("absolute bottom-8 left-4 z-2  text-accentBlue bg-primary");
     }
 
     function helperBlurr(fieldValue: string, helperStyling: Function) {
-        //on focus, move helper text to upper left side of input form, set zIndex to bring it above outline.
+        //on blurr, move helper text to upper left side of input form, set zIndex to bring it above outline.
         if (fieldValue === "") {
-            helperStyling("absolute text-accent bg-primary p-1");
+            helperStyling("absolute text-accentBlue bg-primary p-1");
         }
     }
 
     useEffect(() => {
-        if (p.value !== "") setLabelStyling("absolute bottom-8 left-1 z-2  text-accent bg-primary");
+        if (p.value !== "") setLabelStyling("absolute bottom-8 left-1 z-2  text-accentBlue bg-primary");
     }, [p.value]);
 
     return (
