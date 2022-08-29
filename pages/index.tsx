@@ -11,7 +11,7 @@ import FAQ from "../components/faq";
 import { faqObj } from "./api/getFAQ";
 import Announcements from "../components/announcements";
 
-const smallTextStyling = `text-white font-heading bold text-1xl sm:text-2xl lg:text-3xl xl:text-5xl [text-shadow:2px_2px_rgba(0,0,0,1)] antialiased whitespace-pre-line`;
+
 
 export async function getStaticProps() {
     const services = await prisma.services.findMany({
@@ -56,9 +56,9 @@ export function Home(p: props) {
             <main>
                 <section>
                     <Banner>
-                        <div className={smallTextStyling}>
+                        {/* <div className={smallTextStyling}> */}
                             <Announcements text={publicData.FPBannerText} />
-                        </div>
+                        {/* </div> */}
                     </Banner>
                 </section>
                 <section>

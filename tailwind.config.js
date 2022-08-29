@@ -38,9 +38,10 @@ module.exports = {
             },
             textColor: {
                 primary: "#334155",
-                secondary: "#3b82f6",
+                secondary: "#dc2626", //old blue#3b82f6
                 accent: "#ea580c",
                 gold: "#5EEAD4",
+                accentRed: '#dc2626'
             },
             fontFamily: {
                 logo: ['"Saira Stencil One"', "sans-serif"],
@@ -52,8 +53,3 @@ module.exports = {
     },
     plugins: [],
 };
-
-//RED #b21e27
-//GOLD #E0AA4A
-//Badckground grey #1b1b1c
-//text-shadow: 1px 1px 0 #22
