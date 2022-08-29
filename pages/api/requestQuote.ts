@@ -138,7 +138,7 @@ function emailRequest(req, publicData) {
                               <p style="margin: 0; font-style: italic"><a href="tel:${publicData.phone}">${servicePhone}</a></p>
                               <p style="margin: 0; font-style: italic"><a href="${publicData.googleLink}">${publicData.addressLong}</a></p>
                               <p style="margin: 0; font-style: italic">This message was sent to you as a result of your request to: ${process.env.NEXTAUTH_URL}</p>
-                              <p style="margin: 0; font-style: italic">If these messages are being sent in error please contact: <a href="mailto:itadmin@werkstattla.com">itadmin@werkstattla.com</a></p>
+                              <p style="margin: 0; font-style: italic">If these messages are being sent in error please contact: <a href="${process.env.NEXT_PUBLIC_ITADMIN}">${process.env.NEXT_PUBLIC_ITADMIN}</a></p>
                             </td>
                           </tr>
                         </table>
