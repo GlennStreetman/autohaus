@@ -197,7 +197,7 @@ function Quote() {
                 <div className={gutter} />
                 <div className={body}>
                     <OutlinedSurface>
-                        <div className="flex justify-center text-accent active:bg-strong text-3xl font-bold p-6">Request Service Appointment</div>
+                        <div className="flex justify-center text-secondary active:bg-strong text-3xl font-bold p-6">Request Service Appointment</div>
                         <div className="grid grid-row grid-cols-12 gap-x-2 gap-y-4">
                             <div className={big}>
                                 <LabeledInput
@@ -355,7 +355,7 @@ function Quote() {
                         </div>
                     </OutlinedSurface>
                     <div className="flex justify-center ">
-                        <LinkButton newtab={true} text="Help Finding Your Vin" link="https://www.stuttcars.com/porsche-data/porsche-vin-decoder/" />
+                        <LinkButton newtab={true} text="Help Finding Your VIN Number" link="https://www.stuttcars.com/porsche-data/porsche-vin-decoder/" />
                     </div>
                 </div>
                 <div className={gutter} />

@@ -63,7 +63,7 @@ function makeDots(showCount: number, target: number, setTarget: Function, ourSer
         if (el === target) {
             return (
                 <RiCheckboxBlankCircleFill
-                    className="text-red cursor-pointer h-6 w-6"
+                    className="text-accentRed cursor-pointer h-6 w-6"
                     key={`dots-${el}`}
                     onClick={(e) => {
                         e.preventDefault();
@@ -74,7 +74,7 @@ function makeDots(showCount: number, target: number, setTarget: Function, ourSer
         } else {
             return (
                 <RiCheckboxBlankCircleLine
-                    className="text-red cursor-pointer h-6 w-6"
+                    className="text-accentRed cursor-pointer h-6 w-6"
                     key={`dots-${el}`}
                     onClick={(e) => {
                         e.preventDefault();

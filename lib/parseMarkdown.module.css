@@ -9,11 +9,11 @@
 }
 
 .article h2 {
-    @apply text-secondary font-bold text-lg inline;
+    @apply text-accentBlue font-bold text-lg inline;
 }
 
 .article h3 {
-    @apply text-secondary font-bold text-sm inline;
+    @apply text-accentBlue font-bold text-sm inline;
 }
 
 .article p {
@@ -21,7 +21,7 @@
 }
 
 .article a {
-    @apply text-secondary font-bold text-lg italic;
+    @apply text-accentBlue font-bold text-lg italic;
 }
 
 .article a:hover {

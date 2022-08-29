@@ -41,7 +41,8 @@ module.exports = {
                 secondary: "#dc2626", //old blue#3b82f6
                 accent: "#ea580c",
                 gold: "#5EEAD4",
-                accentRed: '#dc2626'
+                accentRed: '#dc2626',
+                accentBlue: '#3b82f6'
             },
             fontFamily: {
                 logo: ['"Saira Stencil One"', "sans-serif"],
