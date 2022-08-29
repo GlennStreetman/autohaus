@@ -16,9 +16,9 @@ function Why() {
     return (
         <div className="flex flex-col bg-white">
             <div className="grid justify-items-center w-screen p-3">
-                <div className="text-3xl font-bold text-center">
+                {publicData.aboutHeading && publicData.aboutHeading !== '' ? <div className="text-3xl font-bold text-center">
                     <ParseMarkdown text={publicData.aboutHeading} />
-                </div>
+                </div> : <></>}
             </div>
             <div className="grid grid-cols-12">
                 <div className={gutter} />
