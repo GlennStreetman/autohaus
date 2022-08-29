@@ -97,7 +97,7 @@ function mapServiceSections(p: service) {
                         ) : (
                             <></>
                         )}
-                        <div className="text-3xl font-bold text-accent mt-4 mx-4">{`${val.sectionheader}`}</div>
+                        <div className="text-3xl font-bold text-secondary mt-4 mx-4">{`${val.sectionheader}`}</div>
 
                         <div className={`whitespace-pre-line ${odd ? "text-white" : "text-black"} mx-4 mb-2`}>
                             <br />
@@ -105,7 +105,7 @@ function mapServiceSections(p: service) {
                         </div>
                     </div>
                 </section>
-                <div className={`lg:block col-span-0 lg:col-span-1 xl:col-span-2 ${odd ? "bg-primaryDark" : ""}`} />
+                <div className={`lg:block col-span-0 lg:col-span-1 xl:col-span-2 ${odd ? "bg-primaryDark" : "bg-primary"}`} />
             </React.Fragment>
         );
     });
