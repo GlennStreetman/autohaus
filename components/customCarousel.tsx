@@ -25,14 +25,14 @@ function mapServices(target: number, showCount: number, ourServices: serviceBox[
                 <Link href={el.link}>
                     <div>
                         <div className={imgBox}>
-                            <a>
+                            {/* <a> */}
                                 <Image
                                     src={`${process.env.NEXT_PUBLIC_AWS_PUBLIC_BUCKET_URL}${el.image}`}
                                     alt={`${el.service} picture`}
                                     layout="fill"
                                     objectFit="fill"
                                 />
-                            </a>
+                            {/* </a> */}
                         </div>
                         <div className="text-white font-primary font-bold text-center uppercase">{el.service}</div>
                     </div>
