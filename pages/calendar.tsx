@@ -83,9 +83,9 @@ function Calendar(p) {
                         <div className={gutter}></div>
                         <div className={body}>
                             <div className="flex flex-col content-center">
-                                <div className="flex justify-center text-accent active:bg-strong text-3xl font-bold p-3">{`Open: ${publicData.openShort}`}</div>
-                                <div className="flex justify-center text-accent active:bg-strong text-3xl font-bold p-3">{`${publicData.openLong}`}</div>
-                                <div className="flex justify-center text-accent active:bg-strong text-3xl font-bold p-3">Upcoming holidays</div>
+                                <div className="flex justify-center text-accentRed active:bg-strong text-3xl font-bold p-3">{`Open: ${publicData.openShort}`}</div>
+                                <div className="flex justify-center text-accentRed active:bg-strong text-3xl font-bold p-3">{`${publicData.openLong}`}</div>
+                                <div className="flex justify-center text-accentRed active:bg-strong text-3xl font-bold p-3">Upcoming holidays</div>
                                 <table className="text-black border-2 border-black">
                                     <thead className="border-2 border-black">
                                         <tr className="border-black">
