@@ -81,9 +81,9 @@ export function Home(p: props) {
                 <section>
                     <Why />
                 </section>
-                {/* <section>
+                <section>
                 <Team team={p.team}/>
-                </section> */}
+                </section>
                 <section>
                     <FAQ faq={p.faq} />
                 </section>
