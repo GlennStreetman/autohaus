@@ -37,3 +37,12 @@ thead > tr > td {
 td {
     @apply border-2 p-1 text-sm;
 }
+
+.fadeIn {
+    opacity: 1;
+    transition: opacity 3s ease
+}
+
+.blackOut {
+    opacity: 0;
+}

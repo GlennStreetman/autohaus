@@ -12,33 +12,56 @@ export interface serviceBox {
     link: string | undefined;
 }
 
-// const imgBox = "relative bg-black overflow-hidden h-52 w-52 xs:h-64 xs:w-64 md:h-64 md:w-64 lg:h-72 lg:w-72 xl::h-72 xl:w-72 ";
-const imgBox =
-    "relative bg-black overflow-hidden h-52 min-w-[208px] w-full xs:h-64 xs:min-w-[256px] xs:w-full md:h-64 md:min-w-[256px] md:w-full lg:h-72 lg:min-w-[288px] lg:w-full xl::h-72 xl:min-w-[288px] xl:w-full ";
+interface serviceProps {
+    link: string,
+    service: string,
+    image: string,
+    target: number,
+}
+
+function ServiceBox(p:serviceProps){
+
+    const [fade, setFade] = useState('')
+    const [resetFade, setResetFade] = useState(false)
+
+    useEffect(()=>{
+        if (resetFade === true) {
+            setTimeout(()=>{
+                setFade('fadeIn')
+                setResetFade(false)
+            }, 100)
+    }
+    },[resetFade])
+
+    useEffect(()=>{
+        setFade('blackOut')
+        setResetFade(true)
+    },[p.target])
+
+    return (
+        <div className={fade}>
+            <Link href={p.link}>
+            <div className="flex flex-col cursor-pointer bg-red-600 hover:bg-accent w-[208px] xs:w-[256px] md:w-[256px] lg:w-[288px] xl:w-[288px] h-52 xs:h-64 md:h-64 lg:h-72 xl::h-72">
+                <div className='relative grow bg-black overflow-hidden'>
+                        <Image
+                            src={`${process.env.NEXT_PUBLIC_AWS_PUBLIC_BUCKET_URL}${p.image}`}
+                            alt={`${p.service} picture`}
+                            layout="fill"
+                            objectFit="fill"
+                        />
+                </div>
+                <div className="text-white font-primary font-bold text-center uppercase z-10">{p.service}</div>
+            </div>
+        </Link>
+    </div>
+    )
+}
 
 function mapServices(target: number, showCount: number, ourServices: serviceBox[]) {
     const selectServices = ourServices.slice(target, target + showCount);
 
     const mapSlides = Object.values(selectServices).map((el) => {
-        return (
-            <div key={el.service} className="flex flex-col cursor-pointer bg-red-600 hover:bg-accent">
-                <Link href={el.link}>
-                    <div>
-                        <div className={imgBox}>
-                            {/* <a> */}
-                                <Image
-                                    src={`${process.env.NEXT_PUBLIC_AWS_PUBLIC_BUCKET_URL}${el.image}`}
-                                    alt={`${el.service} picture`}
-                                    layout="fill"
-                                    objectFit="fill"
-                                />
-                            {/* </a> */}
-                        </div>
-                        <div className="text-white font-primary font-bold text-center uppercase">{el.service}</div>
-                    </div>
-                </Link>
-            </div>
-        );
+        return (<div key={`${el.service}${target}`}><ServiceBox link={el.link} service={el.service} image={el.image} target={target} /></div>);
     });
 
     return mapSlides;
@@ -47,15 +70,15 @@ function mapServices(target: number, showCount: number, ourServices: serviceBox[
 function updateTareget(change: number, target: number, setTarget: Function, showCount: number, ourServices: serviceBox[]) {
     const serviceCount = ourServices.length;
     if (target + change < 0) {
-        return false;
+        return setTarget( serviceCount - showCount);
     } else if (target + change > serviceCount - showCount) {
-        return false;
+        return setTarget(0);
     } else {
         setTarget(target + change);
     }
 }
 
-function makeDots(showCount: number, target: number, setTarget: Function, ourServices: serviceBox[]) {
+function makeDots(showCount: number, target: number, setTarget: Function, ourServices: serviceBox[], setFirstClick: Function) {
     const serviceCount = ourServices.length;
     const dotCount = serviceCount - showCount + 1;
     const dotArray = Array.from({ length: dotCount }, (v, k) => k);
@@ -68,6 +91,7 @@ function makeDots(showCount: number, target: number, setTarget: Function, ourSer
                     onClick={(e) => {
                         e.preventDefault();
                         setTarget(el);
+                        setFirstClick(true)
                     }}
                 />
             );
@@ -79,6 +103,7 @@ function makeDots(showCount: number, target: number, setTarget: Function, ourSer
                     onClick={(e) => {
                         e.preventDefault();
                         setTarget(el);
+                        setFirstClick(true)
                     }}
                 />
             );
@@ -114,6 +139,7 @@ interface props {
 function CustomCarousel(p: props) {
     const [target, setTarget] = useState(0);
     const [showCount, setShowCount] = useState(4);
+    const [firstClick, setFirstClick] = useState(false)
     const screenSize = useContext(ScreenWidth);
 
     const ourServices: serviceBox[] = p.services.map((el) => {
@@ -128,6 +154,16 @@ function CustomCarousel(p: props) {
         setSlideCount(screenSize.width, setShowCount, setTarget);
     }, [screenSize.width]);
 
+    useEffect(()=>{
+        const rotate = setInterval(()=>{
+            if (!firstClick) updateTareget(+1, target, setTarget, showCount, ourServices);
+        }, 8000)
+
+        return function cleanup(){
+            clearInterval(rotate)
+        }
+    })
+
     return (
         <>
             <div className="flex flex-inline justify-center p-2 gap-2">
@@ -137,6 +173,7 @@ function CustomCarousel(p: props) {
                         onClick={(e) => {
                             e.preventDefault();
                             updateTareget(-1, target, setTarget, showCount, ourServices);
+                            setFirstClick(true)
                         }}
                     />
                 </div>
@@ -147,11 +184,12 @@ function CustomCarousel(p: props) {
                         onClick={(e) => {
                             e.preventDefault();
                             updateTareget(+1, target, setTarget, showCount, ourServices);
+                            setFirstClick(true)
                         }}
                     />
                 </div>
             </div>
-            <div className="flex justify-center">{makeDots(showCount, target, setTarget, ourServices)}</div>
+            <div className="flex justify-center">{makeDots(showCount, target, setTarget, ourServices, setFirstClick)}</div>
         </>
     );
 }
