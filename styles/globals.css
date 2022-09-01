@@ -38,6 +38,7 @@ td {
     @apply border-2 p-1 text-sm;
 }
 
+
 .fadeIn {
     opacity: 1;
     transition: opacity 3s ease
@@ -45,4 +46,7 @@ td {
 
 .blackOut {
     opacity: 0;
+    transition: opacity .5s ease
 }
+
+
