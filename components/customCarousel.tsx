@@ -85,21 +85,29 @@ function MappedServices(p: mapProps) {
 }
 
 
+interface dotProps {
+    showCount: number, 
+    target: number, 
+    setTarget: Function, 
+    ourServices: serviceBox[], 
+    setFirstClick: Function
+}
 
-function makeDots(showCount: number, target: number, setTarget: Function, ourServices: serviceBox[], setFirstClick: Function) {
-    const serviceCount = ourServices.length;
-    const dotCount = serviceCount - showCount + 1;
+function MakeDots(p: dotProps) {
+    const serviceCount = p.ourServices.length;
+    const dotCount = serviceCount - p.showCount + 1;
     const dotArray = Array.from({ length: dotCount }, (v, k) => k);
+    console.log('serviceCount', serviceCount, 'dotCount', dotCount, 'dotArray', dotArray)
     const dotMap = Object.values(dotArray).map((el) => {
-        if (el === target) {
+        if (el === p.target) {
             return (
                 <RiCheckboxBlankCircleFill
                     className="text-accentRed cursor-pointer h-6 w-6"
                     key={`dots-${el}`}
                     onClick={(e) => {
                         e.preventDefault();
-                        setTarget(el);
-                        setFirstClick(true)
+                        p.setTarget(el);
+                        p.setFirstClick(true)
                     }}
                 />
             );
@@ -110,14 +118,14 @@ function makeDots(showCount: number, target: number, setTarget: Function, ourSer
                     key={`dots-${el}`}
                     onClick={(e) => {
                         e.preventDefault();
-                        setTarget(el);
-                        setFirstClick(true)
+                        p.setTarget(el);
+                        p.setFirstClick(true)
                     }}
                 />
             );
         }
     });
-    return dotMap;
+    return (<>{dotMap}</>)
 }
 
 function updateTareget(change: number, target: number, setTarget: Function, showCount: number, ourServices: serviceBox[], setSunset: Function) {
@@ -143,7 +151,7 @@ function setSlideCount(width: number, setShowCount: Function, setTarget: Functio
     } else if (width < 1028) {
         setTarget(0);
         setShowCount(2);
-    } else if (width < 1536) {
+    } else if (width < 1028) {
         setTarget(0);
         setShowCount(3);
     } else {
@@ -204,14 +212,14 @@ function CustomCarousel(p: props) {
                     onMouseOver={()=>{setDetectHover(true)}}
                     onMouseLeave={()=>{setDetectHover(false)}}
                 >
-                    <AiOutlineArrowLeft
+                    {showCount <= ourServices.length  ? <AiOutlineArrowLeft
                         className="h-auto w-7 cursor-pointer"
                         onClick={(e) => {
                             e.preventDefault();
                             updateTareget(-1, target, setTarget, showCount, ourServices, incrmenetSunset);
                             setFirstClick(true)
                         }}
-                    />
+                    /> : <></>}
                 </div>
                 <div className="flex flex-row gap-2">
                     <MappedServices target={target} showCount={showCount} ourServices={ourServices} sunset={sunset} setDetectHover={setDetectHover} />
@@ -222,7 +230,7 @@ function CustomCarousel(p: props) {
                     onMouseOver={()=>{setDetectHover(true)}}
                     onMouseLeave={()=>{setDetectHover(false)}}
                 >
-                    <AiOutlineArrowRight
+                    {showCount <= ourServices.length  ? <AiOutlineArrowRight
                         className="h-auto w-7 cursor-pointer"
                         onClick={(e) => {
                             e.preventDefault();
@@ -231,10 +239,10 @@ function CustomCarousel(p: props) {
                         }}
 
 
-                    />
+                    />: <></> }
                 </div>
             </div>
-            <div className="flex justify-center">{makeDots(showCount, target, setTarget, ourServices, setFirstClick)}</div>
+            <div className="flex justify-center"><MakeDots showCount={showCount} target={target} setTarget={setTarget} ourServices={ourServices} setFirstClick={setFirstClick} /></div>
         </>
     );
 }
