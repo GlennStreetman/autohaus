@@ -97,7 +97,7 @@ function MakeDots(p: dotProps) {
     const serviceCount = p.ourServices.length;
     const dotCount = serviceCount - p.showCount + 1;
     const dotArray = Array.from({ length: dotCount }, (v, k) => k);
-    console.log('serviceCount', serviceCount, 'dotCount', dotCount, 'dotArray', dotArray)
+    // console.log('serviceCount', serviceCount, 'dotCount', dotCount, 'dotArray', dotArray)
     const dotMap = Object.values(dotArray).map((el) => {
         if (el === p.target) {
             return (
