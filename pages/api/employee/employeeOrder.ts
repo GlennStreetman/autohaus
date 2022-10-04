@@ -25,6 +25,7 @@ export default async function handler(req, res) {
 
             Promise.all(updateList).then(async () => {
                 fetch(`${process.env.NEXTAUTH_URL}/api/revalidate?secret=${process.env.NEXT_REVALIDATE}&path=/team`);
+                fetch(`${process.env.NEXTAUTH_URL}/api/revalidate?secret=${process.env.NEXT_REVALIDATE}&path=/`);
                 res.status(200).json({ msg: "success" });
             });
         } catch (err) {

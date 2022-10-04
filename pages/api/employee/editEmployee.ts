@@ -77,6 +77,7 @@ const editEmployee = async (req, res) => {
                 if (pass) {
                     await updateText(savedFile, fields);
                     fetch(`${process.env.NEXTAUTH_URL}/api/revalidate?secret=${process.env.NEXT_REVALIDATE}&path=/team`);
+                    fetch(`${process.env.NEXTAUTH_URL}/api/revalidate?secret=${process.env.NEXT_REVALIDATE}&path=/`);
                     res.status(200).json({ msg: "success" });
                 } else {
                     console.log("denied file save!");
