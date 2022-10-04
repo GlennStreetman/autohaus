@@ -15,7 +15,7 @@ const imgBoxLeft =
     " mx-auto md:m-3 col-span-12 md:col-span-auto relative rounded-md bg-slate-200 overflow-hidden h-56 w-56 md:h-80 md:w-80 lg:h-96 lg:w-96 xl::h-96 xl:w-116  float-none md:float-left  ";
 const imgBoxRight =
     "mx-auto md:m-3 col-span-12 md:col-span-auto relative rounded-md bg-slate-200 overflow-hidden h-56 w-56 md:h-80 md:w-80 lg:h-96 lg:w-96 xl::h-96 xl:w-116 float-none  md:float-right ";
-const largeTextStyling = `text-white font-heading bold text-3xl sm:text-4xl lg:text-6xl3 [text-shadow:2px_2px_rgba(0,0,0,1)] antialiased `;
+const largeTextStyling = `"text-center text-secondary font-extrabold lg:font-bold xl:font-normal font-banner text-1xl sm:text-2xl md:text-3xl xl:text-5xl [text-shadow:2px_2px_rgba(0,0,0,1)] antialiased whitespace-pre-line"`;
 
 interface employees {
     id: number;
@@ -72,8 +72,8 @@ function Team(p: props) {
                                 priority
                             />
                         </div>
-                        <div className="text-2xl font-bold">{`${val.name}`}</div>
-                        <div className="text-1xl font-bold">{`${val.title}`}</div>
+                        <div className="text-2xl font-bold text-secondary">{`${val.name}`}</div>
+                        <div className="text-1xl font-bold text-accentBlue">{`${val.title}`}</div>
                         <div className="whitespace-pre-line">
                             <ParseMarkdown text={val.description} />
                         </div>
