@@ -9,6 +9,16 @@ services:
         volumes:
             - ./:/autohaus/
         command: "npm run start"
+        deploy:
+            resources:
+                limits:
+                    cpus: '1.25'
+                    memory: 3000m
+            restart_policy:
+                condition: on-failure
+                delay: 5s
+                max_attempts: 3
+                window: 120s
     postgresdockerautohaus:
         image: postgres
         restart: always
@@ -19,6 +29,12 @@ services:
             - 5446:5432
         volumes:
             - postgres-data:/var/lib/postgresql/data
+        deploy:
+            restart_policy:
+                condition: on-failure
+                delay: 5s
+                max_attempts: 3
+                window: 120s
     # adminer:
     #     image: adminer
     #     restart: always

@@ -26,3 +26,7 @@ networks:
     default:
         external: true
         name: "${DOCKER_NETWORK}"
+# deploy:
+#     resources:
+#         cpus: '1.25'
+#         memory: 3000m
