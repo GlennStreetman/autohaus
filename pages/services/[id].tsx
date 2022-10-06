@@ -2,12 +2,14 @@ import React, { useContext } from "react";
 import prisma from "./../../lib/prismaPool";
 import { service } from "./../../components/manager/ourServices";
 import Banner from "../../components/banner";
+import QuickQuote from "../../components/quickQuote";
 import Image from "next/image";
 import ParseMarkdown from "./../../lib/parseMarkdown";
 // import Aside from "../../components/aside";
 import { PublicHOC } from "../../components/publicData";
 import Head from "next/head";
 import Screen, { ScreenWidth } from "../../components/screenWidth";
+
 
 const imgBoxLeft = "relative rounded-md bg-black overflow-hidden h-36 w-36 md:h-80 md:w-80 lg:h-96 lg:w-96 xl::h-96 xl:w-96 float-left m-4 ";
 const imgBoxRight = "relative rounded-md bg-black overflow-hidden h-36 w-36 md:h-80 md:w-80 lg:h-96 lg:w-96 xl::h-96 xl:w-96 float-right m-4 ";
@@ -104,6 +106,9 @@ function mapServiceSections(p: service) {
                             <ParseMarkdown dark={odd} text={val.sectiontext} />{" "}
                         </div>
                     </div>
+                    <div className={`p-2 bg-primary dark:bg-primaryDark ${odd ? "bg-primaryDark" : "bg-primary"}`}>
+                    <QuickQuote description={p.name} />
+                    </div>
                 </section>
                 <div className={`lg:block col-span-0 lg:col-span-1 xl:col-span-2 ${odd ? "bg-primaryDark" : "bg-primary"}`} />
             </React.Fragment>
@@ -115,7 +120,7 @@ function mapServiceSections(p: service) {
 }
 
 function Services(p: service) {
-    const screenSize = useContext(ScreenWidth);
+    // const screenSize = useContext(ScreenWidth);
 
     return (
         <div>
@@ -133,13 +138,6 @@ function Services(p: service) {
                     }}
                 >
                     <div className="grow" />
-                    {/* {screenSize.width > 1285 ? (
-                        <div>
-                            <Aside />
-                        </div>
-                    ) : (
-                        <></>
-                    )} */}
                     <div className="grow" />
                 </div>
             </div>
