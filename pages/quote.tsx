@@ -247,6 +247,9 @@ function Quote() {
                                     helperText={phoneHelp}
                                 />
                             </div>
+                            </div>       
+                            <div className="flex justify-center text-secondary active:bg-strong text-3xl font-bold p-6">Optional Info: </div>
+                            <div className="grid grid-row grid-cols-12 gap-x-2 gap-y-4">
                             <div className={small}>
                                 <LabeledInput fieldType="date" id="date1_id" label="Preferred Date" value={date1} onClickCallback={setDate1} />
                             </div>
