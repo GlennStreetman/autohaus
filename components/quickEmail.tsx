@@ -49,7 +49,7 @@ export default function ShortQuote(p: props) {
     function processRequest(e) {
         e.preventDefault();
         let processRequest = true;
-        //test phone
+        //test email
         if (!validEmail(email)) {
             processRequest = false;
             setEmailHelp("Please enter a valid email address");
@@ -83,7 +83,7 @@ export default function ShortQuote(p: props) {
         const data = {
             firstName: firstName,
             lastName: '',
-            email: '',
+            email: email,
             phone: '',
             prefDate: "",
             prefTime: "",
@@ -156,7 +156,7 @@ export default function ShortQuote(p: props) {
                                         className="h-[78px] border-2 p-2 rounded-md bg-secondary shadow-sm shadow-slate-600 hover:bg-weak hover:border-black hover:text-accent active:bg-strong text-2x font-bold"
                                         onClick={processRequest}
                                     >
-                                        Request Phone call!
+                                        Request email!
                                     </button>
                                 </div>
                             </div>
