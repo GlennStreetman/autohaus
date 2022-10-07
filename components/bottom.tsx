@@ -9,7 +9,7 @@ import { FcGoogle } from "react-icons/fc";
 import { GiMechanicGarage } from "react-icons/gi";
 import { MdOutlineMailOutline } from "react-icons/md";
 import { GoCalendar } from "react-icons/go";
-import { AiOutlineInstagram, AiOutlineHome } from "react-icons/ai";
+import { AiOutlineInstagram, AiOutlineHome, AiOutlineTeam } from "react-icons/ai";
 import { GiAutoRepair } from "react-icons/gi";
 import { addDashes } from "../lib/formatPhone";
 
@@ -47,6 +47,7 @@ function Bottom() {
                         ) : (
                             <></>
                         )}
+                         <LinkButton text='Our Team' link={`/team`} icon={<AiOutlineTeam className="h-7 w-7" />} />
                     </div>
                 </div>
                 <div className={spacer} />
