@@ -5,6 +5,8 @@ import Banner from "../../components/banner";
 import QuickQuote from "../../components/quickQuote";
 import Image from "next/image";
 import ParseMarkdown from "./../../lib/parseMarkdown";
+import FAQ from "../../components/faq";
+import { faqObj } from "./../api/getFAQ";
 // import Aside from "../../components/aside";
 import { PublicHOC } from "../../components/publicData";
 import Head from "next/head";
@@ -30,6 +32,13 @@ export async function getStaticProps(context) {
             },
         },
     });
+    const faqData = await prisma.faq.findMany({
+        orderBy: [
+            {
+                ordernumber: "asc",
+            },
+        ],
+    });
 
     const data = await prisma.sitesetup.findMany({});
 
@@ -39,6 +48,7 @@ export async function getStaticProps(context) {
         props: {
             services: findService,
             data: data,
+            faq: faqData,
         },
     };
 }
@@ -119,7 +129,7 @@ function mapServiceSections(p: service) {
     return sectionMap;
 }
 
-function Services(p: service) {
+function Services(p) {
     // const screenSize = useContext(ScreenWidth);
 
     return (
@@ -141,6 +151,7 @@ function Services(p: service) {
                     <div className="grow" />
                 </div>
             </div>
+           
         </div>
     );
 }
@@ -150,6 +161,7 @@ export default function Main(p) {
         <PublicHOC {...p}>
             <Screen>
                 <Services {...p.services} />
+                <FAQ faq={p.faq} />
             </Screen>
         </PublicHOC>
     );
