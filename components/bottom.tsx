@@ -47,7 +47,7 @@ function Bottom() {
                         ) : (
                             <></>
                         )}
-                         <LinkButton text='Our Team' link={`/team`} icon={<AiOutlineTeam className="h-7 w-7" />} />
+                        
                     </div>
                 </div>
                 <div className={spacer} />
@@ -63,6 +63,7 @@ function Bottom() {
                         <LinkButton text="Social" link={socialLink} icon={<AiOutlineInstagram className="h-7 w-7" />} />
                         <LinkButton text="Google Reviews" link={reviewLink} icon={<FcGoogle className="h-7 w-7 " />} />
                         <NextLinkButton text="Careers" icon={<GiMechanicGarage className="h-7 w-7" />} link="/careers" />
+                        <NextLinkButton text='Our Team' link={`/team`} icon={<AiOutlineTeam className="h-7 w-7" />} />
                     </div>
                 </div>
                 <div className="text-slate-500 absolute bottom-2 right-8">{process.env.NEXT_PUBLIC_BUSINESS_NAME_LEGAL}</div>
