@@ -19,21 +19,21 @@ export default function QuickQuote(p: props) {
         {showForm === "" ? <div className="grid grid-row grid-cols-12 p-1 bg-transparent text-red-500">
         <div className={big}>
             <div className="flex justify-center gap-4 text-1xl">
-                <div className='my-auto'>Schedule Service:</div>
+                <div className='my-auto'>Contact Service:</div>
+            
+                <button onClick={()=>{setShowForm('Call')}} className="p-2 hover:text-accent">
+                    Receive Call
+                </button>
                 
-                    <button onClick={()=>{setShowForm('Call')}} className="p-2 hover:text-accent">
-                        Receive Call
-                    </button>
-                    
-                    <button onClick={()=>{setShowForm('Text')}} className="p-2 hover:text-accent">
-                        Receive Text
-                    </button>
-                    
-                    <button onClick={()=>{setShowForm('Email')}} className="p-2 hover:text-accent">
-                        Receive Email
-                    </button>
+                <button onClick={()=>{setShowForm('Text')}} className="p-2 hover:text-accent">
+                    Receive Text
+                </button>
                 
-                </div>
+                <button onClick={()=>{setShowForm('Email')}} className="p-2 hover:text-accent">
+                    Receive Email
+                </button>
+            
+            </div>
             </div>
         </div> : <></>}
 

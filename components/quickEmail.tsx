@@ -95,7 +95,7 @@ export default function ShortQuote(p: props) {
             vinNumber: "",
             reason: p.description,
         };
-        fetch(`/api/requestQuote`, {
+        fetch(`/api/requestQuoteFast`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
