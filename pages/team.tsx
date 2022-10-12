@@ -87,7 +87,7 @@ function Team(p: props) {
     return (
         <>
             <Banner>
-                <div className={largeTextStyling}>Meet The Werkstatt Team</div>
+                <div className={largeTextStyling}>Meet {process.env.NEXT_PUBLIC_BUSINESS_NAME} Team</div>
             </Banner>
             <article className={styles.article}>
                 <div className="flex flex-col">{mapEmployees}</div>
