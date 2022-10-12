@@ -18,7 +18,7 @@ function FAQ(p: { faq: faqObj[] }) {
         const formattedData = p.faq.map((el) => (
             <div key={`${el.id}-faqkey`} className="col-span-12">
                 {show === el.id ? (
-                    <div className="flex py-2" onClick={() => updateShowState(el.id)}>
+                    <div className="flex py-2 cursor-pointer" onClick={() => updateShowState(el.id)}>
                         <div className="shrink font-semibold ">{el.question}</div>
                         <div className="content-end grow flex">
                             <div className="grow" />
@@ -26,7 +26,7 @@ function FAQ(p: { faq: faqObj[] }) {
                         </div>
                     </div>
                 ) : (
-                    <div className="flex border-b-2 border-black  py-2" onClick={() => updateShowState(el.id)}>
+                    <div className="flex cursor-pointer border-b-2 border-black  py-2" onClick={() => updateShowState(el.id)}>
                         <div className="shrink font-semibold">{el.question}</div>
                         <div className="content-end grow flex ">
                             <div className="grow" />
