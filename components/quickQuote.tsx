@@ -22,7 +22,7 @@ export default function QuickQuote(p: props) {
     const [emailBinary, setEmailBinary] = useState(true);
 
     const telephoneText = phoneBinary ? 'Call Now' : addDashes(publicData.phone) 
-    const email = emailBinary ? "Email The Werkstatt" : publicData.serviceEmail;
+    const email = emailBinary ? `Email ${process.env.NEXT_PUBLIC_BUSINESS_NAME}` : publicData.serviceEmail;
 
     return (
         <>
