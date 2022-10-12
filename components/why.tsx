@@ -8,13 +8,12 @@ import ParseMarkdown from "./../lib/parseMarkdown";
 //flex grid elements
 const gutter = " hidden lg:block lg:col-span-1 "; //2x
 const dataLeft = "p-2  col-span-12 md:col-span-12 lg:col-span-10"; //2x
-const imgBox = "relative rounded-md bg-black overflow-hidden h-40 w-40 md:h-80 md:w-80 lg:h-96 lg:w-96 xl::h-96 xl:w-116 float-left m-2 ";
 
 function Why() {
     const publicData = useContext(PublicContext);
 
     return (
-        <div className="flex flex-col bg-white">
+        <div className="flex flex-col bg-primary">
             <div className="grid justify-items-center w-screen p-3">
                 {publicData.aboutHeading && publicData.aboutHeading !== '' ? <div className="text-3xl font-bold text-center">
                     <ParseMarkdown text={publicData.aboutHeading} />

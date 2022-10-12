@@ -9,8 +9,6 @@ import { addDashes } from "../lib/formatPhone";
 import { BsTelephoneInboundFill } from "react-icons/bs";
 import { MdOutlineMailOutline } from "react-icons/md";
 
-const big = " col-span-12 lg:col-span-6";
-
 interface props {
     description: string
 }
@@ -29,7 +27,7 @@ export default function QuickQuote(p: props) {
     return (
         <>
         {showForm === "" ? <div className="grid grid-row grid-cols-12 p-1 bg-transparent text-red-500">
-            <div className={big}>
+            <div className='col-span-12'>
                 <div className="flex flex-col justify-center gap-1 text-1xl">
                     <div className="flex justify-center gap-4 text-1xl">
                     <div onClick={()=>{setPhoneBinary(!phoneBinary)}}>
