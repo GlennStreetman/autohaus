@@ -6,8 +6,6 @@ import OutlinedSurface from "./outlinedSurface";
 import { addDashes, stripPhone, validPhone } from "../lib/formatPhone";
 import {GiCancel} from 'react-icons/gi';
 
-
-const body = "col-span-12 lg:col-span-10 xl:col-span-6 my-4 relative"; //1x
 const big = " col-span-12 lg:col-span-6";
 
 function stringLength(testString: string, testLength: number): boolean {
@@ -108,10 +106,10 @@ export default function ShortQuote(p: props) {
 
     return (
         <>
-            <div className="grid grid-row grid-cols-12 p-1 ">
-                <div className={body}>
+            <div className="grid grid-cols-12 p-1 ">
+                <div className='col-span-0 lg:col-span-1 xl:col-span-3' />
+                <div className='col-span-12 lg:col-span-10 xl:col-span-6 my-4 relative'>
                     <OutlinedSurface>
-                        {/* <div className="flex justify-center text-secondary active:bg-strong text-3xl font-bold p-6">Receive Call</div> */}
                         <div className="grid grid-row grid-cols-12 gap-x-2 gap-y-4 mt-4 bg-white">
                             <div className={big}>
                                 <LabeledInput

@@ -26,20 +26,17 @@ export default function QuickQuote(p: props) {
 
     return (
         <>
-        {showForm === "" ? <div className="grid grid-row grid-cols-12 p-1 bg-transparent text-red-500">
-            <div className='col-span-12'>
-                <div className="flex flex-col justify-center gap-1 text-1xl">
+            {showForm === "" ? 
+                <div className="flex flex-col justify-center gap-1 text-1xl text-red-500">
                     <div className="flex justify-center gap-4 text-1xl">
-                    <div onClick={()=>{setPhoneBinary(!phoneBinary)}}>
-                        <LinkButton text={telephoneText} link={`tel:${publicData.phone}`} icon={<BsTelephoneInboundFill className="h-5 w-5 xs:h-7  xs:w-7" />} />
-                    </div>
+                        <div onClick={()=>{setPhoneBinary(!phoneBinary)}}>
+                            <LinkButton text={telephoneText} link={`tel:${publicData.phone}`} icon={<BsTelephoneInboundFill className="h-5 w-5 xs:h-7  xs:w-7" />} />
+                        </div>
                         <div onClick={()=>{setEmailBinary(!emailBinary)}}>
                             <LinkButton text={email} link={`mailto: ${email}`} icon={<MdOutlineMailOutline className="h-5 w-5 xs:h-7  xs:w-7" />} />
                         </div>
                     </div>
                     <div className="flex justify-center gap-4 text-1xl">
-                        {/* <div className='my-auto'>Contact Service:</div> */}
-                    
                         <button onClick={()=>{setShowForm('Call')}} className="p-2 hover:text-accent">
                             Receive Call
                         </button>
@@ -50,17 +47,15 @@ export default function QuickQuote(p: props) {
                         
                         <button onClick={()=>{setShowForm('Email')}} className="p-2 hover:text-accent">
                             Receive Email
-                        </button>
-                    
+                        </button> 
                     </div>
-                </div>
+                </div>       
+            : <></>}
+            <div className="flex flex-col justify-center gap-1 text-1xl">
+                {showForm === "Call" ? <QuickPhone reset={setShowForm} description={`Service Lead: ${p.description} Please Call.`}></QuickPhone> : <></>}
+                {showForm === "Text" ? <QuickText reset={setShowForm} description={`Service Lead: ${p.description} Please send Text.`}/> : <></>}
+                {showForm === "Email" ? <QuickEmail reset={setShowForm} description={`Service Lead: ${p.description} Please send Email.`}/> : <></>}
             </div>
-        </div> : <></>}
-
-        {showForm === "Call" ? <QuickPhone reset={setShowForm} description={`Service Lead: ${p.description} Please Call.`}></QuickPhone> : <></>}
-        {showForm === "Text" ? <QuickText reset={setShowForm} description={`Service Lead: ${p.description} Please send Text.`}/> : <></>}
-        {showForm === "Email" ? <QuickEmail reset={setShowForm} description={`Service Lead: ${p.description} Please send Email.`}/> : <></>}
-
-    </>
+        </>
     );
 }
