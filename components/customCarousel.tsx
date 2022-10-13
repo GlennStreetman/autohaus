@@ -148,10 +148,10 @@ function setSlideCount(width: number, setShowCount: Function, setTarget: Functio
     if (width < 728) {
         setTarget(0);
         setShowCount(1);
-    } else if (width < 1028) {
+    } else if (width < 1024) {
         setTarget(0);
         setShowCount(2);
-    } else if (width < 1028) {
+    } else if (width < 1280) {
         setTarget(0);
         setShowCount(3);
     } else {
