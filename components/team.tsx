@@ -30,13 +30,19 @@ function Team(p: props) {
                 <div className="z-10 bg-primaryDark px-2 text-center">Meet the team!</div>
                 <div className="absolute left-20 right-20 h-0 border-y-2 top-1/2" />
             </div>
-            <div className={imgContent}> 
+            <div className={imgContent}>
+            {p?.team?.[0]?.filename? 
             <a href='/team' className={imgBox}>
-                <Image alt="whyImage" src={`${process.env.NEXT_PUBLIC_AWS_PUBLIC_BUCKET_URL}${p.team[0].filename}`} layout="fill" objectFit="fill" />
-            </a>
-            <a href='/team' className={imgBox}>
-                <Image alt="whyImage" src={`${process.env.NEXT_PUBLIC_AWS_PUBLIC_BUCKET_URL}${p.team[1].filename}`} layout="fill" objectFit="fill" />
-            </a>
+                    <Image alt="whyImage" src={`${process.env.NEXT_PUBLIC_AWS_PUBLIC_BUCKET_URL}${p.team[0].filename}`} layout="fill" objectFit="fill" />
+                </a>
+            : <></>    
+            } 
+            {p?.team?.[1]?.filename ? 
+                <a href='/team' className={imgBox}>
+                    <Image alt="whyImage" src={`${process.env.NEXT_PUBLIC_AWS_PUBLIC_BUCKET_URL}${p.team[1].filename}`} layout="fill" objectFit="fill" />
+                </a>
+                : <></>
+            }
         </div>
         </div>
     </div>

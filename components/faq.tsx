@@ -2,11 +2,12 @@ import { useState, useEffect } from "react";
 import { faqObj } from "../pages/api/getFAQ";
 import ParseMarkdown from "./../lib/parseMarkdown";
 import { FiChevronUp, FiChevronDown } from "react-icons/fi";
+import {faqPayload} from '../strapiAPI/getPublicFAQ'
 
 const gutter = " hidden lg:block lg:col-span-1 "; //2x
 const dataLeft = "p-2  col-span-12 md:col-span-12 lg:col-span-10"; //2x
 
-function FAQ(p: { faq: faqObj[] }) {
+function FAQ(p: { faq: faqPayload[] }) {
     const [show, setShow] = useState(-1);
     const [faq, setFaq] = useState([]);
 
@@ -19,7 +20,7 @@ function FAQ(p: { faq: faqObj[] }) {
             <div key={`${el.id}-faqkey`} className="col-span-12">
                 {show === el.id ? (
                     <div className="flex py-2 cursor-pointer" onClick={() => updateShowState(el.id)}>
-                        <div className="shrink font-semibold ">{el.question}</div>
+                        <div className="shrink font-semibold ">{el.attributes.question}</div>
                         <div className="content-end grow flex">
                             <div className="grow" />
                             <FiChevronDown className="h-5 w-5 shrink" />
@@ -27,7 +28,7 @@ function FAQ(p: { faq: faqObj[] }) {
                     </div>
                 ) : (
                     <div className="flex cursor-pointer border-b-2 border-black  py-2" onClick={() => updateShowState(el.id)}>
-                        <div className="shrink font-semibold">{el.question}</div>
+                        <div className="shrink font-semibold">{el.attributes.question}</div>
                         <div className="content-end grow flex ">
                             <div className="grow" />
                             <FiChevronUp className="h-5 w-5 shrink" />
@@ -36,7 +37,7 @@ function FAQ(p: { faq: faqObj[] }) {
                 )}
                 {show === el.id ? (
                     <div className="border-b-2 border-black pb-2" onClick={() => updateShowState(el.id)}>
-                        <ParseMarkdown text={el.answer} />
+                        <ParseMarkdown text={el.attributes.answer} />
                     </div>
                 ) : (
                     <></>

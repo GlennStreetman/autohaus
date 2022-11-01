@@ -8,15 +8,17 @@ import { service } from "../components/manager/ourServices";
 import { PublicContext, PublicHOC } from "../components/publicData";
 import Head from "next/head";
 import FAQ from "../components/faq";
-import { faqObj } from "./api/getFAQ";
 import Announcements from "../components/announcements";
 
-interface siteSetup {
-    [index: string]: string
-}
-
+import {getPublicFAQ, faqPayload} from "../strapiAPI/getPublicFAQ"
+import {getPublicImages, imagePayload} from "../strapiAPI/getPublicImages"
 
 export async function getStaticProps() {
+
+    const faqData = await getPublicFAQ()
+    const imageUrls = await getPublicImages()
+
+
     const services = await prisma.services.findMany({
         orderBy: [
             {
@@ -26,13 +28,8 @@ export async function getStaticProps() {
     });
 
     const data = await prisma.sitesetup.findMany({});
-    const faqData = await prisma.faq.findMany({
-        orderBy: [
-            {
-                ordernumber: "asc",
-            },
-        ],
-    });
+
+
 
     const team = await prisma.team.findMany({
         orderBy: [
@@ -48,14 +45,16 @@ export async function getStaticProps() {
             data: data,
             faq: faqData,
             team: team,
+            images: imageUrls
         },
     };
 }
 
 interface props {
+    faq: faqPayload[];
+    images: imagePayload;
     team: team[];
     services: service[];
-    faq: faqObj[];
     data: string[]
 }
 
@@ -69,10 +68,8 @@ export function Home(p: props) {
             </Head>
             <main>
                 <section>
-                    <Banner>
-                        {/* <div className={smallTextStyling}> */}
+                    <Banner images={p.images}>
                             <Announcements text={publicData.FPBannerText} />
-                        {/* </div> */}
                     </Banner>
                 </section>
                 <section>
@@ -96,7 +93,7 @@ export default function Main(p: props) {
     return (
         <PublicHOC {...p}>
             {/* <Home services={p.services} faq={p.faq} /> */}
-            <Home services={p.services} faq={p.faq} data={p.data} team={p.team}/>
+            <Home services={p.services} faq={p.faq} data={p.data} team={p.team} images={p.images}/>
         </PublicHOC>
     );
 }

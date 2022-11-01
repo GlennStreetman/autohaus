@@ -4,8 +4,11 @@ import prisma from "../lib/prismaPool";
 import { PublicContext, PublicHOC } from "../components/publicData";
 import Head from "next/head";
 import FAQ from "../components/faq";
-
+import {getPublicImages, imagePayload} from "../strapiAPI/getPublicImages"
 export async function getStaticProps() {
+
+    const imageUrls = await getPublicImages()
+
     const holidays = await prisma.holidays.findMany({
         orderBy: [
             {
@@ -45,6 +48,7 @@ interface holidayObject {
     targetdate: string;
     holiday: string;
     daysclosed: string;
+    images: imagePayload;
 }
 
 const tableCell = "p-2 ";
@@ -76,7 +80,7 @@ function Calendar(p) {
             </Head>
             <main>
                 <section>
-                    <Banner />
+                    <Banner images={p.images} />
                 </section>
                 <section>
                     <div className="grid grid-row grid-cols-12 bg-white">
@@ -113,7 +117,7 @@ function Calendar(p) {
 export default function Main(p) {
     return (
         <PublicHOC {...p}>
-            <Calendar holidays={p.holidays} faq={p.faq} />
+            <Calendar holidays={p.holidays} faq={p.faq} images={p.images} />
         </PublicHOC>
     );
 }

@@ -3,7 +3,7 @@ import Image from "next/image";
 import { ScreenWidth } from "../components/screenWidth";
 // import { useRouter } from "next/router";
 
-import { PublicContext } from "../components/publicData";
+// import { PublicContext } from "../components/publicData";
 
 function setLogoDimensions(width: number, setWidth: Function, setHeight: Function) {
     if (width < 640) {
@@ -27,13 +27,17 @@ function setLogoDimensions(width: number, setWidth: Function, setHeight: Functio
     }
 }
 
-function Logo() {
-    const publicData = useContext(PublicContext);
+interface props {
+    logo: string
+}
+
+function Logo(p: props) {
+    // const publicData = useContext(PublicContext);
     const screenSize = useContext(ScreenWidth);
     const [width, setWidth] = useState("125");
     const [height, setHeight] = useState("125");
 
-    const logoImage = <Image src={`${process.env.NEXT_PUBLIC_AWS_PUBLIC_BUCKET_URL}${publicData.logoImage}`} alt="logo" width={width} height={height} />;
+    const logoImage = p.logo ? <Image src={p.logo} alt="logo" width={width} height={height} />: <></>;
 
     useEffect(() => {
         setLogoDimensions(screenSize.width, setWidth, setHeight);

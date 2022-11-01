@@ -5,7 +5,7 @@
     "scripts": {
         "find:unused": "next-unused",
         "devdb": "docker-compose -f app.devdb.yaml up",
-        "dev": "next dev",
+        "dev": "next dev -p 3005",
         "build": "next build",
         "start": "next start",
         "startd": "next start -p 3005",
