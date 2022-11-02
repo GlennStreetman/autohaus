@@ -1,37 +1,43 @@
-import React, { useContext } from "react";
+import React from "react";
 import Banner from "../components/banner";
-import prisma from "../lib/prismaPool";
-import { PublicContext, PublicHOC } from "../components/publicData";
+import { PublicHOC } from "../components/publicData";
 import Head from "next/head";
 import FAQ from "../components/faq";
+
+import {getPublicFAQ, faqPayload} from "../strapiAPI/getPublicFAQ"
 import {getPublicImages, imagePayload} from "../strapiAPI/getPublicImages"
+import {getTeam, teamMember} from "../strapiAPI/getTeam"
+import {getContacts, contacts} from "../strapiAPI/getContacts"
+import {getSiteLinks, siteLinks} from "../strapiAPI/getSiteLinks"
+import {getSiteText, siteText} from "../strapiAPI/getSiteText"
+import {getServices, ServicePayload} from "../strapiAPI/getServices"
+import {getHoliday, holiday} from "../strapiAPI/getHolidays"
+
 export async function getStaticProps() {
 
+    const faqData = await getPublicFAQ()
     const imageUrls = await getPublicImages()
+    const teamList = await getTeam()
+    const contactData:contacts = await getContacts()
+    const siteLinks:siteLinks = await getSiteLinks()
+    const siteText:siteText = await getSiteText()
+    const allServices:ServicePayload[] = await getServices()
+    const holidays:holiday[] = await getHoliday()
 
-    const holidays = await prisma.holidays.findMany({
-        orderBy: [
-            {
-                targetdate: "asc",
-            },
-        ],
-    });
-    const data = await prisma.sitesetup.findMany({});
-    const faqData = await prisma.faq.findMany({
-        orderBy: [
-            {
-                ordernumber: "asc",
-            },
-        ],
-    });
 
     return {
         props: {
-            holidays,
-            data: data,
             faq: faqData,
+            team: teamList,
+            images: imageUrls,
+            contacts: contactData,
+            siteLinks: siteLinks,
+            siteText: siteText,
+            allServices: allServices,
+            holidays: holidays,
         },
     };
+
 }
 
 const days = {
@@ -52,21 +58,22 @@ interface holidayObject {
 }
 
 const tableCell = "p-2 ";
-function Calendar(p) {
-    const publicData = useContext(PublicContext);
+
+
+function Calendar(p: props) {
     const gutter = "col-span-0 lg:col-span-1 xl:col-span-3"; //2x
     const body = "col-span-12 lg:col-span-10 xl:col-span-6 mb-4  text-white p-2"; //1x
 
-    function mapCalendar(calendar: holidayObject[]) {
+    function mapCalendar(calendar: holiday[]) {
         const mapped = Object.values(calendar).map((el) => {
-            const date = el.targetdate.replace("T00:00:00.000Z", "").split("-");
+            const date = el.targetDate.replace("T00:00:00.000Z", "").split("-");
             const dateNumber = new Date(parseInt(date[0]), parseInt(date[1]) - 1, parseInt(date[2])).getDay();
             return (
                 <tr key={`calendarRow-${el.holiday}`}>
-                    <td className={tableCell}>{el.targetdate.replace("T00:00:00.000Z", "")}</td>
+                    <td className={tableCell}>{el.targetDate.replace("T00:00:00.000Z", "")}</td>
                     <td className={tableCell}>{el.holiday}</td>
                     <td className={tableCell}>{days[dateNumber]}</td>
-                    <td className="p-2 text-center">{el.daysclosed}</td>
+                    <td className="p-2 text-center">{el.daysClosed}</td>
                 </tr>
             );
         });
@@ -87,8 +94,8 @@ function Calendar(p) {
                         <div className={gutter}></div>
                         <div className={body}>
                             <div className="flex flex-col content-center">
-                                <div className="flex justify-center text-accentRed active:bg-strong text-3xl font-bold p-3">{`Open: ${publicData.openShort}`}</div>
-                                <div className="flex justify-center text-accentRed active:bg-strong text-3xl font-bold p-3">{`${publicData.openLong}`}</div>
+                                <div className="flex justify-center text-accentRed active:bg-strong text-3xl font-bold p-3">{`Open: ${p.contacts.openShort}`}</div>
+                                <div className="flex justify-center text-accentRed active:bg-strong text-3xl font-bold p-3">{`${p.contacts.openLong}`}</div>
                                 <div className="flex justify-center text-accentRed active:bg-strong text-3xl font-bold p-3">Upcoming holidays</div>
                                 <table className="text-black border-2 border-black">
                                     <thead className="border-2 border-black">
@@ -114,10 +121,33 @@ function Calendar(p) {
     );
 }
 
-export default function Main(p) {
+interface props {
+    faq: faqPayload[];
+    images: imagePayload;
+    team: teamMember[];
+    data: string[];
+    siteText: siteText;
+    allServices: ServicePayload[];
+    holidays: holiday[]
+    contacts: contacts
+}
+
+interface staticData {
+    faq: faqPayload[];
+    images: imagePayload;
+    team: teamMember[];
+    data: string[];
+    contacts: contacts;
+    siteLinks: siteLinks;
+    siteText: siteText;
+    allServices: ServicePayload[];
+    holidays: holiday[];
+}
+
+export default function Main(p: staticData) {
     return (
         <PublicHOC {...p}>
-            <Calendar holidays={p.holidays} faq={p.faq} images={p.images} />
+            <Calendar faq={p.faq} data={p.data} team={p.team} images={p.images} siteText={p.siteText} allServices={p.allServices} holidays={p.holidays} contacts={p.contacts} />
         </PublicHOC>
     );
 }

@@ -1,4 +1,3 @@
-// import prisma from "../lib/prismaPool";
 import Image from "next/image";
 import Banner from "../components/banner";
 import ParseMarkdown from "./../lib/parseMarkdown";
@@ -11,8 +10,6 @@ import {getPublicImages, imagePayload} from "../strapiAPI/getPublicImages"
 import {getTeam, teamMember} from "../strapiAPI/getTeam"
 import {getContacts, contacts} from "../strapiAPI/getContacts"
 import {getSiteLinks, siteLinks} from "../strapiAPI/getSiteLinks"
-import {getSiteText, siteText} from "../strapiAPI/getSiteText"
-import {getServices, ServicePayload} from "../strapiAPI/getServices"
 
 //flex grid elements
 const gutter = " hidden lg:block lg:col-span-1 "; //2x
