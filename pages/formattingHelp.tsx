@@ -3,21 +3,64 @@ import React, { useState } from "react";
 import LabeledtextArea from "../components/labeledTextArea";
 import { PublicHOC } from "../components/publicData";
 import Banner from "../components/banner";
-import prisma from "../lib/prismaPool";
 import Link from "next/link";
 import OutlinedSurface from "../components/outlinedSurface";
 import Head from "next/head";
 
-const largeTextStyling = `text-white font-heading bold text-3xl sm:text-4xl lg:text-6xl3 [text-shadow:2px_2px_rgba(0,0,0,1)] antialiased `;
+import {getPublicFAQ, faqPayload} from "../strapiAPI/getPublicFAQ"
+import {getPublicImages, imagePayload} from "../strapiAPI/getPublicImages"
+import {getTeam, teamMember} from "../strapiAPI/getTeam"
+import {getContacts, contacts} from "../strapiAPI/getContacts"
+import {getSiteLinks, siteLinks} from "../strapiAPI/getSiteLinks"
+import {getSiteText, siteText} from "../strapiAPI/getSiteText"
+import {getServices, ServicePayload} from "../strapiAPI/getServices"
+
 
 export async function getStaticProps() {
-    const data = await prisma.sitesetup.findMany({});
+
+    const faqData = await getPublicFAQ()
+    const imageUrls = await getPublicImages()
+    const teamList = await getTeam()
+    const contactData:contacts = await getContacts()
+    const siteLinks:siteLinks = await getSiteLinks()
+    const siteText:siteText = await getSiteText()
+    const allServices:ServicePayload[] = await getServices()
+
+
     return {
         props: {
-            data: data,
+            faq: faqData,
+            team: teamList,
+            images: imageUrls,
+            contacts: contactData,
+            siteLinks: siteLinks,
+            siteText: siteText,
+            allServices: allServices,
         },
     };
 }
+
+interface props {
+    faq: faqPayload[];
+    images: imagePayload;
+    team: teamMember[];
+    data: string[];
+    siteText: siteText;
+    allServices: ServicePayload[];
+}
+
+interface staticData {
+    faq: faqPayload[];
+    images: imagePayload;
+    team: teamMember[];
+    data: string[];
+    contacts: contacts;
+    siteLinks: siteLinks;
+    siteText: siteText;
+    allServices: ServicePayload[];
+}
+
+const largeTextStyling = `text-white font-heading bold text-3xl sm:text-4xl lg:text-6xl3 [text-shadow:2px_2px_rgba(0,0,0,1)] antialiased `;
 
 function FormattingHelp() {
     const [text, setText] = useState(rawtext);
@@ -43,11 +86,12 @@ function FormattingHelp() {
 
 export default function Main(p) {
     return (
-        <PublicHOC {...p}>
+        <PublicHOC contacts={p.contacts} siteLinks={p.siteLinks}>
+
             <Head>
                 <title>{`${process.env.NEXT_PUBLIC_BUSINESS_NAME}: Formatting Text`}</title>
             </Head>
-            <Banner>
+            <Banner images={p.images}>
                 <div className={largeTextStyling}>Text Formating: Guide by example</div>
             </Banner>
 

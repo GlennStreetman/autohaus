@@ -5,20 +5,42 @@ import ReCAPTCHA from "react-google-recaptcha";
 import { addDashes, stripPhone, validPhone } from "../lib/formatPhone";
 import OutlinedSurface from "./../components/outlinedSurface";
 import { PublicHOC } from "../components/publicData";
-import prisma from "../lib/prismaPool";
 import { useRouter } from "next/router";
 import { BiUpload } from "react-icons/bi";
 import { AiFillCheckCircle } from "react-icons/ai";
 import { HiOutlineEmojiSad } from "react-icons/hi";
 import Head from "next/head";
 
+import {getPublicFAQ, faqPayload} from "../strapiAPI/getPublicFAQ"
+import {getPublicImages, imagePayload} from "../strapiAPI/getPublicImages"
+import {getTeam, teamMember} from "../strapiAPI/getTeam"
+import {getContacts, contacts} from "../strapiAPI/getContacts"
+import {getSiteLinks, siteLinks} from "../strapiAPI/getSiteLinks"
+import {getSiteText, siteText} from "../strapiAPI/getSiteText"
+import {getServices, ServicePayload} from "../strapiAPI/getServices"
+
+
 export async function getStaticProps() {
-    const data = await prisma.sitesetup.findMany({});
+
+    const faqData = await getPublicFAQ()
+    const imageUrls = await getPublicImages()
+    const teamList = await getTeam()
+    const contactData:contacts = await getContacts()
+    const siteLinks:siteLinks = await getSiteLinks()
+    const siteText:siteText = await getSiteText()
+    const allServices:ServicePayload[] = await getServices()
+
+
     return {
         props: {
-            data: data,
+            faq: faqData,
+            team: teamList,
+            images: imageUrls,
+            contacts: contactData,
+            siteLinks: siteLinks,
+            siteText: siteText,
+            allServices: allServices,
         },
-        // revalidate: 10,
     };
 }
 
@@ -33,7 +55,7 @@ const big = " col-span-12 lg:col-span-6";
 const medium = "col-span-12 lg:col-span-4";
 const small = "col-span-6 lg:col-span-3";
 
-function Careers() {
+function Careers(p: props) {
     function dropHandler(ev) {
         // console.log("File(s) dropped");
         ev.preventDefault();
@@ -200,7 +222,7 @@ function Careers() {
             <Head>
                 <title>{`${process.env.NEXT_PUBLIC_BUSINESS_NAME}: Careers`}</title>
             </Head>
-            <Banner />
+            <Banner images={p.images} />
 
             <div className="grid grid-row grid-cols-12 p-1 bg-white">
                 <div className={gutter} />
@@ -360,10 +382,30 @@ function Careers() {
     );
 }
 
-export default function Main(p) {
+interface props {
+    faq: faqPayload[];
+    images: imagePayload;
+    team: teamMember[];
+    data: string[];
+    siteText: siteText;
+    allServices: ServicePayload[];
+}
+
+interface staticData {
+    faq: faqPayload[];
+    images: imagePayload;
+    team: teamMember[];
+    data: string[];
+    contacts: contacts;
+    siteLinks: siteLinks;
+    siteText: siteText;
+    allServices: ServicePayload[];
+}
+
+export default function Main(p: staticData) {
     return (
-        <PublicHOC {...p}>
-            <Careers />
+        <PublicHOC contacts={p.contacts} siteLinks={p.siteLinks}>
+            <Careers faq={p.faq} data={p.data} team={p.team} images={p.images} siteText={p.siteText} allServices={p.allServices} />
         </PublicHOC>
     );
 }
