@@ -54,7 +54,7 @@ interface staticData {
     images: imagePayload;
     team: teamMember[];
     data: string[];
-    contacts: siteLinks;
+    contacts: contacts;
     siteLinks: siteLinks;
     siteText: siteText;
     allServices: ServicePayload[];

@@ -208,12 +208,13 @@ export const getServices = async function():Promise<ServicePayload[]>{
       acc[indx].bannerImage = elAt.bannerImage.data.attributes.url
       acc[indx].serviceSection = []
       
-      elAt.serviceSection.forEach((e, indx)=>{
-        acc[indx].serviceSection.push({}) 
-        acc[indx].serviceSection[indx].sectionHeader = e.sectionHeader
-        acc[indx].serviceSection[indx].sectionText = e.sectionText
-        acc[indx].serviceSection[indx].orderNumber = e.orderNumber
-        acc[indx].serviceSection[indx].url = e.sectionImage.data.attributes.url
+      elAt.serviceSection.forEach((e, indx2)=>{
+        acc[indx].serviceSection.push({})
+
+        acc[indx].serviceSection[indx2].sectionHeader = e.sectionHeader
+        acc[indx].serviceSection[indx2].sectionText = e.sectionText
+        acc[indx].serviceSection[indx2].orderNumber = e.orderNumber
+        acc[indx].serviceSection[indx2].url = e?.sectionImage?.data?.attributes?.url ? e.sectionImage.data.attributes.url : ''
       })
       
       return acc

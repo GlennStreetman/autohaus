@@ -25,6 +25,7 @@ function Topper(p: props) {
     const path = router.pathname;
     const screenSize = useContext(ScreenWidth);
 
+    console.log(p.contacts.phone, p?.contacts?.phone)
 
     const telephoneText = screenSize.width >= 1024 && p?.contacts?.phone ? addDashes(p.contacts.phone) : "";
     const locationText = screenSize.width >= 1024 && p?.contacts?.address ? p.contacts.address : "";

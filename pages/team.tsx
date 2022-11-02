@@ -1,10 +1,18 @@
-import prisma from "../lib/prismaPool";
+// import prisma from "../lib/prismaPool";
 import Image from "next/image";
 import Banner from "../components/banner";
 import ParseMarkdown from "./../lib/parseMarkdown";
 import styles from "./team.module.css";
 import { PublicHOC } from "../components/publicData";
 import Head from "next/head";
+
+import {getPublicFAQ, faqPayload} from "../strapiAPI/getPublicFAQ"
+import {getPublicImages, imagePayload} from "../strapiAPI/getPublicImages"
+import {getTeam, teamMember} from "../strapiAPI/getTeam"
+import {getContacts, contacts} from "../strapiAPI/getContacts"
+import {getSiteLinks, siteLinks} from "../strapiAPI/getSiteLinks"
+import {getSiteText, siteText} from "../strapiAPI/getSiteText"
+import {getServices, ServicePayload} from "../strapiAPI/getServices"
 
 //flex grid elements
 const gutter = " hidden lg:block lg:col-span-1 "; //2x
@@ -26,23 +34,23 @@ interface employees {
     ordernumber: string;
 }
 
-interface props {
-    employees: employees[];
-}
+
 
 export async function getStaticProps() {
-    const employees = await prisma.team.findMany({
-        orderBy: [
-            {
-                ordernumber: "asc",
-            },
-        ],
-    });
-    const data = await prisma.sitesetup.findMany({});
+
+    const faqData = await getPublicFAQ()
+    const imageUrls = await getPublicImages()
+    const teamList = await getTeam()
+    const contactData:contacts = await getContacts()
+    const siteLinks:siteLinks = await getSiteLinks()
+
     return {
         props: {
-            employees,
-            data: data,
+            team: teamList,
+            contacts: contactData,
+            siteLinks: siteLinks,
+            faq: faqData,
+            images: imageUrls,
         },
     };
 }
@@ -56,8 +64,8 @@ function isOddOrEven(n, length) {
 }
 
 function Team(p: props) {
-    const employeeCount = Object.keys(p.employees).length;
-    const mapEmployees = Object.values(p.employees).map((val, indx) => {
+    const employeeCount = p.team.length;
+    const mapEmployees = p.team.map((val, indx) => {
         return (
             <section key={`keySec-${val.name}`}>
                 <div className="grid grid-cols-12 ">
@@ -65,7 +73,7 @@ function Team(p: props) {
                     <div className={isOddOrEven(indx, employeeCount) ? employees : employeesBlack}>
                         <div className={isOddOrEven(indx, employeeCount) ? imgBoxLeft : imgBoxRight}>
                             <Image
-                                src={`${process.env.NEXT_PUBLIC_AWS_PUBLIC_BUCKET_URL}${val.filename}`}
+                                src={val.photoUrl}
                                 alt={val.name}
                                 layout="fill"
                                 objectFit="fill"
@@ -86,7 +94,7 @@ function Team(p: props) {
 
     return (
         <>
-            <Banner>
+            <Banner  images={p.images}>
                 <div className={largeTextStyling}>Meet {process.env.NEXT_PUBLIC_BUSINESS_NAME} Team</div>
             </Banner>
             <article className={styles.article}>
@@ -96,14 +104,28 @@ function Team(p: props) {
     );
 }
 
-export default function Main(p: props) {
+interface staticProps {
+    team: teamMember[];
+    contacts: contacts;
+    siteLinks: siteLinks; 
+    faq: faqPayload[];
+    images: imagePayload;
+}
+
+interface props {
+    team: teamMember[];
+    faq: faqPayload[];
+    images: imagePayload;
+}
+
+export default function Main(p: staticProps) {
     return (
-        <PublicHOC {...p}>
+        <PublicHOC contacts={p.contacts} siteLinks={p.siteLinks}>
             <Head>
                 <title>{`${process.env.NEXT_PUBLIC_BUSINESS_NAME}: Meet the team`}</title>
             </Head>
             <div className="bg-white">
-                <Team {...p} />
+                <Team faq={p.faq} team={p.team} images={p.images}  />
             </div>
         </PublicHOC>
     );
