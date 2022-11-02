@@ -45,10 +45,10 @@ module.exports = {
                 accentBlue: '#3b82f6'
             },
             fontFamily: {
-                logo: ['"Saira Stencil One"', "sans-serif"],
-                heading: ["Righteous", "sans-serif"],
-                body: ["Roboto-Condensed", "Roboto", "sans-serif"],
-                banner: ["Lato", "sans-serif"]
+                logo: ["Open-Sans", "sans-serif", "Saira Stencil One", ],
+                heading: ["Open-Sans", "sans-serif", "Righteous", "sans-serif"],
+                body: ["Open-Sans", "sans-serif", "Roboto-Condensed", "Roboto", ],
+                banner: ["Open-Sans", "sans-serif", "Lato", ]
             },
         },
     },

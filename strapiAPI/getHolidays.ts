@@ -46,7 +46,6 @@ export const getHoliday = async function():Promise<holiday[]>{
             holiday: el?.attributes?.holiday ? el.attributes.holiday : '',
             daysClosed: el?.attributes?.daysClosed ? el.attributes.daysClosed : '',
         }
-        console.log('holiday day', holiday)
         acc.push(data)
         return acc
     },[])
