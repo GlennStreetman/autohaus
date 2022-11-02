@@ -13,24 +13,33 @@ import { AiOutlineInstagram, AiOutlineHome, AiOutlineTeam } from "react-icons/ai
 import { GiAutoRepair } from "react-icons/gi";
 import { addDashes } from "../lib/formatPhone";
 
+import {contacts} from "../strapiAPI/getContacts"
+import {siteLinks} from "../strapiAPI/getSiteLinks"
+
+interface props {
+    contacts: contacts;
+    siteLinks: siteLinks;
+}
+
+
 //flex grid elements
 const gutter = "p-2 col-span-0  md:col-span-1 lg:col-span-1 xl:col-span-2"; //2x
 const spacer = "p-2 col-span-0  md:col-span-0 lg:col-span-0 xl:col-span-2"; //1x
 const data = "p-2   col-span-12 md:col-span-5 lg:col-span-5 xl:col-span-3"; //2x
 
-function Bottom() {
+function Bottom(p: props) {
     const router = useRouter();
     const path = router.pathname;
     const publicData = useContext(PublicContext);
 
-    const telephoneText = publicData.phone ? addDashes(publicData.phone) : "";
-    const email = publicData.serviceEmail ? publicData.serviceEmail : "";
-    const longAddress = publicData.addressLong ? publicData.addressLong : "";
-    const locationLink = publicData.googleLink ? publicData.googleLink : "";
-    const socialLink = publicData.socialLink ? publicData.socialLink : "";
-    const reviewLink = publicData.reviewLink ? publicData.reviewLink : "";
-    const openShort = publicData.openShort ? publicData.openShort : "";
-    const openLong = publicData.openLong ? publicData.openLong : "";
+    const telephoneText = p?.contacts?.phone ? addDashes(p.contacts.phone) : "";
+    const email = p?.contacts?.serviceEmail ? p.contacts.serviceEmail : "";
+    const longAddress = p?.contacts?.addressLong ? p.contacts.addressLong : "";
+    const locationLink = p?.siteLinks?.googleLink ? p.siteLinks.googleLink : "";
+    const socialLink = p?.siteLinks?.socialLink ? p.siteLinks.socialLink : "";
+    const reviewLink = p?.siteLinks?.reviewLink ? p.siteLinks.reviewLink : "";
+    const openShort = p?.contacts?.openShort ? p.contacts.openShort : "";
+    const openLong = p?.contacts?.openLong ? p.contacts.openLong : "";
 
     return (
         <div>
@@ -39,7 +48,7 @@ function Bottom() {
                 <div className={data}>
                     <div className="flex flex-col gap-2">
                         <div className="text-white font-semibold tracking-wider">Contact Details:</div>
-                        <LinkButton text={telephoneText} link={`tel:${publicData.phone}`} icon={<BsTelephoneInboundFill className="h-7 w-7" />} />
+                        <LinkButton text={telephoneText} link={`tel:${p.contacts.phone}`} icon={<BsTelephoneInboundFill className="h-7 w-7" />} />
                         <LinkButton text={email} link={`mailto: ${email}`} icon={<MdOutlineMailOutline className="h-7 w-7" />} />
                         <LinkButton text={longAddress} link={locationLink} icon={<HiOutlineLocationMarker className="h-7 w-7" />} />
                         {path !== "/calendar" ? (

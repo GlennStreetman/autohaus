@@ -1,8 +1,8 @@
 import CustomCarousel from "./customCarousel";
-import { service } from "../components/manager/ourServices";
+import { ServicePayload} from "../strapiAPI/getServices"
 
 interface props {
-    services: service[];
+    services: ServicePayload[];
 }
 
 function serviceSlicer(p: props) {

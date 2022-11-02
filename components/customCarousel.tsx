@@ -4,7 +4,7 @@ import { RiCheckboxBlankCircleFill, RiCheckboxBlankCircleLine } from "react-icon
 import { ScreenWidth } from "../components/screenWidth";
 import Image from "next/image";
 import Link from "next/link";
-import { service } from "../components/manager/ourServices";
+import { ServicePayload, } from "../strapiAPI/getServices"
 
 export interface serviceBox {
     service: string;
@@ -21,7 +21,7 @@ interface serviceProps {
 }
 
 function ServiceBox(p:serviceProps){
-
+    
     const [fade, setFade] = useState('opacity-0')
     const [resetFade, setResetFade] = useState(false)
     // const [firstRender, setFirstRender] = useState(true)
@@ -51,7 +51,7 @@ function ServiceBox(p:serviceProps){
             <div className="flex flex-col cursor-pointer bg-red-600 hover:bg-accent w-[208px] xs:w-[256px] md:w-[256px] lg:w-[288px] xl:w-[288px] h-52 xs:h-64 md:h-64 lg:h-72 xl::h-72">
                 <div className='relative grow bg-black overflow-hidden'>
                         <Image
-                            src={`${process.env.NEXT_PUBLIC_AWS_PUBLIC_BUCKET_URL}${p.image}`}
+                            src={p.image}
                             alt={`${p.service} picture`}
                             layout="fill"
                             objectFit="fill"
@@ -165,7 +165,7 @@ function preventDoubleClick(e) {
 }
 
 interface props {
-    services: service[];
+    services: ServicePayload[];
 }
 
 function CustomCarousel(p: props) {
@@ -177,10 +177,12 @@ function CustomCarousel(p: props) {
 
     const screenSize = useContext(ScreenWidth);
     
+
     const ourServices: serviceBox[] = p.services.map((el) => {
+        
         return {
-            service: el.bannertext,
-            image: el.bannerimage,
+            service: el?.bannerText ? el.bannerText : '' ,
+            image: el?.bannerImage ? el.bannerImage : '',
             link: `/services/${el.name.replace(/[^a-z0-9+]+/gi, "")}`,
         };
     });

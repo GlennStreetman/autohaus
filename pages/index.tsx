@@ -1,51 +1,41 @@
-import React, { useContext } from "react";
-import prisma from "./../lib/prismaPool";
 import Banner from "../components/banner";
-import Team, {team} from "../components/team";
+import Team from "../components/team";
 import Services from "../components/services";
 import Why from "../components/why";
-import { service } from "../components/manager/ourServices";
-import { PublicContext, PublicHOC } from "../components/publicData";
+import { PublicHOC } from "../components/publicData";
 import Head from "next/head";
 import FAQ from "../components/faq";
 import Announcements from "../components/announcements";
 
 import {getPublicFAQ, faqPayload} from "../strapiAPI/getPublicFAQ"
 import {getPublicImages, imagePayload} from "../strapiAPI/getPublicImages"
+import {getTeam, teamMember} from "../strapiAPI/getTeam"
+import {getContacts, contacts} from "../strapiAPI/getContacts"
+import {getSiteLinks, siteLinks} from "../strapiAPI/getSiteLinks"
+import {getSiteText, siteText} from "../strapiAPI/getSiteText"
+import {getServices, ServicePayload} from "../strapiAPI/getServices"
+
 
 export async function getStaticProps() {
 
     const faqData = await getPublicFAQ()
     const imageUrls = await getPublicImages()
+    const teamList = await getTeam()
+    const contactData:contacts = await getContacts()
+    const siteLinks:siteLinks = await getSiteLinks()
+    const siteText:siteText = await getSiteText()
+    const allServices:ServicePayload[] = await getServices()
 
-
-    const services = await prisma.services.findMany({
-        orderBy: [
-            {
-                ordernumber: "asc",
-            },
-        ],
-    });
-
-    const data = await prisma.sitesetup.findMany({});
-
-
-
-    const team = await prisma.team.findMany({
-        orderBy: [
-            {
-                ordernumber: "asc",
-            },
-        ],
-    });
 
     return {
         props: {
-            services: services,
-            data: data,
             faq: faqData,
-            team: team,
-            images: imageUrls
+            team: teamList,
+            images: imageUrls,
+            contacts: contactData,
+            siteLinks: siteLinks,
+            siteText: siteText,
+            allServices: allServices,
         },
     };
 }
@@ -53,13 +43,24 @@ export async function getStaticProps() {
 interface props {
     faq: faqPayload[];
     images: imagePayload;
-    team: team[];
-    services: service[];
-    data: string[]
+    team: teamMember[];
+    data: string[];
+    siteText: siteText;
+    allServices: ServicePayload[];
+}
+
+interface staticData {
+    faq: faqPayload[];
+    images: imagePayload;
+    team: teamMember[];
+    data: string[];
+    contacts: siteLinks;
+    siteLinks: siteLinks;
+    siteText: siteText;
+    allServices: ServicePayload[];
 }
 
 export function Home(p: props) {
-    const publicData: any = useContext(PublicContext);
 
     return (
         <>
@@ -69,14 +70,14 @@ export function Home(p: props) {
             <main>
                 <section>
                     <Banner images={p.images}>
-                            <Announcements text={publicData.FPBannerText} />
+                            <Announcements text={p.siteText.FPBannerText} />
                     </Banner>
                 </section>
                 <section>
-                    <Services services={p.services} />
+                    <Services services={p.allServices} />
                 </section>
                 <section>
-                    <Why />
+                    <Why siteText={p.siteText} />
                 </section>
                 <section>
                 <Team team={p.team}/>
@@ -89,11 +90,10 @@ export function Home(p: props) {
     );
 }
 
-export default function Main(p: props) {
+export default function Main(p: staticData) {
     return (
-        <PublicHOC {...p}>
-            {/* <Home services={p.services} faq={p.faq} /> */}
-            <Home services={p.services} faq={p.faq} data={p.data} team={p.team} images={p.images}/>
+        <PublicHOC contacts={p.contacts} siteLinks={p.siteLinks}>
+            <Home faq={p.faq} data={p.data} team={p.team} images={p.images} siteText={p.siteText} allServices={p.allServices}/>
         </PublicHOC>
     );
 }

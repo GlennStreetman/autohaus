@@ -1,23 +1,17 @@
 import React from "react";
 import Topper from "./topper";
 import Bottom from "./bottom";
+import {contacts} from "../strapiAPI/getContacts"
+import {siteLinks} from "../strapiAPI/getSiteLinks"
 
 export const PublicContext = React.createContext();
 
-function PublicProvider(p) {
-    const formData = p.data.reduce((prev, curr) => {
-        prev[curr.name] = curr.value;
-        return prev;
-    }, {});
-    return <PublicContext.Provider value={formData}>{p.children}</PublicContext.Provider>;
-}
-
 export function PublicHOC(p) {
     return (
-        <PublicProvider data={p.data}>
-            <Topper />
+        <>
+            <Topper contacts={p.contacts} siteLinks={p.siteLinks}/>
             {p.children}
-            <Bottom />
-        </PublicProvider>
+            <Bottom contacts={p.contacts} siteLinks={p.siteLinks}/>
+        </>
     );
 }
