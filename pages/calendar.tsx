@@ -94,9 +94,9 @@ function Calendar(p: props) {
                         <div className={gutter}></div>
                         <div className={body}>
                             <div className="flex flex-col content-center">
-                                <div className="flex justify-center text-accentRed active:bg-strong text-3xl font-bold p-3">{`Open: ${p.contacts.openShort}`}</div>
-                                <div className="flex justify-center text-accentRed active:bg-strong text-3xl font-bold p-3">{`${p.contacts.openLong}`}</div>
-                                <div className="flex justify-center text-accentRed active:bg-strong text-3xl font-bold p-3">Upcoming holidays</div>
+                                <div className="sectionHeading text-black text-center mb-2">{`Open: ${p.contacts.openShort}`}</div>
+                                <div className="sectionHeading text-black text-center mb-10">{`${p.contacts.openLong}`}</div>
+                                <div className="sectionHeading text-black  mb-2">Upcoming holidays</div>
                                 <table className="text-black border-2 border-black">
                                     <thead className="border-2 border-black">
                                         <tr className="border-black">

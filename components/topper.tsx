@@ -6,19 +6,17 @@ import { useRouter } from "next/router";
 import { addDashes } from "../lib/formatPhone";
 
 import { BsTelephoneInboundFill } from "react-icons/bs";
-import { GiAutoRepair } from "react-icons/gi";
+// import { GiAutoRepair } from "react-icons/gi";
 import { HiOutlineLocationMarker } from "react-icons/hi";
-import { AiOutlineHome } from "react-icons/ai";
+// import { AiOutlineHome } from "react-icons/ai";
 import { GoCalendar } from "react-icons/go";
-import {GrServices} from 'react-icons/gr'
+// import {GrServices} from 'react-icons/gr'
 
 import {contacts} from "../strapiAPI/getContacts"
 import {siteLinks} from "../strapiAPI/getSiteLinks"
 import {imagePayload} from "../strapiAPI/getPublicImages"
 
-// import NextLinkButton from "./nextLinkButton";
-// import LinkButton from "./linkButton";
-import LinkButtonBlack, {NextLinkButtonBlack} from "./linkButtonBlack";
+import {NextLinkButtonBlack} from "./linkButtonBlack";
 import LinkButtonTopper, {NextLinkButtonTopper} from "./linkButtonTopper";
 import LogoLittle from './logoLittle'
 
@@ -60,21 +58,17 @@ function Topper(p: props) {
         <>
         <div className='h-10 bg-zinc-700'>
             <div className='w-4/5 mx-auto flex justify-center gap-8'>
-            {path !== "/calendar" && screenSize.width > 768 ? (
                 <NextLinkButtonTopper text={calendarText} icon={<GoCalendar className="h-4 w-4 xs:h-7  xs:w-7" />} link="/calendar" />
-            ) : (
-                <></>
-            )}
-            <LinkButtonTopper text={locationText} link={locationLink} icon={<HiOutlineLocationMarker className="h-4 w-4 xs:h-7 xs:w-7" />} />
-            <LinkButtonTopper text={telephoneText} link={`tel:${p.contacts.phone}`} icon={<BsTelephoneInboundFill className="h-4 w-4 xs:h-7 xs:w-7" />} />
+                <LinkButtonTopper text={locationText} link={locationLink} icon={<HiOutlineLocationMarker className="h-4 w-4 xs:h-7 xs:w-7" />} />
+                <LinkButtonTopper text={telephoneText} link={`tel:${p.contacts.phone}`} icon={<BsTelephoneInboundFill className="h-4 w-4 xs:h-7 xs:w-7" />} />
             </div>
         </div>
         <div className="z-20 flex right-0 sticky top-0 justify-center p-2 gap-2 bg-highLight w-screen my-auto">
-        <NextLinkButtonBlack text="Home" link="/" icon={<></>} />
-        <NextLinkButtonBlack text='About Us' icon={<></>} link="/about" />      
-        <LogoLittle logo={p?.images?.logoImage ? p.images.logoImage : ''} position={scrollPosition}/>
-        <NextLinkButtonBlack text='Services' icon={<></>} link="/service" />       
-        <NextLinkButtonBlack text={repairText} icon={<></>} link="/quote" />
+            <NextLinkButtonBlack text="Home" link="/" icon={<></>} />
+            <NextLinkButtonBlack text='About Us' icon={<></>} link="/about" />      
+            <LogoLittle logo={p?.images?.logoImage ? p.images.logoImage : ''} position={scrollPosition}/>
+            <NextLinkButtonBlack text='Services' icon={<></>} link="/service" />       
+            <NextLinkButtonBlack text={repairText} icon={<></>} link="/quote" />
         </div>
         </>
 

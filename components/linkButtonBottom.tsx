@@ -40,7 +40,7 @@ const textRegular =
 
     const textAtLocation =
     `flex flex-row shrink p-2 bg-transparent gap-1  
-    text-base text-white hover:text-highLight font-heading  subpixel-antialiased tracking-wider
+    text-base text-white  font-heading  subpixel-antialiased tracking-wider
     relative
     inline-block
     shrink m-auto
@@ -61,7 +61,7 @@ export function NextLinkButtonBottom(p: props) {
         <div className="my-auto">
                 <div className="flex z-20">
                     <Link href={p.link}>
-                    <a target="_blank"  className={textRegular}>
+                    <a target={p.newtab === true ? "_blank" : '_self'}  className={textRegular}>
                         {p.icon ? p.icon : <></>}
                         <div className="flex">
                             <div className="shrink m-auto">{p.text}</div>
@@ -73,15 +73,17 @@ export function NextLinkButtonBottom(p: props) {
         </div>
     );
     } else {
-        <div className="my-auto">
-        <div className="flex z-20">
-                {p.icon ? p.icon : <></>}
-                <div className="flex textAtLocation">
-                    <div className="shrink m-auto">{p.text}</div>
+        return (
+            <div className="my-auto text-white">
+                <div className="flex z-20">
+                        {p.icon ? p.icon : <></>}
+                        <div className={`flex ${textAtLocation}`}>
+                            <div className="shrink m-auto">{p.text}</div>
+                        </div>
+                    <div className="flex grow" />
                 </div>
-            <div className="flex grow" />
-        </div>
-</div>
+            </div>
+    )
     }
 }
 
@@ -90,7 +92,7 @@ function LinkButtonBottom(p: props) {
 
         <div className="my-auto">
                 <div className="flex z-20">
-                    <a target="_blank" href={p.link} className={textRegular}>
+                    <a target={p.newtab === true ? "_blank" : '_self'} href={p.link} className={textRegular}>
                         {p.icon ? p.icon : <></>}
                         <div className="flex">
                             <div className="shrink m-auto">{p.text}</div>
