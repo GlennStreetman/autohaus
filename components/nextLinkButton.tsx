@@ -1,6 +1,5 @@
 import React from "react";
 import Link from "next/link";
-import { useRouter } from "next/router";
 
 interface props {
     text: string | Element | JSX.Element;
@@ -11,9 +10,9 @@ interface props {
 }
 
 const textHighlight =
-    "flex flex-row shrink border-2 hover:border-black p-2 rounded-md bg-secondary shadow-lg shadow-slate-600 hover:bg-strong active:bg-strong text-sm  gap-1 hover:text-accent text-red-600";
+    "flex flex-row shrink border-2 border-highLight hover:border-black p-2 rounded-md bg-highLight font-bold  hover:bg-strong active:bg-strong text-sm  gap-1  text-red-600";
 const textRegular =
-    "flex flex-row shrink border-2 hover:border-black p-2 rounded-md bg-secondary shadow-sm shadow-slate-600 hover:bg-weak active:bg-strong text-sm gap-1 hover:text-accent";
+    "flex flex-row shrink border-2 border-highLight hover:border-black p-2 rounded-md bg-highLight font-bold hover:bg-weak active:bg-strong text-sm gap-1 ";
 
 function NextLinkButton(p: props) {
     return (

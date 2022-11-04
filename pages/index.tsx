@@ -14,6 +14,7 @@ import {getContacts, contacts} from "../strapiAPI/getContacts"
 import {getSiteLinks, siteLinks} from "../strapiAPI/getSiteLinks"
 import {getSiteText, siteText} from "../strapiAPI/getSiteText"
 import {getServices, ServicePayload} from "../strapiAPI/getServices"
+import {getBannerText, bannerTextPayload} from "../strapiAPI/getBannerText"
 
 
 export async function getStaticProps() {
@@ -25,6 +26,7 @@ export async function getStaticProps() {
     const siteLinks:siteLinks = await getSiteLinks()
     const siteText:siteText = await getSiteText()
     const allServices:ServicePayload[] = await getServices()
+    const bannerTexts:bannerTextPayload = await getBannerText()
 
 
     return {
@@ -36,6 +38,7 @@ export async function getStaticProps() {
             siteLinks: siteLinks,
             siteText: siteText,
             allServices: allServices,
+            bannerTexts: bannerTexts,
         },
     };
 }
@@ -47,6 +50,7 @@ interface props {
     data: string[];
     siteText: siteText;
     allServices: ServicePayload[];
+    bannerTexts:bannerTextPayload;
 }
 
 interface staticData {
@@ -58,6 +62,7 @@ interface staticData {
     siteLinks: siteLinks;
     siteText: siteText;
     allServices: ServicePayload[];
+    bannerTexts:bannerTextPayload
 }
 
 export function Home(p: props) {
@@ -65,12 +70,15 @@ export function Home(p: props) {
     return (
         <>
             <Head>
-                <title>{`${process.env.NEXT_PUBLIC_BUSINESS_NAME}: Home`}</title>
+                <title>{`${process.env.NEXT_PUBLIC_BUSINESS_NAME}: Porsche Repair Specialist - Santa Monica`}</title>
             </Head>
             <main>
                 <section>
                     <Banner images={p.images}>
-                            <Announcements text={p.siteText.FPBannerText} />
+                            <div className='flex flex-col'>
+                            <div className='w-full h-12' />
+                            <Announcements bannerTexts={p.bannerTexts} />
+                            </div>
                     </Banner>
                 </section>
                 <section>
@@ -92,8 +100,8 @@ export function Home(p: props) {
 
 export default function Main(p: staticData) {
     return (
-        <PublicHOC contacts={p.contacts} siteLinks={p.siteLinks}>
-            <Home faq={p.faq} data={p.data} team={p.team} images={p.images} siteText={p.siteText} allServices={p.allServices}/>
+        <PublicHOC contacts={p.contacts} siteLinks={p.siteLinks} images={p.images} >
+            <Home faq={p.faq} data={p.data} team={p.team} images={p.images} siteText={p.siteText} allServices={p.allServices} bannerTexts={p.bannerTexts}/>
         </PublicHOC>
     );
 }

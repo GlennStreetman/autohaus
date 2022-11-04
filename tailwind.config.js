@@ -25,6 +25,7 @@ module.exports = {
                 outlineLight: "#67e8f9",
                 outlineDark: "#4f46e5",
                 accent: "#ea580c",
+                highLight: '#fcb900' //gold
             },
             spacing: {
                 128: "32rem",
@@ -35,6 +36,7 @@ module.exports = {
                 secondary: "#e2e8f0", //grey button background
                 accent: "#ea580c", //orange carousel hover
                 primaryDark: "#1b1b1c",
+                highLight: '#fcb900' //gold
             },
             textColor: {
                 primary: "#334155",
@@ -42,12 +44,13 @@ module.exports = {
                 accent: "#ea580c",
                 gold: "#5EEAD4",
                 accentRed: '#dc2626',
-                accentBlue: '#3b82f6'
+                accentBlue: '#3b82f6',
+                highLight: '#fcb900' //gold
             },
             fontFamily: {
                 logo: ["Open-Sans", "sans-serif", "Saira Stencil One", ],
-                heading: ["Open-Sans", "sans-serif", "Righteous", "sans-serif"],
-                body: ["Open-Sans", "sans-serif", "Roboto-Condensed", "Roboto", ],
+                heading: ["Roboto Condensed", "Open-Sans", "sans-serif", "Righteous", "sans-serif"],
+                body: ["Open Sans", "sans-serif", "Roboto Condensed", "Roboto", ],
                 banner: ["Open-Sans", "sans-serif", "Lato", ]
             },
         },

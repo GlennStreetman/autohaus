@@ -1,8 +1,7 @@
-import { useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import { ScreenWidth } from "../components/screenWidth";
-import { PublicContext } from "../components/publicData";
-import NextLinkButton from "./nextLinkButton";
-import LinkButton from "./linkButton";
+
+
 import { useRouter } from "next/router";
 import { addDashes } from "../lib/formatPhone";
 
@@ -11,49 +10,91 @@ import { GiAutoRepair } from "react-icons/gi";
 import { HiOutlineLocationMarker } from "react-icons/hi";
 import { AiOutlineHome } from "react-icons/ai";
 import { GoCalendar } from "react-icons/go";
+import {GrServices} from 'react-icons/gr'
 
 import {contacts} from "../strapiAPI/getContacts"
 import {siteLinks} from "../strapiAPI/getSiteLinks"
+import {imagePayload} from "../strapiAPI/getPublicImages"
+
+// import NextLinkButton from "./nextLinkButton";
+// import LinkButton from "./linkButton";
+import LinkButtonBlack, {NextLinkButtonBlack} from "./linkButtonBlack";
+import LinkButtonTopper, {NextLinkButtonTopper} from "./linkButtonTopper";
+import LogoLittle from './logoLittle'
 
 interface props {
     contacts: contacts;
     siteLinks: siteLinks;
+    images: imagePayload;
 }
 
 function Topper(p: props) {
+
+    const [scrollPosition, setScrollPosition] = useState(0);
+
     const router = useRouter();
     const path = router.pathname;
     const screenSize = useContext(ScreenWidth);
-
-    console.log(p.contacts.phone, p?.contacts?.phone)
-
     const telephoneText = screenSize.width >= 1024 && p?.contacts?.phone ? addDashes(p.contacts.phone) : "";
     const locationText = screenSize.width >= 1024 && p?.contacts?.address ? p.contacts.address : "";
-    const locationLink = p.siteLinks.googleLink ? p?.siteLinks?.googleLink : "";
-    const repairText = screenSize.width >= 1024 ? "Request Service" : "";
+    const locationLink = p?.siteLinks?.googleLink ? p.siteLinks.googleLink : "";
+    const repairText = screenSize.width >= 1024 ? "Contact Us" : "";
     const calendarText = screenSize.width >= 1024 && p?.contacts?.openShort ? p.contacts.openShort : "";
 
+
+    const handleScroll = () => {
+        const position = window.pageYOffset;
+        setScrollPosition(position);
+    };
+
+    useEffect(() => {
+        window.addEventListener('scroll', handleScroll, { passive: true });
+
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
+    
+
     return (
-        <div className="z-20 flex right-0 fixed justify-end p-2 gap-2 ">
+        <>
+        <div className='h-10 bg-zinc-700'>
+            <div className='w-4/5 mx-auto flex justify-center gap-8'>
             {path !== "/calendar" && screenSize.width > 768 ? (
-                <NextLinkButton text={calendarText} icon={<GoCalendar className="h-5 w-5 xs:h-7  xs:w-7" />} link="/calendar" />
+                <NextLinkButtonTopper text={calendarText} icon={<GoCalendar className="h-4 w-4 xs:h-7  xs:w-7" />} link="/calendar" />
             ) : (
                 <></>
             )}
+            <LinkButtonTopper text={locationText} link={locationLink} icon={<HiOutlineLocationMarker className="h-4 w-4 xs:h-7 xs:w-7" />} />
+            <LinkButtonTopper text={telephoneText} link={`tel:${p.contacts.phone}`} icon={<BsTelephoneInboundFill className="h-4 w-4 xs:h-7 xs:w-7" />} />
+            </div>
+        </div>
+        <div className="z-20 flex right-0 sticky top-0 justify-center p-2 gap-2 bg-highLight w-screen my-auto">
+            
+            {path !== "/service" ? (
+                    <NextLinkButtonBlack text='Services' icon={<></>} link="/service" />
+                ) : (
+                    <></>
+                )}
+                
+            <LogoLittle logo={p?.images?.logoImage ? p.images.logoImage : ''} position={scrollPosition}/>
+                
 
-            <LinkButton text={locationText} link={locationLink} icon={<HiOutlineLocationMarker className="h-5 w-5 xs:h-7  xs:w-7" />} />
-
-            <LinkButton text={telephoneText} link={`tel:${p.contacts.phone}`} icon={<BsTelephoneInboundFill className="h-5 w-5 xs:h-7  xs:w-7" />} />
 
             {path !== "/quote" ? (
-                <NextLinkButton text={repairText} icon={<GiAutoRepair className="h-5 w-5 xs:h-7  xs:w-7" />} link="/quote" highlight={true} />
+                <NextLinkButtonBlack text={repairText} icon={<></>} link="/quote" />
             ) : (
                 <></>
             )}
 
-            {path !== "/" ? <NextLinkButton text="" link="/" icon={<AiOutlineHome className="h-5 w-5 xs:h-7  xs:w-7" />} /> : <></>}
+            {/* {path !== "/" ? <LinkButtonBlack text="" link="/" icon={<AiOutlineHome className="h-5 w-5 xs:h-7  xs:w-7" />} /> : <></>} */}
         </div>
+        </>
+
     );
 }
 
 export default Topper;
+
+
+//         <div className='h-10 bg-zinc-700'></div>

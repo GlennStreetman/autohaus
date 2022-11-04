@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { faqObj } from "../pages/api/getFAQ";
 import ParseMarkdown from "./../lib/parseMarkdown";
 import { FiChevronUp, FiChevronDown } from "react-icons/fi";
 import {faqPayload} from '../strapiAPI/getPublicFAQ'

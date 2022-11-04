@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
 import { useRouter } from "next/router";
-import NextLinkButton from "./nextLinkButton";
-import LinkButton from "./linkButton";
+
 import { PublicContext } from "../components/publicData";
 import { BsTelephoneInboundFill } from "react-icons/bs";
 import { HiOutlineLocationMarker } from "react-icons/hi";
@@ -16,6 +15,10 @@ import { addDashes } from "../lib/formatPhone";
 import {contacts} from "../strapiAPI/getContacts"
 import {siteLinks} from "../strapiAPI/getSiteLinks"
 
+import NextLinkButton from "./nextLinkButton";
+import LinkButton from "./linkButton";
+import LinkButtonBottom, {NextLinkButtonBottom} from './linkButtonBottom'
+
 interface props {
     contacts: contacts;
     siteLinks: siteLinks;
@@ -25,7 +28,7 @@ interface props {
 //flex grid elements
 const gutter = "p-2 col-span-0  md:col-span-1 lg:col-span-1 xl:col-span-2"; //2x
 const spacer = "p-2 col-span-0  md:col-span-0 lg:col-span-0 xl:col-span-2"; //1x
-const data = "p-2   col-span-12 md:col-span-5 lg:col-span-5 xl:col-span-3"; //2x
+const data = "p-2 col-span-12 md:col-span-5 lg:col-span-5 xl:col-span-3"; //2x
 
 function Bottom(p: props) {
     const router = useRouter();
@@ -47,12 +50,12 @@ function Bottom(p: props) {
                 <div className={gutter}></div>
                 <div className={data}>
                     <div className="flex flex-col gap-2">
-                        <div className="text-white font-semibold tracking-wider">Contact Details:</div>
-                        <LinkButton text={telephoneText} link={`tel:${p.contacts.phone}`} icon={<BsTelephoneInboundFill className="h-7 w-7" />} />
-                        <LinkButton text={email} link={`mailto: ${email}`} icon={<MdOutlineMailOutline className="h-7 w-7" />} />
-                        <LinkButton text={longAddress} link={locationLink} icon={<HiOutlineLocationMarker className="h-7 w-7" />} />
+                        <div className="text-highLight font-semibold tracking-wider">Contact Details:</div>
+                        <LinkButtonBottom text={telephoneText} link={`tel:${p.contacts.phone}`} icon={<BsTelephoneInboundFill className="h-7 w-7" />} />
+                        <LinkButtonBottom text={email} link={`mailto: ${email}`} icon={<MdOutlineMailOutline className="h-7 w-7" />} />
+                        <LinkButtonBottom text={longAddress} link={locationLink} icon={<HiOutlineLocationMarker className="h-7 w-7" />} />
                         {path !== "/calendar" ? (
-                            <NextLinkButton text={`${openShort} ${openLong}`} icon={<GoCalendar className="h-7 w-7" />} link="/calendar" />
+                            <NextLinkButtonBottom text={`${openShort} ${openLong}`} icon={<GoCalendar className="h-7 w-7" />} link="/calendar" />
                         ) : (
                             <></>
                         )}
@@ -62,17 +65,17 @@ function Bottom(p: props) {
                 <div className={spacer} />
                 <div className={data}>
                     <div className="flex flex-col gap-2">
-                        <div className="text-white font-semibold tracking-wider">Other Actions:</div>
-                        {path !== "/" ? <NextLinkButton text="Back" link="/" icon={<AiOutlineHome className="h-7 w-7" />} /> : <></>}
+                        <div className="text-highLight font-semibold tracking-wider">Other Actions:</div>
+                        {path !== "/" ? <NextLinkButtonBottom text="Back" link="/" icon={<AiOutlineHome className="h-7 w-7" />} /> : <></>}
                         {path !== "/quote" ? (
-                            <NextLinkButton text="Request Service Appointment" icon={<GiAutoRepair className="h-7 w-7" />} link="/quote" highlight={true} />
+                            <NextLinkButtonBottom text="Request Service Appointment" icon={<GiAutoRepair className="h-7 w-7" />} link="/quote" highlight={true} />
                         ) : (
                             <></>
                         )}
-                        <LinkButton text="Social" link={socialLink} icon={<AiOutlineInstagram className="h-7 w-7" />} />
-                        <LinkButton text="Google Reviews" link={reviewLink} icon={<FcGoogle className="h-7 w-7 " />} />
-                        <NextLinkButton text="Careers" icon={<GiMechanicGarage className="h-7 w-7" />} link="/careers" />
-                        <NextLinkButton text='Our Team' link={`/team`} icon={<AiOutlineTeam className="h-7 w-7" />} />
+                        <LinkButtonBottom text="Social" link={socialLink} icon={<AiOutlineInstagram className="h-7 w-7" />} />
+                        <LinkButtonBottom text="Google Reviews" link={reviewLink} icon={<FcGoogle className="h-7 w-7 " />} />
+                        <NextLinkButtonBottom text="Careers" icon={<GiMechanicGarage className="h-7 w-7" />} link="/careers" />
+                        <NextLinkButtonBottom text='Our Team' link={`/team`} icon={<AiOutlineTeam className="h-7 w-7" />} />
                     </div>
                 </div>
                 <div className="text-slate-500 absolute bottom-2 right-8">{process.env.NEXT_PUBLIC_BUSINESS_NAME_LEGAL}</div>

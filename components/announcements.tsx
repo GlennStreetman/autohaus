@@ -1,32 +1,17 @@
-import { useState, useEffect, useRef } from "react";
+// import { useState, useEffect, useRef } from "react";
+import { bannerTextPayload} from "../strapiAPI/getBannerText"
+import NextLinkButton from './nextLinkButton'
 
-function Announcements(p) {
-    const [index, setIndex] = useState(0);
-    const [slides, setSlides] = useState([]);
-    const timeoutRef = useRef(null);
-
-    const delay = 3250;
-
-    function resetTimeout() {
-        if (timeoutRef.current) {
-            clearTimeout(timeoutRef.current);
-        }
-    }
-
-    useEffect(() => {
-        const slideText = p?.text ? p.text.split(",") : [""];
-        setSlides(slideText);
-        resetTimeout();
-        timeoutRef.current = setTimeout(() => setIndex((prevIndex) => (prevIndex === slides.length - 1 ? 0 : prevIndex + 1)), delay);
-
-        return () => {
-            resetTimeout();
-        };
-    }, [index]);
+interface props {
+    bannerTexts: bannerTextPayload
+ }
+function Announcements(p: props) {
 
     return (
-        <div className="text-center font-extrabold lg:font-bold xl:font-normal font-banner text-1xl sm:text-2xl md:text-3xl xl:text-5xl [text-shadow:2px_2px_rgba(0,0,0,1)] antialiased whitespace-pre-line text-accentRed" key={`${index}-slide`}>
-            {slides[index]}
+        <div className='flex flex-col'>
+            <div className='text-highLight w-3/5 mr-auto text-center subpixel-antialiased [text-shadow:2px_2px_rgba(0,0,0,1)]  font-body font-black text-5xl whitespace-normal my-7'>{p?.bannerTexts?.Primary ? p.bannerTexts.Primary : ''}</div>
+            <div className='text-amber-500 tracking-wide w-3/5 mx-auto text-center whitespace-normal subpixel-antialiased [text-shadow:2px_2px_rgba(0,0,0,1)] font-semibold text-3xl my-7 '>{p?.bannerTexts?.secondary ? p.bannerTexts.secondary : ''}</div>
+            <div className='ml-10 mb-2 subpixel-antialiased font-body text-lg '>{p?.bannerTexts?.link ? <NextLinkButton text={p.bannerTexts.linkText} link={p.bannerTexts.link} icon={<></>} /> : ''}</div>
         </div>
     );
 }
