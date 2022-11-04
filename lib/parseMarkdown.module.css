@@ -1,31 +1,27 @@
 .article {
-    @apply whitespace-pre-line;
+    @apply whitespace-pre-line text-left;
     font-family: Open Sans, sans-serif, Roboto-Condensed, Roboto,-apple-system, BlinkMacSystemFont, Segoe UI, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
 .article h1 {
-    @apply text-secondary font-bold text-4xl inline;
+    @apply font-bold text-4xl inline;
     font-family: Open Sans, sans-serif,Roboto-Condensed, Roboto,-apple-system, BlinkMacSystemFont, Segoe UI, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
 .article h2 {
-    @apply text-accentBlue font-bold text-lg inline;
+    @apply font-bold text-lg inline;
 }
 
 .article h3 {
-    @apply text-accentBlue font-bold text-sm inline;
-}
-
-.article p {
-    @apply text-primary pb-2;
+    @apply  font-bold text-sm inline;
 }
 
 .article a {
-    @apply text-accentBlue font-bold text-lg italic;
+    @apply text-highLightFade font-bold text-lg italic ;
 }
 
 .article a:hover {
-    @apply text-accent font-bold text-lg italic;
+    @apply text-highLight font-bold text-lg italic;
 }
 
 .title {
@@ -37,7 +33,7 @@
 }
 
 .article blockquote {
-    @apply bg-secondary text-xs text-accent p-3 rounded-md;
+    @apply  p-3 rounded-md;
 }
 
 .article table {
@@ -45,9 +41,13 @@
 }
 
 .article thead tr td {
-    @apply text-accent font-bold text-lg italic;
+    @apply font-bold text-lg italic;
 }
 
 .article td {
-    @apply text-primary p-2;
+    @apply p-2;
+}
+
+.article p {
+    @apply mb-2 
 }

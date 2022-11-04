@@ -1,36 +1,49 @@
 import ParseMarkdown from "./../lib/parseMarkdown";
-import {siteText} from "../strapiAPI/getSiteText"
-
-
-//flex grid elements
-const gutter = " hidden lg:block lg:col-span-1 "; //2x
-const dataLeft = "col-span-12 md:col-span-12 lg:col-span-10"; //2x
+import { whyPayload} from "../strapiAPI/getWhyChecklist"
+import {IoIosCheckmarkCircleOutline} from 'react-icons/io'
+import Image from "next/image";
 
 interface props {
-    siteText: siteText
+    why: whyPayload
 }
 
 function Why(p: props) {
 
-    return (
-        <div className="flex flex-col bg-primary pt-3">
-            <div className="grid justify-items-center w-screen">
-                {p?.siteText?.aboutHeading && p.siteText.aboutHeading !== '' ? <div className="text-3xl font-bold text-center">
-                    <ParseMarkdown text={p.siteText.aboutHeading} />
-                </div> : <></>}
+    let mapChecklist = p.why.checkList.map((el, indx)=>{
+        return(<li className='mb-1 ml-4' key={`${indx}${el.whyItem.slice(0,10)}`}>
+            <div className='flex gap-2'>
+                <IoIosCheckmarkCircleOutline className="h-5 w-5 shrink" />
+                <ParseMarkdown text={el.whyItem} />
             </div>
-            <div className="grid grid-cols-12">
-                <div className={gutter} />
-                <div className={dataLeft}>
-                    <div >
-                        {p?.siteText?.aboutBody ? <ParseMarkdown text={p.siteText.aboutBody} /> : <></>}
+        </li>)
+    })
+
+    return (
+        <div className='bg-white p-4'>
+            <div className='grid grid-cols-12 mx-2 lg:mx-auto lg:w-3/5 text-center relative '>
+                <div className='col-span-12 lg:col-span-6 '>
+                    <div className="font-body text-2xl font-bold mb-6 mx-auto lg:mx-0">
+                        <ParseMarkdown text={p.why.heading}/>
                     </div>
-                    <br />
+                    <div className="font-body text-sm text-center mx-auto lg:mx-0">
+                        <ul>{mapChecklist}</ul>
+                    </div>
                 </div>
-                <div className={gutter} />
+                <div className='grow col-span-12 lg:col-span-6 '>
+                    <div className='relative h-[300px] w-[600px] mx-auto my-3 lg:my-0'>
+                        <Image
+                            src={p.why.picture}
+                            alt={`Our Services`}
+                            layout="fill"
+                            objectFit="fill"
+                        />
+                    </div>
+                </div>
             </div>
         </div>
     );
 }
 
 export default Why;
+
+

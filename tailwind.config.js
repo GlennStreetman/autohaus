@@ -45,7 +45,8 @@ module.exports = {
                 gold: "#5EEAD4",
                 accentRed: '#dc2626',
                 accentBlue: '#3b82f6',
-                highLight: '#fcb900' //gold
+                highLight: '#fcb900', //gold
+                highLightFade: '#fbbf24' //lightGold
             },
             fontFamily: {
                 logo: ["Open-Sans", "sans-serif", "Saira Stencil One", ],

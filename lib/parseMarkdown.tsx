@@ -29,7 +29,7 @@ function parseMarkdown(p: props) {
     });
 
     const cleanHTML = (
-        <div className={p.dark === true ? "dark" : ""}>
+        <div className={p.dark === true ? "dark " : ""}>
             <article className={styles.article} dangerouslySetInnerHTML={sanitizedData()} />
         </div>
     );

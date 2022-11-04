@@ -6,6 +6,7 @@ import { PublicHOC } from "../components/publicData";
 import Head from "next/head";
 import FAQ from "../components/faq";
 import Announcements from "../components/announcements";
+import Intro from '../components/intro'
 
 import {getPublicFAQ, faqPayload} from "../strapiAPI/getPublicFAQ"
 import {getPublicImages, imagePayload} from "../strapiAPI/getPublicImages"
@@ -15,18 +16,21 @@ import {getSiteLinks, siteLinks} from "../strapiAPI/getSiteLinks"
 import {getSiteText, siteText} from "../strapiAPI/getSiteText"
 import {getServices, ServicePayload} from "../strapiAPI/getServices"
 import {getBannerText, bannerTextPayload} from "../strapiAPI/getBannerText"
-
+import {getIntro, introPayload} from "../strapiAPI/getIntro"
+import {getWhyChecklist, whyPayload} from "../strapiAPI/getWhyChecklist"
 
 export async function getStaticProps() {
 
-    const faqData = await getPublicFAQ()
-    const imageUrls = await getPublicImages()
-    const teamList = await getTeam()
+    const faqData:faqPayload[]  = await getPublicFAQ()
+    const imageUrls:imagePayload | {} = await getPublicImages()
+    const teamList:teamMember[] = await getTeam()
     const contactData:contacts = await getContacts()
     const siteLinks:siteLinks = await getSiteLinks()
     const siteText:siteText = await getSiteText()
     const allServices:ServicePayload[] = await getServices()
     const bannerTexts:bannerTextPayload = await getBannerText()
+    const intro:introPayload = await getIntro()
+    const checklist:whyPayload = await getWhyChecklist()
 
 
     return {
@@ -39,6 +43,8 @@ export async function getStaticProps() {
             siteText: siteText,
             allServices: allServices,
             bannerTexts: bannerTexts,
+            intro: intro,
+            why: checklist,
         },
     };
 }
@@ -51,6 +57,8 @@ interface props {
     siteText: siteText;
     allServices: ServicePayload[];
     bannerTexts:bannerTextPayload;
+    intro: introPayload;
+    why: whyPayload;
 }
 
 interface staticData {
@@ -62,7 +70,9 @@ interface staticData {
     siteLinks: siteLinks;
     siteText: siteText;
     allServices: ServicePayload[];
-    bannerTexts:bannerTextPayload
+    bannerTexts:bannerTextPayload;
+    intro: introPayload;
+    why: whyPayload;
 }
 
 export function Home(p: props) {
@@ -76,12 +86,19 @@ export function Home(p: props) {
                 <section>
                     <Banner images={p.images}>
                             <div className='flex flex-col'>
-                            <div className='w-full h-12' />
+                            <div className='w-full h-16' />
                             <Announcements bannerTexts={p.bannerTexts} />
                             </div>
                     </Banner>
                 </section>
                 <section>
+                    <Intro intro={p.intro} />
+                </section>
+                <section>
+                    <Why why={p.why} />
+                </section>
+                {/* <section>
+                <section></section>
                     <Services services={p.allServices} />
                 </section>
                 <section>
@@ -92,7 +109,7 @@ export function Home(p: props) {
                 </section>
                 <section>
                     <FAQ faq={p.faq} />
-                </section>
+                </section> */}
             </main>
         </>
     );
@@ -101,7 +118,7 @@ export function Home(p: props) {
 export default function Main(p: staticData) {
     return (
         <PublicHOC contacts={p.contacts} siteLinks={p.siteLinks} images={p.images} >
-            <Home faq={p.faq} data={p.data} team={p.team} images={p.images} siteText={p.siteText} allServices={p.allServices} bannerTexts={p.bannerTexts}/>
+            <Home {...p} />
         </PublicHOC>
     );
 }
