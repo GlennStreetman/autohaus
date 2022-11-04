@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 interface props {
     text: string | Element | JSX.Element;
@@ -37,11 +38,27 @@ const textRegular =
     shrink m-auto
     `;
 
-function LinkButtonBottom(p: props) {
+    const textAtLocation =
+    `flex flex-row shrink p-2 bg-transparent gap-1  
+    text-base text-white hover:text-highLight font-heading  subpixel-antialiased tracking-wider
+    relative
+    inline-block
+    shrink m-auto
+    underline
+    decoration-white
+    decoration-2
+    underline-offset-2
+    `;
+
+export function NextLinkButtonBottom(p: props) {
+
+    const router = useRouter();
+    const path = router.pathname;
+
+    if (path !== p.link) {
     return (
 
         <div className="my-auto">
-            {p.newtab === true ? (
                 <div className="flex z-20">
                     <Link href={p.link}>
                     <a target="_blank"  className={textRegular}>
@@ -53,28 +70,25 @@ function LinkButtonBottom(p: props) {
                     </Link>
                     <div className="flex grow" />
                 </div>
-            ) : (
-                <div className="flex z-20">
-                    <Link href={p.link}>
-                    <a href={p.link} className={textRegular}>
-                        {p.icon ? p.icon : <></>}
-                        <div className="flex">
-                            <div className="shrink m-auto">{p.text}</div>
-                        </div>
-                    </a>
-                    </Link>
-                    <div className="flex grow" />
-                </div>
-            )}
         </div>
     );
+    } else {
+        <div className="my-auto">
+        <div className="flex z-20">
+                {p.icon ? p.icon : <></>}
+                <div className="flex textAtLocation">
+                    <div className="shrink m-auto">{p.text}</div>
+                </div>
+            <div className="flex grow" />
+        </div>
+</div>
+    }
 }
 
-export function NextLinkButtonBottom(p: props) {
+function LinkButtonBottom(p: props) {
     return (
 
         <div className="my-auto">
-            {p.newtab === true ? (
                 <div className="flex z-20">
                     <a target="_blank" href={p.link} className={textRegular}>
                         {p.icon ? p.icon : <></>}
@@ -84,17 +98,6 @@ export function NextLinkButtonBottom(p: props) {
                     </a>
                     <div className="flex grow" />
                 </div>
-            ) : (
-                <div className="flex z-20">
-                    <a href={p.link} className={textRegular}>
-                        {p.icon ? p.icon : <></>}
-                        <div className="flex">
-                            <div className="shrink m-auto">{p.text}</div>
-                        </div>
-                    </a>
-                    <div className="flex grow" />
-                </div>
-            )}
         </div>
     );
 }

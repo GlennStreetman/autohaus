@@ -75,7 +75,7 @@ const options = {
 
 export interface whyPayload {
     heading: string,
-    checkList: Checklist | [],
+    checkList: Checklist[] | [],
     picture: string
 }
 

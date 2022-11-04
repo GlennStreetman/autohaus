@@ -70,24 +70,11 @@ function Topper(p: props) {
             </div>
         </div>
         <div className="z-20 flex right-0 sticky top-0 justify-center p-2 gap-2 bg-highLight w-screen my-auto">
-            
-            {path !== "/service" ? (
-                    <NextLinkButtonBlack text='Services' icon={<></>} link="/service" />
-                ) : (
-                    <></>
-                )}
-                
-            <LogoLittle logo={p?.images?.logoImage ? p.images.logoImage : ''} position={scrollPosition}/>
-                
-
-
-            {path !== "/quote" ? (
-                <NextLinkButtonBlack text={repairText} icon={<></>} link="/quote" />
-            ) : (
-                <></>
-            )}
-
-            {/* {path !== "/" ? <LinkButtonBlack text="" link="/" icon={<AiOutlineHome className="h-5 w-5 xs:h-7  xs:w-7" />} /> : <></>} */}
+        <NextLinkButtonBlack text="Home" link="/" icon={<></>} />
+        <NextLinkButtonBlack text='About Us' icon={<></>} link="/about" />      
+        <LogoLittle logo={p?.images?.logoImage ? p.images.logoImage : ''} position={scrollPosition}/>
+        <NextLinkButtonBlack text='Services' icon={<></>} link="/service" />       
+        <NextLinkButtonBlack text={repairText} icon={<></>} link="/quote" />
         </div>
         </>
 

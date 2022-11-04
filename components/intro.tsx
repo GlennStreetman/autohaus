@@ -3,19 +3,23 @@ import {introPayload} from "../strapiAPI/getIntro"
 
 
 interface props {
-    intro: introPayload
+    heading: string;
+    body: string;
+    override?: string;
 }
 
 function Intro(p: props) {
 
     return (
         <div className='bg-white p-4'>
-            <div className='mx-2 lg:mx-auto lg:w-3/5 text-center '>
-                <div className="font-body text-2xl font-bold">
-                    <ParseMarkdown text={p.intro.heading}/>
+            <div className='lg:mx-auto lg:w-3/5'>
+                <div className="font-body text-3xl font-bold">
+                    <div className={p.override ? p.override : ''}>
+                        {p.heading}
+                    </div>
                 </div>
-                <div className="font-body text-sm text-center mx-auto">
-                    <ParseMarkdown text= {p.intro.textBody}/>
+                <div className="font-body text-sm mx-auto">
+                    <ParseMarkdown text= {p.body}/>
                 </div>
                 <div>
                 </div>

@@ -93,6 +93,7 @@
     export interface Attributes {
         name: string;
         bannerText: string;
+        shortDescription: string;
         orderNumber: number;
         createdAt: Date;
         updatedAt: Date;
@@ -137,6 +138,7 @@ export interface subSection {
 export interface ServicePayload {
     name: string;
     bannerText: string;
+    shortDescription: string;
     orderNumber: number;
     bannerImage: string;
     serviceSection: subSection[];
@@ -160,6 +162,7 @@ export const getServices = async function():Promise<ServicePayload[]>{
                   name,
                   bannerText,
                   orderNumber,
+                  shortDescription,
                   bannerImage {
                     data{
                       attributes{
@@ -199,11 +202,12 @@ export const getServices = async function():Promise<ServicePayload[]>{
     const data = await response.json();
 
     const dataPackage = data.data.services.data
-    const trimPackage = dataPackage.reduce((acc, el, indx)=>{
+    const trimPackage:ServicePayload[] = dataPackage.reduce((acc, el, indx)=>{
       acc.push({})
       const elAt = el.attributes
       acc[indx].name = elAt.name
       acc[indx].bannerText = elAt.bannerText
+      acc[indx].shortDescription = elAt.shortDescription
       acc[indx].orderNumber = elAt.orderNumber
       acc[indx].bannerImage = elAt.bannerImage.data.attributes.url
       acc[indx].serviceSection = []

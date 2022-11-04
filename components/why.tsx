@@ -22,8 +22,8 @@ function Why(p: props) {
         <div className='bg-white p-4'>
             <div className='grid grid-cols-12 mx-2 lg:mx-auto lg:w-3/5 text-center relative '>
                 <div className='col-span-12 lg:col-span-6 '>
-                    <div className="font-body text-2xl font-bold mb-6 mx-auto lg:mx-0">
-                        <ParseMarkdown text={p.why.heading}/>
+                    <div className="sectionHeading mb-5 lg:mx-0 text-left">
+                        {p.why.heading}
                     </div>
                     <div className="font-body text-sm text-center mx-auto lg:mx-0">
                         <ul>{mapChecklist}</ul>

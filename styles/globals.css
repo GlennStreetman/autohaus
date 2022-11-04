@@ -48,4 +48,11 @@ td {
     transition: opacity .5s ease
 }
 
+.sectionHeading {
+    @apply font-body text-2xl font-bold
+}
+
+.defaultWidth {
+    @apply mx-2 lg:mx-auto lg:w-3/5 bg-white
+}
 
