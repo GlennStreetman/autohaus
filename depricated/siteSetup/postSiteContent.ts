@@ -1,4 +1,4 @@
-import prisma from "../../../lib/prismaPool";
+import prisma from "./../../lib/prismaPool";
 import { getSession } from "next-auth/react";
 
 interface savedContact {
@@ -9,7 +9,7 @@ interface savedContact {
     openLong: string;
 }
 
-const staticRoutes = ["/", "/calendar", "/careers", "/manager", "/quote", "/resumeSubmitted", "/team", "/thankyou"];
+const staticRoutes = ["/", "/calendar", "/careers", "/manager", "/contact", "/resumeSubmitted", "/team", "/thankyou"];
 
 const dynamicRoutes = {
     service: () => {

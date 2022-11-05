@@ -44,7 +44,6 @@ export async function getStaticProps() {
 interface props {
     faq: faqPayload[];
     images: imagePayload;
-    data: string[];
     siteText: siteText;
     bannerTexts:bannerTextPayload;
     intro: introPayload;
@@ -54,7 +53,6 @@ interface props {
 interface staticData {
     faq: faqPayload[];
     images: imagePayload;
-    data: string[];
     contacts: contacts;
     siteLinks: siteLinks;
     siteText: siteText;

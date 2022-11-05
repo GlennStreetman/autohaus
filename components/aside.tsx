@@ -24,7 +24,7 @@ function Aside() {
     return (
         <div className="flex flex-col border-4 border-accent rounded-md bg-primary overflow-hidden">
             <div className="font-bold bg-black text-white text-center">Contact/Location</div>
-            <LineLinkButton text="Request Service Appointment" icon={<GiAutoRepair className="h-7 w-7" />} link="/quote" textSize="small" />
+            <LineLinkButton text="Contact Us" icon={<GiAutoRepair className="h-7 w-7" />} link="/contact" textSize="small" />
             <LineLinkButton text={telephoneText} link={`tel:${publicData.phone}`} icon={<BsTelephoneInboundFill className="h-7 w-7" />} textSize="small" />
             <LineLinkButton text={email} link={`mailto: ${email}`} icon={<MdOutlineMailOutline className="h-7 w-7" />} textSize="small" />
             <LineLinkButton text={longAddress} link={locationLink} icon={<HiOutlineLocationMarker className="h-7 w-7" />} textSize="small" />

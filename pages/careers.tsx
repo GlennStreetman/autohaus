@@ -228,7 +228,7 @@ function Careers(p: props) {
                 <div className={gutter} />
                 <div className={body}>
                     <OutlinedSurface>
-                        <div className="flex justify-center text-accentRed active:bg-strong text-3xl font-bold p-6">Apply to join the team!</div>
+                        <div className="sectionHeading my-8 text-center ">Apply to join the {process.env.NEXT_PUBLIC_BUSINESS_NAME} team!</div>
                         <div className="grid grid-row grid-cols-12 gap-x-2 gap-y-4">
                             <div className={big}>
                                 <LabeledInput
@@ -404,7 +404,7 @@ interface staticData {
 
 export default function Main(p: staticData) {
     return (
-        <PublicHOC contacts={p.contacts} siteLinks={p.siteLinks}>
+        <PublicHOC contacts={p.contacts} siteLinks={p.siteLinks} images={p.images} >
             <Careers faq={p.faq} data={p.data} team={p.team} images={p.images} siteText={p.siteText} allServices={p.allServices} />
         </PublicHOC>
     );

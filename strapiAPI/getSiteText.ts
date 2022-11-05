@@ -10,6 +10,7 @@ export interface siteTextRaw {
     updatedAt: Date;
     publishedAt: Date;
     aboutBody: string;
+    contactPageSiteText: string;
 }
 
 export interface Data {
@@ -33,6 +34,7 @@ export interface siteText {
     holidayMessage: string;
     thanksService: string;
     aboutBody: string;
+    contactPageSiteText;
 }
 
 
@@ -47,6 +49,7 @@ export const getSiteText = async function():Promise<siteText>{
         holidayMessage: siteText?.data?.attributes?.holidayMessage ? siteText.data.attributes.holidayMessage : '',
         thanksService: siteText?.data?.attributes?.thanksService ? siteText.data.attributes.thanksService : '',
         aboutBody: siteText?.data?.attributes?.aboutBody ? siteText.data.attributes.aboutBody : '',
+        contactPageSiteText: siteText?.data?.attributes?.contactPageSiteText ? siteText.data.attributes.contactPageSiteText : '',
     }
     return data
 }

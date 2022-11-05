@@ -60,7 +60,7 @@ interface staticData {
 }
 
 const gutter = "col-span-0 lg:col-span-1 xl:col-span-3"; //2x
-const body = "col-span-12 lg:col-span-10 xl:col-span-6 mb-4  text-white p-2 whitespace-pre-line"; //1x
+const body = "text-black col-span-12 lg:col-span-10 xl:col-span-6 mb-4  text-white p-2 whitespace-pre-line"; //1x
 
 function Thankyou(p: props) {
     return (
@@ -71,19 +71,18 @@ function Thankyou(p: props) {
             <Banner images={p.images}>
                 <></>
             </Banner>
-            <div className="grid grid-row grid-cols-12 p-1 bg-black">
+            <div className="grid grid-row grid-cols-12 p-1 bg-white">
                 <div className={gutter}></div>
                 <div className={body}>{p.siteText.thanksResume}</div>
                 <div className={gutter}></div>
             </div>
-            <Why siteText={p.siteText}/>
         </div>
     );
 }
 
 export default function Main(p: staticData) {
     return (
-        <PublicHOC contacts={p.contacts} siteLinks={p.siteLinks}>
+        <PublicHOC contacts={p.contacts} siteLinks={p.siteLinks} images={p.images} >
             <Thankyou faq={p.faq} data={p.data} team={p.team} images={p.images} siteText={p.siteText} allServices={p.allServices}/>
         </PublicHOC>
     );

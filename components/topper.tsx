@@ -68,7 +68,7 @@ function Topper(p: props) {
             <NextLinkButtonBlack text='About Us' icon={<></>} link="/about" />      
             <LogoLittle logo={p?.images?.logoImage ? p.images.logoImage : ''} position={scrollPosition}/>
             <NextLinkButtonBlack text='Services' icon={<></>} link="/service" />       
-            <NextLinkButtonBlack text={repairText} icon={<></>} link="/quote" />
+            <NextLinkButtonBlack text={repairText} icon={<></>} link="/contact" />
         </div>
         </>
 

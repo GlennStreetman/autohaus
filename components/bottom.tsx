@@ -42,6 +42,7 @@ function Bottom(p: props) {
                     <div className="flex flex-col gap-2">
                         <div className="text-highLight font-semibold tracking-wider">Contact Details:</div>
                         <LinkButtonBottom text={telephoneText} link={`tel:${p.contacts.phone}`} icon={<BsTelephoneInboundFill className="h-7 w-7" />} />
+                        <NextLinkButtonBottom text="Contact Us / Request Appointment" icon={<GiAutoRepair className="h-7 w-7" />} link="/contact" />
                         <LinkButtonBottom text={email} link={`mailto: ${email}`} icon={<MdOutlineMailOutline className="h-7 w-7" />} />
                         <LinkButtonBottom text={longAddress} link={locationLink} icon={<HiOutlineLocationMarker className="h-7 w-7" />} />
                         <NextLinkButtonBottom text={`${openShort} ${openLong}`} icon={<GoCalendar className="h-7 w-7" />} link="/calendar" />
@@ -52,11 +53,11 @@ function Bottom(p: props) {
                     <div className="flex flex-col gap-2">
                         <div className="text-highLight font-semibold tracking-wider">Other Actions:</div>
                         <NextLinkButtonBottom text="Home" link="/" icon={<AiOutlineHome className="h-7 w-7" />} /> 
-                        <NextLinkButtonBottom text="Request Service Appointment" icon={<GiAutoRepair className="h-7 w-7" />} link="/quote" />
+                        <NextLinkButtonBottom text='About Us' link={`/team`} icon={<AiOutlineTeam className="h-7 w-7" />} />
                         <LinkButtonBottom text="Social" link={socialLink} icon={<AiOutlineInstagram className="h-7 w-7" />} />
                         <LinkButtonBottom text="Google Reviews" link={reviewLink} icon={<FcGoogle className="h-7 w-7 " />} />
                         <NextLinkButtonBottom text="Careers" icon={<GiMechanicGarage className="h-7 w-7" />} link="/careers" />
-                        <NextLinkButtonBottom text='Our Team' link={`/team`} icon={<AiOutlineTeam className="h-7 w-7" />} />
+
                     </div>
                 </div>
                 <div className="text-slate-500 absolute bottom-2 right-8">{process.env.NEXT_PUBLIC_BUSINESS_NAME_LEGAL}</div>

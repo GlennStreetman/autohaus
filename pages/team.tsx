@@ -1,5 +1,4 @@
 import Image from "next/image";
-import Banner from "../components/banner";
 import ParseMarkdown from "./../lib/parseMarkdown";
 import styles from "./team.module.css";
 import { PublicHOC } from "../components/publicData";
@@ -91,9 +90,6 @@ function Team(p: props) {
 
     return (
         <>
-            <Banner  images={p.images}>
-                <div className={largeTextStyling}>Meet {process.env.NEXT_PUBLIC_BUSINESS_NAME} Team</div>
-            </Banner>
             <article className={styles.article}>
                 <div className="flex flex-col">{mapEmployees}</div>
             </article>
@@ -117,7 +113,7 @@ interface props {
 
 export default function Main(p: staticProps) {
     return (
-        <PublicHOC contacts={p.contacts} siteLinks={p.siteLinks}>
+        <PublicHOC contacts={p.contacts} siteLinks={p.siteLinks} images={p.images} >
             <Head>
                 <title>{`${process.env.NEXT_PUBLIC_BUSINESS_NAME}: Meet the team`}</title>
             </Head>

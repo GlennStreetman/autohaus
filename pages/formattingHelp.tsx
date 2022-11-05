@@ -115,5 +115,5 @@ const rawtext = `### hi
 ![text](911s_logo.png)
 [Link to external site](https://gstreet.dev)
 [Link to home page](/)
-[Link to Quote page](/quote)
+[Link to Contact page](/contact)
  `;

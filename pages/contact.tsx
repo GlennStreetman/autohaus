@@ -1,11 +1,10 @@
 import { useState } from "react";
-import Banner from "./../components/banner";
+// import Banner from "../components/banner";
 import LabeledInput from "../components/labeledInput";
 import ReCAPTCHA from "react-google-recaptcha";
 import { useRouter } from "next/router";
-import OutlinedSurface from "./../components/outlinedSurface";
+import OutlinedSurface from "../components/outlinedSurface";
 import { PublicHOC } from "../components/publicData";
-import prisma from "../lib/prismaPool";
 import Head from "next/head";
 import LinkButton from "../components/linkButton";
 import { vinLengthText, testVin, formatVin } from "../lib/vin";
@@ -50,7 +49,6 @@ interface props {
     faq: faqPayload[];
     images: imagePayload;
     team: teamMember[];
-    data: string[];
     siteText: siteText;
     allServices: ServicePayload[];
 }
@@ -59,7 +57,6 @@ interface staticData {
     faq: faqPayload[];
     images: imagePayload;
     team: teamMember[];
-    data: string[];
     contacts: contacts;
     siteLinks: siteLinks;
     siteText: siteText;
@@ -228,21 +225,19 @@ function Quote(p: props) {
             },
             body: JSON.stringify(data),
         });
-        // .then((response) => response.json())
-        // .then((data) => console.log(data));
     }
 
     return (
         <>
             <Head>
-                <title>{`${process.env.NEXT_PUBLIC_BUSINESS_NAME}: Request Service Appointment`}</title>
+                <title>{`${process.env.NEXT_PUBLIC_BUSINESS_NAME}: Contact Us: `}</title>
             </Head>
-            <Banner images={p.images} />
+            <div className='h-[125px] bg-white' />
             <div className="grid grid-row grid-cols-12 p-1 bg-white">
                 <div className={gutter} />
                 <div className={body}>
                     <OutlinedSurface>
-                        <div className="flex justify-center text-secondary active:bg-strong text-3xl font-bold p-6">Request Service Appointment</div>
+                        <div className="sectionHeading my-8 text-4xl text-center">Contact Us</div>
                         <div className="grid grid-row grid-cols-12 gap-x-2 gap-y-4">
                             <div className={big}>
                                 <LabeledInput
@@ -293,7 +288,7 @@ function Quote(p: props) {
                                 />
                             </div>
                             </div>       
-                            <div className="flex justify-center text-secondary active:bg-strong text-3xl font-bold p-6">Optional Info: </div>
+                            <div className="sectionHeading my-8 text-center">Optional Appointment Info: </div>
                             <div className="grid grid-row grid-cols-12 gap-x-2 gap-y-4">
                             <div className={small}>
                                 <LabeledInput fieldType="date" id="date1_id" label="Preferred Date" value={date1} onClickCallback={setDate1} />
@@ -396,7 +391,7 @@ function Quote(p: props) {
                                         className="h-[78px] border-2 p-2 rounded-md bg-secondary shadow-sm shadow-slate-600 hover:bg-weak hover:border-black hover:text-accent active:bg-strong text-2x font-bold"
                                         onClick={processRequest}
                                     >
-                                        Request Appointment
+                                        Submit Request
                                     </button>
                                 </div>
                             </div>
@@ -414,8 +409,8 @@ function Quote(p: props) {
 
 export default function Main(p: staticData) {
     return (
-        <PublicHOC contacts={p.contacts} siteLinks={p.siteLinks}>
-            <Quote faq={p.faq} data={p.data} team={p.team} images={p.images} siteText={p.siteText} allServices={p.allServices} />
+        <PublicHOC contacts={p.contacts} siteLinks={p.siteLinks} images={p.images} >
+            <Quote faq={p.faq} team={p.team} images={p.images} siteText={p.siteText} allServices={p.allServices} />
         </PublicHOC>
     );
 }
