@@ -1,5 +1,4 @@
 import Image from "next/image";
-import Logo from "./logo";
 import { imagePayload} from "../strapiAPI/getPublicImages"
 
 interface props {

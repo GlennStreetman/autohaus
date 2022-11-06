@@ -86,7 +86,7 @@ const submitEmployee = async (req, res) => {
                 const [pass, savedFile, fields]: any = await saveFile(req);
                 if (pass) {
                     await saveDataPost(req, savedFile.fileKey, fields);
-                    fetch(`${process.env.NEXTAUTH_URL}/api/revalidate?secret=${process.env.NEXT_REVALIDATE}&path=/team`);
+                    fetch(`${process.env.NEXTAUTH_URL}/api/revalidate?secret=${process.env.NEXT_REVALIDATE}&path=/about`);
                     fetch(`${process.env.NEXTAUTH_URL}/api/revalidate?secret=${process.env.NEXT_REVALIDATE}&path=/`);
                     res.status(200).json({ msg: "success" });
                 } else {

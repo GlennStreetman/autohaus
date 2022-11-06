@@ -12,10 +12,14 @@ import { addDashes } from "../lib/formatPhone";
 import {contacts} from "../strapiAPI/getContacts"
 import {siteLinks} from "../strapiAPI/getSiteLinks"
 import LinkButtonBottom, {NextLinkButtonBottom} from './linkButtonBottom'
+import Image from "next/image";
+import {imagePayload} from '../strapiAPI/getPublicImages'
+
 
 interface props {
     contacts: contacts;
     siteLinks: siteLinks;
+    images: imagePayload;
 }
 
 const gutter = "p-2 col-span-0  md:col-span-1 lg:col-span-1 xl:col-span-2"; //2x
@@ -23,6 +27,10 @@ const spacer = "p-2 col-span-0  md:col-span-0 lg:col-span-0 xl:col-span-2"; //1x
 const data = "p-2 col-span-12 md:col-span-5 lg:col-span-5 xl:col-span-3"; //2x
 
 function Bottom(p: props) {
+
+    const logoWhite = p?.images?.logoWhite ? 
+    <Image src={p.images.logoWhite} alt="Logo" layout="fill" objectFit="cover" /> : <></>
+    
 
     const telephoneText = p?.contacts?.phone ? addDashes(p.contacts.phone) : "";
     const email = p?.contacts?.serviceEmail ? p.contacts.serviceEmail : "";
@@ -32,7 +40,6 @@ function Bottom(p: props) {
     const reviewLink = p?.siteLinks?.reviewLink ? p.siteLinks.reviewLink : "";
     const openShort = p?.contacts?.openShort ? p.contacts.openShort : "";
     const openLong = p?.contacts?.openLong ? p.contacts.openLong : "";
-    console.log('cat')
     return (
 
         <div>
@@ -53,14 +60,19 @@ function Bottom(p: props) {
                     <div className="flex flex-col gap-2">
                         <div className="text-highLight font-semibold tracking-wider">Other Actions:</div>
                         <NextLinkButtonBottom text="Home" link="/" icon={<AiOutlineHome className="h-7 w-7" />} /> 
-                        <NextLinkButtonBottom text='About Us' link={`/team`} icon={<AiOutlineTeam className="h-7 w-7" />} />
+                        <NextLinkButtonBottom text='About Us' link={`/about`} icon={<AiOutlineTeam className="h-7 w-7" />} />
                         <LinkButtonBottom text="Social" link={socialLink} icon={<AiOutlineInstagram className="h-7 w-7" />} />
                         <LinkButtonBottom text="Google Reviews" link={reviewLink} icon={<FcGoogle className="h-7 w-7 " />} />
                         <NextLinkButtonBottom text="Careers" icon={<GiMechanicGarage className="h-7 w-7" />} link="/careers" />
 
                     </div>
                 </div>
-                <div className="text-slate-500 absolute bottom-2 right-8">{process.env.NEXT_PUBLIC_BUSINESS_NAME_LEGAL}</div>
+                <div className="text-slate-500 absolute bottom-2 right-8 flex flex-col">
+                    <div className='relative h-[100px] w[100px]'>
+                       {logoWhite}
+                    </div>
+                    <div>{process.env.NEXT_PUBLIC_BUSINESS_NAME_LEGAL}</div>
+                    </div>
                 <div className={gutter}></div>
             </div>
         </div>

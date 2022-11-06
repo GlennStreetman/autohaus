@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import AddNewTeamMember from "./team/addNewTeamMember";
-import MapTeamMembers from "./team/mapTeamMembers";
+import AddNewTeamMember from "./about/addNewTeamMember";
+import MapTeamMembers from "./about/mapTeamMembers";
 import IconButton from "./../iconButton";
 import { useSession } from "next-auth/react";
 import NextLinkButton from "../nextLinkButton";

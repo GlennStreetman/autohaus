@@ -11,7 +11,7 @@ export function PublicHOC(p) {
         <div className='absolute'>
             <Topper contacts={p.contacts} siteLinks={p.siteLinks} images={p.images}/>
             {p.children}
-            <Bottom contacts={p.contacts} siteLinks={p.siteLinks}/>
+            <Bottom contacts={p.contacts} siteLinks={p.siteLinks} images={p.images}/>
         </div>
     );
 }

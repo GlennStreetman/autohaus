@@ -9,7 +9,7 @@ interface savedContact {
     openLong: string;
 }
 
-const staticRoutes = ["/", "/calendar", "/careers", "/manager", "/contact", "/resumeSubmitted", "/team", "/thankyou"];
+const staticRoutes = ["/", "/calendar", "/careers", "/manager", "/contact", "/resumeSubmitted", "/about", "/thankyou"];
 
 const dynamicRoutes = {
     service: () => {

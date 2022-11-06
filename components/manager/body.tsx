@@ -17,7 +17,7 @@ import { FaQuestionCircle } from "react-icons/fa";
 import Holidays from "./holidays";
 import Resumes from "./resumes";
 import ServiceRequests from "./serviceRequests";
-import Team from "./team";
+import Team from "./about";
 import OurServices from "./ourServices";
 import Setup from "./setup";
 import Users from "./users";

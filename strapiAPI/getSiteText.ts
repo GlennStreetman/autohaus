@@ -11,6 +11,7 @@ export interface siteTextRaw {
     publishedAt: Date;
     aboutBody: string;
     contactPageSiteText: string;
+    LegalBusinessName: string;
 }
 
 export interface Data {
@@ -26,7 +27,6 @@ export interface RootObject {
     meta: Meta;
 }
 
-
 export interface siteText {
     FPBannerText: string;
     aboutHeading: string;
@@ -34,10 +34,9 @@ export interface siteText {
     holidayMessage: string;
     thanksService: string;
     aboutBody: string;
-    contactPageSiteText;
+    contactPageSiteText: string;
+    LegalBusinessName: string;
 }
-
-
 
 export const getSiteText = async function():Promise<siteText>{
     let get = await fetch(`${process.env.STRAPI_API}site-text`)
@@ -50,6 +49,7 @@ export const getSiteText = async function():Promise<siteText>{
         thanksService: siteText?.data?.attributes?.thanksService ? siteText.data.attributes.thanksService : '',
         aboutBody: siteText?.data?.attributes?.aboutBody ? siteText.data.attributes.aboutBody : '',
         contactPageSiteText: siteText?.data?.attributes?.contactPageSiteText ? siteText.data.attributes.contactPageSiteText : '',
+        LegalBusinessName: siteText?.data?.attributes?.LegalBusinessName ? siteText.data.attributes.LegalBusinessName : '',
     }
     return data
 }

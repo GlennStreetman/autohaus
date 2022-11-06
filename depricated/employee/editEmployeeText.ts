@@ -31,7 +31,7 @@ const editEmployeeText = async (req, res) => {
             try {
                 const body = JSON.parse(req.body);
                 await updateText(body);
-                fetch(`${process.env.NEXTAUTH_URL}/api/revalidate?secret=${process.env.NEXT_REVALIDATE}&path=/team`);
+                fetch(`${process.env.NEXTAUTH_URL}/api/revalidate?secret=${process.env.NEXT_REVALIDATE}&path=/about`);
                 res.status(200).json({ msg: "success" });
             } catch (err) {
                 console.log("/POST /employee/editEmployeeText Error:", err);

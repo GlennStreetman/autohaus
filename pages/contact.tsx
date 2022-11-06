@@ -19,6 +19,11 @@ import {getContacts, contacts} from "../strapiAPI/getContacts"
 import {getSiteLinks, siteLinks} from "../strapiAPI/getSiteLinks"
 import {getSiteText, siteText} from "../strapiAPI/getSiteText"
 import {getServices, ServicePayload} from "../strapiAPI/getServices"
+import {getGoogle, googleAPIPayload} from "../strapiAPI/getGoogleApi"
+
+import { BsTelephoneInboundFill } from "react-icons/bs";
+import { HiOutlineLocationMarker } from "react-icons/hi";
+
 
 
 export async function getStaticProps() {
@@ -30,6 +35,7 @@ export async function getStaticProps() {
     const siteLinks:siteLinks = await getSiteLinks()
     const siteText:siteText = await getSiteText()
     const allServices:ServicePayload[] = await getServices()
+    const mapAPI:googleAPIPayload = await getGoogle()
 
 
     return {
@@ -41,6 +47,7 @@ export async function getStaticProps() {
             siteLinks: siteLinks,
             siteText: siteText,
             allServices: allServices,
+            mapAPI: mapAPI,
         },
     };
 }
@@ -51,6 +58,8 @@ interface props {
     team: teamMember[];
     siteText: siteText;
     allServices: ServicePayload[];
+    contacts: contacts;
+    mapAPI: googleAPIPayload,
 }
 
 interface staticData {
@@ -61,6 +70,7 @@ interface staticData {
     siteLinks: siteLinks;
     siteText: siteText;
     allServices: ServicePayload[];
+    mapAPI: googleAPIPayload,
 }
 
 const timeOptions = [
@@ -233,11 +243,35 @@ function Quote(p: props) {
                 <title>{`${process.env.NEXT_PUBLIC_BUSINESS_NAME}: Contact Us: `}</title>
             </Head>
             <div className='h-[125px] bg-white' />
+
             <div className="grid grid-row grid-cols-12 p-1 bg-white">
                 <div className={gutter} />
+                
                 <div className={body}>
+                <div >
+                <div className="grid grid-cols-12 col-span-12 relative mb-4 gap-6">
+                                <div className='col-span-12 lg:col-span-6'>
+                                    <div className='outline outline-1 outline-slate-300 flex flex-inline gap-2'>
+                                        <div className='p-4 outline-inherit' ><BsTelephoneInboundFill className="h-4 w-4 xs:h-7 xs:w-7" /></div>
+                                        <div className='flex flex-col'>
+                                            <div>Have a question, Call now</div>
+                                            <div>{addDashes(p.contacts.phone)}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className='col-span-12 lg:col-span-6'>
+                                    <div className='outline outline-1 outline-slate-300  flex flex-inline gap-2'>
+                                        <div className='p-4 outline-inherit'><HiOutlineLocationMarker className="h-4 w-4 xs:h-7 xs:w-7" /></div>
+                                        <div className='flex flex-col'>
+                                            <div>Our Address</div>
+                                            <div>{p.contacts.addressLong}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                </div>
                     <OutlinedSurface>
-                        <div className="sectionHeading my-8 text-4xl text-center">Contact Us</div>
+                        <div className="sectionHeading my-8 text-4xl text-center">Contact Us:</div>
                         <div className="grid grid-row grid-cols-12 gap-x-2 gap-y-4">
                             <div className={big}>
                                 <LabeledInput
@@ -345,7 +379,7 @@ function Quote(p: props) {
                                     helperText={carYearHelp}
                                 />
                             </div>
-                            <div className="col-span-12 relative">
+                            <div className="grid grid-cols-12 col-span-12 relative">
                                 <div className={big}>
                                     <LabeledInput
                                         fieldType="text"
@@ -357,6 +391,11 @@ function Quote(p: props) {
                                         }}
                                         helperText={vinNumberHelp}
                                     />
+                                </div>
+                                <div className={big}>
+                                    <div className="flex justify-center ">
+                                            <LinkButton newtab={true} text="Help Finding Your VIN Number" link="https://www.stuttcars.com/porsche-data/porsche-vin-decoder/" />
+                                    </div>
                                 </div>
                             </div>
                             <div className="col-span-12 border-2 p-2 relative">
@@ -397,8 +436,16 @@ function Quote(p: props) {
                             </div>
                         </div>
                     </OutlinedSurface>
-                    <div className="flex justify-center ">
-                        <LinkButton newtab={true} text="Help Finding Your VIN Number" link="https://www.stuttcars.com/porsche-data/porsche-vin-decoder/" />
+                    <div className='flex'>
+                     <iframe
+                        width="1800"
+                        height="450"
+                        loading="lazy"
+                        allowFullScreen
+                        referrerPolicy="no-referrer-when-downgrade"
+                        src={`https://www.google.com/maps/embed/v1/place?key=${p.mapAPI.secretAPIKey}
+                            &q=${p.mapAPI.searchString}`}>
+                    </iframe>
                     </div>
                 </div>
                 <div className={gutter} />
@@ -410,7 +457,7 @@ function Quote(p: props) {
 export default function Main(p: staticData) {
     return (
         <PublicHOC contacts={p.contacts} siteLinks={p.siteLinks} images={p.images} >
-            <Quote faq={p.faq} team={p.team} images={p.images} siteText={p.siteText} allServices={p.allServices} />
+            <Quote faq={p.faq} team={p.team} images={p.images} siteText={p.siteText} allServices={p.allServices} contacts={p.contacts} mapAPI={p.mapAPI}/>
         </PublicHOC>
     );
 }

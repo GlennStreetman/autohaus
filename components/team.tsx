@@ -20,13 +20,13 @@ function Team(p: props) {
             </div>
             <div className={imgContent}>
             {p?.team?.[0]?.photoUrl? 
-            <a href='/team' className={imgBox}>
+            <a href='/about' className={imgBox}>
                     <Image alt="whyImage" src={`${p.team[0].photoUrl}`} layout="fill" objectFit="fill" />
                 </a>
             : <></>    
             } 
             {p?.team?.[1]?.photoUrl ? 
-                <a href='/team' className={imgBox}>
+                <a href='/about' className={imgBox}>
                     <Image alt="whyImage" src={`${p.team[1].photoUrl}`} layout="fill" objectFit="fill" />
                 </a>
                 : <></>

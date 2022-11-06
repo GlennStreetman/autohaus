@@ -1,7 +1,5 @@
 import Banner from "../components/banner";
-import Why from "../components/why";
-import React, { useContext } from "react";
-import { PublicContext } from "../components/publicData";
+import Faq from "../components/faq";
 import { PublicHOC } from "../components/publicData";
 import Head from "next/head";
 import { useRouter } from "next/router";
@@ -94,7 +92,7 @@ ${p.siteText.thanksService}
                 </div>
                 <div className={gutter}></div>
             </div>
-            <Why siteText={p.siteText} />
+            <Faq faq={p.faq} />
         </div>
     );
 }

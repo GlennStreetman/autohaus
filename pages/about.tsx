@@ -1,6 +1,6 @@
 import Image from "next/image";
-import ParseMarkdown from "./../lib/parseMarkdown";
-import styles from "./team.module.css";
+import ParseMarkdown from "../lib/parseMarkdown";
+import styles from "./about.module.css";
 import { PublicHOC } from "../components/publicData";
 import Head from "next/head";
 
