@@ -124,13 +124,13 @@ export const getPublicImages = async function():Promise<imagePayload | {}>{
     if (imageBlob?.data?.attributes) {
         let imageRaw = imageBlob.data.attributes
         let images:imagePayload = {
-            banner: imageRaw?.Banner?.data?.attributes?.url ? imageRaw?.Banner.data.attributes.url : null,
-            aboutImage: imageRaw?.aboutImage?.data?.attributes?.url ? imageRaw.aboutImage.data.attributes.url : null,
-            logoImage: imageRaw?.logoImage?.data?.attributes?.url ? imageRaw.logoImage.data.attributes.url : null,
-            emailLight: imageRaw?.emailLight?.data?.attributes?.url ? imageRaw.emailLight.data.attributes.url : null,
-            emailDark: imageRaw?.emailDark?.data?.attributes?.url ? imageRaw.emailDark.data.attributes.url : null,
-            emailImage: imageRaw?.emailImage?.data?.attributes?.url ? imageRaw.emailImage.data.attributes.url : null,
-            logoWhite: imageRaw?.logoWhite?.data?.attributes?.url ? imageRaw.logoWhite.data.attributes.url : null,
+            banner: imageRaw?.Banner?.data?.attributes?.url || '',
+            aboutImage: imageRaw?.aboutImage?.data?.attributes?.url || '',
+            logoImage: imageRaw?.logoImage?.data?.attributes?.url || '',
+            emailLight: imageRaw?.emailLight?.data?.attributes?.url || '',
+            emailDark: imageRaw?.emailDark?.data?.attributes?.url || '',
+            emailImage: imageRaw?.emailImage?.data?.attributes?.url || '',
+            logoWhite: imageRaw?.logoWhite?.data?.attributes?.url || '',
         }
         return images
     } else {

@@ -132,11 +132,11 @@ export const getTeam = async function():Promise<teamMember[]>{
     let teamListRaw: team[]  = teamData.data
     let teamList = teamListRaw.reduce((acc, tm:team)=>{
         let teamMember = {
-            name: tm.attributes.name,
-            title: tm.attributes.title,
-            order: tm.attributes.order,
-            description: tm.attributes.description,
-            photoUrl: tm?.attributes?.photo?.data?.attributes?.url ? tm.attributes.photo.data.attributes.url : '',
+            name: tm?.attributes?.name || '',
+            title: tm?.attributes?.title || '',
+            order: tm?.attributes?.order || '',
+            description: tm?.attributes?.description || '',
+            photoUrl: tm?.attributes?.photo?.data?.attributes?.url || '',
         }
         acc.push(teamMember)
         return acc

@@ -42,14 +42,14 @@ export const getSiteText = async function():Promise<siteText>{
     let get = await fetch(`${process.env.STRAPI_API}site-text`)
     let siteText = await get.json()
     let data:siteText = {
-        FPBannerText: siteText?.data?.attributes?.FPBannerText ? siteText.data.attributes.FPBannerText : '',
-        aboutHeading: siteText?.data?.attributes?.aboutHeading ? siteText.data.attributes.aboutHeading : '',
-        thanksResume: siteText?.data?.attributes?.thanksResume ? siteText.data.attributes.thanksResume : '',
-        holidayMessage: siteText?.data?.attributes?.holidayMessage ? siteText.data.attributes.holidayMessage : '',
-        thanksService: siteText?.data?.attributes?.thanksService ? siteText.data.attributes.thanksService : '',
-        aboutBody: siteText?.data?.attributes?.aboutBody ? siteText.data.attributes.aboutBody : '',
-        contactPageSiteText: siteText?.data?.attributes?.contactPageSiteText ? siteText.data.attributes.contactPageSiteText : '',
-        LegalBusinessName: siteText?.data?.attributes?.LegalBusinessName ? siteText.data.attributes.LegalBusinessName : '',
+        FPBannerText: siteText?.data?.attributes?.FPBannerText || '',
+        aboutHeading: siteText?.data?.attributes?.aboutHeading || '',
+        thanksResume: siteText?.data?.attributes?.thanksResume || '',
+        holidayMessage: siteText?.data?.attributes?.holidayMessage || '',
+        thanksService: siteText?.data?.attributes?.thanksService || '',
+        aboutBody: siteText?.data?.attributes?.aboutBody || '',
+        contactPageSiteText: siteText?.data?.attributes?.contactPageSiteText || '',
+        LegalBusinessName: siteText?.data?.attributes?.LegalBusinessName || '',
     }
     return data
 }

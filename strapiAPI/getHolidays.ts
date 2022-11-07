@@ -42,9 +42,9 @@ export const getHoliday = async function():Promise<holiday[]>{
     let payload = holiday.data.reduce((acc, el)=>{
         
         let data:holiday = {
-            targetDate: el?.attributes?.targetDate ? el.attributes.targetDate : '',
-            holiday: el?.attributes?.holiday ? el.attributes.holiday : '',
-            daysClosed: el?.attributes?.daysClosed ? el.attributes.daysClosed : '',
+            targetDate: el?.attributes?.targetDate || '',
+            holiday: el?.attributes?.holiday || '',
+            daysClosed: el?.attributes?.daysClosed || '',
         }
         acc.push(data)
         return acc

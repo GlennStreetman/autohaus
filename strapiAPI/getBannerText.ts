@@ -46,10 +46,10 @@ export const getBannerText = async function():Promise<bannerTextPayload>{
     let bannerText = await get.json()
     
     let data:bannerTextPayload = {
-        Primary: bannerText?.data?.attributes?.Primary ? bannerText.data.attributes.Primary : '',
-        secondary: bannerText?.data?.attributes?.secondary ? bannerText.data.attributes.secondary : '',
-        link: bannerText?.data?.attributes?.link ? bannerText.data.attributes.link : '',
-        linkText: bannerText?.data?.attributes?.linkText ? bannerText.data.attributes.linkText : '',
+        Primary: bannerText?.data?.attributes?.Primary || '',
+        secondary: bannerText?.data?.attributes?.secondary || '',
+        link: bannerText?.data?.attributes?.link || '',
+        linkText: bannerText?.data?.attributes?.linkText || '',
 
     }
     return data

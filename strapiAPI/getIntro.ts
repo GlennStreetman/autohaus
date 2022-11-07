@@ -37,10 +37,10 @@ export const getIntro = async function():Promise<introPayload>{
     let intro:RootObject = await get.json()
     
     let payload:introPayload = {
-        heading: intro?.data?.attributes?.heading ? intro.data.attributes.heading: '',
-        textBody: intro?.data?.attributes?.textBody ? intro.data.attributes.textBody: '',
-        linkName: intro?.data?.attributes?.linkName ? intro.data.attributes.linkName: '',
-        link: intro?.data?.attributes?.link ? intro.data.attributes.link: '',
+        heading: intro?.data?.attributes?.heading || '',
+        textBody: intro?.data?.attributes?.textBody || '',
+        linkName: intro?.data?.attributes?.linkName || '',
+        link: intro?.data?.attributes?.link || '',
     }
 
     return payload

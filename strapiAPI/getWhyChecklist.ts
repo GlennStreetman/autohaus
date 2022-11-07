@@ -86,9 +86,9 @@ export const getWhyChecklist = async function():Promise<whyPayload>{
     const dataAtts = data?.data?.homepageWhyChecklist?.data?.attributes ? data.data.homepageWhyChecklist.data.attributes : {}
     
     let payload:whyPayload = {
-        heading: dataAtts?.whyHeading ? dataAtts.whyHeading: '',
-        checkList: dataAtts?.Checklist ? dataAtts.Checklist: [],
-        picture: dataAtts?.whyPicture?.data?.attributes?.url ? dataAtts.whyPicture.data.attributes.url: '',
+        heading: dataAtts?.whyHeading || '',
+        checkList: dataAtts?.Checklist || [],
+        picture: dataAtts?.whyPicture?.data?.attributes?.url || '',
     }
 
     return payload

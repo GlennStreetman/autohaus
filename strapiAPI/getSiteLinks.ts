@@ -33,9 +33,9 @@ export const getSiteLinks = async function():Promise<siteLinks>{
     let get = await fetch(`${process.env.STRAPI_API}site-link`)
     let siteLinks = await get.json()
     let data:siteLinks = {
-        googleLink: siteLinks?.data?.attributes?.googleLink ? siteLinks.data.attributes.googleLink : '',
-        reviewLink: siteLinks?.data?.attributes?.reviewLink ? siteLinks.data.attributes.reviewLink : '',
-        socialLink: siteLinks?.data?.attributes?.socialLink ? siteLinks.data.attributes.socialLink : '',
+        googleLink: siteLinks?.data?.attributes?.googleLink || '',
+        reviewLink: siteLinks?.data?.attributes?.reviewLink || '',
+        socialLink: siteLinks?.data?.attributes?.socialLink || '',
     }
     return data
 }
