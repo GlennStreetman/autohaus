@@ -26,9 +26,6 @@ export interface googleAPIPayload {
     searchString: string;
 }
 
-
-
-
 export const getGoogle = async function():Promise<googleAPIPayload>{
     let get = await fetch(`${process.env.STRAPI_API}google-map`)
     let apiData:RootObject = await get.json()
@@ -37,8 +34,6 @@ export const getGoogle = async function():Promise<googleAPIPayload>{
         secretAPIKey: apiData?.data?.attributes?.secretAPIKey || '',
         searchString: apiData?.data?.attributes?.searchString || '',
     }
-
-    console.log('googleAPI payload', payload)
 
     return payload
 }

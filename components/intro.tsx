@@ -1,5 +1,4 @@
 import ParseMarkdown from "../lib/parseMarkdown";
-import {introPayload} from "../strapiAPI/getIntro"
 
 
 interface props {

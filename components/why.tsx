@@ -30,7 +30,7 @@ function Why(p: props) {
                     </div>
                 </div>
                 <div className='grow col-span-12 lg:col-span-6 '>
-                    <div className='relative h-[300px] w-[600px] mx-auto my-3 lg:my-0'>
+                    <div className='relative h-[150px] lg:h-[250px] xl:h-[300px]  w-[300px] lg:w-[500px] xl:w-[600px] mx-auto my-3 lg:my-0'>
                         <Image
                             src={p.why.picture}
                             alt={`Our Services`}
