@@ -3,6 +3,7 @@ export interface siteLinksRaw {
     googleLink: string;
     reviewLink: string;
     socialLink: string;
+    homepage: string;
     createdAt: Date;
     updatedAt: Date;
     publishedAt: Date;
@@ -26,6 +27,7 @@ export interface siteLinks {
     googleLink: string;
     reviewLink: string;
     socialLink: string;
+    homepage: string;
 }
 
 
@@ -36,6 +38,7 @@ export const getSiteLinks = async function():Promise<siteLinks>{
         googleLink: siteLinks?.data?.attributes?.googleLink || '',
         reviewLink: siteLinks?.data?.attributes?.reviewLink || '',
         socialLink: siteLinks?.data?.attributes?.socialLink || '',
+        homepage: siteLinks?.data?.attributes?.homepage || '',
     }
     return data
 }

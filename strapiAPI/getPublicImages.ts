@@ -118,11 +118,10 @@ export interface imagePayload {
     logoWhite: string
 }
 
-export const getPublicImages = async function():Promise<imagePayload | {}>{
+export const getPublicImages = async function():Promise<imagePayload>{
     let get = await fetch(`${process.env.STRAPI_API}banner-image?populate=*`)
     let imageBlob:RootObject = await get.json()
-    if (imageBlob?.data?.attributes) {
-        let imageRaw = imageBlob.data.attributes
+        let imageRaw = imageBlob?.data?.attributes
         let images:imagePayload = {
             banner: imageRaw?.Banner?.data?.attributes?.url || '',
             aboutImage: imageRaw?.aboutImage?.data?.attributes?.url || '',
@@ -133,7 +132,5 @@ export const getPublicImages = async function():Promise<imagePayload | {}>{
             logoWhite: imageRaw?.logoWhite?.data?.attributes?.url || '',
         }
         return images
-    } else {
-        return({})
-    }
+
 }

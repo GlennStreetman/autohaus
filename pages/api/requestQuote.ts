@@ -3,6 +3,10 @@ import formData from "form-data";
 import prisma from "./../../lib/prismaPool";
 import { stripPhone, addDashes } from "./../../lib/formatPhone";
 
+import {getContacts, contacts} from "../../strapiAPI/getContacts"
+import {getSiteLinks, siteLinks} from "../../strapiAPI/getSiteLinks"
+import {getPublicImages, imagePayload} from "../../strapiAPI/getPublicImages"
+
 
 interface requestBody {
     firstName: string;
@@ -48,15 +52,15 @@ async function saveRequestToDB(req) {
     }
 }
 
-function emailRequest(req, publicData) {
+function emailRequest(req, contactData:contacts, siteLinks: siteLinks, imageUrls: imagePayload) {
     try {
-        const servicePhone = addDashes(publicData.phone)
+        const servicePhone = addDashes(contactData.phone)
         const userPhone = addDashes(req.body.phone)
         const API_KEY = process.env.MAILGUN_API_KEY;
         const DOMAIN = process.env.DOMAIN;
         const mailGun = new mailgun(formData);
         const client = mailGun.client({ username: "api", key: API_KEY });
-        const mailGunEmail = publicData.serviceEmail;
+        const mailGunEmail = contactData.serviceEmail;
         const serviceRequest = `<!DOCTYPE html>
         <html lang="en" xmlns:v="urn:schemas-microsoft-com:vml">
         <head>
@@ -108,7 +112,7 @@ function emailRequest(req, publicData) {
                           <tr>
                             <table class="sm-w-full" style="width: 75%" cellpadding="0" cellspacing="0" role="presentation">
                               <td style="padding-bottom: 16px; text-align: center; font-size: 12px; color: #4b5563"> <a href="${process.env.NEXTAUTH_URL}" target="_blank">
-                                  <img src="${process.env.NEXT_PUBLIC_AWS_PUBLIC_BUCKET_URL}${publicData.emailImage}" alt="The Werkstatt">
+                                  // <img src="${process.env.NEXT_PUBLIC_AWS_PUBLIC_BUCKET_URL}${imageUrls?.emailImage}" alt="The Werkstatt">
                                 </a>
                               </td>
                             </table>
@@ -135,9 +139,9 @@ function emailRequest(req, publicData) {
                           <tr>
                             <td style="padding: 32px; text-align: center; font-size: 12px; color: #4b5563">
                               <p style="margin: 0; font-style: italic"><b>The Werkstatt LLC</b></p>
-                              <p style="margin: 0; font-style: italic"><a href="tel:${publicData.phone}">${servicePhone}</a></p>
-                              <p style="margin: 0; font-style: italic"><a href="${publicData.googleLink}">${publicData.addressLong}</a></p>
-                              <p style="margin: 0; font-style: italic">This message was sent to you as a result of your request to: ${process.env.NEXTAUTH_URL}</p>
+                              <p style="margin: 0; font-style: italic"><a href="tel:${contactData.phone}">${servicePhone}</a></p>
+                              <p style="margin: 0; font-style: italic"><a href="${siteLinks.googleLink}">${contactData.addressLong}</a></p>
+                              <p style="margin: 0; font-style: italic">This message was sent to you as a result of your request to: ${siteLinks.homepage}</p>
                               <p style="margin: 0; font-style: italic">If these messages are being sent in error please contact: <a href="${process.env.NEXT_PUBLIC_ITADMIN}">${process.env.NEXT_PUBLIC_ITADMIN}</a></p>
                             </td>
                           </tr>
@@ -153,7 +157,7 @@ function emailRequest(req, publicData) {
         </html>`
         const data = {
             from: mailGunEmail,
-            to: publicData.serviceEmail,
+            to: contactData.serviceEmail,
             subject: `Service Request: ${req.body.firstName} ${req.body.lastName} ${req.body.make} ${req.body.model}`,
             html: serviceRequest,
         };
@@ -161,7 +165,7 @@ function emailRequest(req, publicData) {
         client.messages
             .create(DOMAIN, data)
             .then((res) => {
-                console.log("Service Request sent to:",  publicData.serviceEmail);
+                console.log("Service Request sent to:",  contactData.serviceEmail);
             })
             .catch((err) => {
                 console.error("mailgun error /requestQuote:", err);
@@ -170,15 +174,15 @@ function emailRequest(req, publicData) {
         console.log("Problem emailing service request:", err);
     }
 }
-function emailClient(req, publicData) {
+function emailClient(req, contactData:contacts, siteLinks: siteLinks, imageUrls: imagePayload) {
   try {
-      const servicePhone = addDashes(publicData.phone)
+      const servicePhone = addDashes(contactData.phone)
       const userPhone = addDashes(req.body.phone)
       const API_KEY = process.env.MAILGUN_API_KEY;
       const DOMAIN = process.env.DOMAIN;
       const mailGun = new mailgun(formData);
       const client = mailGun.client({ username: "api", key: API_KEY });
-      const mailGunEmail = publicData.serviceEmail;
+      const mailGunEmail = contactData.serviceEmail;
       const serviceRequest = `<!DOCTYPE html>
       <html lang="en" xmlns:v="urn:schemas-microsoft-com:vml">
       <head>
@@ -229,8 +233,8 @@ function emailClient(req, publicData) {
                       <table class="sm-w-full" style="width: 75%" cellpadding="0" cellspacing="0" role="presentation">
                         <tr>
                           <table class="sm-w-full" style="width: 75%" cellpadding="0" cellspacing="0" role="presentation">
-                            <td style="padding-bottom: 16px; text-align: center; font-size: 12px; color: #4b5563"> <a href="${process.env.NEXTAUTH_URL}" target="_blank">
-                                <img src="${process.env.NEXT_PUBLIC_AWS_PUBLIC_BUCKET_URL}${publicData.emailImage}" alt="The Werkstatt">
+                            <td style="padding-bottom: 16px; text-align: center; font-size: 12px; color: #4b5563"> <a href="${siteLinks.homepage}" target="_blank">
+                                <img src="${process.env.NEXT_PUBLIC_AWS_PUBLIC_BUCKET_URL}${imageUrls.emailImage}" alt="The Werkstatt">
                               </a>
                             </td>
                           </table>
@@ -238,7 +242,7 @@ function emailClient(req, publicData) {
                         <tr>
                           <td class="sm-px-6" style="background-color: #fff; padding: 48px; font-weight: 500">
                             <p> ${req.body.firstName},</p>
-                            <p>${publicData.thanksService}</p>
+                            <p>Thank you for your service request: </p>
                             <b>Your Service Request Details:</b>
                             <ul>
                               <li> ${req.body.firstName} ${req.body.lastName}</li>
@@ -261,9 +265,9 @@ function emailClient(req, publicData) {
                         <tr>
                           <td style="padding: 32px; text-align: center; font-size: 12px; color: #4b5563">
                             <p style="margin: 0; font-style: italic"><b>The Werkstatt LLC</b></p>
-                            <p style="margin: 0; font-style: italic"><a href="tel:${publicData.phone}">${servicePhone}</a></p>
-                            <p style="margin: 0; font-style: italic"><a href="${publicData.googleLink}">${publicData.addressLong}</a></p>
-                            <p style="margin: 0; font-style: italic">This message was sent to you as a result of your request to: ${process.env.NEXTAUTH_URL}</p>
+                            <p style="margin: 0; font-style: italic"><a href="tel:${contactData.phone}">${servicePhone}</a></p>
+                            <p style="margin: 0; font-style: italic"><a href="${siteLinks.googleLink}">${contactData.addressLong}</a></p>
+                            <p style="margin: 0; font-style: italic">This message was sent to you as a result of your request to: ${siteLinks.homepage}</p>
                             <p style="margin: 0; font-style: italic">If these messages are being sent in error please contact: <a href="mailto:itadmin@werkstattla.com">itadmin@werkstattla.com</a></p>
                           </td>
                         </tr>
@@ -300,16 +304,20 @@ function emailClient(req, publicData) {
 
 export default async function handler(req, res) {
 
-    let publicData:any = await prisma.sitesetup.findMany({})
-    publicData = publicData.reduce((prev, curr)=>{
-        prev[curr.name] = curr.value
-        return prev
-    },{})
+  const contactData:contacts = await getContacts()
+  const siteLinks:siteLinks = await getSiteLinks()
+  const imageUrls:imagePayload= await getPublicImages()
+
+    // let publicData:any = await prisma.sitesetup.findMany({})
+    // publicData = publicData.reduce((prev, curr)=>{
+    //     prev[curr.name] = curr.value
+    //     return prev
+    // },{})
 
     if (req.method === "POST") {
         saveRequestToDB(req);
-        emailRequest(req, publicData);
-        emailClient(req, publicData)
+        emailRequest(req, contactData, siteLinks, imageUrls);
+        emailClient(req, contactData, siteLinks, imageUrls)
         res.status(200).json({message: 'success'});
     }
 }
