@@ -1,9 +1,9 @@
 import Image from "next/image";
 import ParseMarkdown from "../lib/parseMarkdown";
 import FAQ from '../components/faq'
-import styles from "./about.module.css";
 import { PublicHOC } from "../components/publicData";
 import Head from "next/head";
+import NextLinkButton from '../components/nextLinkButton'
 
 import { getPublicFAQ, faqPayload } from "../strapiAPI/getPublicFAQ"
 import { getPublicImages, imagePayload } from "../strapiAPI/getPublicImages"
@@ -20,7 +20,6 @@ export async function getStaticProps() {
 
     const faqData = await getPublicFAQ()
     const imageUrls = await getPublicImages()
-    // const teamList = await getTeam()
     const contactData: contacts = await getContacts()
     const siteLinks: siteLinks = await getSiteLinks()
     const story: storyPayload = await getStory()
@@ -54,8 +53,8 @@ interface props {
     mapAPI: googleAPIPayload;
 }
 
-const gutter = "col-span-0 sm:col-span-1 lg:col-span-2 xl:col-span-3"; //2x
-const body = "col-span-12 sm:col-span-10 lg:col-span-10 xl:col-span-6 my-4"; //1x
+const gutter = "col-span-0 sm:col-span-1 lg:col-span-2 "; //2x
+const body = "col-span-12 sm:col-span-10 lg:col-span-8  my-4"; //1x
 
 function Story(p: props) {
 
@@ -65,7 +64,12 @@ function Story(p: props) {
             <div className={body}>
                 <div className=' text-center sectionHeading mb-8'>{p.story.title}</div>
                 <div className=' m-2 grid grid-cols-12 flex-row gap-2'>
-                    <div className='col-span-12 lg:col-span-6'><ParseMarkdown text={p.story.story} /></div>
+                    <div className='col-span-12 lg:col-span-6 flex flex-col justfiy-center'>
+                        <ParseMarkdown text={p.story.story} />
+                        <div className='m-auto'>
+                            <NextLinkButton text='Contact Us Today!' link='/contact' icon={<></>} />
+                        </div>
+                    </div>
                     <div className='col-span-12 lg:col-span-6 relative h-[300px] lg:h-[300px] xl:h-[400px]  w-[400px] lg:w-[400px] xl:w-[500px] mx-auto my-3 lg:my-0'>
                         <Image
                             src={p.story.picture}
@@ -86,7 +90,7 @@ function Story(p: props) {
                         &q=${p.mapAPI.searchString}`}>
                     </iframe>
                 </div>
-                <FAQ faq={p.faq} />
+
             </div>
             <div className={gutter} />
         </div>
@@ -102,6 +106,7 @@ export default function About(p: staticProps) {
             <div className="bg-white">
                 <div className='h-0 lg:h-20' />
                 <Story story={p.story} faq={p.faq} mapAPI={p.mapAPI} />
+                <div className='body'><FAQ faq={p.faq} /></div>
             </div>
         </PublicHOC>
     );

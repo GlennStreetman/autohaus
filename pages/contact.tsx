@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 // import Banner from "../components/banner";
 import LabeledInput from "../components/labeledInput";
 import ReCAPTCHA from "react-google-recaptcha";
@@ -141,10 +141,16 @@ function Quote(p: props) {
     const [vinNumber, setVinNumber] = useState("");
     const [vinNumberHelp, setVinNumberHelp] = useState("");
     const [description, setDescription] = useState("");
-
     const [showOptional, setShowOptional] = useState(false)
-
     const router = useRouter();
+
+    useEffect(() => {
+
+        const text = router?.query?.text || ''
+        const textString = `${text}!`.replaceAll('%', ' ')
+        setDescription(textString)
+
+    }, [])
 
     function runCapcha(value) {
         if (value) setEnableSubmit(true);

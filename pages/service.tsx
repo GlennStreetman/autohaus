@@ -4,27 +4,28 @@ import Head from "next/head";
 import FAQ from "../components/faq";
 import Intro from '../components/intro'
 import ParseMarkdown from "../lib/parseMarkdown";
-import {getPublicFAQ, faqPayload} from "../strapiAPI/getPublicFAQ"
-import {getPublicImages, imagePayload} from "../strapiAPI/getPublicImages"
-import {getContacts, contacts} from "../strapiAPI/getContacts"
-import {getSiteLinks, siteLinks} from "../strapiAPI/getSiteLinks"
-import {getSiteText, siteText} from "../strapiAPI/getSiteText"
-import {getServiceHome, serviceHomePayload} from "../strapiAPI/getServiceHome"
-import {getServices, ServicePayload} from "../strapiAPI/getServices"
+import { getPublicFAQ, faqPayload } from "../strapiAPI/getPublicFAQ"
+import { getPublicImages, imagePayload } from "../strapiAPI/getPublicImages"
+import { getContacts, contacts } from "../strapiAPI/getContacts"
+import { getSiteLinks, siteLinks } from "../strapiAPI/getSiteLinks"
+import { getSiteText, siteText } from "../strapiAPI/getSiteText"
+import { getServiceHome, serviceHomePayload } from "../strapiAPI/getServiceHome"
+import { getServices, ServicePayload } from "../strapiAPI/getServices"
 
 import Image from "next/image";
+import Link from 'next/link'
 
 
 
 export async function getStaticProps() {
 
-    const faqData:faqPayload[]  = await getPublicFAQ()
-    const imageUrls:imagePayload | {} = await getPublicImages()
-    const contactData:contacts = await getContacts()
-    const siteLinks:siteLinks = await getSiteLinks()
-    const siteText:siteText = await getSiteText()
-    const serviceHome:serviceHomePayload = await getServiceHome()
-    const serviceList:ServicePayload[] = await getServices()
+    const faqData: faqPayload[] = await getPublicFAQ()
+    const imageUrls: imagePayload | {} = await getPublicImages()
+    const contactData: contacts = await getContacts()
+    const siteLinks: siteLinks = await getSiteLinks()
+    const siteText: siteText = await getSiteText()
+    const serviceHome: serviceHomePayload = await getServiceHome()
+    const serviceList: ServicePayload[] = await getServices()
 
     return {
         props: {
@@ -34,7 +35,7 @@ export async function getStaticProps() {
             siteLinks: siteLinks,
             siteText: siteText,
             serviceHome: serviceHome,
-            serviceList:serviceList,
+            serviceList: serviceList,
         },
     };
 }
@@ -60,23 +61,29 @@ interface staticData {
 
 export function ServiceHome(p: props) {
 
-    const mapServiceList = p.serviceList.map((el)=>
-        <div key={`${el.name}-key`} className='col-span-12 sm:col-span-6 lg:col-span-4 p-2'>
-            <div className='flex flex-col'>
-                <div className='relative h-[200px] w-[200px] mx-auto my-3 xl:my-0 rounded-full overflow-hidden '>
-                    <Image
-                        src={el.bannerImage}
-                        alt={el.bannerText}
-                        layout="fill"
-                        objectFit="fill"
-                    />
-                </div>
-                <div className='sectionHeading text-highlight'>{el.bannerText}</div>
-                <div className=''><ParseMarkdown text={el.shortDescription} /></div>
-            </div>
+    const mapServiceList = p.serviceList.map((el) =>
+
+        <div key={`${el.name}-key`} className='col-span-12 sm:col-span-6 xl:col-span-4 p-2 hover:bg-amber-200 cursor-pointer'>
+            <Link href={`/contact?text=Im%interested%in%${el.bannerText.replaceAll('&', 'and')}`}>
+                <a>
+                    <div className='flex flex-col'>
+                        <div className='relative h-[200px] w-[200px] mx-auto my-3 xl:my-0 rounded-full overflow-hidden '>
+                            <Image
+                                src={el.bannerImage}
+                                alt={el.bannerText}
+                                layout="fill"
+                                objectFit="fill"
+                            />
+                        </div>
+                        <div className='sectionHeading text-highlight'>{el.bannerText}</div>
+                        <div className=''><ParseMarkdown text={el.shortDescription} /></div>
+                    </div>
+                </a>
+            </Link>
         </div>
+
     )
-    
+
     return (
         <div className='bg-white'>
             <Head>
@@ -93,7 +100,7 @@ export function ServiceHome(p: props) {
                     </div>
                 </section>
                 <section >
-                    <FAQ  faq={p.faq} />
+                    <FAQ faq={p.faq} />
                 </section>
 
             </main>
