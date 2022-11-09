@@ -145,11 +145,11 @@ function Quote(p: props) {
     const router = useRouter();
 
     useEffect(() => {
-
-        const text = router?.query?.text || ''
-        const textString = `${text}!`.replaceAll('%', ' ')
-        setDescription(textString)
-
+        if (router?.query?.text) {
+            const text = router?.query?.text || ''
+            const textString = `${text}!`.replaceAll('%', ' ')
+            setDescription(textString)
+        }
     }, [])
 
     function runCapcha(value) {
@@ -338,7 +338,7 @@ function Quote(p: props) {
                                         border-2 p-1 rounded-md bg-secondary shadow-sm 
                                         shadow-slate-600 hover:bg-weak hover:border-black 
                                         hover:text-accent active:bg-strong"
-                                onClick={() => setShowOptional(!showOptional)}>{showOptional ? 'Hide Appointment Options' : 'Show Optional Appointment Options'} </div>
+                                onClick={() => setShowOptional(!showOptional)}>{showOptional ? 'Hide Appointment Options' : 'Show Appointment Options'} </div>
                             <div className='grow' />
                         </div>
                         <div className="grid grid-row grid-cols-12 gap-x-2 gap-y-4">

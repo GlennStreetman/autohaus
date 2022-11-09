@@ -7,14 +7,18 @@ interface props {
     link: string;
     highlight?: boolean;
     newtab?: boolean;
+    textSize?: string;
 }
 
-const textHighlight =
-    "flex flex-row shrink border-2 border-highLight hover:border-black p-2 rounded-md bg-highLight font-bold  hover:bg-strong active:bg-strong text-sm  gap-1  text-red-600";
-const textRegular =
-    "flex flex-row shrink border-2 border-highLight hover:border-black p-2 rounded-md bg-highLight font-bold hover:bg-weak active:bg-strong text-sm gap-1 ";
+
 
 function NextLinkButton(p: props) {
+
+    const textHighlight =
+        `flex flex-row shrink border-2 border-highLight hover:border-black p-2 rounded-md bg-highLight font-medium hover:font-black ${p?.textSize || `text-sm`}  gap-1`;
+    const textRegular =
+        `flex flex-row shrink border-2 border-highLight hover:border-black p-2 rounded-md bg-highLight font-medium hover:font-black ${p?.textSize || `text-sm`} gap-1`;
+
     return (
         <div className="flex z-20">
             <Link href={p.link}>
