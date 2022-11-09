@@ -12,14 +12,14 @@ import { addDashes, stripPhone, validPhone } from "../lib/formatPhone";
 import validEmail from "../lib/validEmail";
 
 
-import {getPublicFAQ, faqPayload} from "../strapiAPI/getPublicFAQ"
-import {getPublicImages, imagePayload} from "../strapiAPI/getPublicImages"
-import {getTeam, teamMember} from "../strapiAPI/getTeam"
-import {getContacts, contacts} from "../strapiAPI/getContacts"
-import {getSiteLinks, siteLinks} from "../strapiAPI/getSiteLinks"
-import {getSiteText, siteText} from "../strapiAPI/getSiteText"
-import {getServices, ServicePayload} from "../strapiAPI/getServices"
-import {getGoogle, googleAPIPayload} from "../strapiAPI/getGoogleApi"
+import { getPublicFAQ, faqPayload } from "../strapiAPI/getPublicFAQ"
+import { getPublicImages, imagePayload } from "../strapiAPI/getPublicImages"
+import { getTeam, teamMember } from "../strapiAPI/getTeam"
+import { getContacts, contacts } from "../strapiAPI/getContacts"
+import { getSiteLinks, siteLinks } from "../strapiAPI/getSiteLinks"
+import { getSiteText, siteText } from "../strapiAPI/getSiteText"
+import { getServices, ServicePayload } from "../strapiAPI/getServices"
+import { getGoogle, googleAPIPayload } from "../strapiAPI/getGoogleApi"
 
 import { BsTelephoneInboundFill } from "react-icons/bs";
 import { HiOutlineLocationMarker } from "react-icons/hi";
@@ -31,11 +31,11 @@ export async function getStaticProps() {
     const faqData = await getPublicFAQ()
     const imageUrls = await getPublicImages()
     const teamList = await getTeam()
-    const contactData:contacts = await getContacts()
-    const siteLinks:siteLinks = await getSiteLinks()
-    const siteText:siteText = await getSiteText()
-    const allServices:ServicePayload[] = await getServices()
-    const mapAPI:googleAPIPayload = await getGoogle()
+    const contactData: contacts = await getContacts()
+    const siteLinks: siteLinks = await getSiteLinks()
+    const siteText: siteText = await getSiteText()
+    const allServices: ServicePayload[] = await getServices()
+    const mapAPI: googleAPIPayload = await getGoogle()
 
 
     return {
@@ -136,11 +136,13 @@ function Quote(p: props) {
     const [time2, setTime2] = useState("");
     const [carYear, setCarYear] = useState("");
     const [carYearHelp, setCarYearHelp] = useState("");
-    const [carMake, setCarMake] = useState("Porsche");
+    const [carMake, setCarMake] = useState("");
     const [carModel, setCarModel] = useState("");
     const [vinNumber, setVinNumber] = useState("");
     const [vinNumberHelp, setVinNumberHelp] = useState("");
     const [description, setDescription] = useState("");
+
+    const [showOptional, setShowOptional] = useState(false)
 
     const router = useRouter();
 
@@ -184,16 +186,18 @@ function Quote(p: props) {
             setLastNameHelp("");
         }
         //four digit year
-        if (carYear && carYear.length !== 4) {
-            processRequest = false;
-            setCarYearHelp("Please enter four digit year");
-        } else {
-            setCarYearHelp("");
-        }
+        // if (carYear && carYear.length !== 4) {
+        //     processRequest = false;
+        //     setCarYearHelp("Please enter four digit year");
+        //     setShowOptional(true)
+        // } else {
+        //     setCarYearHelp("");
+        // }
         //test vin number
-        if (carYear && carYear.length === 4 && vinNumber && vinNumber.length !== testVin(vinNumber)) {
+        if (carMake == 'porsche' && carYear && carYear.length === 4 && vinNumber && vinNumber.length !== testVin(vinNumber)) {
             processRequest = false;
             setVinNumberHelp(`Vin number must be ${vinLengthText(carYear)}  for ${carYear}`);
+            setShowOptional(true)
         }
         // test capcha has been clicked
         if (!enableSubmit) {
@@ -242,34 +246,34 @@ function Quote(p: props) {
             <Head>
                 <title>{`${process.env.NEXT_PUBLIC_BUSINESS_NAME}: Contact Us: `}</title>
             </Head>
-            <div className='h-[125px] bg-white' />
+            <div className='h-[0px] lg:h-[125px] bg-white' />
 
             <div className="grid grid-row grid-cols-12 p-1 bg-white">
                 <div className={gutter} />
-                
+
                 <div className={body}>
-                <div >
-                <div className="grid grid-cols-12 col-span-12 relative mb-4 gap-6">
-                                <div className='col-span-12 lg:col-span-6'>
-                                    <div className='outline outline-1 outline-slate-300 flex flex-inline gap-2'>
-                                        <div className='p-4 outline-inherit' ><BsTelephoneInboundFill className="h-4 w-4 xs:h-7 xs:w-7" /></div>
-                                        <div className='flex flex-col'>
-                                            <div>Have a question, Call now</div>
-                                            <div>{addDashes(p.contacts.phone)}</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className='col-span-12 lg:col-span-6'>
-                                    <div className='outline outline-1 outline-slate-300  flex flex-inline gap-2'>
-                                        <div className='p-4 outline-inherit'><HiOutlineLocationMarker className="h-4 w-4 xs:h-7 xs:w-7" /></div>
-                                        <div className='flex flex-col'>
-                                            <div>Our Address</div>
-                                            <div>{p.contacts.addressLong}</div>
-                                        </div>
+                    <div >
+                        <div className="grid grid-cols-12 col-span-12 relative mb-4 gap-6">
+                            <div className='col-span-12 lg:col-span-6'>
+                                <div className='outline outline-1 outline-slate-300 flex flex-inline gap-2'>
+                                    <div className='p-4 outline-inherit' ><BsTelephoneInboundFill className="h-4 w-4 xs:h-7 xs:w-7" /></div>
+                                    <div className='flex flex-col'>
+                                        <div>Have a question, Call now</div>
+                                        <div>{addDashes(p.contacts.phone)}</div>
                                     </div>
                                 </div>
                             </div>
-                </div>
+                            <div className='col-span-12 lg:col-span-6'>
+                                <div className='outline outline-1 outline-slate-300  flex flex-inline gap-2'>
+                                    <div className='p-4 outline-inherit'><HiOutlineLocationMarker className="h-4 w-4 xs:h-7 xs:w-7" /></div>
+                                    <div className='flex flex-col'>
+                                        <div>Our Address</div>
+                                        <div>{p.contacts.addressLong}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <OutlinedSurface>
                         <div className="sectionHeading my-8 text-4xl text-center">Contact Us:</div>
                         <div className="grid grid-row grid-cols-12 gap-x-2 gap-y-4">
@@ -321,83 +325,93 @@ function Quote(p: props) {
                                     helperText={phoneHelp}
                                 />
                             </div>
-                            </div>       
-                            <div className="sectionHeading my-8 text-center">Optional Appointment Info: </div>
-                            <div className="grid grid-row grid-cols-12 gap-x-2 gap-y-4">
-                            <div className={small}>
-                                <LabeledInput fieldType="date" id="date1_id" label="Preferred Date" value={date1} onClickCallback={setDate1} />
-                            </div>
-                            <div className={small}>
-                                <LabeledInput
-                                    fieldType="list"
-                                    id="time1_id"
-                                    label="Preffered Time"
-                                    value={time1}
-                                    onClickCallback={setTime1}
-                                    dataList={timeOptionsDatalist}
-                                    datalistID="timeOptions"
-                                    onFocusCallback={(e) => {
-                                        e.preventDefault();
-                                        setTime1("");
-                                    }}
-                                />
-                            </div>
-                            <div className={small}>
-                                <LabeledInput fieldType="date" id="date2_id" label="Alternative Date" value={date2} onClickCallback={setDate2} />
-                            </div>
-                            <div className={small}>
-                                <LabeledInput
-                                    fieldType="list"
-                                    id="time2_id"
-                                    label="Alternative Time"
-                                    value={time2}
-                                    onClickCallback={setTime2}
-                                    dataList={timeOptionsDatalist}
-                                    datalistID="timeOptions"
-                                    onFocusCallback={(e) => {
-                                        e.preventDefault();
-                                        setTime2("");
-                                    }}
-                                />
-                            </div>
-                            <div className={medium}>
-                                <LabeledInput fieldType="text" id="make_id" label="Verhicle Make" value={carMake} onClickCallback={setCarMake} />
-                            </div>
-
-                            <div className={medium}>
-                                <LabeledInput fieldType="text" id="model_id" label="Vehicle Model" value={carModel} onClickCallback={setCarModel} />
-                            </div>
-                            <div className={medium}>
-                                <LabeledInput
-                                    fieldType="text"
-                                    id="year_id"
-                                    label="Vehicle Year"
-                                    value={carYear}
-                                    onClickCallback={(e) => {
-                                        setCarYear(formatCarYear(e));
-                                    }}
-                                    helperText={carYearHelp}
-                                />
-                            </div>
-                            <div className="grid grid-cols-12 col-span-12 relative">
-                                <div className={big}>
+                        </div>
+                        <div className='flex'>
+                            <div className='grow' />
+                            <div className="my-8 text-center 
+                                        border-2 p-1 rounded-md bg-secondary shadow-sm 
+                                        shadow-slate-600 hover:bg-weak hover:border-black 
+                                        hover:text-accent active:bg-strong"
+                                onClick={() => setShowOptional(!showOptional)}>{showOptional ? 'Hide Appointment Options' : 'Show Optional Appointment Options'} </div>
+                            <div className='grow' />
+                        </div>
+                        <div className="grid grid-row grid-cols-12 gap-x-2 gap-y-4">
+                            {showOptional ? <>
+                                <div className={small}>
+                                    <LabeledInput fieldType="date" id="date1_id" label="Preferred Date" value={date1} onClickCallback={setDate1} />
+                                </div>
+                                <div className={small}>
                                     <LabeledInput
-                                        fieldType="text"
-                                        id="vin_id"
-                                        label={`${vinLengthText(carYear)} Vin Number`}
-                                        value={vinNumber}
-                                        onClickCallback={(e) => {
-                                            setVinNumber(formatVin(e, carYear, carMake));
+                                        fieldType="list"
+                                        id="time1_id"
+                                        label="Preffered Time"
+                                        value={time1}
+                                        onClickCallback={setTime1}
+                                        dataList={timeOptionsDatalist}
+                                        datalistID="timeOptions"
+                                        onFocusCallback={(e) => {
+                                            e.preventDefault();
+                                            setTime1("");
                                         }}
-                                        helperText={vinNumberHelp}
                                     />
                                 </div>
-                                <div className={big}>
-                                    <div className="flex justify-center ">
+                                <div className={small}>
+                                    <LabeledInput fieldType="date" id="date2_id" label="Alternative Date" value={date2} onClickCallback={setDate2} />
+                                </div>
+                                <div className={small}>
+                                    <LabeledInput
+                                        fieldType="list"
+                                        id="time2_id"
+                                        label="Alternative Time"
+                                        value={time2}
+                                        onClickCallback={setTime2}
+                                        dataList={timeOptionsDatalist}
+                                        datalistID="timeOptions"
+                                        onFocusCallback={(e) => {
+                                            e.preventDefault();
+                                            setTime2("");
+                                        }}
+                                    />
+                                </div>
+                                <div className={medium}>
+                                    <LabeledInput fieldType="text" id="make_id" label="Verhicle Make" value={carMake} onClickCallback={setCarMake} />
+                                </div>
+
+                                <div className={medium}>
+                                    <LabeledInput fieldType="text" id="model_id" label="Vehicle Model" value={carModel} onClickCallback={setCarModel} />
+                                </div>
+                                <div className={medium}>
+                                    <LabeledInput
+                                        fieldType="text"
+                                        id="year_id"
+                                        label="Vehicle Year"
+                                        value={carYear}
+                                        onClickCallback={(e) => {
+                                            setCarYear(formatCarYear(e));
+                                        }}
+                                        helperText={carYearHelp}
+                                    />
+                                </div>
+                                <div className="grid grid-cols-12 col-span-12 relative">
+                                    <div className={big}>
+                                        <LabeledInput
+                                            fieldType="text"
+                                            id="vin_id"
+                                            label={`${vinLengthText(carYear)} Vin Number`}
+                                            value={vinNumber}
+                                            onClickCallback={(e) => {
+                                                setVinNumber(formatVin(e, carYear, carMake));
+                                            }}
+                                            helperText={vinNumberHelp}
+                                        />
+                                    </div>
+                                    <div className={big}>
+                                        <div className="flex justify-center p-1">
                                             <LinkButton newtab={true} text="Help Finding Your VIN Number" link="https://www.stuttcars.com/porsche-data/porsche-vin-decoder/" />
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            </> : <></>}
                             <div className="col-span-12 border-2 p-2 relative">
                                 <label className="absolute -top-4 left-4 z-2  text-accentBlue bg-primary">Reason for Visit</label>
                                 <textarea
@@ -437,15 +451,15 @@ function Quote(p: props) {
                         </div>
                     </OutlinedSurface>
                     <div className='flex'>
-                     <iframe
-                        width="1800"
-                        height="450"
-                        loading="lazy"
-                        allowFullScreen
-                        referrerPolicy="no-referrer-when-downgrade"
-                        src={`https://www.google.com/maps/embed/v1/place?key=${p.mapAPI.secretAPIKey}
-                            &q=${p.mapAPI.searchString}`}>
-                    </iframe>
+                        <iframe
+                            width="1800"
+                            height="450"
+                            loading="lazy"
+                            allowFullScreen
+                            referrerPolicy="no-referrer-when-downgrade"
+                            src={`https://www.google.com/maps/embed/v1/place?key=${p?.mapAPI?.secretAPIKey || ''}
+                                    &q=${p?.mapAPI?.searchString || ''}`}>
+                        </iframe>
                     </div>
                 </div>
                 <div className={gutter} />
@@ -457,7 +471,7 @@ function Quote(p: props) {
 export default function Main(p: staticData) {
     return (
         <PublicHOC contacts={p.contacts} siteLinks={p.siteLinks} images={p.images} >
-            <Quote faq={p.faq} team={p.team} images={p.images} siteText={p.siteText} allServices={p.allServices} contacts={p.contacts} mapAPI={p.mapAPI}/>
+            <Quote faq={p.faq} team={p.team} images={p.images} siteText={p.siteText} allServices={p.allServices} contacts={p.contacts} mapAPI={p.mapAPI} />
         </PublicHOC>
     );
 }

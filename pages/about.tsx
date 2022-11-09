@@ -5,12 +5,14 @@ import styles from "./about.module.css";
 import { PublicHOC } from "../components/publicData";
 import Head from "next/head";
 
-import {getPublicFAQ, faqPayload} from "../strapiAPI/getPublicFAQ"
-import {getPublicImages, imagePayload} from "../strapiAPI/getPublicImages"
+import { getPublicFAQ, faqPayload } from "../strapiAPI/getPublicFAQ"
+import { getPublicImages, imagePayload } from "../strapiAPI/getPublicImages"
 // import {getTeam, teamMember} from "../strapiAPI/getTeam"
-import {getContacts, contacts} from "../strapiAPI/getContacts"
-import {getSiteLinks, siteLinks} from "../strapiAPI/getSiteLinks"
-import {getStory, storyPayload} from "../strapiAPI/getStory"
+import { getContacts, contacts } from "../strapiAPI/getContacts"
+import { getSiteLinks, siteLinks } from "../strapiAPI/getSiteLinks"
+import { getStory, storyPayload } from "../strapiAPI/getStory"
+import { getGoogle, googleAPIPayload } from "../strapiAPI/getGoogleApi"
+
 
 
 
@@ -19,9 +21,10 @@ export async function getStaticProps() {
     const faqData = await getPublicFAQ()
     const imageUrls = await getPublicImages()
     // const teamList = await getTeam()
-    const contactData:contacts = await getContacts()
-    const siteLinks:siteLinks = await getSiteLinks()
-    const story:storyPayload = await getStory()
+    const contactData: contacts = await getContacts()
+    const siteLinks: siteLinks = await getSiteLinks()
+    const story: storyPayload = await getStory()
+    const mapAPI: googleAPIPayload = await getGoogle()
 
     return {
         props: {
@@ -30,6 +33,7 @@ export async function getStaticProps() {
             siteLinks: siteLinks,
             faq: faqData,
             images: imageUrls,
+            mapAPI: mapAPI,
         },
     };
 }
@@ -38,45 +42,55 @@ export async function getStaticProps() {
 interface staticProps {
     story: storyPayload;
     contacts: contacts;
-    siteLinks: siteLinks; 
+    siteLinks: siteLinks;
     faq: faqPayload[];
     images: imagePayload;
+    mapAPI: googleAPIPayload;
 }
 
 interface props {
     story: storyPayload;
     faq: faqPayload[];
+    mapAPI: googleAPIPayload;
 }
 
+const gutter = "col-span-0 sm:col-span-1 lg:col-span-2 xl:col-span-3"; //2x
+const body = "col-span-12 sm:col-span-10 lg:col-span-10 xl:col-span-6 my-4"; //1x
 
 function Story(p: props) {
 
-  return (
-    <div>
-        <div className="p-2 w-3/5 mx-auto">
-            <div className='h-24' />
-            <div className='flex flex-col'>
-                <div className='w-full text-center sectionHeading mb-8'>{p.story.title}</div>
-                <div className='w-full mb-6'>
-                    <div className='grid grid-cols-12 gap-4'>
-                        <div className='col-span-12 lg:col-span-6'><ParseMarkdown text={p.story.story} /></div>
-                        <div className='grow col-span-12 lg:col-span-6 '>
-                    <div className='relative h-[250px] lg:h-[300px] xl:h-[400px]  w-[250px] lg:w-[300px] xl:w-[400px] mx-auto my-3 lg:my-0'>
-                                <Image
-                                    src={p.story.picture}
-                                    alt={p.story.pictureName}
-                                    layout="fill"
-                                    objectFit="fill"
-                                />
-                            </div>
-                        </div>
+    return (
+        <div className="grid grid-row grid-cols-12 p-1 bg-white">
+            <div className={gutter} />
+            <div className={body}>
+                <div className=' text-center sectionHeading mb-8'>{p.story.title}</div>
+                <div className=' m-2 grid grid-cols-12 flex-row gap-2'>
+                    <div className='col-span-12 lg:col-span-6'><ParseMarkdown text={p.story.story} /></div>
+                    <div className='col-span-12 lg:col-span-6 relative h-[300px] lg:h-[300px] xl:h-[400px]  w-[400px] lg:w-[400px] xl:w-[500px] mx-auto my-3 lg:my-0'>
+                        <Image
+                            src={p.story.picture}
+                            alt={p.story.pictureName}
+                            layout="fill"
+                            objectFit="cover"
+                        />
                     </div>
                 </div>
+                <div className='flex my-8'>
+                    <iframe
+                        width="1800"
+                        height="450"
+                        loading="lazy"
+                        allowFullScreen
+                        referrerPolicy="no-referrer-when-downgrade"
+                        src={`https://www.google.com/maps/embed/v1/place?key=${p.mapAPI.secretAPIKey}
+                        &q=${p.mapAPI.searchString}`}>
+                    </iframe>
+                </div>
+                <FAQ faq={p.faq} />
             </div>
+            <div className={gutter} />
         </div>
-        <FAQ faq={p.faq} />
-    </div>
-  )
+    )
 }
 
 export default function About(p: staticProps) {
@@ -86,77 +100,11 @@ export default function About(p: staticProps) {
                 <title>{`${process.env.NEXT_PUBLIC_BUSINESS_NAME}: About Us`}</title>
             </Head>
             <div className="bg-white">
-                <Story story={p.story} faq={p.faq}  />
+                <div className='h-0 lg:h-20' />
+                <Story story={p.story} faq={p.faq} mapAPI={p.mapAPI} />
             </div>
         </PublicHOC>
     );
 }
 
 
-
-// function isOddOrEven(n, length) {
-//     if (Math.abs(length % 2) === 1) {
-//         return Math.abs(n % 2) !== 1;
-//     } else {
-//         return Math.abs(n % 2) === 1;
-//     }
-// }
-
-// function Team(p: props) {
-//     const employeeCount = p.team.length;
-//     const mapEmployees = p.team.map((val, indx) => {
-//         return (
-//             <section key={`keySec-${val.name}`}>
-//                 <div className="p-2 w-3/5 mx-auto">
-//                     <div className='h-24' />
-//                     <div className={isOddOrEven(indx, employeeCount) ? gutter : gutterBlack} />
-//                     <div className={isOddOrEven(indx, employeeCount) ? employees : employeesBlack}>
-//                         <div className={isOddOrEven(indx, employeeCount) ? imgBoxLeft : imgBoxRight}>
-//                             <Image
-//                                 src={val.photoUrl}
-//                                 alt={val.name}
-//                                 layout="fill"
-//                                 objectFit="fill"
-//                                 priority
-//                             />
-//                         </div>
-//                         <div className="text-2xl font-bold text-secondary">{`${val.name}`}</div>
-//                         <div className="text-1xl font-bold text-accentBlue">{`${val.title}`}</div>
-//                         <div className="whitespace-pre-line">
-//                             <ParseMarkdown text={val.description} />
-//                         </div>
-//                     </div>
-//                     <div className={isOddOrEven(indx, employeeCount) ? gutter : gutterBlack} />
-//                 </div>
-//             </section>
-//         );
-//     });
-
-//     return (
-//         <>
-//             <article className={styles.article}>
-//                 <div className="flex flex-col">{mapEmployees}</div>
-//             </article>
-//         </>
-//     );
-// }
-
-//flex grid elements
-// const gutter = " hidden lg:block lg:col-span-1 "; //2x
-// const gutterBlack = " hidden lg:block lg:col-span-1 bg-slate-200"; //2x
-// const employees = "      p-2 col-span-12 lg:col-span-10 "; //1x
-// const employeesBlack = " p-2 col-span-12 lg:col-span-10 bg-slate-200"; //1xmd:
-// const imgBoxLeft =
-//     " mx-auto md:m-3 col-span-12 md:col-span-auto relative rounded-md bg-slate-200 overflow-hidden h-56 w-56 md:h-80 md:w-80 lg:h-96 lg:w-96 xl::h-96 xl:w-116  float-none md:float-left  ";
-// const imgBoxRight =
-//     "mx-auto md:m-3 col-span-12 md:col-span-auto relative rounded-md bg-slate-200 overflow-hidden h-56 w-56 md:h-80 md:w-80 lg:h-96 lg:w-96 xl::h-96 xl:w-116 float-none  md:float-right ";
-// const largeTextStyling = `"text-center text-secondary font-extrabold lg:font-bold xl:font-normal font-banner text-1xl sm:text-2xl md:text-3xl xl:text-5xl [text-shadow:2px_2px_rgba(0,0,0,1)] antialiased whitespace-pre-line"`;
-
-// interface employees {
-//     id: number;
-//     name: string;
-//     title: string;
-//     description: string;
-//     filename: string; //file name
-//     ordernumber: string;
-// }

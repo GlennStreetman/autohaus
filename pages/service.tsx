@@ -61,9 +61,9 @@ interface staticData {
 export function ServiceHome(p: props) {
 
     const mapServiceList = p.serviceList.map((el)=>
-        <div key={`${el.name}-key`} className='col-span-4'>
+        <div key={`${el.name}-key`} className='col-span-12 sm:col-span-6 lg:col-span-4 p-2'>
             <div className='flex flex-col'>
-                <div className='relative h-[200px] w-[200px] mx-auto my-3 lg:my-0 rounded-full overflow-hidden '>
+                <div className='relative h-[200px] w-[200px] mx-auto my-3 xl:my-0 rounded-full overflow-hidden '>
                     <Image
                         src={el.bannerImage}
                         alt={el.bannerText}
