@@ -10,7 +10,7 @@ interface props {
 function Intro(p: props) {
 
     return (
-        <div className='bg-white p-4'>
+        <div className='bg-white p-4 pt-4'>
             <div className='lg:mx-auto lg:w-3/5'>
                 <div className="font-body text-3xl font-bold">
                     <div className={p.override ? p.override : ''}>
