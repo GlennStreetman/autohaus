@@ -87,13 +87,18 @@ function LogoLittle(p: props) {
         }
 
     }, [p.position]);
-
-
-    return (
-            <div key={`${width}-image`} style={{width: boxWidth, position: 'relative'}}><div className={logoStyling}>
-                <TopLogo src={p.logo} width={width} height={height} /></div>
-            </div>
-    );
+    
+    if (screenSize.width >=1024) {
+        return (
+                <div key={`${width}-image`} style={{width: boxWidth, position: 'relative'}}><div className={logoStyling}>
+                    <TopLogo src={p?.logo || ''} width={width} height={height} /></div>
+                </div>
+        );
+    } else  if (screenSize.width >= 768) {
+        return(<></>)
+    } else {
+        return(<TopLogo src={p?.logo || ''} width={234} height={142} />)
+    }
 }
 
 export default LogoLittle;
