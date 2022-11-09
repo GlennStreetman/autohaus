@@ -97,7 +97,7 @@ function LogoLittle(p: props) {
     } else  if (screenSize.width >= 768) {
         return(<></>)
     } else {
-        return(<TopLogo src={p?.logo || ''} width={234} height={142} />)
+        return(<TopLogo src={p?.logo || ''} width={117} height={72} />)
     }
 }
 
