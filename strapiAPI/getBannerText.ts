@@ -44,7 +44,6 @@ export interface bannerTextPayload {
 export const getBannerText = async function():Promise<bannerTextPayload>{
     let get = await fetch(`${process.env.STRAPI_API}banner-text`)
     let bannerText = await get.json()
-    
     let data:bannerTextPayload = {
         Primary: bannerText?.data?.attributes?.Primary || '',
         secondary: bannerText?.data?.attributes?.secondary || '',

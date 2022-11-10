@@ -13,9 +13,6 @@ import { getSiteLinks, siteLinks } from "../strapiAPI/getSiteLinks"
 import { getStory, storyPayload } from "../strapiAPI/getStory"
 import { getGoogle, googleAPIPayload } from "../strapiAPI/getGoogleApi"
 
-
-
-
 export async function getStaticProps() {
 
     const faqData = await getPublicFAQ()
@@ -36,7 +33,6 @@ export async function getStaticProps() {
         },
     };
 }
-
 
 interface staticProps {
     story: storyPayload;
@@ -62,21 +58,22 @@ function Story(p: props) {
         <div className="grid grid-row grid-cols-12 p-1 bg-white">
             <div className={gutter} />
             <div className={body}>
-                <div className=' text-center sectionHeading mb-8'>{p.story.title}</div>
+                <div className=' text-center sectionHeading mb-8'>{p?.story?.title || ''}</div>
                 <div className=' m-2 grid grid-cols-12 flex-row gap-2'>
                     <div className='col-span-12 lg:col-span-6 flex flex-col justfiy-center'>
-                        <ParseMarkdown text={p.story.story} />
+                        <ParseMarkdown text={p?.story?.story || ''} />
                         <div className='m-auto'>
                             <NextLinkButton text='Contact Us Today!' link='/contact' icon={<></>} />
                         </div>
                     </div>
                     <div className='col-span-12 lg:col-span-6 relative h-[300px] lg:h-[300px] xl:h-[400px]  w-[400px] lg:w-[400px] xl:w-[500px] mx-auto my-3 lg:my-0'>
-                        <Image
-                            src={p.story.picture}
-                            alt={p.story.pictureName}
-                            layout="fill"
-                            objectFit="cover"
-                        />
+                        {p.story.picture ?
+                            <Image
+                                src={p?.story?.picture || ''}
+                                alt={p?.story?.pictureName || ''}
+                                layout="fill"
+                                objectFit="cover"
+                            /> : <></>}
                     </div>
                 </div>
                 <div className='flex my-8'>
@@ -86,7 +83,7 @@ function Story(p: props) {
                         loading="lazy"
                         allowFullScreen
                         referrerPolicy="no-referrer-when-downgrade"
-                        src={`https://www.google.com/maps/embed/v1/place?key=${p.mapAPI.secretAPIKey}
+                        src={`https://www.google.com/maps/embed/v1/place?key=${p?.mapAPI?.secretAPIKey || ''}
                         &q=${p.mapAPI.searchString}`}>
                     </iframe>
                 </div>

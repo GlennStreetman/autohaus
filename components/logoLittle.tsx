@@ -27,7 +27,7 @@ function setLogoDimensions(width: number, position: number, setWidth: Function, 
             setHeight(142);
         }
     } else {
-    //as soon as scroll down
+        //as soon as scroll down
         if (width < 640) {
             setWidth(94);
             setHeight(57);
@@ -56,8 +56,8 @@ interface props {
     position: number
 }
 
-function TopLogo(p){
-    return  <Image src={p.src} alt="logo" width={p.width} height={p.height} />
+function TopLogo(p) {
+    if (p?.src) { return <Image src={p?.src || ''} alt="logo" width={p.width} height={p.height} /> } else { return <></> }
 }
 
 function LogoLittle(p: props) {
@@ -67,37 +67,37 @@ function LogoLittle(p: props) {
     const [zeroFlag, setZeroFlag] = useState(0)
 
     const logoStyling = p.position === 0 ? 'absolute -bottom-[115px] ' : 'relative'
-    const boxWidth = `${width}px` 
+    const boxWidth = `${width}px`
 
     useEffect(() => {
-        
+
         setLogoDimensions(screenSize.width, p.position, setWidth, setHeight);
     }, [screenSize.width]);
 
 
     useEffect(() => {
-        if (zeroFlag === 0 && p.position !== 0 ) {
+        if (zeroFlag === 0 && p.position !== 0) {
             setLogoDimensions(screenSize.width, p.position, setWidth, setHeight);
             setZeroFlag(1)
         }
 
-        if (zeroFlag === 1 && p.position === 0 ) {
+        if (zeroFlag === 1 && p.position === 0) {
             setLogoDimensions(screenSize.width, p.position, setWidth, setHeight);
             setZeroFlag(0)
         }
 
     }, [p.position]);
-    
-    if (screenSize.width >=1024) {
+
+    if (screenSize.width >= 1024) {
         return (
-                <div key={`${width}-image`} style={{width: boxWidth, position: 'relative'}}><div className={logoStyling}>
-                    <TopLogo src={p?.logo || ''} width={width} height={height} /></div>
-                </div>
+            <div key={`${width}-image`} style={{ width: boxWidth, position: 'relative' }}><div className={logoStyling}>
+                <TopLogo src={p?.logo || ''} width={width} height={height} /></div>
+            </div>
         );
-    } else  if (screenSize.width >= 768) {
-        return(<></>)
+    } else if (screenSize.width >= 768) {
+        return (<></>)
     } else {
-        return(<TopLogo src={p?.logo || ''} width={117} height={72} />)
+        return (<TopLogo src={p?.logo || ''} width={117} height={72} />)
     }
 }
 

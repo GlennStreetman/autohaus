@@ -80,11 +80,9 @@ export interface whyPayload {
 }
 
 export const getWhyChecklist = async function():Promise<whyPayload>{
-    
     const response = await fetch(endpoint, options);
     const data = await response.json();
     const dataAtts = data?.data?.homepageWhyChecklist?.data?.attributes ? data.data.homepageWhyChecklist.data.attributes : {}
-    
     let payload:whyPayload = {
         heading: dataAtts?.whyHeading || '',
         checkList: dataAtts?.Checklist || [],
