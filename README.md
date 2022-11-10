@@ -16,4 +16,4 @@ Set DATABASE_URL to reference external port number 5446
 > npm run devdb
 > npx prisma generate dev
 > npm run build
-> npm run buildp
+> npm run pBuild

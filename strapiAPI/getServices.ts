@@ -141,7 +141,7 @@ export interface ServicePayload {
     shortDescription: string;
     orderNumber: number;
     bannerImage: string;
-    serviceSection: subSection[];
+    // serviceSection: subSection[];
 }
 
 
@@ -155,38 +155,26 @@ export const getServices = async function():Promise<ServicePayload[]>{
         "content-type": "application/json",
     };
     const graphqlQuery = {
-        "query": `query{
-            services {
-              data {
-                attributes {
-                  name,
-                  bannerText,
-                  orderNumber,
-                  shortDescription,
-                  bannerImage {
-                    data{
-                      attributes{
-                        name,
-                        url
-                      }
-                    }
-                  },
-                  serviceSection{
-                    sectionHeader,
-                    sectionText,
-                    orderNumber,
-                    sectionImage{
-                      data{
-                        attributes{
-                          url
-                        }
-                      }
+        "query": `query {
+          services {
+            data {
+              attributes {
+                name
+                bannerText
+                orderNumber
+                shortDescription
+                bannerImage {
+                  data {
+                    attributes {
+                      name
+                      url
                     }
                   }
                 }
               }
             }
-          }`,
+          }
+        }`,
         "variables": {}
     };
     
@@ -210,22 +198,54 @@ export const getServices = async function():Promise<ServicePayload[]>{
       acc[indx].shortDescription = elAt.shortDescription
       acc[indx].orderNumber = elAt.orderNumber
       acc[indx].bannerImage = elAt.bannerImage.data.attributes.url
-      acc[indx].serviceSection = []
+      // acc[indx].serviceSection = []
       
-      elAt.serviceSection.forEach((e, indx2)=>{
-        acc[indx].serviceSection.push({})
+      // elAt.serviceSection.forEach((e, indx2)=>{
+      //   acc[indx].serviceSection.push({})
 
-        acc[indx].serviceSection[indx2].sectionHeader = e?.sectionHeader || ''
-        acc[indx].serviceSection[indx2].sectionText = e?.sectionText || ''
-        acc[indx].serviceSection[indx2].orderNumber = e?.orderNumber || 0
-        acc[indx].serviceSection[indx2].url = e?.sectionImage?.data?.attributes?.url || ''
-      })
+      //   acc[indx].serviceSection[indx2].sectionHeader = e?.sectionHeader || ''
+      //   acc[indx].serviceSection[indx2].sectionText = e?.sectionText || ''
+      //   acc[indx].serviceSection[indx2].orderNumber = e?.orderNumber || 0
+      //   acc[indx].serviceSection[indx2].url = e?.sectionImage?.data?.attributes?.url || ''
+      // })
       
       return acc
 
     },[])
-
+    console.log
     return trimPackage
 }
 
 
+// query{
+//   services {
+//     data {
+//       attributes {
+//         name,
+//         bannerText,
+//         orderNumber,
+//         shortDescription,
+//         bannerImage {
+//           data{
+//             attributes{
+//               name,
+//               url
+//             }
+//           }
+//         },
+//         serviceSection{
+//           sectionHeader,
+//           sectionText,
+//           orderNumber,
+//           sectionImage{
+//             data{
+//               attributes{
+//                 url
+//               }
+//             }
+//           }
+//         }
+//       }
+//     }
+//   }
+// }

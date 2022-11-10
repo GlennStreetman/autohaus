@@ -1,5 +1,5 @@
-import prisma from "./prismaPool";
-const staticRoutes = ["/", "/calendar", "/careers", "/manager", "/contact", "/resumeSubmitted", "/about", "/thankyou", "service"];
+
+const staticRoutes = ["/", "/about",  "/calendar", "/careers", "/manager", "/contact", "/resumeSubmitted", "service", "/thankyou" ];
 
 // const dynamicRoutes = {
 //     service: () => {
