@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 
 
 interface props {
-    text: string string;
+    text: string;
     link: string;
     icon?: JSX.Element; //svg icon?
     newtab?: boolean;
@@ -53,35 +53,35 @@ const textAtLocation =
 
 
 export function NextLinkButtonBlack(p: props) {
-    
+
     const router = useRouter();
     const path = router.pathname;
 
     if (path !== p.link) {
         return (
             <div className="my-auto" >
-                    <div className="flex z-20">
-                        <Link href={p.link}>
-                        <a target={p.newtab === true ? "_blank" : '_self'}  className={textRegular}>
+                <div className="flex z-20">
+                    <Link href={p.link}>
+                        <a target={p.newtab === true ? "_blank" : '_self'} className={textRegular}>
                             {p.icon ? p.icon : <></>}
                             <div className="flex">
                                 <div className="shrink m-auto">{p.text}</div>
                             </div>
                         </a>
-                        </Link>
-                        <div className="flex grow" />
-                    </div>
+                    </Link>
+                    <div className="flex grow" />
+                </div>
             </div>
         );
     } else {
         return (
             <div className="my-auto">
                 <div className="flex z-20">
-                        <div className={textAtLocation}>
-                            <div className="flex textAtLocation">
-                                <div className="shrink m-auto">{p.text}</div>
-                            </div>
+                    <div className={textAtLocation}>
+                        <div className="flex textAtLocation">
+                            <div className="shrink m-auto">{p.text}</div>
                         </div>
+                    </div>
                     <div className="flex grow" />
                 </div>
             </div>
@@ -93,15 +93,15 @@ function LinkButtonBlack(p: props) {
     return (
 
         <div className="my-auto">
-                <div className="flex z-20">
-                    <a target={p.newtab === true ? "_blank" : '_self'} href={p.link} className={textRegular}>
-                        {p.icon ? p.icon : <></>}
-                        <div className="flex">
-                            <div className="shrink m-auto">{p.text}</div>
-                        </div>
-                    </a>
-                    <div className="flex grow" />
-                </div>
+            <div className="flex z-20">
+                <a target={p.newtab === true ? "_blank" : '_self'} href={p.link} className={textRegular}>
+                    {p.icon ? p.icon : <></>}
+                    <div className="flex">
+                        <div className="shrink m-auto">{p.text}</div>
+                    </div>
+                </a>
+                <div className="flex grow" />
+            </div>
         </div>
     );
 }

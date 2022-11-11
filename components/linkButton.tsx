@@ -1,5 +1,5 @@
 interface props {
-    text: string | Element | JSX.Element;
+    text: string;
     link: string;
     icon?: JSX.Element; //svg icon?
     highlight?: boolean;

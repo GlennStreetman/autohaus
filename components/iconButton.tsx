@@ -1,7 +1,7 @@
 import React from "react";
 
 interface props {
-    text: string | Element | JSX.Element;
+    text: string;
     callback: Function;
     icon: JSX.Element; //svg icon?
     highlight?: boolean;
