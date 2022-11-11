@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 
 interface props {
-    text: string | Element | JSX.Element;
+    text: string;
     icon: JSX.Element; //svg icon?
     link: string;
     textSize?: "small";

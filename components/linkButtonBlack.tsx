@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 
 
 interface props {
-    text: string | Element | JSX.Element;
+    text: string string;
     link: string;
     icon?: JSX.Element; //svg icon?
     newtab?: boolean;

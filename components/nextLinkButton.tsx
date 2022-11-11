@@ -2,7 +2,7 @@ import React from "react";
 import Link from "next/link";
 
 interface props {
-    text: string | Element | JSX.Element;
+    text: string;
     icon: JSX.Element; //svg icon?
     link: string;
     highlight?: boolean;
