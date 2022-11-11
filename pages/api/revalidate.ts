@@ -27,9 +27,11 @@ export default async function handler(req, res) {
         try {
             const revalidateList = revalidateLookup?.[req?.query?.update] || []
             console.log('revalidating:', revalidateList)
-            revalidateList.forEach((el)=>{
-                res.unstable_revalidate(`${el}`);
-            })
+            for(const el of revalidateList){
+                console.log('revaliding:', el)
+                await res.revalidate(`${el}`);
+                console.log( el, 'revalid complete')
+            }
             return res.json({ revalidated: true });
         } catch (err) {
             console.log("revalidate error", err);
