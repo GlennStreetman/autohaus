@@ -3,23 +3,26 @@ services:
     autohaus:
         build:
             context: .
-            dockerfile: Dockerfile
+            dockerfile: Dockerfile.prod
+            network: "${DOCKER_NETWORK}" 
         ports:
             - 3005:3000
         volumes:
-            - ./:/autohaus/
-        command: "npm run start"
-        # deploy:
-            # resources:
-            #     limits:
-            #         cpus: '1.25'
-            #         memory: 3000m
+            - .swc:/app/swc
+            - ./components:/app/components
+            - ./lib:/app/lib
+            - ./pages:/app/pages
+            - ./prisma:/app/prisma
+            - ./strapiAPI:/app/strapiAPI
+            - ./styles:/app/styles
+            - ./.env:/app/.env 
+        command: "npm run server"
+        deploy:
             restart_policy:
                 condition: on-failure
                 delay: 5s
                 max_attempts: 3
                 window: 120s
-        driver: local
 networks:
     default:
         external: true

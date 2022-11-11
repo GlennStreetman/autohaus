@@ -8,15 +8,15 @@
         "dev": "next dev",
         "build": "next build",
         "start": "next start",
+        "server": "node server.js",
         "startLocal": "next start -p 3005",
         "lint": "next lint",
         "dUp": " docker-compose -f app.yaml up",
-        "dBuild": "docker-compose -f app.yaml up --build --remove-orphans ",
+        "dBuild": "docker-compose -f app.yaml up --build",
         "pUp": "docker-compose -f app.prod.yaml up",
-        "pBuild": "docker-compose -f app.prod.yaml up --build  "
+        "pBuild": "rm -R .next & docker-compose -f app.prod.yaml up --build"
     },
     "dependencies": {
-        "@next-auth/prisma-adapter": "^1.0.3",
         "@prisma/client": "^3.13.0",
         "aws-sdk": "^2.1118.0",
         "encoding": "^0.1.13",

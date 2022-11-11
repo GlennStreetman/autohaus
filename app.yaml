@@ -4,13 +4,25 @@ services:
         build:
             context: .
             dockerfile: Dockerfile
+            network: "${DOCKER_NETWORK}" 
         ports:
             - 3005:3000
         volumes:
-            - ./:/autohaus/
+            - .swc:/app/swc
+            - ./components:/app/components
+            - ./lib:/app/lib
+            - ./pages:/app/pages
+            - ./prisma:/app/prisma
+            - ./public:/app/public
+            - ./strapiAPI:/app/strapiAPI
+            - ./styles:/app/styles
+            - ./.env:/app/.env         
+
         command: "npm run dev"
 networks:
     default:
         external: true
         name: "${DOCKER_NETWORK}"
 
+# - ./next-env.d.ts:/app/next-env.d.ts
+# - ./next.config.js:/app/next.config.js
