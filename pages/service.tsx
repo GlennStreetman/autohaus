@@ -92,7 +92,7 @@ export function ServiceHome(p: props) {
             <main>
                 <div className='h-20' />
                 <section>
-                    <Intro override='text-center mb-4 text-4xl' heading={p?.serviceHome?.heading ? p.serviceHome.heading : ''} body={p?.serviceHome?.topText ? p.serviceHome.topText : ''} />
+                    <Intro override='text-center mb-4 text-4xl' heading={p?.serviceHome?.heading || ''} body={p?.serviceHome?.topText || ''} />
                 </section>
                 <section className='defaultWidth'>
                     <div className='grid grid-cols-12 gap-3 my-2 mb-4'>

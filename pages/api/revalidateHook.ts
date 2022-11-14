@@ -11,6 +11,7 @@ interface reqPayload {
 }
 
 const test = async (req:req, res) => {
+    console.log('revalidate request received')
     try {
         const update = req?.body?.model ? req.body.model.replaceAll('-', '') : []
         fetch(`${process.env.NEXTAUTH_URL}/api/revalidate?secret=${process.env.NEXT_REVALIDATE}&update=${update}`)

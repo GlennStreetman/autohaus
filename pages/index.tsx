@@ -77,7 +77,7 @@ export function Home(p: props) {
                     </Banner>
                 </section>
                 <section>
-                    <Intro heading={p?.intro?.heading || ''} body={p?.intro?.textBody || ''} />
+                    <Intro heading={p?.intro?.heading || ''} body={p?.intro?.textBody || ''} link={p?.intro?.link || ""} linkText={p?.intro?.linkName || ''} />
                 </section>
                 <section>
                     <Why why={p.why} />
