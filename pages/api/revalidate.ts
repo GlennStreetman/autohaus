@@ -9,7 +9,7 @@ const revalidateLookup = {
     contact: staticRoutes, 
     googleMap: [ "/about", "/contact"], 
     homepageintro: ['/'], 
-    ourstory: ['/'], 
+    ourstory: ['/', 'about'], 
     pagetitle: ['/about'], 
     servicehome: ["/service"], 
     bannerimage: staticRoutes, 
