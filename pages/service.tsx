@@ -59,8 +59,6 @@ interface staticData {
 
 }
 
-
-
 export function ServiceHome(p: props) {
 
     const mapServiceList = p.serviceList.map((el) =>
@@ -91,7 +89,7 @@ export function ServiceHome(p: props) {
                 <title>{`${process.env.NEXT_PUBLIC_BUSINESS_NAME}: Porsche Repair Specialist - Santa Monica`}</title>
             </Head>
             <main>
-                <div className='h-20' />
+                <div className='h-4 md:h-20' />
                 <section>
                     <Intro override='text-center mb-4 text-4xl' heading={p?.serviceHome?.heading || ''} body={p?.serviceHome?.topText || ''} />
 

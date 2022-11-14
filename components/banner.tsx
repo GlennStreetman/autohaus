@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { imagePayload} from "../strapiAPI/getPublicImages"
+import { imagePayload } from "../strapiAPI/getPublicImages"
 
 interface props {
     images: imagePayload,
@@ -8,14 +8,14 @@ interface props {
 
 function Banner(p: props) {
 
-    const bannerImage = p?.images?.banner ? 
+    const bannerImage = p?.images?.banner ?
         <Image src={p.images.banner} alt="site banner" layout="fill" objectFit="cover" priority /> : <></>
 
     return (
-        <div className='flex w-full min-h-[400px] relative'>
+        <div className='flex w-full min-h-[300px] md:min-h-[400px] relative'>
             {bannerImage}
             {p.children ? (
-                <div className="flex  w-full z-10">
+                <div className="flex w-full z-10">
                     {p.children}
                 </div>
             ) : (

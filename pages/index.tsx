@@ -70,7 +70,7 @@ export function Home(p: props) {
                 <section>
                     <Banner images={p?.images}>
                         <div className='flex flex-col'>
-                            <div className='w-full h-16' />
+                            <div className='w-full h-4 md:h-16' />
                             <Announcements bannerTexts={p.bannerTexts} />
                         </div>
                     </Banner>

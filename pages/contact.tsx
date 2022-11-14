@@ -59,6 +59,7 @@ interface props {
     allServices: ServicePayload[];
     contacts: contacts;
     mapAPI: googleAPIPayload,
+    siteLinks: siteLinks;
 }
 
 interface staticData {
@@ -261,7 +262,11 @@ function Quote(p: props) {
                         <div className="grid grid-cols-12 col-span-12 relative mb-4 gap-6">
                             <div className='col-span-12 lg:col-span-6'>
                                 <div className='outline outline-1 outline-slate-300 flex flex-inline gap-2'>
-                                    <div className='p-4 outline-inherit' ><BsTelephoneInboundFill className="h-4 w-4 xs:h-7 xs:w-7" /></div>
+                                    <a target='_blank' rel="noreferrer" href={`tel:${p.contacts.phone}`}>
+                                        <div className='p-4 outline-inherit hover:text-highLight cursor-pointer' >
+                                            <BsTelephoneInboundFill className="h-4 w-4 xs:h-7 xs:w-7" />
+                                        </div>
+                                    </a>
                                     <div className='flex flex-col'>
                                         <div>Have a question, Call now</div>
                                         <div>{addDashes(p.contacts.phone)}</div>
@@ -270,7 +275,11 @@ function Quote(p: props) {
                             </div>
                             <div className='col-span-12 lg:col-span-6'>
                                 <div className='outline outline-1 outline-slate-300  flex flex-inline gap-2'>
-                                    <div className='p-4 outline-inherit'><HiOutlineLocationMarker className="h-4 w-4 xs:h-7 xs:w-7" /></div>
+                                    <a target='_blank' rel="noreferrer" href={p?.siteLinks?.googleLink}>
+                                        <div className='p-4 outline-inherit hover:text-highLight cursor-pointer'>
+                                            <HiOutlineLocationMarker className="h-4 w-4 xs:h-7 xs:w-7" />
+                                        </div>
+                                    </a>
                                     <div className='flex flex-col'>
                                         <div>Our Address</div>
                                         <div>{p.contacts.addressLong}</div>
@@ -476,7 +485,7 @@ function Quote(p: props) {
 export default function Main(p: staticData) {
     return (
         <PublicHOC contacts={p.contacts} siteLinks={p.siteLinks} images={p.images} siteText={p.siteText} >
-            <Quote faq={p.faq} team={p.team} images={p.images} allServices={p.allServices} contacts={p.contacts} mapAPI={p.mapAPI} />
+            <Quote faq={p.faq} team={p.team} images={p.images} allServices={p.allServices} contacts={p.contacts} mapAPI={p.mapAPI} siteLinks={p.siteLinks} />
         </PublicHOC>
     );
 }

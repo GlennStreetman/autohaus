@@ -11,7 +11,7 @@ function MapChecklist(p: props) {
     let mapChecklist = p.checklist.map((el, indx) => {
         return (<li className='mb-1 ml-4' key={`${indx}${el ? el.slice(0, 10) : ''} `}>
             <div className='flex gap-2'>
-                <IoIosCheckmarkCircleOutline className="h-5 w-5 shrink" />
+                <div className="h-7 w-7" ><IoIosCheckmarkCircleOutline className="h-7 w-7" /></div>
                 <ParseMarkdown text={el} />
             </div>
         </li>)
