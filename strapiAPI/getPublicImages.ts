@@ -89,8 +89,6 @@ export interface Attributes {
     Banner: Image;
     aboutImage: Image;
     logoImage: Image;
-    emailLight: Image;
-    emailDark: Image;
     emailImage: Image;
     logoWhite: Image;
 }
@@ -112,8 +110,6 @@ export interface imagePayload {
     banner: string,
     aboutImage: string,
     logoImage: string,
-    emailLight: string,
-    emailDark: string,
     emailImage: string
     logoWhite: string
 }
@@ -126,8 +122,6 @@ export const getPublicImages = async function():Promise<imagePayload>{
             banner: imageRaw?.Banner?.data?.attributes?.url || '',
             aboutImage: imageRaw?.aboutImage?.data?.attributes?.url || '',
             logoImage: imageRaw?.logoImage?.data?.attributes?.url || '',
-            emailLight: imageRaw?.emailLight?.data?.attributes?.url || '',
-            emailDark: imageRaw?.emailDark?.data?.attributes?.url || '',
             emailImage: imageRaw?.emailImage?.data?.attributes?.url || '',
             logoWhite: imageRaw?.logoWhite?.data?.attributes?.url || '',
         }

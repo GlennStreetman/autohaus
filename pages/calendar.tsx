@@ -130,7 +130,6 @@ interface props {
     images: imagePayload;
     team: teamMember[];
     data: string[];
-    siteText: siteText;
     allServices: ServicePayload[];
     holidays: holiday[]
     contacts: contacts
@@ -151,7 +150,7 @@ interface staticData {
 export default function Main(p: staticData) {
     return (
         <PublicHOC contacts={p.contacts} siteLinks={p.siteLinks} images={p.images} siteText={p.siteText} >
-            <Calendar faq={p.faq} data={p.data} team={p.team} images={p.images} siteText={p.siteText} allServices={p.allServices} holidays={p.holidays} contacts={p.contacts} />
+            <Calendar faq={p.faq} data={p.data} team={p.team} images={p.images} allServices={p.allServices} holidays={p.holidays} contacts={p.contacts} />
         </PublicHOC>
     );
 }

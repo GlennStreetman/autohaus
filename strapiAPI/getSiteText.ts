@@ -1,17 +1,18 @@
 
 
 export interface siteTextRaw {
-    FPBannerText: string;
-    aboutHeading: string;
+    // FPBannerText: string;
+    // aboutHeading: string;
     thanksResume: string;
-    holidayMessage: string;
+    // holidayMessage: string;
     thanksService: string;
     createdAt: Date;
     updatedAt: Date;
     publishedAt: Date;
-    aboutBody: string;
-    contactPageSiteText: string;
+    // aboutBody: string;
+    // contactPageSiteText: string;
     LegalBusinessName: string;
+    businessName: string;
 }
 
 export interface Data {

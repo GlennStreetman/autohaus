@@ -56,7 +56,6 @@ interface props {
     faq: faqPayload[];
     images: imagePayload;
     team: teamMember[];
-    siteText: siteText;
     allServices: ServicePayload[];
     contacts: contacts;
     mapAPI: googleAPIPayload,
@@ -477,7 +476,7 @@ function Quote(p: props) {
 export default function Main(p: staticData) {
     return (
         <PublicHOC contacts={p.contacts} siteLinks={p.siteLinks} images={p.images} siteText={p.siteText} >
-            <Quote faq={p.faq} team={p.team} images={p.images} siteText={p.siteText} allServices={p.allServices} contacts={p.contacts} mapAPI={p.mapAPI} />
+            <Quote faq={p.faq} team={p.team} images={p.images} allServices={p.allServices} contacts={p.contacts} mapAPI={p.mapAPI} />
         </PublicHOC>
     );
 }
