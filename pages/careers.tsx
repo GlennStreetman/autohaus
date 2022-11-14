@@ -11,13 +11,13 @@ import { AiFillCheckCircle } from "react-icons/ai";
 import { HiOutlineEmojiSad } from "react-icons/hi";
 import Head from "next/head";
 
-import {getPublicFAQ, faqPayload} from "../strapiAPI/getPublicFAQ"
-import {getPublicImages, imagePayload} from "../strapiAPI/getPublicImages"
-import {getTeam, teamMember} from "../strapiAPI/getTeam"
-import {getContacts, contacts} from "../strapiAPI/getContacts"
-import {getSiteLinks, siteLinks} from "../strapiAPI/getSiteLinks"
-import {getSiteText, siteText} from "../strapiAPI/getSiteText"
-import {getServices, ServicePayload} from "../strapiAPI/getServices"
+import { getPublicFAQ, faqPayload } from "../strapiAPI/getPublicFAQ"
+import { getPublicImages, imagePayload } from "../strapiAPI/getPublicImages"
+import { getTeam, teamMember } from "../strapiAPI/getTeam"
+import { getContacts, contacts } from "../strapiAPI/getContacts"
+import { getSiteLinks, siteLinks } from "../strapiAPI/getSiteLinks"
+import { getSiteText, siteText } from "../strapiAPI/getSiteText"
+import { getServices, ServicePayload } from "../strapiAPI/getServices"
 
 
 export async function getStaticProps() {
@@ -25,10 +25,10 @@ export async function getStaticProps() {
     const faqData = await getPublicFAQ()
     const imageUrls = await getPublicImages()
     const teamList = await getTeam()
-    const contactData:contacts = await getContacts()
-    const siteLinks:siteLinks = await getSiteLinks()
-    const siteText:siteText = await getSiteText()
-    const allServices:ServicePayload[] = await getServices()
+    const contactData: contacts = await getContacts()
+    const siteLinks: siteLinks = await getSiteLinks()
+    const siteText: siteText = await getSiteText()
+    const allServices: ServicePayload[] = await getServices()
 
 
     return {
@@ -404,7 +404,7 @@ interface staticData {
 
 export default function Main(p: staticData) {
     return (
-        <PublicHOC contacts={p.contacts} siteLinks={p.siteLinks} images={p.images} >
+        <PublicHOC contacts={p.contacts} siteLinks={p.siteLinks} images={p.images} siteText={p.siteText} >
             <Careers faq={p.faq} data={p.data} team={p.team} images={p.images} siteText={p.siteText} allServices={p.allServices} />
         </PublicHOC>
     );

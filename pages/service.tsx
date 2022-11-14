@@ -4,6 +4,8 @@ import Head from "next/head";
 import FAQ from "../components/faq";
 import Intro from '../components/intro'
 import ParseMarkdown from "../lib/parseMarkdown";
+import MapChecklist from '../components/MapChecklist'
+
 import { getPublicFAQ, faqPayload } from "../strapiAPI/getPublicFAQ"
 import { getPublicImages, imagePayload } from "../strapiAPI/getPublicImages"
 import { getContacts, contacts } from "../strapiAPI/getContacts"
@@ -81,7 +83,6 @@ export function ServiceHome(p: props) {
                 </a>
             </Link>
         </div>
-
     )
 
     return (
@@ -93,6 +94,12 @@ export function ServiceHome(p: props) {
                 <div className='h-20' />
                 <section>
                     <Intro override='text-center mb-4 text-4xl' heading={p?.serviceHome?.heading || ''} body={p?.serviceHome?.topText || ''} />
+
+                </section>
+                <section>
+                    <div className='w-full lg:w-3/5 mx-auto flex justify-center'>
+                        <MapChecklist checklist={p.serviceHome.checkList} />
+                    </div>
                 </section>
                 <section className='defaultWidth'>
                     <div className='grid grid-cols-12 gap-3 my-2 mb-4'>
@@ -100,7 +107,9 @@ export function ServiceHome(p: props) {
                     </div>
                 </section>
                 <section >
-                    <FAQ faq={p.faq} />
+                    <div className='w-full lg:w-3/5 mx-auto'>
+                        <FAQ faq={p.faq} />
+                    </div>
                 </section>
 
             </main>
@@ -110,7 +119,7 @@ export function ServiceHome(p: props) {
 
 export default function Main(p: staticData) {
     return (
-        <PublicHOC contacts={p.contacts} siteLinks={p.siteLinks} images={p.images} >
+        <PublicHOC contacts={p.contacts} siteLinks={p.siteLinks} images={p.images} siteText={p.siteText} >
             <ServiceHome {...p} />
         </PublicHOC>
     );

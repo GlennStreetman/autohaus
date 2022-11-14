@@ -14,7 +14,7 @@
         "dUp": " docker-compose -f app.yaml up",
         "dBuild": "docker-compose -f app.yaml up --build",
         "pUp": "docker-compose -f app.prod.yaml up",
-        "pBuild": "rm -R .next & docker-compose -f app.prod.yaml up --build"
+        "pBuild": "docker-compose -f app.prod.yaml up --build"
     },
     "dependencies": {
         "@prisma/client": "^3.13.0",

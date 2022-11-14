@@ -1,6 +1,6 @@
 import React from "react";
 import Topper from "./topper";
-import Bottom from "./bottom";
+import Footer from "./footer";
 
 
 
@@ -11,7 +11,7 @@ export function PublicHOC(p) {
         <div className='absolute'>
             <Topper contacts={p.contacts} siteLinks={p.siteLinks} images={p.images}/>
             {p.children}
-            <Bottom contacts={p.contacts} siteLinks={p.siteLinks} images={p.images}/>
+            <Footer contacts={p.contacts} siteLinks={p.siteLinks} images={p.images} siteText={p.siteText}/>
         </div>
     );
 }

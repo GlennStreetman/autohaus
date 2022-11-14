@@ -12,6 +12,8 @@ import { getContacts, contacts } from "../strapiAPI/getContacts"
 import { getSiteLinks, siteLinks } from "../strapiAPI/getSiteLinks"
 import { getStory, storyPayload } from "../strapiAPI/getStory"
 import { getGoogle, googleAPIPayload } from "../strapiAPI/getGoogleApi"
+import { getSiteText, siteText } from "../strapiAPI/getSiteText"
+import { getTeam, teamMember } from "../strapiAPI/getTeam"
 
 export async function getStaticProps() {
 
@@ -21,6 +23,8 @@ export async function getStaticProps() {
     const siteLinks: siteLinks = await getSiteLinks()
     const story: storyPayload = await getStory()
     const mapAPI: googleAPIPayload = await getGoogle()
+    const siteText: siteText = await getSiteText()
+    const teamList: teamMember[] = await getTeam()
 
     return {
         props: {
@@ -30,6 +34,8 @@ export async function getStaticProps() {
             faq: faqData,
             images: imageUrls,
             mapAPI: mapAPI,
+            siteText: siteText,
+            teamList: teamList
         },
     };
 }
@@ -41,18 +47,39 @@ interface staticProps {
     faq: faqPayload[];
     images: imagePayload;
     mapAPI: googleAPIPayload;
+    siteText: siteText;
+    teamList: teamMember[];
 }
 
 interface props {
     story: storyPayload;
     faq: faqPayload[];
     mapAPI: googleAPIPayload;
+    teamList: teamMember[];
 }
 
 const gutter = "col-span-0 sm:col-span-1 lg:col-span-2 "; //2x
 const body = "col-span-12 sm:col-span-10 lg:col-span-8  my-4"; //1x
 
 function Story(p: props) {
+
+    const mapTeamMembers = p.teamList.map((el) =>
+        <div key={`${el.name}-key`} className='col-span-12 lg:col-span-6 p-2'>
+            <div className='flex flex-col'>
+                <div className='relative h-[300px] w-[300px] mx-auto my-3 xl:my-0 rounded-full overflow-hidden '>
+                    <Image
+                        src={el?.photoUrl || ''}
+                        alt={el?.title || 'employee picutre'}
+                        layout="fill"
+                        objectFit="fill"
+                    />
+                </div>
+                <div className='sectionHeading text-highlight'>{el.name}</div>
+                <div className='sectionHeading text-highlight'>{el.title}</div>
+                <div className=''><ParseMarkdown text={el.description} /></div>
+            </div>
+        </div>
+    )
 
     return (
         <div className="grid grid-row grid-cols-12 p-1 bg-white">
@@ -76,6 +103,10 @@ function Story(p: props) {
                             /> : <></>}
                     </div>
                 </div>
+                {/* team list */}
+                <div className='grid grid-cols-12 gap-4 mt-4 mb-4'>
+                    {mapTeamMembers}
+                </div>
                 <div className='flex my-8'>
                     <iframe
                         width="1800"
@@ -87,7 +118,7 @@ function Story(p: props) {
                         &q=${p.mapAPI.searchString}`}>
                     </iframe>
                 </div>
-
+                <FAQ faq={p.faq} />
             </div>
             <div className={gutter} />
         </div>
@@ -96,14 +127,13 @@ function Story(p: props) {
 
 export default function About(p: staticProps) {
     return (
-        <PublicHOC contacts={p.contacts} siteLinks={p.siteLinks} images={p.images} >
+        <PublicHOC contacts={p.contacts} siteLinks={p.siteLinks} images={p.images} siteText={p.siteText} >
             <Head>
                 <title>{`${process.env.NEXT_PUBLIC_BUSINESS_NAME}: About Us`}</title>
             </Head>
             <div className="bg-white">
                 <div className='h-0 lg:h-20' />
-                <Story story={p.story} faq={p.faq} mapAPI={p.mapAPI} />
-                <div className='body'><FAQ faq={p.faq} /></div>
+                <Story story={p.story} faq={p.faq} mapAPI={p.mapAPI} teamList={p.teamList} />
             </div>
         </PublicHOC>
     );

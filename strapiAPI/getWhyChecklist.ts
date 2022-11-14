@@ -75,7 +75,7 @@ const options = {
 
 export interface whyPayload {
     heading: string,
-    checkList: Checklist[] | [],
+    checkList: string[] | [],
     picture: string
 }
 
@@ -83,11 +83,21 @@ export const getWhyChecklist = async function():Promise<whyPayload>{
     const response = await fetch(endpoint, options);
     const data = await response.json();
     const dataAtts = data?.data?.homepageWhyChecklist?.data?.attributes ? data.data.homepageWhyChecklist.data.attributes : {}
+
+    
+    let checklistMap = dataAtts?.Checklist.reduce((itr, el)=>{
+      itr.push(el.whyItem)
+      return itr
+  }, [])
+  
+
     let payload:whyPayload = {
         heading: dataAtts?.whyHeading || '',
-        checkList: dataAtts?.Checklist || [],
+        checkList: checklistMap || [],
         picture: dataAtts?.whyPicture?.data?.attributes?.url || '',
     }
+
+    // console.log('why payload', checklistMap)
 
     return payload
 }

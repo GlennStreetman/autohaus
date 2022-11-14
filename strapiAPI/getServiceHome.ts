@@ -1,36 +1,84 @@
 
+
+export interface ServiceChecklistItem {
+    serviceChecklist: string;
+}
+
 export interface Attributes {
     Heading: string;
     topText: string;
-    createdAt: Date;
-    updatedAt: Date;
-    publishedAt: Date;
+    serviceChecklistItem: ServiceChecklistItem[];
 }
 
-export interface Data {
-    id: number;
+export interface Data2 {
     attributes: Attributes;
 }
 
-export interface Meta {
+export interface ServiceHome {
+    data: Data2;
+}
+
+export interface Data {
+    serviceHome: ServiceHome;
 }
 
 export interface RootObject {
     data: Data;
-    meta: Meta;
-    }
-
-export interface serviceHomePayload {
-    heading: string;
-    topText: string;
 }
 
+export interface serviceHomePayload {
+  heading: string;
+  topText: string;
+  checkList: string[]
+
+}
+
+
+const endpoint = process.env.STRAPI_GQL
+
+const headers = {
+    "content-type": "application/json",
+};
+const graphqlQuery = {
+    "query": `query{
+      serviceHome {
+        data{
+          attributes{
+            Heading, topText, serviceChecklistItem {
+              serviceChecklist
+            }
+          }
+        }
+      }
+    }`,
+    "variables": {}
+};
+
+const options = {
+    "method": "POST",
+    "headers": headers,
+    "body": JSON.stringify(graphqlQuery)
+};
+
 export const getServiceHome = async function():Promise<serviceHomePayload>{
-    let get = await fetch(`${process.env.STRAPI_API}service-home`)
-    let siteText = await get.json()
+
+    const response = await fetch(endpoint, options);
+    const rawData:RootObject = await response.json();
+    const siteText = rawData?.data?.serviceHome?.data?.attributes || {Heading: '', topText: '', serviceChecklistItem: []}
+
+
+
+    let checklistMap = siteText?.serviceChecklistItem.reduce((itr, el)=>{
+        itr.push(el.serviceChecklist)
+        return itr
+    }, [])
+
+    console.log('service Text:', checklistMap)
+
     let data:serviceHomePayload = {
-        heading: siteText?.data?.attributes?.Heading || '',
-        topText: siteText?.data?.attributes?.topText || '',
+        heading: siteText?.Heading || '',
+        topText: siteText?.topText || '',
+        checkList: checklistMap,
 
     }
     return data

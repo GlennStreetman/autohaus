@@ -8,13 +8,13 @@ const gutter = "col-span-0 lg:col-span-1 xl:col-span-3"; //2x
 const body = "col-span-12 lg:col-span-10 xl:col-span-6 mb-4 text-white p-2 whitespace-pre-wrap flex flex-col"; //1x
 
 
-import {getPublicFAQ, faqPayload} from "../strapiAPI/getPublicFAQ"
-import {getPublicImages, imagePayload} from "../strapiAPI/getPublicImages"
-import {getTeam, teamMember} from "../strapiAPI/getTeam"
-import {getContacts, contacts} from "../strapiAPI/getContacts"
-import {getSiteLinks, siteLinks} from "../strapiAPI/getSiteLinks"
-import {getSiteText, siteText} from "../strapiAPI/getSiteText"
-import {getServices, ServicePayload} from "../strapiAPI/getServices"
+import { getPublicFAQ, faqPayload } from "../strapiAPI/getPublicFAQ"
+import { getPublicImages, imagePayload } from "../strapiAPI/getPublicImages"
+import { getTeam, teamMember } from "../strapiAPI/getTeam"
+import { getContacts, contacts } from "../strapiAPI/getContacts"
+import { getSiteLinks, siteLinks } from "../strapiAPI/getSiteLinks"
+import { getSiteText, siteText } from "../strapiAPI/getSiteText"
+import { getServices, ServicePayload } from "../strapiAPI/getServices"
 
 
 export async function getStaticProps() {
@@ -22,10 +22,10 @@ export async function getStaticProps() {
     const faqData = await getPublicFAQ()
     const imageUrls = await getPublicImages()
     const teamList = await getTeam()
-    const contactData:contacts = await getContacts()
-    const siteLinks:siteLinks = await getSiteLinks()
-    const siteText:siteText = await getSiteText()
-    const allServices:ServicePayload[] = await getServices()
+    const contactData: contacts = await getContacts()
+    const siteLinks: siteLinks = await getSiteLinks()
+    const siteText: siteText = await getSiteText()
+    const allServices: ServicePayload[] = await getServices()
 
 
     return {
@@ -80,7 +80,7 @@ ${p.siteText.thanksService}
                 <div className={gutter}></div>
                 <div className={body}>
                     <div className="grow"></div>
-                    <div className="shrink">
+                    <div className="shrink ">
                         {bannerText}
                         <pre>
                             Sincerely,
@@ -92,18 +92,20 @@ ${p.siteText.thanksService}
                 </div>
                 <div className={gutter}></div>
             </div>
-            <Faq faq={p.faq} />
+            <div className='w-full lg:w-3/5 mx-auto mt-4'>
+                <Faq faq={p.faq} />
+            </div>
         </div>
     );
 }
 
 export default function Main(p: staticData) {
     return (
-        <PublicHOC contacts={p.contacts} siteLinks={p.siteLinks}>
+        <PublicHOC contacts={p.contacts} siteLinks={p.siteLinks} images={p.images} siteText={p.siteText} >
             <Head>
                 <title>{`${process.env.NEXT_PUBLIC_BUSINESS_NAME}: Thank you!`}</title>
             </Head>
-            <Thankyou faq={p.faq} data={p.data} team={p.team} images={p.images} siteText={p.siteText} allServices={p.allServices}/>
+            <Thankyou faq={p.faq} data={p.data} team={p.team} images={p.images} siteText={p.siteText} allServices={p.allServices} />
         </PublicHOC>
     );
 }

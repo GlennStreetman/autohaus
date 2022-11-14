@@ -124,13 +124,11 @@
         photoUrl: string;
     }
 
-
-
 export const getTeam = async function():Promise<teamMember[]>{
     let get = await fetch(`${process.env.STRAPI_API}teams?populate=*`)
     let teamData:RootObject = await get.json()
     let teamListRaw: team[]  = teamData.data
-    let teamList = teamListRaw.reduce((acc, tm:team)=>{
+    let teamList: teamMember[] = teamListRaw.reduce((acc, tm:team)=>{
         let teamMember = {
             name: tm?.attributes?.name || '',
             title: tm?.attributes?.title || '',

@@ -1,22 +1,13 @@
-import ParseMarkdown from "./../lib/parseMarkdown";
+
 import { whyPayload } from "../strapiAPI/getWhyChecklist"
-import { IoIosCheckmarkCircleOutline } from 'react-icons/io'
 import Image from "next/image";
+import MapChecklist from '../components/MapChecklist'
 
 interface props {
     why: whyPayload
 }
 
 function Why(p: props) {
-
-    let mapChecklist = p.why.checkList.map((el, indx) => {
-        return (<li className='mb-1 ml-4' key={`${indx}${el.whyItem.slice(0, 10)}`}>
-            <div className='flex gap-2'>
-                <IoIosCheckmarkCircleOutline className="h-5 w-5 shrink" />
-                <ParseMarkdown text={el.whyItem} />
-            </div>
-        </li>)
-    })
 
     return (
         <div className='bg-white p-4'>
@@ -26,17 +17,18 @@ function Why(p: props) {
                         {p.why.heading}
                     </div>
                     <div className="font-body text-sm text-center mx-auto lg:mx-0">
-                        <ul>{mapChecklist}</ul>
+                        <MapChecklist checklist={p?.why?.checkList || []} />
                     </div>
                 </div>
                 <div className='grow col-span-12 lg:col-span-6 '>
                     <div className='relative h-[150px] lg:h-[250px] xl:h-[300px]  w-[300px] lg:w-[500px] xl:w-[600px] mx-auto my-3 lg:my-0'>
-                        <Image
-                            src={p.why.picture}
-                            alt={`Our Services`}
-                            layout="fill"
-                            objectFit="fill"
-                        />
+                        {p?.why?.picture ?
+                            <Image
+                                src={p?.why?.picture || ''}
+                                alt={`Our Services`}
+                                layout="fill"
+                                objectFit="fill"
+                            /> : <></>}
                     </div>
                 </div>
             </div>

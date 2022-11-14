@@ -40,8 +40,8 @@ function FAQ(p: { faq: faqPayload[] }) {
     )) : [];
 
     return (
-        <div className='bg-white mb-4'>
-            <div className="mx-2 lg:mx-auto lg:w-3/5 flex flex-col pb-4 ">
+        <div className='bg-white mb-4 grow'>
+            <div className="mx-2 flex flex-col pb-4 ">
                 <div className="sectionHeading mb-4">Frequenty Asked Questions</div>
                 <div className="border-b-2 border-black" />
                 {formattedData}

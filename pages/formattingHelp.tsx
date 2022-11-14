@@ -7,13 +7,13 @@ import Link from "next/link";
 import OutlinedSurface from "../components/outlinedSurface";
 import Head from "next/head";
 
-import {getPublicFAQ, faqPayload} from "../strapiAPI/getPublicFAQ"
-import {getPublicImages, imagePayload} from "../strapiAPI/getPublicImages"
-import {getTeam, teamMember} from "../strapiAPI/getTeam"
-import {getContacts, contacts} from "../strapiAPI/getContacts"
-import {getSiteLinks, siteLinks} from "../strapiAPI/getSiteLinks"
-import {getSiteText, siteText} from "../strapiAPI/getSiteText"
-import {getServices, ServicePayload} from "../strapiAPI/getServices"
+import { getPublicFAQ, faqPayload } from "../strapiAPI/getPublicFAQ"
+import { getPublicImages, imagePayload } from "../strapiAPI/getPublicImages"
+import { getTeam, teamMember } from "../strapiAPI/getTeam"
+import { getContacts, contacts } from "../strapiAPI/getContacts"
+import { getSiteLinks, siteLinks } from "../strapiAPI/getSiteLinks"
+import { getSiteText, siteText } from "../strapiAPI/getSiteText"
+import { getServices, ServicePayload } from "../strapiAPI/getServices"
 
 
 export async function getStaticProps() {
@@ -21,10 +21,10 @@ export async function getStaticProps() {
     const faqData = await getPublicFAQ()
     const imageUrls = await getPublicImages()
     const teamList = await getTeam()
-    const contactData:contacts = await getContacts()
-    const siteLinks:siteLinks = await getSiteLinks()
-    const siteText:siteText = await getSiteText()
-    const allServices:ServicePayload[] = await getServices()
+    const contactData: contacts = await getContacts()
+    const siteLinks: siteLinks = await getSiteLinks()
+    const siteText: siteText = await getSiteText()
+    const allServices: ServicePayload[] = await getServices()
 
 
     return {
@@ -86,7 +86,7 @@ function FormattingHelp() {
 
 export default function Main(p) {
     return (
-        <PublicHOC contacts={p.contacts} siteLinks={p.siteLinks}>
+        <PublicHOC contacts={p.contacts} siteLinks={p.siteLinks} images={p.images} siteText={p.siteText} >
 
             <Head>
                 <title>{`${process.env.NEXT_PUBLIC_BUSINESS_NAME}: Formatting Text`}</title>

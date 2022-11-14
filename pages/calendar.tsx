@@ -4,25 +4,25 @@ import { PublicHOC } from "../components/publicData";
 import Head from "next/head";
 import FAQ from "../components/faq";
 
-import {getPublicFAQ, faqPayload} from "../strapiAPI/getPublicFAQ"
-import {getPublicImages, imagePayload} from "../strapiAPI/getPublicImages"
-import {getTeam, teamMember} from "../strapiAPI/getTeam"
-import {getContacts, contacts} from "../strapiAPI/getContacts"
-import {getSiteLinks, siteLinks} from "../strapiAPI/getSiteLinks"
-import {getSiteText, siteText} from "../strapiAPI/getSiteText"
-import {getServices, ServicePayload} from "../strapiAPI/getServices"
-import {getHoliday, holiday} from "../strapiAPI/getHolidays"
+import { getPublicFAQ, faqPayload } from "../strapiAPI/getPublicFAQ"
+import { getPublicImages, imagePayload } from "../strapiAPI/getPublicImages"
+import { getTeam, teamMember } from "../strapiAPI/getTeam"
+import { getContacts, contacts } from "../strapiAPI/getContacts"
+import { getSiteLinks, siteLinks } from "../strapiAPI/getSiteLinks"
+import { getSiteText, siteText } from "../strapiAPI/getSiteText"
+import { getServices, ServicePayload } from "../strapiAPI/getServices"
+import { getHoliday, holiday } from "../strapiAPI/getHolidays"
 
 export async function getStaticProps() {
 
     const faqData = await getPublicFAQ()
     const imageUrls = await getPublicImages()
     const teamList = await getTeam()
-    const contactData:contacts = await getContacts()
-    const siteLinks:siteLinks = await getSiteLinks()
-    const siteText:siteText = await getSiteText()
-    const allServices:ServicePayload[] = await getServices()
-    const holidays:holiday[] = await getHoliday()
+    const contactData: contacts = await getContacts()
+    const siteLinks: siteLinks = await getSiteLinks()
+    const siteText: siteText = await getSiteText()
+    const allServices: ServicePayload[] = await getServices()
+    const holidays: holiday[] = await getHoliday()
 
 
     return {
@@ -114,7 +114,11 @@ function Calendar(p: props) {
                     </div>
                 </section>
                 <section>
-                    <FAQ faq={p.faq} />
+                    <div className='bg-white'>
+                        <div className='w-full lg:w-3/5 mx-auto'>
+                            <FAQ faq={p.faq} />
+                        </div>
+                    </div>
                 </section>
             </main>
         </>
@@ -146,7 +150,7 @@ interface staticData {
 
 export default function Main(p: staticData) {
     return (
-        <PublicHOC {...p}>
+        <PublicHOC contacts={p.contacts} siteLinks={p.siteLinks} images={p.images} siteText={p.siteText} >
             <Calendar faq={p.faq} data={p.data} team={p.team} images={p.images} siteText={p.siteText} allServices={p.allServices} holidays={p.holidays} contacts={p.contacts} />
         </PublicHOC>
     );

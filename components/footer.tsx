@@ -9,28 +9,29 @@ import { AiOutlineInstagram, AiOutlineHome, AiOutlineTeam } from "react-icons/ai
 import { GiAutoRepair } from "react-icons/gi";
 import { addDashes } from "../lib/formatPhone";
 
-import {contacts} from "../strapiAPI/getContacts"
-import {siteLinks} from "../strapiAPI/getSiteLinks"
-import LinkButtonBottom, {NextLinkButtonBottom} from './linkButtonBottom'
+import { contacts } from "../strapiAPI/getContacts"
+import { siteLinks } from "../strapiAPI/getSiteLinks"
+import LinkButtonBottom, { NextLinkButtonBottom } from './linkButtonBottom'
 import Image from "next/image";
-import {imagePayload} from '../strapiAPI/getPublicImages'
-
+import { imagePayload } from '../strapiAPI/getPublicImages'
+import { siteText } from "../strapiAPI/getSiteText"
 
 interface props {
     contacts: contacts;
     siteLinks: siteLinks;
     images: imagePayload;
+    siteText: siteText;
 }
 
 const gutter = "p-2 col-span-0  md:col-span-1 lg:col-span-1 xl:col-span-2"; //2x
 const spacer = "p-2 col-span-0  md:col-span-0 lg:col-span-0 xl:col-span-2"; //1x
 const data = "p-2 col-span-12 md:col-span-5 lg:col-span-5 xl:col-span-3"; //2x
 
-function Bottom(p: props) {
+function Footer(p: props) {
 
-    const logoWhite = p?.images?.logoWhite ? 
-    <Image src={p.images.logoWhite} alt="Logo" layout="fill" objectFit="cover" /> : <></>
-    
+    const logoWhite = p?.images?.logoWhite ?
+        <Image src={p.images.logoWhite} alt="Logo" layout="fill" objectFit="cover" /> : <></>
+
 
     const telephoneText = p?.contacts?.phone ? addDashes(p.contacts.phone) : "";
     const email = p?.contacts?.serviceEmail ? p.contacts.serviceEmail : "";
@@ -59,7 +60,7 @@ function Bottom(p: props) {
                 <div className={data}>
                     <div className="flex flex-col gap-2">
                         <div className="text-highLight font-semibold tracking-wider">Other Actions:</div>
-                        <NextLinkButtonBottom text="Home" link="/" icon={<AiOutlineHome className="h-7 w-7" />} /> 
+                        <NextLinkButtonBottom text="Home" link="/" icon={<AiOutlineHome className="h-7 w-7" />} />
                         <NextLinkButtonBottom text='About Us' link={`/about`} icon={<AiOutlineTeam className="h-7 w-7" />} />
                         <LinkButtonBottom text="Social" link={socialLink} icon={<AiOutlineInstagram className="h-7 w-7" />} />
                         <LinkButtonBottom text="Google Reviews" link={reviewLink} icon={<FcGoogle className="h-7 w-7 " />} />
@@ -69,14 +70,14 @@ function Bottom(p: props) {
                 </div>
                 <div className="text-slate-500 absolute bottom-2 right-8 flex flex-col">
                     <div className='relative h-[100px] w[100px]'>
-                       {logoWhite}
+                        {logoWhite}
                     </div>
-                    <div>{process.env.NEXT_PUBLIC_BUSINESS_NAME_LEGAL}</div>
-                    </div>
+                    <div>{p?.siteText?.LegalBusinessName || ''}</div>
+                </div>
                 <div className={gutter}></div>
             </div>
         </div>
     );
 }
 
-export default Bottom;
+export default Footer;

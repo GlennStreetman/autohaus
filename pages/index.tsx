@@ -83,7 +83,9 @@ export function Home(p: props) {
                     <Why why={p.why} />
                 </section>
                 <section>
-                    <FAQ faq={p.faq} />
+                    <div className='w-full lg:w-3/5 mx-auto'>
+                        <FAQ faq={p.faq} />
+                    </div>
                 </section>
             </main>
         </>
@@ -92,7 +94,7 @@ export function Home(p: props) {
 
 export default function Main(p: staticData) {
     return (
-        <PublicHOC contacts={p.contacts} siteLinks={p.siteLinks} images={p.images} >
+        <PublicHOC contacts={p.contacts} siteLinks={p.siteLinks} images={p.images} siteText={p.siteText} >
             <Home {...p} />
         </PublicHOC>
     );
