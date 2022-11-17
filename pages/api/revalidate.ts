@@ -3,6 +3,7 @@ const staticRoutes = ["/", "/about",  "/calendar", "/careers",  "/contact", "/re
 const revalidateLookup = {
     faq: staticRoutes, 
     holiday: ["/calendar"], 
+    holliday: ["/calendar"], 
     service: ["/service"], 
     team: ['/about'], 
     bannertext: staticRoutes, 
