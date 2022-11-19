@@ -10,10 +10,10 @@ interface props {
 function labeledTextArea(p: props) {
     return (
         <div id={p.id} className="col-span-12 border-2 p-2 relative">
-            <label className="absolute -top-4 left-4 z-2  text-accentBlue bg-primary">{p.label}</label>
+            <label className="absolute -top-4 left-4 z-2  text-accentBlue bg-white">{p.label}</label>
             <textarea
                 rows={6}
-                className="bg-primary outline-none w-full"
+                className="bg-white outline-none w-full"
                 value={p.value}
                 onChange={(e) => {
                     e.preventDefault();

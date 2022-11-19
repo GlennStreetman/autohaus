@@ -1,7 +1,7 @@
 
 import { whyPayload } from "../strapiAPI/getWhyChecklist"
 import Image from "next/image";
-import MapChecklist from '../components/MapChecklist'
+import MapChecklist from './MapChecklist'
 
 interface props {
     why: whyPayload

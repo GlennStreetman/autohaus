@@ -20,53 +20,53 @@ interface serviceProps {
     sunset: number,
 }
 
-function ServiceBox(p:serviceProps){
-    
+function ServiceBox(p: serviceProps) {
+
     const [fade, setFade] = useState('opacity-0')
     const [resetFade, setResetFade] = useState(false)
     // const [firstRender, setFirstRender] = useState(true)
 
-    useEffect(()=>{
-                setFade('fadeIn')
-                setResetFade(false)
-    },[])
+    useEffect(() => {
+        setFade('fadeIn')
+        setResetFade(false)
+    }, [])
 
-    useEffect(()=>{
+    useEffect(() => {
         if (resetFade === true) {
-                setFade('fadeIn')
-                setResetFade(false)
-    }
-    },[resetFade])
+            setFade('fadeIn')
+            setResetFade(false)
+        }
+    }, [resetFade])
 
-    useEffect(()=>{
+    useEffect(() => {
         if (p.sunset !== 0) {
             setFade('blackOut')
             setResetFade(true)
         }
-    },[p.sunset])
+    }, [p.sunset])
 
     return (
         <div className={fade}>
             <Link href={p.link}>
-            <div className="flex flex-col cursor-pointer bg-red-600 hover:bg-accent w-[208px] xs:w-[256px] md:w-[256px] lg:w-[288px] xl:w-[288px] h-52 xs:h-64 md:h-64 lg:h-72 xl::h-72">
-                <div className='relative grow bg-black overflow-hidden'>
+                <div className="flex flex-col cursor-pointer bg-red-600 hover:bg-primary w-[208px] xs:w-[256px] md:w-[256px] lg:w-[288px] xl:w-[288px] h-52 xs:h-64 md:h-64 lg:h-72 xl::h-72">
+                    <div className='relative grow bg-black overflow-hidden'>
                         <Image
                             src={p.image}
                             alt={`${p.service} picture`}
                             layout="fill"
                             objectFit="fill"
                         />
+                    </div>
+                    <div className="text-white font-primary font-bold text-center uppercase z-10">{p.service}</div>
                 </div>
-                <div className="text-white font-primary font-bold text-center uppercase z-10">{p.service}</div>
-            </div>
-        </Link>
-    </div>
+            </Link>
+        </div>
     )
 }
 
 interface mapProps {
-    target: number, 
-    showCount: number, 
+    target: number,
+    showCount: number,
     ourServices: serviceBox[]
     sunset: number
     setDetectHover: Function
@@ -76,7 +76,7 @@ function MappedServices(p: mapProps) {
     const selectServices = p.ourServices.slice(p.target, p.target + p.showCount);
 
     const mapSlides = Object.values(selectServices).map((el) => {
-        return (<div onMouseOver={()=>{p.setDetectHover(true)}} onMouseLeave={()=>{p.setDetectHover(false)}} key={`${el.service}`}>
+        return (<div onMouseOver={() => { p.setDetectHover(true) }} onMouseLeave={() => { p.setDetectHover(false) }} key={`${el.service}`}>
             <ServiceBox link={el.link} service={el.service} image={el.image} target={p.target} sunset={p.sunset} />
         </div>);
     });
@@ -86,10 +86,10 @@ function MappedServices(p: mapProps) {
 
 
 interface dotProps {
-    showCount: number, 
-    target: number, 
-    setTarget: Function, 
-    ourServices: serviceBox[], 
+    showCount: number,
+    target: number,
+    setTarget: Function,
+    ourServices: serviceBox[],
     setFirstClick: Function
 }
 
@@ -102,7 +102,7 @@ function MakeDots(p: dotProps) {
         if (el === p.target) {
             return (
                 <RiCheckboxBlankCircleFill
-                    className="text-accentRed cursor-pointer h-6 w-6"
+                    className="text-accentBlue cursor-pointer h-6 w-6"
                     key={`dots-${el}`}
                     onClick={(e) => {
                         e.preventDefault();
@@ -114,7 +114,7 @@ function MakeDots(p: dotProps) {
         } else {
             return (
                 <RiCheckboxBlankCircleLine
-                    className="text-accentRed cursor-pointer h-6 w-6"
+                    className="text-accentBlue cursor-pointer h-6 w-6"
                     key={`dots-${el}`}
                     onClick={(e) => {
                         e.preventDefault();
@@ -129,13 +129,13 @@ function MakeDots(p: dotProps) {
 }
 
 function updateTareget(change: number, target: number, setTarget: Function, showCount: number, ourServices: serviceBox[], setSunset: Function) {
-    
+
     setSunset()
 
-    setTimeout(()=>{
+    setTimeout(() => {
         const serviceCount = ourServices.length;
         if (target + change < 0) {
-            return setTarget( serviceCount - showCount);
+            return setTarget(serviceCount - showCount);
         } else if (target + change > serviceCount - showCount) {
             return setTarget(0);
         } else {
@@ -176,31 +176,31 @@ function CustomCarousel(p: props) {
     const [detectHover, setDetectHover] = useState(false)
 
     const screenSize = useContext(ScreenWidth);
-    
+
 
     const ourServices: serviceBox[] = p.services.map((el) => {
-        
+
         return {
-            service: el?.bannerText ? el.bannerText : '' ,
+            service: el?.bannerText ? el.bannerText : '',
             image: el?.bannerImage ? el.bannerImage : '',
             link: `/services/${el.name.replace(/[^a-z0-9+]+/gi, "")}`,
         };
     });
-    
-    const incrmenetSunset = ()=>{
-        setSunset(sunset+1)
+
+    const incrmenetSunset = () => {
+        setSunset(sunset + 1)
     }
 
     useEffect(() => {
         setSlideCount(screenSize.width, setShowCount, setTarget);
     }, [screenSize.width]);
 
-    useEffect(()=>{
-        const rotate = setInterval(()=>{
+    useEffect(() => {
+        const rotate = setInterval(() => {
             if (!firstClick && ourServices.length > showCount && !detectHover) updateTareget(+1, target, setTarget, showCount, ourServices, incrmenetSunset);
         }, 8000)
 
-        return function cleanup(){
+        return function cleanup() {
             clearInterval(rotate)
         }
     })
@@ -208,13 +208,13 @@ function CustomCarousel(p: props) {
     return (
         <>
             <div className="flex flex-inline justify-center p-2 gap-2">
-                <div 
-                    className="bg-slate-200 text-primary hover:text-white hover:bg-accent  rounded-md flex justify-center" 
+                <div
+                    className="bg-slate-200 text-primary hover:text-white hover:bg-primary  rounded-md flex justify-center"
                     onMouseDown={preventDoubleClick}
-                    onMouseOver={()=>{setDetectHover(true)}}
-                    onMouseLeave={()=>{setDetectHover(false)}}
+                    onMouseOver={() => { setDetectHover(true) }}
+                    onMouseLeave={() => { setDetectHover(false) }}
                 >
-                    {showCount <= ourServices.length  ? <AiOutlineArrowLeft
+                    {showCount <= ourServices.length ? <AiOutlineArrowLeft
                         className="h-auto w-7 cursor-pointer"
                         onClick={(e) => {
                             e.preventDefault();
@@ -226,13 +226,13 @@ function CustomCarousel(p: props) {
                 <div className="flex flex-row gap-2">
                     <MappedServices target={target} showCount={showCount} ourServices={ourServices} sunset={sunset} setDetectHover={setDetectHover} />
                 </div>
-                <div 
-                    className="bg-slate-200 text-primary hover:text-white hover:bg-accent rounded-md flex justify-center" 
-                    onMouseDown={preventDoubleClick}                         
-                    onMouseOver={()=>{setDetectHover(true)}}
-                    onMouseLeave={()=>{setDetectHover(false)}}
+                <div
+                    className="bg-slate-200 text-primary hover:text-white hover:bg-primary rounded-md flex justify-center"
+                    onMouseDown={preventDoubleClick}
+                    onMouseOver={() => { setDetectHover(true) }}
+                    onMouseLeave={() => { setDetectHover(false) }}
                 >
-                    {showCount <= ourServices.length  ? <AiOutlineArrowRight
+                    {showCount <= ourServices.length ? <AiOutlineArrowRight
                         className="h-auto w-7 cursor-pointer"
                         onClick={(e) => {
                             e.preventDefault();
@@ -241,7 +241,7 @@ function CustomCarousel(p: props) {
                         }}
 
 
-                    />: <></> }
+                    /> : <></>}
                 </div>
             </div>
             <div className="flex justify-center"><MakeDots showCount={showCount} target={target} setTarget={setTarget} ourServices={ourServices} setFirstClick={setFirstClick} /></div>

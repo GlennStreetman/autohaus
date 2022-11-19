@@ -48,7 +48,7 @@ function Footer(p: props) {
                 <div className={gutter}></div>
                 <div className={data}>
                     <div className="flex flex-col gap-2">
-                        <div className="text-highLight font-semibold tracking-wider">Contact Details:</div>
+                        <div className="text-primary font-semibold tracking-wider">Contact Details:</div>
                         <LinkButtonBottom text={telephoneText} link={`tel:${p.contacts.phone}`} icon={<BsTelephoneInboundFill className="h-7 w-7" />} />
                         <NextLinkButtonBottom text="Contact Us / Request Appointment" icon={<GiAutoRepair className="h-7 w-7" />} link="/contact" />
                         <LinkButtonBottom text={email} link={`mailto: ${email}`} icon={<MdOutlineMailOutline className="h-7 w-7" />} />
@@ -59,7 +59,7 @@ function Footer(p: props) {
                 <div className={spacer} />
                 <div className={data}>
                     <div className="flex flex-col gap-2">
-                        <div className="text-highLight font-semibold tracking-wider">Other Actions:</div>
+                        <div className="text-primary font-semibold tracking-wider">Other Actions:</div>
                         <NextLinkButtonBottom text="Home" link="/" icon={<AiOutlineHome className="h-7 w-7" />} />
                         <NextLinkButtonBottom text='About Us' link={`/about`} icon={<AiOutlineTeam className="h-7 w-7" />} />
                         <LinkButtonBottom text="Social" link={socialLink} icon={<AiOutlineInstagram className="h-7 w-7" />} />

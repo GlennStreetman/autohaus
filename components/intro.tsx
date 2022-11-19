@@ -1,7 +1,5 @@
 import ParseMarkdown from "../lib/parseMarkdown";
 import NextLinkButton from '../components/nextLinkButton'
-import { introPayload } from "../strapiAPI/getIntro"
-import { serviceHomePayload } from "../strapiAPI/getServiceHome"
 
 interface props {
     heading: string;

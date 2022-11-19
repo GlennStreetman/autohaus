@@ -10,7 +10,7 @@ interface props {
 }
 
 function LabeledSelect(p: props) {
-    const [labelStyling, setLabelStyling] = useState("absolute text-accentBlue bg-primary ");
+    const [labelStyling, setLabelStyling] = useState("absolute text-accentBlue bg-white ");
 
     function handleChange(e: React.ChangeEvent<HTMLSelectElement>, callback: Function) {
         e.preventDefault();
@@ -19,23 +19,23 @@ function LabeledSelect(p: props) {
 
     function helperFocus(helperStyling: Function) {
         //on focus, move helper text to upper left side of input form, set zIndex to bring it above outline.
-        helperStyling("absolute bottom-8 left-4 z-2  text-accentBlue bg-primary");
+        helperStyling("absolute bottom-8 left-4 z-2  text-accentBlue bg-white");
     }
 
     function helperBlurr(fieldValue: string, helperStyling: Function) {
         //on blurr, move helper text to upper left side of input form, set zIndex to bring it above outline.
         if (fieldValue === "") {
-            helperStyling("absolute text-accentBlue bg-primary p-1");
+            helperStyling("absolute text-accentBlue bg-white p-1");
         }
     }
 
     useEffect(() => {
-        if (p.value !== "") setLabelStyling("absolute bottom-8 left-1 z-2  text-accentBlue bg-primary");
+        if (p.value !== "") setLabelStyling("absolute bottom-8 left-1 z-2  text-accentBlue bg-white");
     }, [p.value]);
 
     return (
         <div
-            className="relative rounded-md border-2 p-2 text-primary"
+            className="relative rounded-md border-2 p-2 text-white"
             onFocus={() => helperFocus(setLabelStyling)}
             onBlur={() => helperBlurr(p.value, setLabelStyling)}
         >
@@ -49,7 +49,7 @@ function LabeledSelect(p: props) {
                 {p.label}
             </label>
             <select
-                className="bg-primary outline-none"
+                className="bg-white outline-none"
                 id={p.id}
                 required
                 value={p.value}
@@ -57,7 +57,7 @@ function LabeledSelect(p: props) {
                 onInput={(e) => {
                     // console.log("INPUT", e.target);
                 }}
-                onFocus={p.onFocusCallback ? (e) => p.onFocusCallback(e) : () => {}}
+                onFocus={p.onFocusCallback ? (e) => p.onFocusCallback(e) : () => { }}
             >
                 {p.children}
             </select>

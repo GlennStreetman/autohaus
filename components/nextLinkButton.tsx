@@ -15,9 +15,9 @@ interface props {
 function NextLinkButton(p: props) {
 
     const textHighlight =
-        `flex flex-row shrink border-2 border-highLight hover:border-black p-2 rounded-md bg-highLight font-medium hover:font-black ${p?.textSize || `text-sm`}  gap-1`;
+        `flex flex-row shrink border-2 border-highLight hover:border-black p-2 rounded-md bg-primary font-medium hover:font-black ${p?.textSize || `text-sm`}  gap-1`;
     const textRegular =
-        `flex flex-row shrink border-2 border-highLight hover:border-black p-2 rounded-md bg-highLight font-medium hover:font-black ${p?.textSize || `text-sm`} gap-1`;
+        `text-white flex flex-row shrink border-2 border-highLight hover:border-black p-2 rounded-md bg-primary font-medium hover:font-black ${p?.textSize || `text-sm`} gap-1`;
 
     return (
         <div className="flex z-20">

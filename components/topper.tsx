@@ -67,7 +67,7 @@ function Topper(p: props) {
                         <LinkButtonTopper text={telephoneText} link={`tel:${p.contacts.phone}`} icon={<BsTelephoneInboundFill className="h-4 w-4 xs:h-7 xs:w-7" />} />
                     </div>
                 </div>
-                <div className="z-20 flex right-0 sticky top-0 justify-center p-2 gap-2 bg-highLight w-screen my-auto">
+                <div className="z-20 flex right-0 sticky top-0 justify-center p-2 gap-2 bg-primary w-screen my-auto">
                     <NextLinkButtonBlack text="Home" link="/" icon={<></>} />
                     <NextLinkButtonBlack text='About Us' icon={<></>} link="/about" />
                     <LogoLittle logo={p?.images?.logoImage || ''} position={scrollPosition} />
@@ -82,7 +82,7 @@ function Topper(p: props) {
         return (
             <>
                 {sideMenu ? <SlideOver show={setSideMenu} contacts={p.contacts} siteLinks={p.siteLinks} /> : ''}
-                <div className="z-20 flex right-0 sticky top-0 p-2 gap-2 bg-highLight w-screen my-auto px-12">
+                <div className="z-20 flex right-0 sticky top-0 p-2 gap-2 bg-primary w-screen my-auto px-12">
                     <div className='mx-auto'><LogoLittle logo={p?.images?.logoImage || ''} position={scrollPosition} /></div>
                     <div className='cursor-pointer hover:text-white my-auto flex ' onClick={() => setSideMenu(!sideMenu)}><GiHamburgerMenu className="h-9 w-9 " /></div>
                 </div>

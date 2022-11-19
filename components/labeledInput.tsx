@@ -14,7 +14,7 @@ interface props {
 }
 
 function LabeledInput(p: props) {
-    const [labelStyling, setLabelStyling] = useState("absolute text-accentBlue bg-primary ");
+    const [labelStyling, setLabelStyling] = useState("absolute text-accentBlue bg-white ");
     const helperStyleing = "absolute bottom-8 left-4 z-2 text-red-700 bg-primary";
 
     function handleChange(e: React.ChangeEvent<HTMLInputElement>, callback: Function) {
@@ -24,23 +24,23 @@ function LabeledInput(p: props) {
 
     function helperFocus(helperStyling: Function) {
         //on focus, move helper text to upper left side of input form, set zIndex to bring it above outline.
-        helperStyling("absolute bottom-8 left-4 text-accentBlue bg-primary");
+        helperStyling("absolute bottom-8 left-4 text-accentBlue bg-white");
     }
 
     function helperBlurr(fieldValue: string, helperStyling: Function) {
         //on blurr, move helper text to upper left side of input form, set zIndex to bring it above outline.
         if (fieldValue === "") {
-            helperStyling("absolute text-accentBlue bg-primary p-1");
+            helperStyling("absolute text-accentBlue bg-white p-1");
         }
     }
 
     useEffect(() => {
-        if (p.value !== "") setLabelStyling("absolute bottom-8 left-4  text-accentBlue bg-primary");
+        if (p.value !== "") setLabelStyling("absolute bottom-8 left-4  text-accentBlue bg-white");
     }, [p.value]);
 
     return (
         <div
-            className="relative rounded-md border-2 p-2 text-primary w-full"
+            className="relative rounded-md border-2 p-2 text-white w-full"
             onFocus={() => helperFocus(setLabelStyling)}
             onBlur={() => helperBlurr(p.value, setLabelStyling)}
         >
@@ -55,7 +55,7 @@ function LabeledInput(p: props) {
             </label>
             <input
                 autoComplete={p.autocomplete ? p.autocomplete : "off"}
-                className="bg-primary outline-none w-full "
+                className="bg-white outline-none w-full "
                 id={p.id}
                 type={p.fieldType ? p.fieldType : "text"}
                 required
@@ -65,7 +65,7 @@ function LabeledInput(p: props) {
                     // console.log("INPUT", e.target);
                 }}
                 list={p.datalistID ? p.datalistID : "pass"}
-                onFocus={p.onFocusCallback ? (e) => p.onFocusCallback(e) : () => {}}
+                onFocus={p.onFocusCallback ? (e) => p.onFocusCallback(e) : () => { }}
             />
             {p.dataList ? p.dataList : <></>}
         </div>
