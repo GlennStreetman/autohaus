@@ -73,7 +73,6 @@ export const getServiceHome = async function():Promise<serviceHomePayload>{
         return itr
     }, [])
 
-    console.log('service Text:', checklistMap)
 
     let data:serviceHomePayload = {
         heading: siteText?.Heading || '',

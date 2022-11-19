@@ -63,8 +63,9 @@ export function ServiceHome(p: props) {
 
     const mapServiceList = p.serviceList.map((el) =>
 
-        <div key={`${el.name}-key`} className='col-span-12 sm:col-span-6 xl:col-span-4 p-2 hover:bg-amber-200 cursor-pointer'>
-            <Link href={`/contact?text=Im%interested%in%${el.bannerText.replaceAll('&', 'and')}`}>
+        <div key={`${el.name}-key`} className='col-span-12 sm:col-span-6 xl:col-span-4 p-2 hover:bg-red-200 cursor-pointer'>
+            {/* <Link href={`/contact?text=Im%interested%in%${el.bannerText.replaceAll('&', 'and')}`}> */}
+            <Link href={`/service/${el.name.replace(/[^a-z0-9]+/gi, "_")}`}>
                 <a>
                     <div className='flex flex-col'>
                         <div className='relative h-[200px] w-[200px] mx-auto my-3 xl:my-0 rounded-full overflow-hidden '>
@@ -75,7 +76,7 @@ export function ServiceHome(p: props) {
                                 objectFit="fill"
                             />
                         </div>
-                        <div className='sectionHeading text-highlight'>{el.bannerText}</div>
+                        <div className='sectionHeading text-primary'>{el.bannerText}</div>
                         <div className=''><ParseMarkdown text={el.shortDescription} /></div>
                     </div>
                 </a>
