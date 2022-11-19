@@ -74,8 +74,8 @@ function Story(p: props) {
                         objectFit="fill"
                     />
                 </div>
-                <div className='sectionHeading text-highlight'>{el.name}</div>
-                <div className='sectionHeading text-highlight'>{el.title}</div>
+                <div className=' text-4xl font-bold text-black pb-1'>{el.name}</div>
+                <div className=' text-2xl font-bold text-primary pb-1'>{el.title}</div>
                 <div className=''><ParseMarkdown text={el.description} /></div>
             </div>
         </div>
@@ -90,7 +90,7 @@ function Story(p: props) {
                     <div className='col-span-12 lg:col-span-6 flex flex-col justfiy-center'>
                         <ParseMarkdown text={p?.story?.story || ''} />
                         <div className='m-auto'>
-                            <NextLinkButton text='Contact Us Today!' link='/contact' icon={<></>} />
+                            <NextLinkButton text='Contact Us Today!' textSize='text-xl' link='/contact' icon={<></>} />
                         </div>
                     </div>
                     <div className='col-span-12 lg:col-span-6 relative h-[300px] lg:h-[300px] xl:h-[400px]  w-[400px] lg:w-[400px] xl:w-[500px] mx-auto my-3 lg:my-0'>

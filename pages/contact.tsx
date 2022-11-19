@@ -263,7 +263,7 @@ function Quote(p: props) {
                             <div className='col-span-12 lg:col-span-6'>
                                 <div className='outline outline-1 outline-slate-300 flex flex-inline gap-2'>
                                     <a target='_blank' rel="noreferrer" href={`tel:${p.contacts.phone}`}>
-                                        <div className='p-4 outline-inherit hover:text-highLight cursor-pointer' >
+                                        <div className='p-4 outline-inherit hover:text-primary cursor-pointer' >
                                             <BsTelephoneInboundFill className="h-4 w-4 xs:h-7 xs:w-7" />
                                         </div>
                                     </a>
@@ -276,7 +276,7 @@ function Quote(p: props) {
                             <div className='col-span-12 lg:col-span-6'>
                                 <div className='outline outline-1 outline-slate-300  flex flex-inline gap-2'>
                                     <a target='_blank' rel="noreferrer" href={p?.siteLinks?.googleLink}>
-                                        <div className='p-4 outline-inherit hover:text-highLight cursor-pointer'>
+                                        <div className='p-4 outline-inherit hover:text-primary cursor-pointer'>
                                             <HiOutlineLocationMarker className="h-4 w-4 xs:h-7 xs:w-7" />
                                         </div>
                                     </a>
@@ -343,9 +343,9 @@ function Quote(p: props) {
                         <div className='flex'>
                             <div className='grow' />
                             <div className="my-8 text-center 
-                                        border-2 p-1 rounded-md bg-secondary shadow-sm 
+                                        border-2 p-1 rounded-md bg-slate-200 shadow-sm 
                                         shadow-slate-600 hover:bg-weak hover:border-black 
-                                        hover:text-accent active:bg-strong"
+                                        hover:text-red-500 active:bg-strong"
                                 onClick={() => setShowOptional(!showOptional)}>{showOptional ? 'Hide Appointment Options' : 'Show Appointment Options'} </div>
                             <div className='grow' />
                         </div>
@@ -427,10 +427,10 @@ function Quote(p: props) {
                                 </div>
                             </> : <></>}
                             <div className="col-span-12 border-2 p-2 relative">
-                                <label className="absolute -top-4 left-4 z-2  text-accentBlue bg-primary">Reason for Visit</label>
+                                <label className="absolute -top-4 left-4 z-2  text-accentBlue bg-white">Reason for Visit</label>
                                 <textarea
                                     rows={6}
-                                    className="bg-primary outline-none w-full"
+                                    className="bg-white outline-none w-full"
                                     value={description}
                                     onChange={(e) => {
                                         e.preventDefault();
@@ -455,7 +455,7 @@ function Quote(p: props) {
                             <div className={big}>
                                 <div className="flex justify-center">
                                     <button
-                                        className="h-[78px] border-2 p-2 rounded-md bg-secondary shadow-sm shadow-slate-600 hover:bg-weak hover:border-black hover:text-accent active:bg-strong text-2x font-bold"
+                                        className="h-[78px] border-2 p-2 rounded-md bg-slate-200 shadow-sm shadow-slate-600 hover:bg-weak hover:border-black hover:text-accent active:bg-strong text-2x font-bold"
                                         onClick={processRequest}
                                     >
                                         Submit Request
