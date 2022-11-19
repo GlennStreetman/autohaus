@@ -1,31 +1,29 @@
 .article {
-    @apply whitespace-pre-line text-left text-sm;
-    font-family: Open Sans, sans-serif, Roboto-Condensed, Roboto,-apple-system, BlinkMacSystemFont, Segoe UI, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+    @apply whitespace-pre-line text-left text-sm font-body;
 }
 
 .article h1 {
-    @apply font-bold text-4xl inline;
-    font-family: Open Sans, sans-serif,Roboto-Condensed, Roboto,-apple-system, BlinkMacSystemFont, Segoe UI, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+    @apply font-bold text-4xl inline font-heading;
 }
 
 .article h2 {
-    @apply font-bold text-lg inline;
+    @apply font-bold text-2xl inline  font-heading;
 }
 
 .article h3 {
-    @apply  font-bold text-sm inline;
+    @apply  font-bold text-xl inline font-heading;
 }
 
 .article a {
-    @apply text-highLightFade font-bold text-sm italic ;
+    @apply text-primary text-sm italic ;
 }
 
 .article a:hover {
-    @apply text-highLight font-bold text-sm italic;
+    @apply text-red-700 font-bold text-sm italic;
 }
 
 .title {
-    @apply text-2xl;
+    @apply text-4xl;
 }
 
 .article li {
