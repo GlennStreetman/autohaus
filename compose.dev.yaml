@@ -1,9 +1,11 @@
 version: "3.9"
 services:
     autohaus:
+        env_file:
+            - .env
         build:
             context: .
-            dockerfile: Dockerfile.prod
+            dockerfile: Dockerfile
             network: "${DOCKER_NETWORK}" 
         ports:
             - 3005:3000
@@ -13,21 +15,15 @@ services:
             - ./lib:/app/lib
             - ./pages:/app/pages
             - ./prisma:/app/prisma
+            - ./public:/app/public
             - ./strapiAPI:/app/strapiAPI
             - ./styles:/app/styles
-            - ./.env:/app/.env 
-        command: "npm run server"
-        deploy:
-            resources:
-                limits:
-                    cpus: '1.25'
-                    memory: 2000m
-            restart_policy:
-                condition: on-failure
-                delay: 5s
-                max_attempts: 3
-                window: 120s
+            - ./.env:/app/.env
+        command: "npm run dev"
 networks:
     default:
         external: true
         name: "${DOCKER_NETWORK}"
+
+# - ./next-env.d.ts:/app/next-env.d.ts
+# - ./next.config.js:/app/next.config.js
