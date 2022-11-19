@@ -7,9 +7,9 @@ interface props {
 }
 
 const textHighlight =
-    "flex flex-row shrink border-2 hover:border-black p-2 rounded-md bg-secondary shadow-lg shadow-slate-600 hover:bg-strong active:bg-strong text-sm  gap-1 hover:text-accent text-red-600";
+    "flex flex-row shrink border-2 hover:border-black p-2 rounded-md bg-slate-200 shadow-lg shadow-slate-600 hover:bg-strong active:bg-strong text-sm  gap-1 hover:text-accent text-red-600";
 const textRegular =
-    "flex flex-row shrink border-2 hover:border-black p-2 rounded-md bg-secondary shadow-sm shadow-slate-600 hover:bg-weak active:bg-strong text-sm gap-1 hover:text-accent";
+    "flex flex-row shrink border-2 hover:border-black p-2 rounded-md bg-slate-200 shadow-sm shadow-slate-600 hover:bg-weak active:bg-strong text-sm gap-1 hover:text-accent";
 
 function LinkButton(p: props) {
     return (

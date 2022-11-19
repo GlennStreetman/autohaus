@@ -22,31 +22,22 @@ module.exports = {
                 // => @media (min-width: 1536px) { ... }
             },
             colors: {
-                outlineLight: "#67e8f9",
-                outlineDark: "#4f46e5",
-                accent: "#ea580c",
-                highLight: '#fcb900' //gold
+                highLight: '#A43131' //porsche red
             },
             spacing: {
                 128: "32rem",
                 116: "28rem",
             },
             backgroundColor: {
-                primary: "#f8fafc", //light default background
-                secondary: "#e2e8f0", //grey button background
-                accent: "#ea580c", //orange carousel hover
-                primaryDark: "#1b1b1c",
-                highLight: '#fcb900' //gold
+                primary: "#ED2828", //light red
+                secondary: "#A43131", //dark red
+                primaryDark: "#1b1b1c", //dark grey
             },
             textColor: {
-                primary: "#334155",
-                secondary: "#dc2626", //old blue#3b82f6
-                accent: "#ea580c",
-                gold: "#5EEAD4",
-                accentRed: '#dc2626',
-                accentBlue: '#3b82f6',
-                highLight: '#fcb900', //gold
-                highLightFade: '#fbbf24' //lightGold
+                primary: "#ED2828", //light red
+                secondary: "#A43131", //dark red
+                accent: "#dc2626", //red button text
+                accentBlue: '#3b82f6', //blue button text
             },
             fontFamily: {
                 logo: ["Open-Sans", "sans-serif", "Saira Stencil One", ],
