@@ -87,15 +87,16 @@ function FormattingHelp() {
 export default function Main(p) {
     return (
         <PublicHOC contacts={p.contacts} siteLinks={p.siteLinks} images={p.images} siteText={p.siteText} >
+            <>
+                <Head>
+                    <title>{`${process.env.NEXT_PUBLIC_BUSINESS_NAME}: Formatting Text`}</title>
+                </Head>
+                <Banner images={p.images}>
+                    <div className={largeTextStyling}>Text Formating: Guide by example</div>
+                </Banner>
 
-            <Head>
-                <title>{`${process.env.NEXT_PUBLIC_BUSINESS_NAME}: Formatting Text`}</title>
-            </Head>
-            <Banner images={p.images}>
-                <div className={largeTextStyling}>Text Formating: Guide by example</div>
-            </Banner>
-
-            <FormattingHelp {...p} />
+                <FormattingHelp {...p} />
+            </>
         </PublicHOC>
     );
 }

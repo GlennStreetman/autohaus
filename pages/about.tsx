@@ -128,13 +128,15 @@ function Story(p: props) {
 export default function About(p: staticProps) {
     return (
         <PublicHOC contacts={p.contacts} siteLinks={p.siteLinks} images={p.images} siteText={p.siteText} >
-            <Head>
-                <title>{`${process.env.NEXT_PUBLIC_BUSINESS_NAME}: About Us`}</title>
-            </Head>
-            <div className="bg-white">
-                <div className='h-0 lg:h-20' />
-                <Story story={p.story} faq={p.faq} mapAPI={p.mapAPI} teamList={p.teamList} />
-            </div>
+            <>
+                <Head>
+                    <title>{`${process.env.NEXT_PUBLIC_BUSINESS_NAME}: About Us`}</title>
+                </Head>
+                <div className="bg-white">
+                    <div className='h-0 lg:h-20' />
+                    <Story story={p.story} faq={p.faq} mapAPI={p.mapAPI} teamList={p.teamList} />
+                </div>
+            </>
         </PublicHOC>
     );
 }

@@ -102,10 +102,12 @@ ${p.siteText.thanksService}
 export default function Main(p: staticData) {
     return (
         <PublicHOC contacts={p.contacts} siteLinks={p.siteLinks} images={p.images} siteText={p.siteText} >
-            <Head>
-                <title>{`${process.env.NEXT_PUBLIC_BUSINESS_NAME}: Thank you!`}</title>
-            </Head>
-            <Thankyou faq={p.faq} data={p.data} team={p.team} images={p.images} siteText={p.siteText} allServices={p.allServices} />
+            <>
+                <Head>
+                    <title>{`${process.env.NEXT_PUBLIC_BUSINESS_NAME}: Thank you!`}</title>
+                </Head>
+                <Thankyou faq={p.faq} data={p.data} team={p.team} images={p.images} siteText={p.siteText} allServices={p.allServices} />
+            </>
         </PublicHOC>
     );
 }
