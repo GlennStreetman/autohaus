@@ -58,7 +58,7 @@ interface staticData {
 
 export function ServiceHome(p: props) {
 
-    const mapServiceList = p.serviceList.map((el) =>
+    const mapServiceList = p.serviceList.sort((a, b) => a.orderNumber - b.orderNumber).map((el) =>
 
         <div key={`${el.name}-key`} className='col-span-12 sm:col-span-6 xl:col-span-4 p-2 hover:bg-red-200 cursor-pointer'>
             <Link href={`/service/${el.name.replace(/[^a-z0-9]+/gi, "_")}`}>

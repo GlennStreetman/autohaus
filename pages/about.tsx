@@ -63,7 +63,7 @@ const body = "col-span-12 sm:col-span-10 lg:col-span-8  my-4"; //1x
 
 function Story(p: props) {
 
-    const mapTeamMembers = p.teamList.map((el) =>
+    const mapTeamMembers = p.teamList.sort((a, b) => a.order - b.order).map((el) =>
         <div key={`${el.name}-key`} className='col-span-12 lg:col-span-6 p-2'>
             <div className='flex flex-col'>
                 <div className='relative h-[300px] w-[300px] mx-auto my-3 xl:my-0 rounded-full overflow-hidden '>

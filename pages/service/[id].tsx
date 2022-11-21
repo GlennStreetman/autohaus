@@ -88,7 +88,7 @@ export async function getStaticPaths() {
 }
 
 function mapServiceSections(service: serviceDetailPayload) {
-    return Object.values(service).map(el => (<ServiceSlice key={`slice-${el.sectionText}`} slice={el} />))
+    return Object.values(service).sort((a, b) => a.orderNumber - b.orderNumber).map(el => (<ServiceSlice key={`slice-${el.sectionText}`} slice={el} />))
 }
 
 function ContactForm(p: props) {
