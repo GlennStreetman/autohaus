@@ -5,7 +5,6 @@ import FAQ from "../components/faq";
 import Intro from '../components/intro'
 import ParseMarkdown from "../lib/parseMarkdown";
 import MapChecklist from '../components/MapChecklist'
-
 import { getPublicFAQ, faqPayload } from "../strapiAPI/getPublicFAQ"
 import { getPublicImages, imagePayload } from "../strapiAPI/getPublicImages"
 import { getContacts, contacts } from "../strapiAPI/getContacts"
@@ -16,8 +15,6 @@ import { getServices, ServicePayload } from "../strapiAPI/getServices"
 
 import Image from "next/image";
 import Link from 'next/link'
-
-
 
 export async function getStaticProps() {
 
@@ -64,7 +61,6 @@ export function ServiceHome(p: props) {
     const mapServiceList = p.serviceList.map((el) =>
 
         <div key={`${el.name}-key`} className='col-span-12 sm:col-span-6 xl:col-span-4 p-2 hover:bg-red-200 cursor-pointer'>
-            {/* <Link href={`/contact?text=Im%interested%in%${el.bannerText.replaceAll('&', 'and')}`}> */}
             <Link href={`/service/${el.name.replace(/[^a-z0-9]+/gi, "_")}`}>
                 <a>
                     <div className='flex flex-col'>
@@ -93,7 +89,6 @@ export function ServiceHome(p: props) {
                 <div className='h-4 md:h-20' />
                 <section>
                     <Intro override='text-center mb-4 text-4xl' heading={p?.serviceHome?.heading || ''} body={p?.serviceHome?.topText || ''} />
-
                 </section>
                 <section>
                     <div className='w-full lg:w-3/5 mx-auto flex justify-center'>

@@ -1,9 +1,6 @@
 import Banner from "../components/banner";
-import Why from "../components/why";
 import React, { useContext } from "react";
-import { PublicContext } from "../components/publicData";
 import { PublicHOC } from "../components/publicData";
-import prisma from "../lib/prismaPool";
 import Head from "next/head";
 
 import { getPublicFAQ, faqPayload } from "../strapiAPI/getPublicFAQ"

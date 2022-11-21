@@ -23,7 +23,6 @@
         orderNumber: number;
         subChecklist: SubChecklist[];
         sectionImage: SectionImage;
-        picturelocation: string;
     }
 
     export interface Attributes {
@@ -54,7 +53,6 @@ export interface serviceDetailPayload {
     sectionHeader: string;
     sectionImage: Attributes2 
     sectionChecklist: string[];
-    imageLocation: string;
 }
 
 export const getServiceDetail = async function(service: string):Promise<serviceDetailPayload[]>{
@@ -75,7 +73,6 @@ export const getServiceDetail = async function(service: string):Promise<serviceD
                     id
                     sectionText
                     sectionHeader
-                    picturelocation
                     orderNumber
                     subChecklist {
                       serviceChecklist
@@ -119,7 +116,6 @@ export const getServiceDetail = async function(service: string):Promise<serviceD
             sectionHeader: el?.sectionHeader,
             sectionImage: el?.sectionImage?.data?.attributes || {alternativeText: '', url: ''},
             sectionChecklist: el?.subChecklist ? mapChecklist(el.subChecklist) : [],
-            imageLocation: el?.picturelocation || 'Top'
         }
         return thisEl
     })
