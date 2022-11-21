@@ -8,7 +8,7 @@ export default async function handler(req, res) {
         holliday: ["/calendar"], 
         service: function(){
             console.log('revalidating Now', req.query.name)
-            return [`/service/${req.query.name.replaceAll(' ', '_')}`]
+            return [`/service/${req.query.name.replaceAll(' ', '_')}`, '/service']
         }(), 
         team: ['/about'], 
         bannertext: staticRoutes, 
