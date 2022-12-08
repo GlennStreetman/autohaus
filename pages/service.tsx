@@ -60,7 +60,8 @@ export function ServiceHome(p: props) {
 
     const mapServiceList = p.serviceList.sort((a, b) => a.orderNumber - b.orderNumber).map((el) =>
 
-        <div key={`${el.name}-key`} className='col-span-12 sm:col-span-6 xl:col-span-4 p-2 hover:bg-red-200 cursor-pointer'>
+        // <div key={`${el.name}-key`} className='col-span-12 sm:col-span-6 xl:col-span-4 p-2 hover:bg-red-200 cursor-pointer'>
+        <div key={`${el.name}-key`} className='box-border min-w-[100%] max-w-[100%] sm:min-w-[50%] sm:max-w-[50%] xl:min-w-[33.33%] xl:max-w-[33.33%] p-3 hover:bg-red-200 cursor-pointer'>
             <Link href={`/service/${el.name.replace(/[^a-z0-9]+/gi, "_")}`}>
                 <a>
                     <div className='flex flex-col'>
@@ -95,8 +96,9 @@ export function ServiceHome(p: props) {
                         <MapChecklist checklist={p.serviceHome.checkList} />
                     </div>
                 </section>
-                <section className='defaultWidth'>
-                    <div className='grid grid-cols-12 gap-3 my-2 mb-4'>
+                <section>
+                    {/* <div className='grid grid-cols-12 gap-3 my-2 mb-4 place-content-around justify-between'> */}
+                    <div className='flex flex-row flex-wrap w-full lg:w-3/5 mx-auto grow my-2 mb-4 place-content-around '>
                         {mapServiceList}
                     </div>
                 </section>
