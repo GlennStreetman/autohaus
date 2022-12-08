@@ -27,11 +27,11 @@ const gutter = "p-2 col-span-0  md:col-span-1 lg:col-span-1 xl:col-span-2"; //2x
 const spacer = "p-2 col-span-0  md:col-span-0 lg:col-span-0 xl:col-span-2"; //1x
 const data = "p-2 col-span-12 md:col-span-5 lg:col-span-5 xl:col-span-3"; //2x
 
+function BottomLogo(p) {
+    if (p?.src) { return <Image src={p?.src || ''} alt="logo" width={p.width} height={p.height} /> } else { return <></> }
+}
+
 function Footer(p: props) {
-
-    const logoWhite = p?.images?.logoWhite ?
-        <Image src={p.images.logoWhite} alt="Logo" layout="fill" objectFit="cover" /> : <></>
-
 
     const telephoneText = p?.contacts?.phone ? addDashes(p.contacts.phone) : "";
     const email = p?.contacts?.serviceEmail ? p.contacts.serviceEmail : "";
@@ -41,6 +41,7 @@ function Footer(p: props) {
     const reviewLink = p?.siteLinks?.reviewLink ? p.siteLinks.reviewLink : "";
     const openShort = p?.contacts?.openShort ? p.contacts.openShort : "";
     const openLong = p?.contacts?.openLong ? p.contacts.openLong : "";
+
     return (
 
         <div>
@@ -53,7 +54,7 @@ function Footer(p: props) {
                         <NextLinkButtonBottom text="Contact Us / Request Appointment" icon={<GiAutoRepair className="h-7 w-7" />} link="/contact" />
                         <LinkButtonBottom text={email} link={`mailto: ${email}`} icon={<MdOutlineMailOutline className="h-7 w-7" />} />
                         <LinkButtonBottom text={longAddress} link={locationLink} icon={<HiOutlineLocationMarker className="h-7 w-7" />} />
-                        <NextLinkButtonBottom text={`${openShort} ${openLong}`} icon={<GoCalendar className="h-7 w-7" />} link="/calendar" />
+                        <NextLinkButtonBottom text={`${openLong}`} icon={<GoCalendar className="h-7 w-7" />} link="/calendar" />
                     </div>
                 </div>
                 <div className={spacer} />
@@ -69,8 +70,8 @@ function Footer(p: props) {
                     </div>
                 </div>
                 <div className="text-slate-500 absolute bottom-2 right-8 flex flex-col">
-                    <div className='relative h-[100px] w[100px]'>
-                        {logoWhite}
+                    <div className='relative h-[100px] w[100px] flex justify-center'>
+                        <BottomLogo src={p?.images?.logoWhite || ''} width={100} height={100} />
                     </div>
                     <div>{p?.siteText?.LegalBusinessName || ''}</div>
                 </div>

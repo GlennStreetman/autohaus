@@ -111,8 +111,9 @@ function emailRequest(req, contactData:contacts, siteLinks: siteLinks, imageUrls
                         <table class="sm-w-full" style="width: 75%" cellpadding="0" cellspacing="0" role="presentation">
                           <tr>
                             <table class="sm-w-full" style="width: 75%" cellpadding="0" cellspacing="0" role="presentation">
-                              <td style="padding-bottom: 16px; text-align: center; font-size: 12px; color: #4b5563"> <a href="${process.env.NEXTAUTH_URL}" target="_blank">
-                                  // <img src="${process.env.NEXT_PUBLIC_AWS_PUBLIC_BUCKET_URL}${imageUrls?.emailImage}" alt="The Werkstatt">
+                              <td style="padding-bottom: 16px; text-align: center; font-size: 12px; color: #4b5563"> 
+                                <a href="${process.env.NEXTAUTH_URL}" target="_blank">
+                                  <img src="${imageUrls?.emailImage}" alt="The Werkstatt">
                                 </a>
                               </td>
                             </table>
@@ -233,8 +234,9 @@ function emailClient(req, contactData:contacts, siteLinks: siteLinks, imageUrls:
                       <table class="sm-w-full" style="width: 75%" cellpadding="0" cellspacing="0" role="presentation">
                         <tr>
                           <table class="sm-w-full" style="width: 75%" cellpadding="0" cellspacing="0" role="presentation">
-                            <td style="padding-bottom: 16px; text-align: center; font-size: 12px; color: #4b5563"> <a href="${siteLinks.homepage}" target="_blank">
-                                <img src="${process.env.NEXT_PUBLIC_AWS_PUBLIC_BUCKET_URL}${imageUrls.emailImage}" alt="The Werkstatt">
+                            <td style="padding-bottom: 16px; text-align: center; font-size: 12px; color: #4b5563"> 
+                              <a href="${siteLinks.homepage}" target="_blank">
+                                <img src="${imageUrls.emailImage}" alt="The Werkstatt LLC">
                               </a>
                             </td>
                           </table>

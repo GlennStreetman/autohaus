@@ -40,7 +40,7 @@ function LabeledInput(p: props) {
 
     return (
         <div
-            className="relative rounded-md border-2 p-2 text-white w-full"
+            className="relative rounded-md border-2 p-2 text-black w-full"
             onFocus={() => helperFocus(setLabelStyling)}
             onBlur={() => helperBlurr(p.value, setLabelStyling)}
         >

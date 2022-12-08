@@ -43,7 +43,7 @@ function SlideOver(p: props) {
         <a target='_blank' rel="noreferrer" href={`tel:${p.contacts.phone}`}><div className='pl-2 w-full border-b border-slate-300 p-2 font-semibold hover:text-primary cursor-pointer'>{telephoneText}</div></a>
         <a target='_blank' rel="noreferrer" href={locationLink}><div className='pl-2 w-full border-b border-slate-300 p-2 font-semibold hover:text-primary cursor-pointer'>{locationText}</div></a>
         <a target='_blank' rel="noreferrer" href={`mailto: ${serviceText}`}><div className='pl-2 w-full border-b border-slate-300 p-2 font-semibold hover:text-primary cursor-pointer'>{serviceText}</div></a>
-        <a target='/calendar'><div className='pl-2 w-full border-b border-slate-300 p-2 font-semibold hover:text-primary cursor-pointer'>{`${calendarText} ${calendarTextLong}`}</div></a>
+        <a target='/calendar'><div className='pl-2 w-full border-b border-slate-300 p-2 font-semibold hover:text-primary cursor-pointer'>{`${calendarTextLong}`}</div></a>
       </div>
     </div>
   )

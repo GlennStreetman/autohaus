@@ -35,7 +35,7 @@ function LabeledSelect(p: props) {
 
     return (
         <div
-            className="relative rounded-md border-2 p-2 text-white"
+            className="relative rounded-md border-2 p-2 text-black"
             onFocus={() => helperFocus(setLabelStyling)}
             onBlur={() => helperBlurr(p.value, setLabelStyling)}
         >

@@ -8,13 +8,12 @@ services:
             dockerfile: Dockerfile.prod
             network: "${DOCKER_NETWORK}" 
         ports:
-            - 3005:3000
+            - 3006:3000
         volumes:
             - .swc:/app/swc
             - ./components:/app/components
             - ./lib:/app/lib
             - ./pages:/app/pages
-            - ./prisma:/app/prisma
             - ./strapiAPI:/app/strapiAPI
             - ./styles:/app/styles
             - ./.env:/app/.env 
