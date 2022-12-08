@@ -32,7 +32,7 @@ export async function getServerSideProps({ res }) {
   // We make an API call to gather the URLs for our site
   const thisService: string[] = await getAllServices() 
 
-  const allLinks = ["/", "/about", "service", "/contact", "/calendar", ...thisService]
+  const allLinks = ["/", "/about", "/service", "/contact", "/calendar", ...thisService]
   const sitemap = generateSiteMap(allLinks);
 
   res.setHeader('Content-Type', 'text/xml');
