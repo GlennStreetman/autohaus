@@ -66,7 +66,7 @@ function LogoLittle(p: props) {
     const [height, setHeight] = useState(142);
     const [zeroFlag, setZeroFlag] = useState(0)
 
-    const logoStyling = p.position === 0 ? 'absolute -bottom-[115px] ' : 'relative'
+    const logoStyling = p.position === 0 ? 'absolute -bottom-[130px] ' : 'relative'
     const boxWidth = `${width}px`
 
     useEffect(() => {
