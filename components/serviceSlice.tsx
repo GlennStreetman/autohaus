@@ -10,18 +10,18 @@ interface props {
 
 function ServiceSlice(p: props) {
 
-    const sliceImage =
-        <div className='col-span-12 lg:col-span-6'>
-            <div className='relative h-[150px] lg:h-[250px] xl:h-[300px]  w-[300px] lg:w-[500px] xl:w-[600px] mx-auto my-3 lg:my-0'>
-                {p?.slice?.sectionImage?.url ?
-                    <Image
-                        src={p.slice.sectionImage.url}
-                        alt={p.slice.sectionImage.alternativeText}
-                        layout="fill"
-                        objectFit="fill"
-                    /> : <></>}
-            </div>
-        </div>
+    // const sliceImage =
+    //     <div className='col-span-12 lg:col-span-6'>
+    //         <div className='relative h-[150px] lg:h-[250px] xl:h-[300px]  w-[300px] lg:w-[500px] xl:w-[600px] mx-auto my-3 lg:my-0'>
+    //             {p?.slice?.sectionImage?.url ?
+    //                 <Image
+    //                     src={p.slice.sectionImage.url}
+    //                     alt={p.slice.sectionImage.alternativeText}
+    //                     layout="fill"
+    //                     objectFit="fill"
+    //                 /> : <></>}
+    //         </div>
+    //     </div>
 
     const sliceText =
         <div className='col-span-12 lg:col-span-6'>
@@ -39,7 +39,7 @@ function ServiceSlice(p: props) {
     return (
         <div className='grid grid-cols-12 pb-4'>
             {sliceText}
-            {p?.slice?.sectionImage?.url ? sliceImage : <></>}
+            {/* {p?.slice?.sectionImage?.url ? sliceImage : <></>} */}
         </div>
     );
 }
