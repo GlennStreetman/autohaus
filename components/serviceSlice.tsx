@@ -24,7 +24,7 @@ function ServiceSlice(p: props) {
     //     </div>
 
     const sliceText =
-        <div className='col-span-12 lg:col-span-6'>
+        <div>
             <div className="sectionHeading mb-5 lg:mx-0 text-left">
                 {p?.slice?.sectionHeader || ''}
             </div>
@@ -37,7 +37,7 @@ function ServiceSlice(p: props) {
         </div>
 
     return (
-        <div className='grid grid-cols-12 pb-4'>
+        <div className='pb-4'>
             {sliceText}
             {/* {p?.slice?.sectionImage?.url ? sliceImage : <></>} */}
         </div>

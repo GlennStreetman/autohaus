@@ -1,6 +1,5 @@
 import React from "react";
 import Image from 'next/image'
-import Link from 'next/link'
 import NextLinkButton from '../../components/nextLinkButton'
 import { PublicHOC } from "../../components/publicData";
 import Head from "next/head";
@@ -105,14 +104,14 @@ function mapServiceSections(service: ServiceDetailPayload) {
 
 function ContactForm(p: props) {
     return (
-        <div className='mx-auto grid grid-cols-12'>
-            <div className='w-full col-span-12 flex flex-col p-2'>
+        <div className='mx-auto '>
+            <div className='w-full flex flex-col p-2'>
                 <div >
                     <div className='sectionHeading pb-2'>{`At ${p?.siteText?.businessName || ''} all repairs include: `}</div>
                     <div><MapChecklist checklist={p?.serviceHome?.checkList || []} /></div>
                 </div>
             </div>
-            <div className='w-full col-span-12 p-auto justify-center mx-auto my-4 flex'>
+            <div className='w-full p-auto justify-center mx-auto my-4 flex'>
                 <div className='grow' />
                 <NextLinkButton
                     text={`Schedule ${p?.serviceName && typeof p.serviceName === 'string' ? p.serviceName.replaceAll('_', ' ') : 'Service Now'}`}
