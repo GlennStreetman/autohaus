@@ -1,11 +1,11 @@
 
 import Image from "next/image";
 import MapChecklist from './MapChecklist'
-import { serviceDetailPayload } from "../strapiAPI/getServiceDetail"
+import { ServiceDetailPayload } from "../strapiAPI/getServiceDetail"
 
 
 interface props {
-    slice: serviceDetailPayload
+    slice: ServiceDetailPayload
 }
 
 function ServiceSlice(p: props) {
