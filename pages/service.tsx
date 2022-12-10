@@ -84,7 +84,7 @@ export function ServiceHome(p: props) {
     return (
         <div className='bg-white'>
             <Head>
-                <title>{`${process.env.NEXT_PUBLIC_BUSINESS_NAME}: Porsche Repair Specialist - Santa Monica`}</title>
+                <title>{`Our Services`}</title>
             </Head>
             <main>
                 <div className='h-4 md:h-20' />

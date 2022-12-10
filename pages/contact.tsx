@@ -250,7 +250,7 @@ function Quote(p: props) {
     return (
         <>
             <Head>
-                <title>{`${process.env.NEXT_PUBLIC_BUSINESS_NAME}: Contact Us: `}</title>
+                <title>{`Contact Us`}</title>
             </Head>
             <div className='h-[0px] lg:h-[125px] bg-white' />
 

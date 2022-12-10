@@ -83,7 +83,7 @@ function Calendar(p: props) {
     return (
         <>
             <Head>
-                <title>{`${process.env.NEXT_PUBLIC_BUSINESS_NAME}: Calendar`}</title>
+                <title>{`Our Hours`}</title>
             </Head>
             <main>
                 <section>

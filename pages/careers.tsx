@@ -220,7 +220,7 @@ function Careers(p: props) {
     return (
         <div>
             <Head>
-                <title>{`${process.env.NEXT_PUBLIC_BUSINESS_NAME}: Careers`}</title>
+                <title>{`Careers`}</title>
             </Head>
             <Banner images={p.images} />
 

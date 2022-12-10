@@ -130,7 +130,7 @@ export default function About(p: staticProps) {
         <PublicHOC contacts={p.contacts} siteLinks={p.siteLinks} images={p.images} siteText={p.siteText} >
             <>
                 <Head>
-                    <title>{`${process.env.NEXT_PUBLIC_BUSINESS_NAME}: About Us`}</title>
+                    <title>{`About Us`}</title>
                 </Head>
                 <div className="bg-white">
                     <div className='h-0 lg:h-20' />
