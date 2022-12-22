@@ -1,37 +1,24 @@
 FROM node:16-buster AS base
 RUN apt-get update && apt-get install libssl-dev ca-certificates -y
 WORKDIR /app
-
 COPY package.json yarn.lock ./
+
 
 FROM base as build
 RUN export NODE_ENV=production
 RUN yarn --frozen-lockfile;
-
 COPY . .
 RUN yarn run prisma generate
 RUN yarn build
 
-FROM base as prod-build
-
-RUN yarn install --production
-COPY prisma prisma
-RUN yarn run prisma generate
-RUN cp -R node_modules prod_node_modules
 
 FROM base as prod
-
-RUN addgroup --system --gid 1001 nodejs
-RUN adduser --system --uid 1001 nextjs
-
-COPY --from=prod-build --chown=nextjs:nodejs /app/prod_node_modules /app/node_modules
+RUN addgroup --system --gid 9999 nodejs
+RUN adduser --system --uid 9999 nextjs
 COPY --from=build --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=build --chown=nextjs:nodejs /app/.next/static ./.next/static
 COPY --from=build --chown=nextjs:nodejs /app/public /app/public
 COPY --from=build --chown=nextjs:nodejs /app/prisma /app/prisma
-
 USER nextjs
-
 ENV PORT 3000
-
 CMD ["node", "server.js"]

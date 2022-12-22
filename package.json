@@ -15,8 +15,8 @@
         "dBuild": "docker-compose -f compose.dev.yaml up --build",
         "pUp": "docker-compose -f compose.prod.yaml up",
         "pBuild": "docker-compose -f compose.prod.yaml up --build",
-        "pushAutohaus": "docker ps | grep next_autohaus | awk {'print $1'} | xargs -i docker commit {} autohaus &&  docker tag autohaus ghcr.io/glennstreetman/autohaus:latest && docker push ghcr.io/glennstreetman/autohaus:latest",
-        "pushPostgres": "docker ps | grep next_postgres | awk {'print $1'} | xargs -i docker commit {} autopostgres &&  docker tag autopostgres ghcr.io/glennstreetman/autopostgres:latest && docker push ghcr.io/glennstreetman/autopostgres:latest"
+        "pushAutohaus": "docker tag autohaus_autohaus ghcr.io/glennstreetman/autohaus:latest && docker push ghcr.io/glennstreetman/autohaus:latest",
+        "pushECR": "docker tag autohaus_autohaus 451265639455.dkr.ecr.us-east-2.amazonaws.com/autohaus:latest && docker push 451265639455.dkr.ecr.us-east-2.amazonaws.com/autohaus:latest"
     },
     "dependencies": {
         "@prisma/client": "^4.1.0",

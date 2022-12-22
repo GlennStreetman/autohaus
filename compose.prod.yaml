@@ -10,25 +10,11 @@ services:
         ports:
             - 3006:3000
         volumes:
-            - .swc:/app/swc
-            - ./components:/app/components
-            - ./lib:/app/lib
-            - ./pages:/app/pages
-            - ./strapiAPI:/app/strapiAPI
-            - ./styles:/app/styles
-            - ./.env:/app/.env 
+            - /efs/next:/app/.next   
         command: "npm run server"
-        deploy:
-            resources:
-                limits:
-                    cpus: '1.25'
-                    memory: 2000m
-            restart_policy:
-                condition: on-failure
-                delay: 5s
-                max_attempts: 3
-                window: 120s
 networks:
     default:
         external: true
         name: "${DOCKER_NETWORK}"
+
+    
