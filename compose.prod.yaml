@@ -10,7 +10,7 @@ services:
         ports:
             - 3006:3000
         volumes:
-            - /efs/next:/app/.next   
+            - /efs:/app/.next   
         command: "npm run server"
 networks:
     default:
