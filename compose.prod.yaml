@@ -8,7 +8,7 @@ services:
             dockerfile: Dockerfile.prod
             network: "${DOCKER_NETWORK}" 
         ports:
-            - 3006:3000
+            - 3000:3000
         volumes:
             - /efs:/app/.next   
         command: "npm run server"
