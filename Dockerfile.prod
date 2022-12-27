@@ -1,13 +1,16 @@
+# Install dependencies only when needed
 FROM node:16-buster AS base
 RUN apt-get update && apt-get install libssl-dev ca-certificates -y
 WORKDIR /app
-COPY package.json yarn.lock ./
+COPY yarn.lock* ./
+RUN yarn --frozen-lockfile
 
-
+# Rebuild the source code only when needed
 FROM base as build
+WORKDIR /app
 RUN export NODE_ENV=production
-RUN yarn --frozen-lockfile;
 COPY . .
+COPY --from=base /app/node_modules ./node_modules
 RUN yarn run prisma generate
 RUN yarn build
 

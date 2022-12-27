@@ -16,7 +16,9 @@
         "pUp": "docker-compose -f compose.prod.yaml up",
         "pBuild": "docker-compose -f compose.prod.yaml up --build",
         "pushAutohaus": "docker tag autohaus_autohaus ghcr.io/glennstreetman/autohaus:latest && docker push ghcr.io/glennstreetman/autohaus:latest",
-        "pushECR": "docker tag autohaus_autohaus 451265639455.dkr.ecr.us-east-2.amazonaws.com/autohaus:latest && docker push 451265639455.dkr.ecr.us-east-2.amazonaws.com/autohaus:latest"
+        "pushECR": "docker tag autohaus_autohaus 451265639455.dkr.ecr.us-east-2.amazonaws.com/autohaus:latest && docker push 451265639455.dkr.ecr.us-east-2.amazonaws.com/autohaus:latest",
+        "dockerCP": "docker ps | grep autohaus |  awk {'print $1'} | xargs -I {} sudo docker cp {}:/app/.next /efs"
+
     },
     "dependencies": {
         "@prisma/client": "^4.1.0",

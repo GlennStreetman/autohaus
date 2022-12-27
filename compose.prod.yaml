@@ -9,8 +9,8 @@ services:
             network: "${DOCKER_NETWORK}" 
         ports:
             - 3000:3000
-        volumes:
-            - /efs:/app/.next   
+        # volumes:
+        #     - /efs:/app/
         command: "npm run server"
 networks:
     default:
