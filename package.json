@@ -17,20 +17,19 @@
         "pBuild": "docker-compose -f compose.prod.yaml up --build",
         "pushAutohaus": "docker tag autohaus_autohaus ghcr.io/glennstreetman/autohaus:latest && docker push ghcr.io/glennstreetman/autohaus:latest",
         "pushECR": "docker tag autohaus_autohaus 451265639455.dkr.ecr.us-east-2.amazonaws.com/autohaus:latest && docker push 451265639455.dkr.ecr.us-east-2.amazonaws.com/autohaus:latest",
-        "dockerCP": "docker ps | grep autohaus |  awk {'print $1'} | xargs -I {} sudo docker cp {}:/app/.next /efs"
-
+        "dockerCP": "docker ps | grep autohaus |  awk {'print $1'} | xargs -I {} sudo docker cp {}:/app/.next /efs",
+        "serverless": "npx @sls-next/serverless-patched --debug"
     },
     "dependencies": {
-        "@prisma/client": "^4.1.0",
+        "@sls-next/lambda-at-edge": "^3.7.0",
+        "aws-crt": "^1.15.5",
         "aws-sdk": "^2.1118.0",
         "encoding": "^0.1.13",
         "form-data": "^4.0.0",
         "formidable": "^3.2.1",
         "immer": "^9.0.12",
-        "isomorphic-dompurify": "^0.18.0",
         "mailgun.js": "^5.2.0",
         "next": "^12.2.0",
-        "prismajs": "^1.0.2",
         "react": "18.0.0",
         "react-dom": "18.0.0",
         "react-google-recaptcha": "^2.1.0",
@@ -46,7 +45,6 @@
         "eslint-config-next": "12.1.4",
         "next-unused": "^0.0.6",
         "postcss": "^8.4.12",
-        "prisma": "^4.1.0",
         "tailwindcss": "^3.0.23"
     },
     "engines": {

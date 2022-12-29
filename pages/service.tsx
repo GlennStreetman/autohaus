@@ -36,6 +36,7 @@ export async function getStaticProps() {
             serviceHome: serviceHome,
             serviceList: serviceList,
         },
+        revalidate: 86400
     };
 }
 

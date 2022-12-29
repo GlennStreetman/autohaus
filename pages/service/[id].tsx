@@ -71,6 +71,7 @@ export async function getStaticProps(context) {
             serviceName: context.params.id,
             serviceHome: serviceHome,
         },
+        revalidate: 86400
     };
 }
 

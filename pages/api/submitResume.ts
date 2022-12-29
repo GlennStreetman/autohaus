@@ -1,7 +1,6 @@
-import prisma from "./../../lib/prismaPool";
+// import prisma from "./../../lib/prismaPool";
 import { IncomingForm } from "formidable";
 import { uploadFile } from "./../../lib/s3";
-import { stripPhone } from "./../../lib/formatPhone";
 
 export const config = {
     api: {
@@ -48,46 +47,46 @@ async function saveFile(req) {
     }
 }
 
-async function saveData(req, fileKey, fields) {
-    try {
-        const formObject = {
-            firstName: fields.firstName[0],
-            lastName: fields.lastName[0],
-            email: fields.email[0],
-            phone: stripPhone(fields.phone[0]),
-            address1: fields.address[0],
-            address2: fields.address2[0],
-            city: fields.city[0],
-            state1: fields.state[0],
-            zip: fields.zip[0],
-            coverletter: fields.coverLetter[0],
-        };
+// async function saveData(req, fileKey, fields) {
+//     try {
+//         const formObject = {
+//             firstName: fields.firstName[0],
+//             lastName: fields.lastName[0],
+//             email: fields.email[0],
+//             phone: stripPhone(fields.phone[0]),
+//             address1: fields.address[0],
+//             address2: fields.address2[0],
+//             city: fields.city[0],
+//             state1: fields.state[0],
+//             zip: fields.zip[0],
+//             coverletter: fields.coverLetter[0],
+//         };
 
-        await prisma.resumes.create({
-            data: {
-                firstname: formObject.firstName,
-                lastname: formObject.lastName,
-                email: formObject.email,
-                phone: formObject.phone,
-                address1: formObject.address1,
-                address2: formObject.address2,
-                city: formObject.city,
-                state1: formObject.state1,
-                zip: formObject.zip,
-                coverletter: formObject.coverletter,
-                filename: fileKey,
-            },
-        });
-    } catch (err) {
-        console.log("problem with POST /submitResume DB", err);
-    }
-}
+//         await prisma.resumes.create({
+//             data: {
+//                 firstname: formObject.firstName,
+//                 lastname: formObject.lastName,
+//                 email: formObject.email,
+//                 phone: formObject.phone,
+//                 address1: formObject.address1,
+//                 address2: formObject.address2,
+//                 city: formObject.city,
+//                 state1: formObject.state1,
+//                 zip: formObject.zip,
+//                 coverletter: formObject.coverletter,
+//                 filename: fileKey,
+//             },
+//         });
+//     } catch (err) {
+//         console.log("problem with POST /submitResume DB", err);
+//     }
+// }
 
 const submitResume = async (req, res) => {
     const [pass, savedFile, fileds]: any = await saveFile(req);
     try {
         if (pass) {
-            saveData(req, savedFile.fileKey, fileds);
+            // saveData(req, savedFile.fileKey, fileds);
             res.status(200).json({ msg: "success" });
         } else {
             res.status(401).json({ msg: "denied" });

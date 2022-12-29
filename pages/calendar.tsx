@@ -36,6 +36,7 @@ export async function getStaticProps() {
             allServices: allServices,
             holidays: holidays,
         },
+        revalidate: 86400
     };
 
 }

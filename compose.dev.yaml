@@ -14,7 +14,6 @@ services:
             - ./components:/app/components
             - ./lib:/app/lib
             - ./pages:/app/pages
-            - ./prisma:/app/prisma
             - ./public:/app/public
             - ./strapiAPI:/app/strapiAPI
             - ./styles:/app/styles

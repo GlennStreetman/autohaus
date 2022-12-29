@@ -37,6 +37,7 @@ export async function getStaticProps() {
             siteText: siteText,
             teamList: teamList
         },
+        revalidate: 86400
     };
 }
 

@@ -37,6 +37,7 @@ export async function getStaticProps() {
             intro: intro,
             why: checklist,
         },
+        revalidate: 86400
     };
 }
 

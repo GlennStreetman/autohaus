@@ -49,6 +49,7 @@ export async function getStaticProps() {
             allServices: allServices,
             mapAPI: mapAPI,
         },
+        revalidate: 86400
     };
 }
 

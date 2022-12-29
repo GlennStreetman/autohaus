@@ -1,0 +1,12 @@
+autohaus:
+  component: "@sls-next/serverless-component@3.7.0"
+  inputs:
+    # name:
+    #   defaultLambda: autohausDefault
+    #   apiLambda: autohausAPI
+    #   imageLambda: autohausImage
+    roleArn: "arn:aws:iam::451265639455:role/9gslse-wb4te"
+    bucketName: autohaustestbucketserverless
+    runtime:
+      apiLambda: "nodejs16.x"
+      

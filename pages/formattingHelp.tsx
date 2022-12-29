@@ -37,6 +37,7 @@ export async function getStaticProps() {
             siteText: siteText,
             allServices: allServices,
         },
+        revalidate: 86400
     };
 }
 

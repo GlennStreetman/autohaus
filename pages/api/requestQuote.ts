@@ -1,6 +1,5 @@
 import mailgun from "mailgun.js";
 import formData from "form-data";
-import prisma from "./../../lib/prismaPool";
 import { stripPhone, addDashes } from "./../../lib/formatPhone";
 
 import {getContacts, contacts} from "../../strapiAPI/getContacts"
@@ -24,33 +23,33 @@ interface requestBody {
     vinNumber: string;
 }
 
-async function saveRequestToDB(req) {
-    try {
+// async function saveRequestToDB(req) {
+//     try {
 
-        const saveRequest = await prisma.servicerequests.create({
-            data: {
-                firstname:  req.body.firstName,
-                lastname: req.body.lastName,
-                email: req.body.email,
-                phone:  stripPhone(req.body.phone),
-                prefdate:  req.body.prefDate,
-                preftime: req.body.prefTime,
-                altdate:  req.body.altDate,
-                alttime: req.body.altTime,
-                make: req.body.make,
-                model: req.body.model,
-                modelyear: req.body.year,
-                reason: req.body.reason,
-                vin: req.body.vinNumber,
-            },
-        });
+//         const saveRequest = await prisma.servicerequests.create({
+//             data: {
+//                 firstname:  req.body.firstName,
+//                 lastname: req.body.lastName,
+//                 email: req.body.email,
+//                 phone:  stripPhone(req.body.phone),
+//                 prefdate:  req.body.prefDate,
+//                 preftime: req.body.prefTime,
+//                 altdate:  req.body.altDate,
+//                 alttime: req.body.altTime,
+//                 make: req.body.make,
+//                 model: req.body.model,
+//                 modelyear: req.body.year,
+//                 reason: req.body.reason,
+//                 vin: req.body.vinNumber,
+//             },
+//         });
 
-        console.log(saveRequest);
+//         console.log(saveRequest);
         
-    } catch (err) {
-        console.log("Problem saving request to db: ", err);
-    }
-}
+//     } catch (err) {
+//         console.log("Problem saving request to db: ", err);
+//     }
+// }
 
 function emailRequest(req, contactData:contacts, siteLinks: siteLinks, imageUrls: imagePayload) {
     try {
@@ -112,7 +111,7 @@ function emailRequest(req, contactData:contacts, siteLinks: siteLinks, imageUrls
                           <tr>
                             <table class="sm-w-full" style="width: 75%" cellpadding="0" cellspacing="0" role="presentation">
                               <td style="padding-bottom: 16px; text-align: center; font-size: 12px; color: #4b5563"> 
-                                <a href="${process.env.NEXTAUTH_URL}" target="_blank">
+                                <a href="${process.env.domain}" target="_blank">
                                   <img src="${imageUrls?.emailImage}" alt="The Werkstatt">
                                 </a>
                               </td>
@@ -306,6 +305,9 @@ function emailClient(req, contactData:contacts, siteLinks: siteLinks, imageUrls:
 
 export default async function handler(req, res) {
 
+  console.log('/requestQuote begin')
+  console.log('/requestQuote body', req.body)
+
   const contactData:contacts = await getContacts()
   const siteLinks:siteLinks = await getSiteLinks()
   const imageUrls:imagePayload= await getPublicImages()
@@ -317,9 +319,11 @@ export default async function handler(req, res) {
     // },{})
 
     if (req.method === "POST") {
-        saveRequestToDB(req);
+        // saveRequestToDB(req);
         emailRequest(req, contactData, siteLinks, imageUrls);
         emailClient(req, contactData, siteLinks, imageUrls)
+        console.log('/requestQuote complete')
+        console.log('/requestQuote body:', req.body)
         res.status(200).json({message: 'success'});
     }
 }

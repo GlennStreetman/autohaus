@@ -25,10 +25,11 @@ export default async function handler(req, res) {
 
     // Check for secret to confirm this is a valid request
     if (req.query.secret !== process.env.NEXT_REVALIDATE) {
+        console.log('Invalid update request received')
         return res.status(401).json({ message: "Invalid token" });
     } else {
         try {
-
+            console.log('Begin /revalidate')
             const revalidateList = revalidateLookup?.[req?.query?.update] || []
             console.log('revalidating:', revalidateList)
             for(const el of revalidateList){
